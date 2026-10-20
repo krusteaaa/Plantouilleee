@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Plantouille — Cabinet Botanique</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&family=Reenie+Beanie&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          paper: '#ffffff',
+          surface: '#fafafa',
+          ink: '#0f0f0f',
+          muted: '#888888',
+          border: '#eeeeee',
+          brand: '#153424',
+        },
+        fontFamily: {
+          serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+          sans: ['Inter', 'system-ui', 'sans-serif'],
+          hand: ['"Reenie Beanie"', 'cursive'],
+        },
+      },
+    },
+  };
+</script>
+
+<style>
+  * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+  html { scroll-behavior: smooth; height: 100%; }
+  body { 
+    background: #ffffff; color: #0f0f0f; overflow-x: hidden; 
+    font-feature-settings: 'ss01','ss02';
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  ::selection { background: #153424; color: #ffffff; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: #ffffff; }
+  ::-webkit-scrollbar-thumb { background: #e0e0e0; border-radius: 4px; }
+
+  /* Splash Screen San Pedro */
+  #san-pedro-intro {
+    position: fixed; inset: 0; z-index: 90;
+    background: #ffffff;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+  }
+  #san-pedro-intro.hidden-intro {
+    opacity: 0; visibility: hidden; pointer-events: none;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-in { animation: fadeIn 0.8s ease forwards; }
+
+  .site-header { transition: border-color 0.3s, background 0.3s; border-bottom: 1px solid #eeeeee; }
+
+  /* Bouton principal avec effet de grossissement au survol */
+  .btn-primary {
+    position: relative;
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 12px 24px; border-radius: 9999px;
+    background: #153424; color: #ffffff;
+    font-family: 'Inter', sans-serif; font-weight: 500; font-size: 13px;
+    letter-spacing: 0.02em; cursor: pointer; overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 16px rgba(21, 52, 36, 0.15);
+  }
+  .btn-primary:hover {
+    transform: scale(1.06);
+    box-shadow: 0 6px 20px rgba(21, 52, 36, 0.25);
+  }
+  .btn-primary:active { transform: scale(0.97); }
+  .btn-primary:disabled { opacity: 0.4; cursor: wait; transform: none; box-shadow: none; }
+
+  /* Boutons Filtres (Chips) avec effet de grossissement au survol */
+  .chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 18px; border: 1px solid #e2e2e2; border-radius: 9999px;
+    background: #ffffff; color: #555555;
+    font-family: 'Inter', sans-serif; font-weight: 500; font-size: 13px;
+    cursor: pointer; transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .chip svg { width: 15px; height: 15px; color: #777777; transition: all 0.25s ease; }
+  .chip:hover {
+    transform: scale(1.05);
+    border-color: #153424;
+    color: #153424;
+    box-shadow: 0 4px 12px rgba(21, 52, 36, 0.1);
+  }
+  .chip:hover svg { color: #153424; }
+  .chip.active { background: #153424; border-color: #153424; color: #ffffff; box-shadow: 0 4px 14px rgba(21, 52, 36, 0.2); }
+  .chip.active svg { color: #ffffff; stroke-width: 1.8; }
+
+  /* Sélection de catégorie avec grossissement au survol */
+  .cat-option {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 16px; border: 1px solid #e2e2e2; border-radius: 14px;
+    background: #ffffff; color: #0f0f0f;
+    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+    cursor: pointer; width: 100%; transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .cat-option svg { width: 18px; height: 18px; color: #888888; transition: all 0.25s ease; }
+  .cat-option:hover {
+    transform: scale(1.02);
+    border-color: #153424;
+    box-shadow: 0 4px 12px rgba(21, 52, 36, 0.08);
+  }
+  .cat-option.active { border-color: #153424; background: #153424; color: #ffffff; box-shadow: 0 4px 14px rgba(21, 52, 36, 0.2); }
+  .cat-option.active svg { color: #ffffff; }
+
+  .card-delete {
+    position: absolute; top: 12px; right: 12px;
+    width: 34px; height: 34px; border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9); color: #0f0f0f;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid #eeeeee; cursor: pointer;
+    z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+  }
+  .card-delete:hover { transform: scale(1.1); }
+  .card-delete:active { background: #e11d48; color: #ffffff; border-color: #e11d48; }
+  .card-delete.confirming {
+    background: #e11d48 !important; color: #ffffff !important; border-color: #e11d48 !important;
+  }
+  .card-delete .icon-x, .card-delete .icon-check { position: absolute; width: 14px; height: 14px; }
+  .card-delete .icon-check { opacity: 0; }
+  .card-delete.confirming .icon-x { opacity: 0; }
+  .card-delete.confirming .icon-check { opacity: 1; }
+
+  .card { opacity: 0; transform: translateY(16px); transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+  .card.revealed { opacity: 1; transform: translateY(0); }
+  
+  .drawer-backdrop { position: fixed; inset: 0; z-index: 60; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+  .drawer-backdrop.open { opacity: 1; pointer-events: auto; }
+  .drawer {
+    position: fixed; top: 0; right: 0; height: 100%; width: 100%; max-width: 450px; z-index: 70;
+    background: #ffffff; border-left: 1px solid #eeeeee;
+    transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex; flex-direction: column;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.05);
+  }
+  .drawer.open { transform: translateX(0); }
+
+  .field-label { 
+    display: block; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.06em; color: #0f0f0f; margin-bottom: 8px; 
+  }
+  .field-input { 
+    width: 100%; padding: 14px 16px; background: #fafafa;
+    border: 1px solid #e2e2e2; border-radius: 12px; color: #0f0f0f;
+    font-size: 16px; 
+    font-family: 'Inter', sans-serif;
+    transition: border-color 0.2s, box-shadow 0.2s; 
+  }
+  .field-input:focus { outline: none; border-color: #153424; background: #ffffff; box-shadow: 0 0 0 3px rgba(21,52,36,0.08); }
+
+  .file-drop {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 32px 16px; border: 1px dashed #dcdcdc; border-radius: 14px;
+    background: #fafafa; cursor: pointer; transition: all 0.25s; text-align: center;
+  }
+  .file-drop input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+
+  .photo-preview { position: relative; width: 100%; aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden; border: 1px solid #eeeeee; }
+  .photo-preview img { width: 100%; height: 100%; object-fit: cover; }
+  .photo-preview-clear {
+    position: absolute; top: 10px; right: 10px; width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(0,0,0,0.7); color: #ffffff; display: flex; align-items: center; justify-content: center;
+    font-size: 16px; cursor: pointer; border: none;
+  }
+
+  .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+</style>
+</head>
+
+<body class="font-sans antialiased bg-white text-ink">
+
+<!-- INTRO SPLASH SAN PEDRO -->
+<div id="san-pedro-intro">
+  <div class="text-center p-6 max-w-sm animate-fade-in">
+    <svg class="w-12 h-20 mx-auto mb-4 stroke-current text-brand" viewBox="0 0 100 140" fill="none" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M 50 130 L 50 20"/>
+      <path d="M 50 40 C 35 40 35 70 35 70 M 35 70 L 50 70"/>
+      <path d="M 50 60 C 65 60 65 90 65 90 M 65 90 L 50 90"/>
+      <line x1="38" y1="48" x2="30" y2="45"/>
+      <line x1="62" y1="68" x2="70" y2="65"/>
+      <line x1="48" y1="28" x2="50" y2="18"/>
+    </svg>
+    <p class="font-serif italic text-3xl text-brand font-medium">Plantouille</p>
+    <p class="font-hand text-xl text-muted mt-1">San Pedro</p>
+  </div>
+</div>
+
+<header id="site-header" class="site-header sticky top-0 z-40 bg-white/95 backdrop-blur-md">
+  <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between gap-4">
+    <a href="#" class="flex flex-col leading-none group">
+      <span class="font-serif text-3xl font-medium tracking-tight text-brand">Plantouille</span>
+      <span class="font-hand text-lg text-muted mt-0.5 ml-3">Cabinet Botanique</span>
+    </a>
+
+    <button id="open-drawer-btn" type="button" class="btn-primary">
+      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+      <span>Ajouter</span>
+    </button>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-5 w-full flex-1 pb-16">
+  <section class="pt-6 pb-4 flex items-center justify-end border-b border-border">
+    <div class="flex items-baseline gap-2 text-muted">
+      <span id="stat-total" class="font-serif text-2xl text-brand font-medium">0</span>
+      <span class="text-[11px] font-medium tracking-wider uppercase">plantes</span>
+    </div>
+  </section>
+
+  <!-- Navigation par filtres -->
+  <section class="py-6 overflow-x-auto no-scrollbar">
+    <div class="flex flex-nowrap sm:flex-wrap gap-2.5 min-w-max sm:min-w-0">
+      <button type="button" data-category="all" class="chip active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+        <span>Toutes</span>
+      </button>
+      <button type="button" data-category="Cactus" class="chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 22V2"/><path d="M12 10H9a2 2 0 0 1-2-2V6"/><path d="M12 14h3a2 2 0 0 0 2-2v-2"/></svg>
+        <span>Cactus</span>
+      </button>
+      <button type="button" data-category="Succulentes" class="chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 12c0-3 2-6 5-6-1 3-3 5-5 6zm0 0c0-3-2-6-5-6 1 3 3 5 5 6zm0 0c-3 0-6 2-6 5 3-1 5-3 6-5zm0 0c3 0 6 2 6 5-3-1-5-3-6-5z"/></svg>
+        <span>Succulentes</span>
+      </button>
+      <button type="button" data-category="Mesembryanthemum" class="chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><ellipse cx="12" cy="14" rx="6" ry="5"/><path d="M12 9V6M9 6c1-1 5-1 6 0"/></svg>
+        <span>Mesembryanthemum</span>
+      </button>
+      <button type="button" data-category="Tropicales" class="chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 19c0-7 6-13 14-14-1 8-7 14-14 14zM5 19l8-8"/></svg>
+        <span>Tropicales</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Grille -->
+  <section class="pb-12">
+    <div id="plant-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5" aria-live="polite"></div>
+    
+    <div id="empty-state" class="hidden text-center py-16 border border-dashed border-border rounded-2xl">
+      <p class="font-serif italic text-xl text-muted mb-1">Aucune plante</p>
+      <p class="font-hand text-lg text-muted">cette catégorie est vide</p>
+    </div>
+  </section>
+</main>
+
+<footer class="border-t border-border py-8 text-center text-xs text-muted bg-white mt-auto">
+  <p class="font-serif italic text-base text-brand mb-0.5">Plantouille</p>
+  <p class="font-light tracking-wide text-[11px]">Cabinet Botanique</p>
+</footer>
+
+<div id="drawer-backdrop" class="drawer-backdrop" aria-hidden="true"></div>
+
+<!-- Panneau latéral -->
+<aside id="drawer" class="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" aria-hidden="true">
+  <div class="flex items-center justify-between p-5 border-b border-border">
+    <h2 id="drawer-title" class="font-serif text-2xl text-brand font-medium">Nouveau Spécimen</h2>
+    <button id="close-drawer-btn" type="button" aria-label="Fermer" class="text-muted hover:text-ink p-2">
+      <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+
+  <form id="plant-form" class="flex-1 flex flex-col overflow-hidden" novalidate>
+    <div class="flex-1 overflow-y-auto p-5 space-y-5">
+      <div>
+        <label for="plant-name" class="field-label">Nom de la plante</label>
+        <input type="text" id="plant-name" required maxlength="120" placeholder="ex: Trichocereus pachanoi" class="field-input">
+      </div>
+
+      <div>
+        <label class="field-label">Rubrique</label>
+        <div id="category-picker" class="grid grid-cols-2 gap-2.5">
+          <button type="button" class="cat-option" data-category="Cactus">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22V2"/><path d="M12 10H9a2 2 0 0 1-2-2V6"/><path d="M12 14h3a2 2 0 0 0 2-2v-2"/></svg>
+            <span>Cactus</span>
+          </button>
+          <button type="button" class="cat-option" data-category="Succulentes">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 12c0-3 2-6 5-6-1 3-3 5-5 6zm0 0c0-3-2-6-5-6 1 3 3 5 5 6zm0 0c-3 0-6 2-6 5 3-1 5-3 6-5zm0 0c3 0 6 2 6 5-3-1-5-3-6-5z"/></svg>
+            <span>Succulentes</span>
+          </button>
+          <button type="button" class="cat-option" data-category="Mesembryanthemum">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><ellipse cx="12" cy="14" rx="6" ry="5"/><path d="M12 9V6M9 6c1-1 5-1 6 0"/></svg>
+            <span>Mesemb</span>
+          </button>
+          <button type="button" class="cat-option" data-category="Tropicales">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 19c0-7 6-13 14-14-1 8-7 14-14 14zM5 19l8-8"/></svg>
+            <span>Tropicales</span>
+          </button>
+        </div>
+        <input type="hidden" id="plant-category" value="" required>
+      </div>
+
+      <div>
+        <label class="field-label">Photographie</label>
+        <div id="file-drop" class="file-drop relative">
+          <svg class="w-6 h-6 text-muted mb-2 stroke-[1.2]" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 16V4M6 10l6-6 6 6M4 20h16"/></svg>
+          <span class="text-xs text-ink font-medium">Sélectionner ou prendre une photo</span>
+          <span class="text-[11px] text-muted mt-1">Appareil photo ou galerie</span>
+          <input type="file" id="plant-photo" accept="image/*" required>
+        </div>
+        <div id="photo-preview" class="photo-preview hidden">
+          <img id="photo-preview-img" alt="Aperçu">
+          <button type="button" id="clear-photo" class="photo-preview-clear" aria-label="Retirer">×</button>
+        </div>
+      </div>
+
+      <div>
+        <label for="plant-details" class="field-label">Notes de culture</label>
+        <textarea id="plant-details" rows="3" maxlength="500" placeholder="Exposition, substrat, remarques..." class="field-input resize-none"></textarea>
+      </div>
+    </div>
+
+    <div class="p-5 border-t border-border bg-white">
+      <button type="submit" id="submit-btn" class="btn-primary w-full py-3.5">
+        <span>Enregistrer la plante</span>
+      </button>
+    </div>
+  </form>
+</aside>
+
+<div id="toast-container" class="fixed bottom-6 inset-x-4 flex flex-col items-center gap-2 z-[80] pointer-events-none"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  window.addEventListener('load', () => {
+    const intro = document.getElementById('san-pedro-intro');
+    setTimeout(() => {
+      if (intro) intro.classList.add('hidden-intro');
+    }, 900);
+  });
+
+  const DB_NAME = 'plantouille-db';
+  const DB_VERSION = 2;
+  const STORE = 'plants';
+  const MAX_WIDTH = 800;
+  const QUALITY = 0.8;
+  const $ = (id) => document.getElementById(id);
+
+  const drawer = $('drawer');
+  const drawerBackdrop = $('drawer-backdrop');
+  const openDrawerBtn = $('open-drawer-btn');
+  const closeDrawerBtn = $('close-drawer-btn');
+  const form = $('plant-form');
+  const grid = $('plant-grid');
+  const emptyState = $('empty-state');
+  const toastContainer = $('toast-container');
+  const submitBtn = $('submit-btn');
+
+  const plantNameInput = $('plant-name');
+  const plantCategoryInput = $('plant-category');
+  const plantPhotoInput = $('plant-photo');
+  const plantDetailsInput = $('plant-details');
+  const fileDrop = $('file-drop');
+  const photoPreview = $('photo-preview');
+  const photoPreviewImg = $('photo-preview-img');
+  const clearPhotoBtn = $('clear-photo');
+
+  const categoryPicker = $('category-picker');
+  const categoryButtons = Array.from(categoryPicker.querySelectorAll('.cat-option'));
+  const chipButtons = Array.from(document.querySelectorAll('.chip'));
+
+  let plants = [];
+  let memFallback = false;
+  let currentFilter = 'all';
+
+  function escapeHtml(str) {
+    return String(str ?? '').replace(/[&<>"']/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+  }
+
+  function idbOpenRaw() {
+    return new Promise((resolve, reject) => {
+      if (!('indexedDB' in window)) return reject(new Error('IndexedDB indisponible'));
+      let req;
+      try { req = indexedDB.open(DB_NAME, DB_VERSION); }
+      catch (e) { return reject(e); }
+      req.onupgradeneeded = () => {
+        const db = req.result;
+        if (!db.objectStoreNames.contains(STORE)) db.createObjectStore(STORE, { keyPath: 'id' });
+      };
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error || new Error('Erreur ouverture DB'));
+    });
+  }
+  async function getDB() {
+    if (memFallback) return null;
+    try { return await idbOpenRaw(); }
+    catch (err) { memFallback = true; return null; }
+  }
+  async function dbGetAll() {
+    const db = await getDB();
+    if (!db) return plants.slice();
+    return new Promise((res) => {
+      try {
+        const tx = db.transaction(STORE, 'readonly');
+        const req = tx.objectStore(STORE).getAll();
+        req.onsuccess = () => res(req.result || []);
+        req.onerror = () => res(plants.slice());
+      } catch (e) { res(plants.slice()); }
+    });
+  }
+  async function dbPut(plant) {
+    const db = await getDB();
+    if (!db) return;
+    return new Promise((res) => {
+      try {
+        const tx = db.transaction(STORE, 'readwrite');
+        tx.objectStore(STORE).put(plant);
+        tx.oncomplete = () => res();
+      } catch (e) { res(); }
+    });
+  }
+  async function dbDelete(id) {
+    const db = await getDB();
+    if (!db) return;
+    return new Promise((res) => {
+      try {
+        const tx = db.transaction(STORE, 'readwrite');
+        tx.objectStore(STORE).delete(id);
+        tx.oncomplete = () => res();
+      } catch (e) { res(); }
+    });
+  }
+
+  function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'pointer-events-auto px-4 py-2.5 bg-ink text-white text-xs font-normal rounded-full shadow-lg transition-all duration-200';
+    toast.textContent = message;
+    toastContainer.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+  }
+
+  function resizeImage(file) {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          let w = img.width, h = img.height;
+          if (w > MAX_WIDTH) {
+            h = Math.round((h * MAX_WIDTH) / w);
+            w = MAX_WIDTH;
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = h;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          resolve(canvas.toDataURL('image/jpeg', QUALITY));
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function openDrawer() {
+    drawer.classList.add('open');
+    drawerBackdrop.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    plantNameInput.focus();
+  }
+
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    drawerBackdrop.classList.remove('open');
+    document.body.style.overflow = '';
+    form.reset();
+    clearPhotoSelection();
+    categoryButtons.forEach(btn => btn.classList.remove('active'));
+    plantCategoryInput.value = '';
+  }
+
+  function clearPhotoSelection() {
+    plantPhotoInput.value = '';
+    photoPreviewImg.src = '';
+    photoPreview.classList.add('hidden');
+    fileDrop.classList.remove('hidden');
+  }
+
+  openDrawerBtn.addEventListener('click', openDrawer);
+  closeDrawerBtn.addEventListener('click', closeDrawer);
+  drawerBackdrop.addEventListener('click', closeDrawer);
+
+  categoryButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      categoryButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      plantCategoryInput.value = btn.getAttribute('data-category');
+    });
+  });
+
+  chipButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      chipButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilter = btn.getAttribute('data-category');
+      renderGrid();
+    });
+  });
+
+  plantPhotoInput.addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    try {
+      const compressed = await resizeImage(file);
+      photoPreviewImg.src = compressed;
+      fileDrop.classList.add('hidden');
+      photoPreview.classList.remove('hidden');
+    } catch (err) {
+      showToast("Erreur d'image");
+    }
+  });
+
+  clearPhotoBtn.addEventListener('click', clearPhotoSelection);
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = plantNameInput.value.trim();
+    const category = plantCategoryInput.value;
+    const details = plantDetailsInput.value.trim();
+    const photoSrc = photoPreviewImg.src;
+
+    if (!name || !category || !photoSrc) {
+      showToast("Veuillez remplir les champs obligatoires");
+      return;
+    }
+
+    submitBtn.disabled = true;
+    try {
+      const newPlant = {
+        id: 'p_' + Date.now(),
+        name,
+        category,
+        photo: photoSrc,
+        details,
+        date: Date.now()
+      };
+
+      await dbPut(newPlant);
+      plants.unshift(newPlant);
+      renderGrid();
+      updateStats();
+      closeDrawer();
+      showToast("Plante enregistrée");
+    } catch (err) {
+      showToast("Erreur d'enregistrement");
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+
+  function updateStats() {
+    $('stat-total').textContent = plants.length;
+  }
+
+  async function deletePlant(id) {
+    await dbDelete(id);
+    plants = plants.filter(p => p.id !== id);
+    renderGrid();
+    updateStats();
+    showToast("Plante retirée");
+  }
+
+  function renderGrid() {
+    const filtered = currentFilter === 'all' ? plants : plants.filter(p => p.category === currentFilter);
+    grid.innerHTML = '';
+    if (filtered.length === 0) {
+      emptyState.classList.remove('hidden');
+      return;
+    }
+    emptyState.classList.add('hidden');
+
+    filtered.forEach((plant) => {
+      const card = document.createElement('article');
+      card.className = 'card border border-border rounded-2xl overflow-hidden bg-white flex flex-col relative group shadow-sm';
+
+      card.innerHTML = `
+        <div class="relative aspect-[4/3] bg-surface overflow-hidden border-b border-border">
+          <img src="${escapeHtml(plant.photo)}" alt="${escapeHtml(plant.name)}" class="w-full h-full object-cover">
+          <button type="button" class="card-delete" aria-label="Supprimer">
+            <svg class="icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg>
+          </button>
+        </div>
+        <div class="p-4 flex flex-col flex-1 justify-between">
+          <div>
+            <span class="text-[10px] uppercase tracking-wider text-brand font-semibold">${escapeHtml(plant.category)}</span>
+            <h3 class="font-serif text-xl font-normal text-ink leading-tight mt-0.5">${escapeHtml(plant.name)}</h3>
+          </div>
+          ${plant.details ? `<p class="text-xs text-muted font-light mt-2 line-clamp-2 leading-relaxed">${escapeHtml(plant.details)}</p>` : ''}
+        </div>
+      `;
+
+      const delBtn = card.querySelector('.card-delete');
+      let confirmTimeout = null;
+      delBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (!delBtn.classList.contains('confirming')) {
+          delBtn.classList.add('confirming');
+          clearTimeout(confirmTimeout);
+          confirmTimeout = setTimeout(() => delBtn.classList.remove('confirming'), 2500);
+        } else {
+          deletePlant(plant.id);
+        }
+      });
+
+      grid.appendChild(card);
+      requestAnimationFrame(() => card.classList.add('revealed'));
+    });
+  }
+
+  async function init() {
+    try {
+      plants = await dbGetAll();
+      plants.sort((a, b) => b.date - a.date);
+    } catch (e) { plants = []; }
+    renderGrid();
+    updateStats();
+  }
+
+  init();
+})();
+</script>
+
+</body>
+</html>

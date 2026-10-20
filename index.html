@@ -4,8 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#ffffff">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>Plantouille — Cabinet Botanique</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,7 +20,7 @@
           surface: '#fafafa',
           ink: '#0f0f0f',
           muted: '#888888',
-          border: '#eeeeee',
+          border: '#e5e5e5',
           brand: '#153424',
         },
         fontFamily: {
@@ -40,7 +38,6 @@
   html { scroll-behavior: smooth; height: 100%; }
   body { 
     background: #ffffff; color: #0f0f0f; overflow-x: hidden; 
-    font-feature-settings: 'ss01','ss02';
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     min-height: 100%;
@@ -58,7 +55,7 @@
     position: fixed; inset: 0; z-index: 90;
     background: #ffffff;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    transition: opacity 0.6s ease, visibility 0.6s ease;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
   }
   #san-pedro-intro.hidden-intro {
     opacity: 0; visibility: hidden; pointer-events: none;
@@ -67,53 +64,51 @@
     from { opacity: 0; transform: translateY(6px); }
     to { opacity: 1; transform: translateY(0); }
   }
-  .animate-fade-in { animation: fadeIn 0.8s ease forwards; }
+  .animate-fade-in { animation: fadeIn 0.7s ease forwards; }
 
-  .site-header { transition: border-color 0.3s, background 0.3s; border-bottom: 1px solid #eeeeee; }
-
-  /* Bouton principal */
-  .btn-primary {
+  /* Nouveau style de bouton minimaliste élégant avec animation de zoom et lueur */
+  .btn-minimal {
     position: relative;
-    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-    padding: 12px 24px; border-radius: 9999px;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 10px 22px; border-radius: 9999px;
     background: #153424; color: #ffffff;
     font-family: 'Inter', sans-serif; font-weight: 500; font-size: 13px;
-    letter-spacing: 0.02em; cursor: pointer; overflow: hidden;
+    letter-spacing: 0.02em; cursor: pointer;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 4px 16px rgba(21, 52, 36, 0.15);
+    box-shadow: 0 4px 12px rgba(21, 52, 36, 0.12);
   }
-  .btn-primary:hover {
-    transform: scale(1.06);
-    box-shadow: 0 6px 20px rgba(21, 52, 36, 0.25);
+  .btn-minimal:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(21, 52, 36, 0.22);
+    background: #1c4531;
   }
-  .btn-primary:active { transform: scale(0.97); }
-  .btn-primary:disabled { opacity: 0.4; cursor: wait; transform: none; box-shadow: none; }
+  .btn-minimal:active { transform: scale(0.97); }
+  .btn-minimal:disabled { opacity: 0.4; cursor: wait; transform: none; box-shadow: none; }
 
-  /* Boutons Filtres (Chips) parfaitement alignés et uniformes */
+  /* Puces de filtres (Chips) avec animation subtile */
   .chip {
     display: inline-flex; align-items: center; gap: 8px;
-    padding: 9px 18px; border: 1px solid #e2e2e2; border-radius: 9999px;
+    padding: 8px 16px; border: 1px solid #e5e5e5; border-radius: 9999px;
     background: #ffffff; color: #555555;
     font-family: 'Inter', sans-serif; font-weight: 500; font-size: 13px;
     cursor: pointer; transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    white-space: nowrap;
-    flex-shrink: 0;
+    white-space: nowrap; flex-shrink: 0;
   }
-  .chip svg { width: 15px; height: 15px; color: #777777; transition: all 0.25s ease; flex-shrink: 0; }
+  .chip svg { width: 14px; height: 14px; color: #777777; transition: all 0.25s ease; flex-shrink: 0; }
   .chip:hover {
-    transform: scale(1.05);
+    transform: translateY(-2px) scale(1.04);
     border-color: #153424;
     color: #153424;
-    box-shadow: 0 4px 12px rgba(21, 52, 36, 0.1);
+    box-shadow: 0 4px 12px rgba(21, 52, 36, 0.08);
   }
   .chip:hover svg { color: #153424; }
   .chip.active { background: #153424; border-color: #153424; color: #ffffff; box-shadow: 0 4px 14px rgba(21, 52, 36, 0.2); }
-  .chip.active svg { color: #ffffff; stroke-width: 1.8; }
+  .chip.active svg { color: #ffffff; }
 
-  /* Sélection de catégorie */
+  /* Options de catégories */
   .cat-option {
     display: flex; align-items: center; gap: 12px;
-    padding: 14px 16px; border: 1px solid #e2e2e2; border-radius: 14px;
+    padding: 12px 16px; border: 1px solid #e5e5e5; border-radius: 12px;
     background: #ffffff; color: #0f0f0f;
     font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
     cursor: pointer; width: 100%; transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -122,19 +117,19 @@
   .cat-option:hover {
     transform: scale(1.02);
     border-color: #153424;
-    box-shadow: 0 4px 12px rgba(21, 52, 36, 0.08);
+    box-shadow: 0 4px 12px rgba(21, 52, 36, 0.06);
   }
   .cat-option.active { border-color: #153424; background: #153424; color: #ffffff; box-shadow: 0 4px 14px rgba(21, 52, 36, 0.2); }
   .cat-option.active svg { color: #ffffff; }
 
   .card-delete {
     position: absolute; top: 12px; right: 12px;
-    width: 34px; height: 34px; border-radius: 50%;
+    width: 32px; height: 32px; border-radius: 50%;
     background: rgba(255, 255, 255, 0.9); color: #0f0f0f;
     display: flex; align-items: center; justify-content: center;
-    border: 1px solid #eeeeee; cursor: pointer;
-    z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    transition: transform 0.2s ease;
+    border: 1px solid #e5e5e5; cursor: pointer;
+    z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease, background-color 0.2s;
   }
   .card-delete:hover { transform: scale(1.1); }
   .card-delete:active { background: #e11d48; color: #ffffff; border-color: #e11d48; }
@@ -146,50 +141,56 @@
   .card-delete.confirming .icon-x { opacity: 0; }
   .card-delete.confirming .icon-check { opacity: 1; }
 
-  .card { opacity: 0; transform: translateY(16px); transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+  .card { 
+    opacity: 0; transform: translateY(16px); 
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease; 
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+  }
   .card.revealed { opacity: 1; transform: translateY(0); }
   
-  .drawer-backdrop { position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+  .drawer-backdrop { position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,0.3); backdrop-filter: blur(4px); opacity: 0; pointer-events: none; transition: opacity 0.3s; }
   .drawer-backdrop.open { opacity: 1; pointer-events: auto; }
   .drawer {
-    position: fixed; top: 0; right: 0; height: 100%; width: 100%; max-width: 450px; z-index: 100;
-    background: #ffffff; border-left: 1px solid #eeeeee;
+    position: fixed; top: 0; right: 0; height: 100%; width: 100%; max-width: 420px; z-index: 100;
+    background: #ffffff; border-left: 1px solid #e5e5e5;
     transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     display: flex; flex-direction: column;
-    box-shadow: -10px 0 30px rgba(0,0,0,0.05);
+    box-shadow: -15px 0 40px rgba(0,0,0,0.04);
   }
   .drawer.open { transform: translateX(0); }
 
   .field-label { 
     display: block; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600;
-    text-transform: uppercase; letter-spacing: 0.06em; color: #0f0f0f; margin-bottom: 8px; 
+    text-transform: uppercase; letter-spacing: 0.06em; color: #0f0f0f; margin-bottom: 6px; 
   }
   .field-input { 
-    width: 100%; padding: 14px 16px; background: #fafafa;
-    border: 1px solid #e2e2e2; border-radius: 12px; color: #0f0f0f;
-    font-size: 16px; 
-    font-family: 'Inter', sans-serif;
-    transition: border-color 0.2s, box-shadow 0.2s; 
+    width: 100%; padding: 12px 16px; background: #fafafa;
+    border: 1px solid #e5e5e5; border-radius: 12px; color: #0f0f0f;
+    font-size: 15px; font-family: 'Inter', sans-serif;
+    transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s; 
   }
-  .field-input:focus { outline: none; border-color: #153424; background: #ffffff; box-shadow: 0 0 0 3px rgba(21,52,36,0.08); }
+  .field-input:focus { outline: none; border-color: #153424; background: #ffffff; box-shadow: 0 0 0 3px rgba(21,52,36,0.06); }
 
   .file-drop {
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    padding: 32px 16px; border: 1px dashed #dcdcdc; border-radius: 14px;
+    padding: 28px 16px; border: 1px dashed #dcdcdc; border-radius: 12px;
     background: #fafafa; cursor: pointer; transition: all 0.25s; text-align: center;
   }
+  .file-drop:hover { border-color: #153424; background: #f5f8f6; }
   .file-drop input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
 
-  .photo-preview { position: relative; width: 100%; aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden; border: 1px solid #eeeeee; }
+  .photo-preview { position: relative; width: 100%; aspect-ratio: 4 / 3; border-radius: 12px; overflow: hidden; border: 1px solid #e5e5e5; }
   .photo-preview img { width: 100%; height: 100%; object-fit: cover; }
   .photo-preview-clear {
-    position: absolute; top: 10px; right: 10px; width: 32px; height: 32px; border-radius: 50%;
+    position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%;
     background: rgba(0,0,0,0.7); color: #ffffff; display: flex; align-items: center; justify-content: center;
-    font-size: 16px; cursor: pointer; border: none;
+    font-size: 15px; cursor: pointer; border: none;
   }
 
   .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-  
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 </style>
@@ -213,30 +214,30 @@
   </div>
 </div>
 
-<header id="site-header" class="site-header sticky top-0 z-40 bg-white/95 backdrop-blur-md">
-  <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between gap-4">
+<header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-border">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
     <a href="#" class="flex flex-col leading-none group">
       <span class="font-serif text-3xl font-medium tracking-tight text-brand">Plantouille</span>
-      <span class="font-hand text-lg text-muted mt-0.5 ml-3">Cabinet Botanique</span>
+      <span class="font-hand text-lg text-muted mt-0.5 ml-2">Cabinet Botanique</span>
     </a>
 
-    <button id="open-drawer-btn" type="button" class="btn-primary">
+    <button id="open-drawer-btn" type="button" class="btn-minimal">
       <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
       <span>Ajouter</span>
     </button>
   </div>
 </header>
 
-<main class="max-w-6xl mx-auto px-5 w-full flex-1 pb-16">
-  <section class="pt-6 pb-4 flex items-center justify-end border-b border-border">
+<main class="max-w-6xl mx-auto px-6 w-full flex-1 pb-16">
+  <section class="pt-5 pb-3 flex items-center justify-end">
     <div class="flex items-baseline gap-2 text-muted">
       <span id="stat-total" class="font-serif text-2xl text-brand font-medium">0</span>
-      <span class="text-[11px] font-medium tracking-wider uppercase">plantes</span>
+      <span class="text-[11px] font-medium tracking-wider uppercase">spécimens</span>
     </div>
   </section>
 
-  <!-- Navigation par filtres horizontale fluide alignée -->
-  <section class="py-6 overflow-x-auto no-scrollbar">
+  <!-- Filtres -->
+  <section class="pb-6 overflow-x-auto no-scrollbar">
     <div class="flex flex-nowrap items-center gap-2.5 min-w-max">
       <button type="button" data-category="all" class="chip active">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
@@ -263,11 +264,11 @@
 
   <!-- Grille -->
   <section class="pb-12">
-    <div id="plant-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5" aria-live="polite"></div>
+    <div id="plant-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" aria-live="polite"></div>
     
-    <div id="empty-state" class="hidden text-center py-16 border border-dashed border-border rounded-2xl">
-      <p class="font-serif italic text-xl text-muted mb-1">Aucune plante</p>
-      <p class="font-hand text-lg text-muted">cette catégorie est vide</p>
+    <div id="empty-state" class="hidden text-center py-20 border border-dashed border-border rounded-2xl bg-surface/50">
+      <p class="font-serif italic text-xl text-muted mb-1">Cabinet vide</p>
+      <p class="font-hand text-lg text-muted">ajoutez votre premier spécimen</p>
     </div>
   </section>
 </main>
@@ -280,10 +281,10 @@
 <div id="drawer-backdrop" class="drawer-backdrop" aria-hidden="true"></div>
 
 <!-- Panneau latéral -->
-<aside id="drawer" class="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" aria-hidden="true">
+<aside id="drawer" class="drawer" role="dialog" aria-modal="true" aria-hidden="true">
   <div class="flex items-center justify-between p-5 border-b border-border">
-    <h2 id="drawer-title" class="font-serif text-2xl text-brand font-medium">Nouveau Spécimen</h2>
-    <button id="close-drawer-btn" type="button" aria-label="Fermer" class="text-muted hover:text-ink p-2 cursor-pointer">
+    <h2 class="font-serif text-2xl text-brand font-medium">Nouveau Spécimen</h2>
+    <button id="close-drawer-btn" type="button" aria-label="Fermer" class="text-muted hover:text-ink p-2 cursor-pointer transition-colors">
       <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
     </button>
   </div>
@@ -339,8 +340,8 @@
     </div>
 
     <div class="p-5 border-t border-border bg-white">
-      <button type="submit" id="submit-btn" class="btn-primary w-full py-3.5">
-        <span>Enregistrer la plante</span>
+      <button type="submit" id="submit-btn" class="btn-minimal w-full py-3.5">
+        <span>Enregistrer le spécimen</span>
       </button>
     </div>
   </form>
@@ -587,7 +588,7 @@
       clearPhotoSelection();
       categoryButtons.forEach(btn => btn.classList.remove('active'));
       plantCategoryInput.value = '';
-      showToast("Plante enregistrée");
+      showToast("Spécimen enregistré");
     } catch (err) {
       showToast("Erreur d'enregistrement");
     } finally {
@@ -604,7 +605,7 @@
     plants = plants.filter(p => p.id !== id);
     renderGrid();
     updateStats();
-    showToast("Plante retirée");
+    showToast("Spécimen retiré");
   }
 
   function renderGrid() {
@@ -622,18 +623,18 @@
 
       card.innerHTML = `
         <div class="relative aspect-[4/3] bg-surface overflow-hidden border-b border-border">
-          <img src="${escapeHtml(plant.photo)}" alt="${escapeHtml(plant.name)}" class="w-full h-full object-cover">
+          <img src="${escapeHtml(plant.photo)}" alt="${escapeHtml(plant.name)}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
           <button type="button" class="card-delete" aria-label="Supprimer">
             <svg class="icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"/></svg>
             <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg>
           </button>
         </div>
-        <div class="p-4 flex flex-col flex-1 justify-between">
+        <div class="p-5 flex flex-col flex-1 justify-between">
           <div>
             <span class="text-[10px] uppercase tracking-wider text-brand font-semibold">${escapeHtml(plant.category)}</span>
-            <h3 class="font-serif text-xl font-normal text-ink leading-tight mt-0.5">${escapeHtml(plant.name)}</h3>
+            <h3 class="font-serif text-xl font-normal text-ink leading-tight mt-1">${escapeHtml(plant.name)}</h3>
           </div>
-          ${plant.details ? `<p class="text-xs text-muted font-light mt-2 line-clamp-2 leading-relaxed">${escapeHtml(plant.details)}</p>` : ''}
+          ${plant.details ? `<p class="text-xs text-muted font-light mt-3 line-clamp-2 leading-relaxed">${escapeHtml(plant.details)}</p>` : ''}
         </div>
       `;
 
@@ -670,3 +671,4 @@
 
 </body>
 </html>
+

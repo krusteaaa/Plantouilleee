@@ -119,7 +119,6 @@
     color: #1c4531;
   }
 
-  /* Étiquette typographique en petites capitales espacées */
   .brand-tagline {
     display: inline-flex;
     align-items: center;
@@ -249,8 +248,7 @@
   input[type="search"]::-webkit-search-cancel-button,
   input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; appearance: none; }
 
-  .search-minimal,
-  .select-minimal {
+  .search-minimal {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -259,20 +257,16 @@
     position: relative;
     min-width: 0;
   }
-  .search-minimal > svg,
-  .select-minimal > svg {
+  .search-minimal > svg {
     color: #888888;
     transition: color 0.18s ease;
     flex-shrink: 0;
   }
   .search-minimal:hover > svg,
-  .search-minimal:focus-within > svg,
-  .select-minimal:hover > svg,
-  .select-minimal:focus-within > svg {
+  .search-minimal:focus-within > svg {
     color: #153424;
   }
-  .search-minimal input,
-  .select-minimal select {
+  .search-minimal input {
     flex: 1 1 auto;
     min-width: 0;
     background: transparent;
@@ -294,20 +288,6 @@
   .search-minimal input:hover::placeholder,
   .search-minimal input:focus::placeholder {
     color: #153424;
-  }
-  .select-minimal select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    cursor: pointer;
-    padding-right: 2px;
-    text-overflow: ellipsis;
-  }
-  .select-minimal option,
-  .select-minimal optgroup {
-    color: #0f0f0f;
-    background: #ffffff;
-    font-family: 'Jost', sans-serif;
   }
   .search-clear {
     flex-shrink: 0;
@@ -370,31 +350,16 @@
     </div>
   </section>
 
+  <!-- ===== RECHERCHE (seule, sans menu déroulant) ===== -->
   <section class="pb-4">
-    <div class="flex flex-col sm:flex-row sm:items-center sm:gap-6">
-      <div class="search-minimal flex-1">
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-          <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>
-        </svg>
-        <input id="plant-search" type="search" aria-label="Rechercher une plante" placeholder="Rechercher une plante…" autocomplete="off">
-        <button type="button" id="clear-search" aria-label="Effacer la recherche" class="hidden search-clear">
-          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
-        </button>
-      </div>
-
-      <div class="hidden sm:block w-px h-5 bg-border shrink-0" aria-hidden="true"></div>
-
-      <div class="select-minimal w-full sm:w-60 md:w-64 shrink-0">
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 21V11"/>
-          <path d="M12 13c-3.5 0-6-2.5-6-6 3.5 0 6 2.5 6 6z"/>
-          <path d="M12 15c3.5 0 6-2.5 6-6-3.5 0-6 2.5-6 6z"/>
-        </svg>
-        <select id="plant-select" aria-label="Choisir une plante par rubrique">
-          <option value="">Toutes les plantes</option>
-        </select>
-        <svg class="w-4 h-4 flex-shrink-0 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-      </div>
+    <div class="search-minimal">
+      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>
+      </svg>
+      <input id="plant-search" type="search" aria-label="Rechercher une plante" placeholder="Rechercher une plante…" autocomplete="off">
+      <button type="button" id="clear-search" aria-label="Effacer la recherche" class="hidden search-clear">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
     </div>
   </section>
 
@@ -525,8 +490,6 @@
   const QUALITY = 0.8;
   const $ = (id) => document.getElementById(id);
 
-  const CATEGORY_ORDER = ['Cactus', 'Succulentes', 'Mesembryanthemum', 'Tropicales'];
-
   const drawer = $('drawer');
   const drawerBackdrop = $('drawer-backdrop');
   const openDrawerBtn = $('open-drawer-btn');
@@ -551,7 +514,6 @@
 
   const searchInput = $('plant-search');
   const clearSearchBtn = $('clear-search');
-  const plantSelect = $('plant-select');
 
   let plants = [];
   let memFallback = false;
@@ -707,7 +669,6 @@
       chipButtons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       currentFilter = btn.getAttribute('data-category');
-      plantSelect.value = '';
       renderGrid();
     });
   });
@@ -716,50 +677,11 @@
     clearSearchBtn.classList.toggle('hidden', searchInput.value.length === 0);
   }
 
-  function renderSelect() {
-    const previous = plantSelect.value;
-    plantSelect.innerHTML = '<option value="">Toutes les plantes</option>';
-
-    const groups = new Map();
-    plants.forEach(p => {
-      const cat = p.category || 'Autres';
-      if (!groups.has(cat)) groups.set(cat, []);
-      groups.get(cat).push(p);
-    });
-
-    Array.from(groups.keys())
-      .sort((a, b) => {
-        const ia = CATEGORY_ORDER.indexOf(a);
-        const ib = CATEGORY_ORDER.indexOf(b);
-        const ra = ia === -1 ? CATEGORY_ORDER.length : ia;
-        const rb = ib === -1 ? CATEGORY_ORDER.length : ib;
-        return ra - rb || a.localeCompare(b, 'fr');
-      })
-      .forEach(cat => {
-        const optgroup = document.createElement('optgroup');
-        optgroup.label = cat;
-        groups.get(cat)
-          .slice()
-          .sort((a, b) => a.name.localeCompare(b.name, 'fr'))
-          .forEach(p => {
-            const opt = document.createElement('option');
-            opt.value = p.id;
-            opt.textContent = p.name;
-            optgroup.appendChild(opt);
-          });
-        plantSelect.appendChild(optgroup);
-      });
-
-    plantSelect.value = plants.some(p => p.id === previous) ? previous : '';
-  }
-
   function getFilteredPlants() {
     const term = normalize(searchInput.value.trim());
-    const selectedId = plantSelect.value;
 
     return plants.filter(p => {
       if (currentFilter !== 'all' && p.category !== currentFilter) return false;
-      if (selectedId && p.id !== selectedId) return false;
       if (term) {
         const haystack = normalize(`${p.name} ${p.details || ''} ${p.category || ''}`);
         if (!haystack.includes(term)) return false;
@@ -770,7 +692,6 @@
 
   searchInput.addEventListener('input', () => {
     updateSearchClear();
-    if (plantSelect.value) plantSelect.value = '';
     renderGrid();
   });
 
@@ -778,16 +699,6 @@
     searchInput.value = '';
     updateSearchClear();
     searchInput.focus();
-    renderGrid();
-  });
-
-  plantSelect.addEventListener('change', () => {
-    if (plantSelect.value) {
-      searchInput.value = '';
-      updateSearchClear();
-      currentFilter = 'all';
-      chipButtons.forEach(b => b.classList.toggle('active', b.getAttribute('data-category') === 'all'));
-    }
     renderGrid();
   });
 
@@ -834,11 +745,9 @@
 
       searchInput.value = '';
       updateSearchClear();
-      plantSelect.value = '';
       currentFilter = 'all';
       chipButtons.forEach(b => b.classList.toggle('active', b.getAttribute('data-category') === 'all'));
 
-      renderSelect();
       renderGrid();
       updateStats();
       closeDrawer();
@@ -861,7 +770,6 @@
   async function deletePlant(id) {
     await dbDelete(id);
     plants = plants.filter(p => p.id !== id);
-    renderSelect();
     renderGrid();
     updateStats();
     showToast("Spécimen retiré");
@@ -932,7 +840,6 @@
       plants.sort((a, b) => b.date - a.date);
     } catch (e) { plants = []; }
     updateSearchClear();
-    renderSelect();
     renderGrid();
     updateStats();
   }

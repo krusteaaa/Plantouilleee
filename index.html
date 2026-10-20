@@ -8,7 +8,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&family=Reenie+Beanie&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,600&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
@@ -24,9 +24,9 @@
           brand: '#153424',
         },
         fontFamily: {
-          serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
-          sans: ['Inter', 'system-ui', 'sans-serif'],
-          hand: ['"Reenie Beanie"', 'cursive'],
+          serif: ['"Bodoni Moda"', 'Georgia', 'serif'],
+          sans: ['Jost', 'system-ui', 'sans-serif'],
+          hand: ['"Cormorant Garamond"', 'Georgia', 'serif'],
         },
       },
     },
@@ -61,7 +61,33 @@
   ::-webkit-scrollbar-track { background: #ffffff; }
   ::-webkit-scrollbar-thumb { background: #e0e0e0; border-radius: 4px; }
 
-  /* OPTIMISATION NETTETÉ TYPO SUR LES INTERACTIONS */
+  /* ===== TRAIT D'EN-TÊTE : RACCOURCI + DÉGRADÉ ===== */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .site-header::after {
+    content: '';
+    position: absolute;
+    left: 8%;
+    right: 8%;
+    bottom: 0;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(21, 52, 36, 0.10) 20%,
+      rgba(21, 52, 36, 0.15) 50%,
+      rgba(21, 52, 36, 0.10) 80%,
+      transparent 100%
+    );
+    pointer-events: none;
+  }
+
   .btn-minimal, .chip, .cat-option, .card-delete {
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
@@ -69,14 +95,68 @@
     -webkit-font-smoothing: subpixel-antialiased;
   }
 
-  /* Bouton principal "Ajouter / Enregistrer" */
+  /* ===== BLOC MARQUE : masthead éditorial ===== */
+  .brand-group {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1;
+    gap: 6px;
+    padding: 2px 0;
+  }
+
+  .brand-title {
+    font-family: 'Bodoni Moda', Georgia, serif;
+    font-weight: 500;
+    font-size: 33px;
+    letter-spacing: -0.014em;
+    color: #153424;
+    line-height: 0.92;
+    font-variation-settings: 'opsz' 96;
+    transition: color 0.25s ease;
+  }
+  .brand-group:hover .brand-title {
+    color: #1c4531;
+  }
+
+  /* Étiquette typographique en petites capitales espacées */
+  .brand-tagline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Jost', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.34em;
+    color: #888888;
+    line-height: 1;
+    padding-left: 1px;
+    transition: color 0.25s ease;
+  }
+  .brand-tagline::before {
+    content: '';
+    display: block;
+    width: 14px;
+    height: 1px;
+    background: rgba(21, 52, 36, 0.35);
+    transition: width 0.3s ease, background-color 0.25s ease;
+  }
+  .brand-group:hover .brand-tagline {
+    color: #555555;
+  }
+  .brand-group:hover .brand-tagline::before {
+    width: 20px;
+    background: rgba(21, 52, 36, 0.55);
+  }
+
   .btn-minimal {
     position: relative;
     display: inline-flex; align-items: center; justify-content: center; gap: 8px;
     padding: 10px 24px; border-radius: 9999px;
     background: #153424; color: #ffffff;
-    font-family: 'Inter', sans-serif; font-weight: 500; font-size: 13px;
-    letter-spacing: 0.02em; cursor: pointer; border: 1px solid #153424;
+    font-family: 'Jost', sans-serif; font-weight: 500; font-size: 13px;
+    letter-spacing: 0.04em; cursor: pointer; border: 1px solid #153424;
     transition: background-color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
     box-shadow: 0 2px 8px rgba(21, 52, 36, 0.08);
   }
@@ -85,59 +165,40 @@
     border-color: #1c4531;
     box-shadow: 0 4px 12px rgba(21, 52, 36, 0.16);
   }
-  .btn-minimal:active {
-    opacity: 0.85;
-    transition-duration: 0.05s;
-  }
+  .btn-minimal:active { opacity: 0.85; transition-duration: 0.05s; }
   .btn-minimal:disabled { opacity: 0.4; cursor: wait; box-shadow: none; }
 
-  /* Chips de catégories / Filtres horizontaux */
   .chip {
     display: inline-flex; align-items: center; gap: 8px;
     padding: 8px 18px; border: 1px solid #e8e8e8; border-radius: 9999px;
     background: #ffffff; color: #555555;
-    font-family: 'Inter', sans-serif; font-weight: 500; font-size: 13px;
+    font-family: 'Jost', sans-serif; font-weight: 500; font-size: 13px;
+    letter-spacing: 0.02em;
     cursor: pointer; white-space: nowrap; flex-shrink: 0;
     transition: border-color 0.18s ease, color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
   }
-  .chip svg { width: 14px; height: 14px; color: #888888; transition: color 0.18s ease; flex-shrink: 0; }
-  .chip:hover {
-    border-color: #153424;
-    color: #153424;
-  }
+  .chip svg { width: 16px; height: 16px; color: #888888; transition: color 0.18s ease; flex-shrink: 0; }
+  .chip:hover { border-color: #153424; color: #153424; }
   .chip:hover svg { color: #153424; }
-  .chip:active {
-    background: #f7f7f7;
-    transition-duration: 0.05s;
-  }
-  .chip.active { 
-    background: #153424; 
-    border-color: #153424; 
-    color: #ffffff; 
-  }
+  .chip:active { background: #f7f7f7; transition-duration: 0.05s; }
+  .chip.active { background: #153424; border-color: #153424; color: #ffffff; }
   .chip.active svg { color: #ffffff; }
 
-  /* Grille de sélection dans le tiroir */
   .cat-option {
     display: flex; align-items: center; gap: 12px;
     padding: 12px 16px; border: 1px solid #e8e8e8; border-radius: 14px;
     background: #ffffff; color: #0f0f0f;
-    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+    font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 500;
+    letter-spacing: 0.02em;
     cursor: pointer; width: 100%;
     transition: border-color 0.18s ease, background-color 0.18s ease, color 0.18s ease;
   }
-  .cat-option svg { width: 18px; height: 18px; color: #888888; transition: color 0.18s ease; }
-  .cat-option:hover {
-    border-color: #153424;
-  }
-  .cat-option:active {
-    background: #f7f7f7;
-    transition-duration: 0.05s;
-  }
+  .cat-option svg { width: 20px; height: 20px; color: #888888; transition: color 0.18s ease; }
+  .cat-option:hover { border-color: #153424; }
+  .cat-option:active { background: #f7f7f7; transition-duration: 0.05s; }
   .cat-option.active { border-color: #153424; background: #153424; color: #ffffff; }
   .cat-option.active svg { color: #ffffff; }
 
-  /* Bouton suppression carte */
   .card-delete {
     position: absolute; top: 12px; right: 12px;
     width: 32px; height: 32px; border-radius: 50%;
@@ -174,16 +235,93 @@
   .drawer.open { transform: translateX(0); }
 
   .field-label { 
-    display: block; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600;
-    text-transform: uppercase; letter-spacing: 0.06em; color: #0f0f0f; margin-bottom: 6px; 
+    display: block; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.1em; color: #0f0f0f; margin-bottom: 6px; 
   }
   .field-input { 
     width: 100%; padding: 12px 16px; background: #ffffff;
     border: 1px solid #e5e5e5; border-radius: 12px; color: #0f0f0f;
-    font-size: 15px; font-family: 'Inter', sans-serif;
+    font-size: 15px; font-family: 'Jost', sans-serif;
     transition: border-color 0.18s ease, box-shadow 0.18s ease; 
   }
   .field-input:focus { outline: none; border-color: #153424; box-shadow: 0 0 0 3px rgba(21,52,36,0.05); }
+
+  input[type="search"]::-webkit-search-cancel-button,
+  input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; appearance: none; }
+
+  .search-minimal,
+  .select-minimal {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    background: transparent;
+    position: relative;
+    min-width: 0;
+  }
+  .search-minimal > svg,
+  .select-minimal > svg {
+    color: #888888;
+    transition: color 0.18s ease;
+    flex-shrink: 0;
+  }
+  .search-minimal:hover > svg,
+  .search-minimal:focus-within > svg,
+  .select-minimal:hover > svg,
+  .select-minimal:focus-within > svg {
+    color: #153424;
+  }
+  .search-minimal input,
+  .select-minimal select {
+    flex: 1 1 auto;
+    min-width: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    font-family: 'Jost', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: #0f0f0f;
+    padding: 0;
+    transition: color 0.18s ease;
+  }
+  .search-minimal input::placeholder {
+    color: #888888;
+    font-weight: 400;
+    transition: color 0.18s ease;
+  }
+  .search-minimal input:hover::placeholder,
+  .search-minimal input:focus::placeholder {
+    color: #153424;
+  }
+  .select-minimal select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    padding-right: 2px;
+    text-overflow: ellipsis;
+  }
+  .select-minimal option,
+  .select-minimal optgroup {
+    color: #0f0f0f;
+    background: #ffffff;
+    font-family: 'Jost', sans-serif;
+  }
+  .search-clear {
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    color: #888888;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color 0.18s ease, background-color 0.18s ease;
+  }
+  .search-clear:hover { color: #153424; background: rgba(21,52,36,0.06); }
+  .search-clear:active { transition-duration: 0.05s; }
 
   .file-drop {
     display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -210,11 +348,11 @@
 
 <body class="font-sans antialiased bg-white text-ink">
 
-<header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-border">
+<header class="site-header">
   <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
-    <a href="#" class="flex flex-col leading-none group">
-      <span class="font-serif text-3xl font-medium tracking-tight text-brand">Plantouille</span>
-      <span class="font-hand text-lg text-muted mt-0.5 ml-2">Cabinet Botanique</span>
+    <a href="#" class="brand-group group">
+      <span class="brand-title">Plantouille</span>
+      <span class="brand-tagline">Cabinet Botanique</span>
     </a>
 
     <button id="open-drawer-btn" type="button" class="btn-minimal">
@@ -225,14 +363,41 @@
 </header>
 
 <main class="max-w-6xl mx-auto px-6 w-full flex-1 pb-16">
-  <section class="pt-5 pb-3 flex items-center justify-end">
+  <section class="pt-5 pb-1 flex items-center justify-end">
     <div class="flex items-baseline gap-2 text-muted">
       <span id="stat-total" class="font-serif text-2xl text-brand font-medium">0</span>
       <span class="text-[11px] font-medium tracking-wider uppercase">spécimens</span>
     </div>
   </section>
 
-  <!-- Filtres -->
+  <section class="pb-4">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:gap-6">
+      <div class="search-minimal flex-1">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>
+        </svg>
+        <input id="plant-search" type="search" aria-label="Rechercher une plante" placeholder="Rechercher une plante…" autocomplete="off">
+        <button type="button" id="clear-search" aria-label="Effacer la recherche" class="hidden search-clear">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="hidden sm:block w-px h-5 bg-border shrink-0" aria-hidden="true"></div>
+
+      <div class="select-minimal w-full sm:w-60 md:w-64 shrink-0">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 21V11"/>
+          <path d="M12 13c-3.5 0-6-2.5-6-6 3.5 0 6 2.5 6 6z"/>
+          <path d="M12 15c3.5 0 6-2.5 6-6-3.5 0-6 2.5-6 6z"/>
+        </svg>
+        <select id="plant-select" aria-label="Choisir une plante par rubrique">
+          <option value="">Toutes les plantes</option>
+        </select>
+        <svg class="w-4 h-4 flex-shrink-0 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </div>
+  </section>
+
   <section class="pb-6 overflow-x-auto no-scrollbar">
     <div class="flex flex-nowrap items-center gap-2.5 min-w-max">
       <button type="button" data-category="all" class="chip active">
@@ -243,10 +408,18 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 22V2"/><path d="M12 10H9a2 2 0 0 1-2-2V6"/><path d="M12 14h3a2 2 0 0 0 2-2v-2"/></svg>
         <span>Cactus</span>
       </button>
+
       <button type="button" data-category="Succulentes" class="chip">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 12c0-3 2-6 5-6-1 3-3 5-5 6zm0 0c0-3-2-6-5-6 1 3 3 5 5 6zm0 0c-3 0-6 2-6 5 3-1 5-3 6-5zm0 0c3 0 6 2 6 5-3-1-5-3-6-5z"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z"/>
+          <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(-30 12 21)"/>
+          <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(30 12 21)"/>
+          <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(-60 12 21)"/>
+          <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(60 12 21)"/>
+        </svg>
         <span>Succulentes</span>
       </button>
+
       <button type="button" data-category="Mesembryanthemum" class="chip">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><ellipse cx="12" cy="14" rx="6" ry="5"/><path d="M12 9V6M9 6c1-1 5-1 6 0"/></svg>
         <span>Mesembryanthemum</span>
@@ -258,7 +431,6 @@
     </div>
   </section>
 
-  <!-- Grille -->
   <section class="pb-12">
     <div id="plant-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" aria-live="polite"></div>
   </section>
@@ -266,7 +438,6 @@
 
 <div id="drawer-backdrop" class="drawer-backdrop" aria-hidden="true"></div>
 
-<!-- Panneau latéral -->
 <aside id="drawer" class="drawer" role="dialog" aria-modal="true" aria-hidden="true">
   <div class="flex items-center justify-between p-5 border-b border-border">
     <h2 class="font-serif text-2xl text-brand font-medium">Nouveau Spécimen</h2>
@@ -289,10 +460,18 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22V2"/><path d="M12 10H9a2 2 0 0 1-2-2V6"/><path d="M12 14h3a2 2 0 0 0 2-2v-2"/></svg>
             <span>Cactus</span>
           </button>
+
           <button type="button" class="cat-option" data-category="Succulentes">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 12c0-3 2-6 5-6-1 3-3 5-5 6zm0 0c0-3-2-6-5-6 1 3 3 5 5 6zm0 0c-3 0-6 2-6 5 3-1 5-3 6-5zm0 0c3 0 6 2 6 5-3-1-5-3-6-5z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z"/>
+              <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(-30 12 21)"/>
+              <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(30 12 21)"/>
+              <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(-60 12 21)"/>
+              <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(60 12 21)"/>
+            </svg>
             <span>Succulentes</span>
           </button>
+
           <button type="button" class="cat-option" data-category="Mesembryanthemum">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><ellipse cx="12" cy="14" rx="6" ry="5"/><path d="M12 9V6M9 6c1-1 5-1 6 0"/></svg>
             <span>Mesemb</span>
@@ -346,6 +525,8 @@
   const QUALITY = 0.8;
   const $ = (id) => document.getElementById(id);
 
+  const CATEGORY_ORDER = ['Cactus', 'Succulentes', 'Mesembryanthemum', 'Tropicales'];
+
   const drawer = $('drawer');
   const drawerBackdrop = $('drawer-backdrop');
   const openDrawerBtn = $('open-drawer-btn');
@@ -368,12 +549,23 @@
   const categoryButtons = Array.from(categoryPicker.querySelectorAll('.cat-option'));
   const chipButtons = Array.from(document.querySelectorAll('.chip'));
 
+  const searchInput = $('plant-search');
+  const clearSearchBtn = $('clear-search');
+  const plantSelect = $('plant-select');
+
   let plants = [];
   let memFallback = false;
   let currentFilter = 'all';
 
   function escapeHtml(str) {
     return String(str ?? '').replace(/[&<>"']/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+  }
+
+  function normalize(str) {
+    return String(str ?? '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase();
   }
 
   function idbOpenRaw() {
@@ -515,8 +707,88 @@
       chipButtons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       currentFilter = btn.getAttribute('data-category');
+      plantSelect.value = '';
       renderGrid();
     });
+  });
+
+  function updateSearchClear() {
+    clearSearchBtn.classList.toggle('hidden', searchInput.value.length === 0);
+  }
+
+  function renderSelect() {
+    const previous = plantSelect.value;
+    plantSelect.innerHTML = '<option value="">Toutes les plantes</option>';
+
+    const groups = new Map();
+    plants.forEach(p => {
+      const cat = p.category || 'Autres';
+      if (!groups.has(cat)) groups.set(cat, []);
+      groups.get(cat).push(p);
+    });
+
+    Array.from(groups.keys())
+      .sort((a, b) => {
+        const ia = CATEGORY_ORDER.indexOf(a);
+        const ib = CATEGORY_ORDER.indexOf(b);
+        const ra = ia === -1 ? CATEGORY_ORDER.length : ia;
+        const rb = ib === -1 ? CATEGORY_ORDER.length : ib;
+        return ra - rb || a.localeCompare(b, 'fr');
+      })
+      .forEach(cat => {
+        const optgroup = document.createElement('optgroup');
+        optgroup.label = cat;
+        groups.get(cat)
+          .slice()
+          .sort((a, b) => a.name.localeCompare(b.name, 'fr'))
+          .forEach(p => {
+            const opt = document.createElement('option');
+            opt.value = p.id;
+            opt.textContent = p.name;
+            optgroup.appendChild(opt);
+          });
+        plantSelect.appendChild(optgroup);
+      });
+
+    plantSelect.value = plants.some(p => p.id === previous) ? previous : '';
+  }
+
+  function getFilteredPlants() {
+    const term = normalize(searchInput.value.trim());
+    const selectedId = plantSelect.value;
+
+    return plants.filter(p => {
+      if (currentFilter !== 'all' && p.category !== currentFilter) return false;
+      if (selectedId && p.id !== selectedId) return false;
+      if (term) {
+        const haystack = normalize(`${p.name} ${p.details || ''} ${p.category || ''}`);
+        if (!haystack.includes(term)) return false;
+      }
+      return true;
+    });
+  }
+
+  searchInput.addEventListener('input', () => {
+    updateSearchClear();
+    if (plantSelect.value) plantSelect.value = '';
+    renderGrid();
+  });
+
+  clearSearchBtn.addEventListener('click', () => {
+    searchInput.value = '';
+    updateSearchClear();
+    searchInput.focus();
+    renderGrid();
+  });
+
+  plantSelect.addEventListener('change', () => {
+    if (plantSelect.value) {
+      searchInput.value = '';
+      updateSearchClear();
+      currentFilter = 'all';
+      chipButtons.forEach(b => b.classList.toggle('active', b.getAttribute('data-category') === 'all'));
+    }
+    renderGrid();
   });
 
   plantPhotoInput.addEventListener('change', async (e) => {
@@ -559,6 +831,14 @@
 
       await dbPut(newPlant);
       plants.unshift(newPlant);
+
+      searchInput.value = '';
+      updateSearchClear();
+      plantSelect.value = '';
+      currentFilter = 'all';
+      chipButtons.forEach(b => b.classList.toggle('active', b.getAttribute('data-category') === 'all'));
+
+      renderSelect();
       renderGrid();
       updateStats();
       closeDrawer();
@@ -581,14 +861,31 @@
   async function deletePlant(id) {
     await dbDelete(id);
     plants = plants.filter(p => p.id !== id);
+    renderSelect();
     renderGrid();
     updateStats();
     showToast("Spécimen retiré");
   }
 
   function renderGrid() {
-    const filtered = currentFilter === 'all' ? plants : plants.filter(p => p.category === currentFilter);
+    const filtered = getFilteredPlants();
     grid.innerHTML = '';
+
+    if (filtered.length === 0) {
+      const message = plants.length === 0
+        ? "Aucun spécimen pour l'instant — ajoutez votre première plante."
+        : "Aucun spécimen ne correspond à votre recherche.";
+      grid.innerHTML = `
+        <div class="col-span-full flex flex-col items-center text-center py-20 gap-3">
+          <svg class="w-9 h-9 text-muted/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21V11"/>
+            <path d="M12 13c-3.5 0-6-2.5-6-6 3.5 0 6 2.5 6 6z"/>
+            <path d="M12 15c3.5 0 6-2.5 6-6-3.5 0-6 2.5-6 6z"/>
+          </svg>
+          <p class="text-sm text-muted font-light">${message}</p>
+        </div>`;
+      return;
+    }
 
     filtered.forEach((plant) => {
       const card = document.createElement('article');
@@ -634,6 +931,8 @@
       plants = await dbGetAll();
       plants.sort((a, b) => b.date - a.date);
     } catch (e) { plants = []; }
+    updateSearchClear();
+    renderSelect();
     renderGrid();
     updateStats();
   }

@@ -4,7 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#ffffff">
-<title>Plantouille — Cabinet Botanique</title>
+<title>Plantouille — Cabinet du Dr-Cactus</title>
+
+<!-- Favicon : Icône de feuille / plante minimaliste -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23153424' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 21V7M12 7l-4-4M12 7l4-4'/%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -73,6 +76,13 @@
     font-variation-settings: 'opsz' 96; transition: color 0.25s ease;
   }
   .brand-group:hover .brand-title { color: #1c4531; }
+
+  .brand-tagline-container {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+  
   .brand-tagline {
     display: inline-flex; align-items: center; gap: 8px;
     font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500;
@@ -80,7 +90,11 @@
     color: #888888; line-height: 1; padding-left: 1px;
     transition: color 0.25s ease;
   }
-  .brand-tagline::before { content: ''; display: block; width: 14px; height: 1px; background: rgba(21,52,36,0.35); transition: width 0.3s ease, background-color 0.25s ease; }
+  .brand-tagline::before { 
+    content: ''; display: block; width: 14px; height: 1px; 
+    background: rgba(21,52,36,0.35); 
+    transition: width 0.3s ease, background-color 0.25s ease; 
+  }
   .brand-group:hover .brand-tagline { color: #555555; }
   .brand-group:hover .brand-tagline::before { width: 20px; background: rgba(21,52,36,0.55); }
 
@@ -265,9 +279,6 @@
   .season-rain { position: absolute; top: -20px; width: 1.2px; height: 9px; background: linear-gradient(to bottom, rgba(90,120,100,0), rgba(90,120,100,0.5)); border-radius: 1px; animation-name: season-rain-fall; animation-timing-function: linear; animation-fill-mode: forwards; will-change: transform, opacity; }
   @keyframes season-rain-fall { 0% { transform: translate3d(0,-20px,0); opacity: 0; } 10% { opacity: 0.75; } 90% { opacity: 0.75; } 100% { transform: translate3d(var(--drift,10px),105vh,0); opacity: 0; } }
 
-  #cactus-decor { position: fixed; bottom: 24px; right: 28px; z-index: 5; width: 42px; height: 42px; color: rgba(21,52,36,0.32); pointer-events: none; user-select: none; }
-  #cactus-decor svg { width: 100%; height: 100%; display: block; }
-
   @media (prefers-reduced-motion: reduce) { #seasonal-bg { display: none !important; } }
 
   /* ============================================================
@@ -302,7 +313,6 @@
     opacity: 1;
   }
 
-  /* Base img : sera ajusté par les classes portrait/landscape */
   .lightbox-content img {
     display: block;
     max-width: 90vw;
@@ -315,7 +325,6 @@
     flex-shrink: 0;
   }
 
-  /* ============ PAYSAGE : image large en haut, texte centré en dessous ============ */
   .lightbox-content.is-landscape {
     flex-direction: column;
     align-items: center;
@@ -327,7 +336,6 @@
     max-height: 62vh;
   }
 
-  /* ============ PORTRAIT : texte à GAUCHE, image à DROITE ============ */
   .lightbox-content.is-portrait {
     flex-direction: row-reverse;
     align-items: center;
@@ -340,7 +348,6 @@
     max-height: 86vh;
   }
 
-  /* Panneau d'infos */
   .lightbox-info {
     display: flex;
     flex-direction: column;
@@ -353,7 +360,6 @@
     align-items: center;
   }
 
-  /* En portrait, le panneau est à gauche, aligné à gauche, plus étroit */
   .lightbox-content.is-portrait .lightbox-info {
     max-width: 380px;
     text-align: left;
@@ -431,7 +437,6 @@
     line-height: 1.3;
   }
 
-  /* Bouton retour : flèche seule, sans fond */
   .lightbox-back {
     position: fixed;
     top: 20px;
@@ -453,7 +458,6 @@
   .lightbox-back:active { transform: translateX(0); transition-duration: 0.05s; }
   .lightbox-back svg { width: 26px; height: 26px; stroke-width: 1.5; }
 
-  /* === MOBILE : portrait forcé en colonne === */
   @media (max-width: 860px) {
     .lightbox { padding: 16px 14px; }
     .lightbox-content { gap: 20px; }
@@ -496,19 +500,13 @@
 
 <div id="seasonal-bg" aria-hidden="true"></div>
 
-<div id="cactus-decor" aria-hidden="true">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12 22V2"/>
-    <path d="M12 10H9a2 2 0 0 1-2-2V6"/>
-    <path d="M12 14h3a2 2 0 0 0 2-2v-2"/>
-  </svg>
-</div>
-
 <header class="site-header">
   <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
     <a href="#" class="brand-group group">
       <span class="brand-title">Plantouille</span>
-      <span class="brand-tagline">Cabinet Botanique</span>
+      <div class="brand-tagline-container">
+        <span class="brand-tagline">Cabinet du Dr-Cactus</span>
+      </div>
     </a>
     <button id="open-drawer-btn" type="button" class="btn-minimal">
       <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
@@ -603,7 +601,11 @@
             <span>Cactus</span>
           </button>
           <button type="button" class="cat-option" data-category="Succulentes">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z"/>
+              <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(-30 12 21)"/>
+              <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(30 12 21)"/>
+            </svg>
             <span>Succulentes</span>
           </button>
           <button type="button" class="cat-option" data-category="Mesembryanthemum">
@@ -620,6 +622,36 @@
           </button>
         </div>
         <input type="hidden" id="plant-category" value="" required>
+      </div>
+
+      <!-- Rubrique : Substrat -->
+      <div>
+        <label class="field-label">Substrat</label>
+        <div class="custom-select-wrapper" id="substrate-select-wrapper">
+          <button type="button" class="custom-select-trigger placeholder" id="substrate-select-trigger">
+            <span class="trigger-label">Sélectionner un substrat...</span>
+            <span class="custom-select-arrow"></span>
+          </button>
+          <div class="custom-select-dropdown" id="substrate-select-dropdown">
+            <div class="custom-option-group-label">Cactus & Succulentes</div>
+            <div class="custom-option" data-value="Substrat 3 tiers (Terreau, sable, pouzzolane)">Substrat 3 tiers (Terreau, sable, pouzzolane)</div>
+            <div class="custom-option" data-value="Mélange minéral pur (Ponce, pouzzolane, akadama)">Mélange minéral pur (Ponce, pouzzolane, akadama)</div>
+
+            <div class="custom-option-group-label">Mesembryanthemum (Lithops, etc.)</div>
+            <div class="custom-option" data-value="100% Minéral (Sable grossier, pouzzolane, très peu de terre)">100% Minéral (Sable grossier, pouzzolane, très peu de terre)</div>
+
+            <div class="custom-option-group-label">Plantes Tropicales</div>
+            <div class="custom-option" data-value="Terreau riche, perlite & écorces de pin (Léger et drainant)">Terreau riche, perlite & écorces de pin (Léger et drainant)</div>
+            <div class="custom-option" data-value="Mélange type Jungle (Terreau, tourbe, coco, perlite)">Mélange type Jungle (Terreau, tourbe, coco, perlite)</div>
+
+            <div class="custom-option-group-label">Caudiciformes</div>
+            <div class="custom-option" data-value="Substrat hautement drainant (Ponce, terreau tamisé)">Substrat hautement drainant (Ponce, terreau tamisé)</div>
+
+            <div class="custom-option-group-label">Universel</div>
+            <div class="custom-option" data-value="Terreau horticole standard avec drainage">Terreau horticole standard avec drainage</div>
+          </div>
+          <input type="hidden" id="plant-substrate" value="">
+        </div>
       </div>
 
       <div>
@@ -793,6 +825,10 @@
           <span class="lb-key">Température minimale</span>
           <span class="lb-val" id="lb-temp"></span>
         </div>
+        <div class="lb-item lb-full" id="lb-substrate-wrap">
+          <span class="lb-key">Substrat</span>
+          <span class="lb-val" id="lb-substrate"></span>
+        </div>
         <div class="lb-item lb-full" id="lb-origin-wrap">
           <span class="lb-key">Origine géographique</span>
           <span class="lb-val" id="lb-origin"></span>
@@ -807,21 +843,21 @@
   'use strict';
 
   const DB_NAME = 'plantouille-db';
-  const DB_VERSION = 3;
+  const DB_VERSION = 4;
   const STORE = 'plants';
   const MAX_WIDTH = 1400;
   const QUALITY = 0.85;
   const $ = (id) => document.getElementById(id);
 
   const DEMO_PLANTS = [
-    { id: 'demo_1', name: 'Trichocereus pachanoi', category: 'Cactus', family: 'Cactaceae', exposure: 'Plein soleil', minTemp: '-5', origin: 'Andes & Amérique du Sud Ouest', photo: 'https://images.unsplash.com/photo-1459156212016-c812468e2115?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 1000, isDemo: true },
-    { id: 'demo_2', name: 'Echinocactus grusonii', category: 'Cactus', family: 'Cactaceae', exposure: 'Plein soleil', minTemp: '-8', origin: 'Mexique', photo: 'https://images.unsplash.com/photo-1509423350716-97f9360b4e09?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 2000, isDemo: true },
-    { id: 'demo_3', name: 'Lithops aucampiae', category: 'Mesembryanthemum', family: 'Aizoaceae', exposure: 'Plein soleil', minTemp: '5', origin: 'Afrique du Sud', photo: 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 3000, isDemo: true },
-    { id: 'demo_4', name: 'Haworthia fasciata', category: 'Succulentes', family: 'Asphodelaceae', exposure: 'Mi-ombre', minTemp: '-2', origin: 'Afrique du Sud', photo: 'https://images.unsplash.com/photo-1545241047-6083a3684587?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 4000, isDemo: true },
-    { id: 'demo_5', name: 'Euphorbia obesa', category: 'Caudiciformes', family: 'Euphorbiaceae', exposure: 'Plein soleil', minTemp: '2', origin: 'Afrique du Sud', photo: 'https://images.unsplash.com/photo-1567225557594-88d73e55f2cb?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 5000, isDemo: true },
-    { id: 'demo_6', name: 'Monstera deliciosa', category: 'Tropicales', family: 'Araceae', exposure: 'Mi-ombre', minTemp: '10', origin: 'Amérique centrale & Caraïbes', photo: 'https://images.unsplash.com/photo-1614594975525-e45190c55d0b?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 6000, isDemo: true },
-    { id: 'demo_7', name: 'Mammillaria elongata', category: 'Cactus', family: 'Cactaceae', exposure: 'Plein soleil', minTemp: '-4', origin: 'Mexique', photo: 'https://images.unsplash.com/photo-1519336555923-59661f41bb45?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 7000, isDemo: true },
-    { id: 'demo_8', name: 'Crassula ovata', category: 'Succulentes', family: 'Crassulaceae', exposure: 'Plein soleil', minTemp: '-3', origin: 'Afrique du Sud', photo: 'https://images.unsplash.com/photo-1509937528035-ad76254b0356?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 8000, isDemo: true }
+    { id: 'demo_1', name: 'Trichocereus pachanoi', category: 'Cactus', family: 'Cactaceae', substrate: 'Substrat 3 tiers (Terreau, sable, pouzzolane)', exposure: 'Plein soleil', minTemp: '-5', origin: 'Andes & Amérique du Sud Ouest', photo: 'https://images.unsplash.com/photo-1459156212016-c812468e2115?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 1000, isDemo: true },
+    { id: 'demo_2', name: 'Echinocactus grusonii', category: 'Cactus', family: 'Cactaceae', substrate: 'Mélange minéral pur (Ponce, pouzzolane, akadama)', exposure: 'Plein soleil', minTemp: '-8', origin: 'Mexique', photo: 'https://images.unsplash.com/photo-1509423350716-97f9360b4e09?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 2000, isDemo: true },
+    { id: 'demo_3', name: 'Lithops aucampiae', category: 'Mesembryanthemum', family: 'Aizoaceae', substrate: '100% Minéral (Sable grossier, pouzzolane, très peu de terre)', exposure: 'Plein soleil', minTemp: '5', origin: 'Afrique du Sud', photo: 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 3000, isDemo: true },
+    { id: 'demo_4', name: 'Haworthia fasciata', category: 'Succulentes', family: 'Asphodelaceae', substrate: 'Substrat 3 tiers (Terreau, sable, pouzzolane)', exposure: 'Mi-ombre', minTemp: '-2', origin: 'Afrique du Sud', photo: 'https://images.unsplash.com/photo-1545241047-6083a3684587?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 4000, isDemo: true },
+    { id: 'demo_5', name: 'Euphorbia obesa', category: 'Caudiciformes', family: 'Euphorbiaceae', substrate: 'Substrat hautement drainant (Ponce, terreau tamisé)', exposure: 'Plein soleil', minTemp: '2', origin: 'Afrique du Sud', photo: 'https://images.unsplash.com/photo-1567225557594-88d73e55f2cb?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 5000, isDemo: true },
+    { id: 'demo_6', name: 'Monstera deliciosa', category: 'Tropicales', family: 'Araceae', substrate: 'Terreau riche, perlite & écorces de pin (Léger et drainant)', exposure: 'Mi-ombre', minTemp: '10', origin: 'Amérique centrale & Caraïbes', photo: 'https://images.unsplash.com/photo-1614594975525-e45190c55d0b?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 6000, isDemo: true },
+    { id: 'demo_7', name: 'Mammillaria elongata', category: 'Cactus', family: 'Cactaceae', substrate: 'Substrat 3 tiers (Terreau, sable, pouzzolane)', exposure: 'Plein soleil', minTemp: '-4', origin: 'Mexique', photo: 'https://images.unsplash.com/photo-1519336555923-59661f41bb45?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 7000, isDemo: true },
+    { id: 'demo_8', name: 'Crassula ovata', category: 'Succulentes', family: 'Crassulaceae', substrate: 'Substrat 3 tiers (Terreau, sable, pouzzolane)', exposure: 'Plein soleil', minTemp: '-3', origin: 'Afrique du Sud', photo: 'https://images.unsplash.com/photo-1509937528035-ad76254b0356?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 8000, isDemo: true }
   ];
 
   const drawer = $('drawer');
@@ -844,11 +880,14 @@
   const lbExpo = $('lb-expo');
   const lbTempWrap = $('lb-temp-wrap');
   const lbTemp = $('lb-temp');
+  const lbSubstrateWrap = $('lb-substrate-wrap');
+  const lbSubstrate = $('lb-substrate');
   const lbOriginWrap = $('lb-origin-wrap');
   const lbOrigin = $('lb-origin');
 
   const plantNameInput = $('plant-name');
   const plantCategoryInput = $('plant-category');
+  const plantSubstrateInput = $('plant-substrate');
   const plantFamilyInput = $('plant-family');
   const plantExposureInput = $('plant-exposure');
   const plantTempInput = $('plant-temp');
@@ -910,6 +949,7 @@
     };
   }
 
+  const resetSubstrateSelect = setupCustomSelect('substrate-select-wrapper', 'Sélectionner un substrat...');
   const resetFamilySelect = setupCustomSelect('family-select-wrapper', 'Sélectionner une famille...');
   const resetOriginSelect = setupCustomSelect('origin-select-wrapper', 'Sélectionner une origine...');
 
@@ -1021,9 +1061,6 @@
     fileDrop.classList.remove('hidden');
   }
 
-  /* ============================================================
-     LIGHTBOX — détection fiable + layout adaptatif
-     ============================================================ */
   function formatTemp(t) {
     if (t === undefined || t === null || t === '') return null;
     const n = Number(t);
@@ -1043,6 +1080,9 @@
     if (tempStr) { lbTempWrap.style.display = 'flex'; lbTemp.textContent = tempStr; }
     else { lbTempWrap.style.display = 'none'; }
 
+    if (plant.substrate) { lbSubstrateWrap.style.display = 'flex'; lbSubstrate.textContent = plant.substrate; }
+    else { lbSubstrateWrap.style.display = 'none'; }
+
     if (plant.origin) { lbOriginWrap.style.display = 'flex'; lbOrigin.textContent = plant.origin; }
     else { lbOriginWrap.style.display = 'none'; }
   }
@@ -1055,13 +1095,9 @@
   }
 
   function openLightbox(plant) {
-    // 1) Reset classes
     lightboxContent.classList.remove('is-portrait', 'is-landscape');
-
-    // 2) Remplit les textes
     fillLightboxInfo(plant);
 
-    // 3) Charge l'image et détecte l'orientation via lightboxImg.onload (fiable)
     lightboxImg.onload = function () {
       const w = lightboxImg.naturalWidth || 0;
       const h = lightboxImg.naturalHeight || 0;
@@ -1140,7 +1176,7 @@
     return plants.filter(p => {
       if (currentFilter !== 'all' && p.category !== currentFilter) return false;
       if (term) {
-        const haystack = normalize(`${p.name} ${p.family || ''} ${p.exposure || ''} ${p.origin || ''} ${p.category || ''}`);
+        const haystack = normalize(`${p.name} ${p.family || ''} ${p.substrate || ''} ${p.exposure || ''} ${p.origin || ''} ${p.category || ''}`);
         if (!haystack.includes(term)) return false;
       }
       return true;
@@ -1169,6 +1205,7 @@
     e.preventDefault();
     const name = plantNameInput.value.trim();
     const category = plantCategoryInput.value;
+    const substrate = plantSubstrateInput.value;
     const family = plantFamilyInput.value;
     const exposure = plantExposureInput.value;
     const minTemp = plantTempInput.value;
@@ -1184,7 +1221,7 @@
     try {
       const newPlant = {
         id: 'p_' + Date.now(),
-        name, category, family, exposure, minTemp, origin,
+        name, category, substrate, family, exposure, minTemp, origin,
         photo: photoSrc, date: Date.now()
       };
       await dbPut(newPlant);
@@ -1198,11 +1235,13 @@
 
       renderGrid(); updateStats(); closeDrawer();
       form.reset(); clearPhotoSelection();
+      if (resetSubstrateSelect) resetSubstrateSelect();
       if (resetFamilySelect) resetFamilySelect();
       if (resetOriginSelect) resetOriginSelect();
       categoryButtons.forEach(btn => btn.classList.remove('active'));
       exposureButtons.forEach(btn => btn.classList.remove('active'));
       plantCategoryInput.value = '';
+      plantSubstrateInput.value = '';
       plantExposureInput.value = '';
       plantTempInput.value = '0';
       tempDisplay.textContent = '0 °C';
@@ -1265,6 +1304,7 @@
           <div class="grid grid-cols-2 gap-2 pt-2 border-t border-border/60 text-[11px] text-muted">
             ${plant.exposure ? `<div><span class="font-medium text-ink">Expo:</span> ${escapeHtml(plant.exposure)}</div>` : ''}
             ${tempFormatted ? `<div><span class="font-medium text-ink">Min:</span> ${escapeHtml(tempFormatted)}</div>` : ''}
+            ${plant.substrate ? `<div class="col-span-2"><span class="font-medium text-ink">Substrat:</span> ${escapeHtml(plant.substrate)}</div>` : ''}
             ${plant.origin ? `<div class="col-span-2"><span class="font-medium text-ink">Origine:</span> ${escapeHtml(plant.origin)}</div>` : ''}
           </div>
         </div>

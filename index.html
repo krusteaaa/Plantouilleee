@@ -16,12 +16,8 @@
     theme: {
       extend: {
         colors: {
-          paper: '#ffffff',
-          surface: '#ffffff',
-          ink: '#0f0f0f',
-          muted: '#888888',
-          border: '#f0f0f0',
-          brand: '#153424',
+          paper: '#ffffff', surface: '#ffffff', ink: '#0f0f0f',
+          muted: '#888888', border: '#f0f0f0', brand: '#153424',
         },
         fontFamily: {
           serif: ['"Bodoni Moda"', 'Georgia', 'serif'],
@@ -34,10 +30,7 @@
 </script>
 
 <style>
-  * { 
-    -webkit-tap-highlight-color: transparent; 
-    box-sizing: border-box; 
-  }
+  * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
   html { scroll-behavior: smooth; height: 100%; }
   body { 
     background: #ffffff; color: #0f0f0f; overflow-x: hidden; 
@@ -45,288 +38,471 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100%;
-    display: flex;
-    flex-direction: column;
-    opacity: 0;
-    animation: appFadeIn 0.8s ease forwards;
+    display: flex; flex-direction: column;
+    opacity: 0; animation: appFadeIn 0.8s ease forwards;
   }
-
-  @keyframes appFadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
+  @keyframes appFadeIn { from { opacity: 0; } to { opacity: 1; } }
 
   ::selection { background: #153424; color: #ffffff; }
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: #ffffff; }
   ::-webkit-scrollbar-thumb { background: #e0e0e0; border-radius: 4px; }
 
-  /* ===== TRAIT D'EN-TÊTE : RACCOURCI + DÉGRADÉ ===== */
   .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 40;
+    position: sticky; top: 0; z-index: 40;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
   }
   .site-header::after {
-    content: '';
-    position: absolute;
-    left: 8%;
-    right: 8%;
-    bottom: 0;
-    height: 1px;
-    background: linear-gradient(
-      to right,
-      transparent 0%,
-      rgba(21, 52, 36, 0.10) 20%,
-      rgba(21, 52, 36, 0.15) 50%,
-      rgba(21, 52, 36, 0.10) 80%,
-      transparent 100%
-    );
+    content: ''; position: absolute;
+    left: 8%; right: 8%; bottom: 0; height: 1px;
+    background: linear-gradient(to right, transparent 0%, rgba(21,52,36,0.10) 20%, rgba(21,52,36,0.15) 50%, rgba(21,52,36,0.10) 80%, transparent 100%);
     pointer-events: none;
   }
 
-  .btn-minimal, .chip, .cat-option, .card-delete {
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    transform: translateZ(0);
-    -webkit-font-smoothing: subpixel-antialiased;
+  .btn-minimal, .chip, .cat-option, .card-delete, .exp-option {
+    -webkit-backface-visibility: hidden; backface-visibility: hidden;
+    transform: translateZ(0); -webkit-font-smoothing: subpixel-antialiased;
   }
 
-  /* ===== BLOC MARQUE : masthead éditorial ===== */
-  .brand-group {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: flex-start;
-    line-height: 1;
-    gap: 6px;
-    padding: 2px 0;
-  }
-
+  .brand-group { display: inline-flex; flex-direction: column; align-items: flex-start; line-height: 1; gap: 6px; padding: 2px 0; }
   .brand-title {
-    font-family: 'Bodoni Moda', Georgia, serif;
-    font-weight: 500;
-    font-size: 33px;
-    letter-spacing: -0.014em;
-    color: #153424;
-    line-height: 0.92;
-    font-variation-settings: 'opsz' 96;
-    transition: color 0.25s ease;
+    font-family: 'Bodoni Moda', Georgia, serif; font-weight: 500; font-size: 33px;
+    letter-spacing: -0.014em; color: #153424; line-height: 0.92;
+    font-variation-settings: 'opsz' 96; transition: color 0.25s ease;
   }
-  .brand-group:hover .brand-title {
-    color: #1c4531;
-  }
-
+  .brand-group:hover .brand-title { color: #1c4531; }
   .brand-tagline {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: 'Jost', sans-serif;
-    font-size: 10px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.34em;
-    color: #888888;
-    line-height: 1;
-    padding-left: 1px;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.34em;
+    color: #888888; line-height: 1; padding-left: 1px;
     transition: color 0.25s ease;
   }
-  .brand-tagline::before {
-    content: '';
-    display: block;
-    width: 14px;
-    height: 1px;
-    background: rgba(21, 52, 36, 0.35);
-    transition: width 0.3s ease, background-color 0.25s ease;
-  }
-  .brand-group:hover .brand-tagline {
-    color: #555555;
-  }
-  .brand-group:hover .brand-tagline::before {
-    width: 20px;
-    background: rgba(21, 52, 36, 0.55);
-  }
+  .brand-tagline::before { content: ''; display: block; width: 14px; height: 1px; background: rgba(21,52,36,0.35); transition: width 0.3s ease, background-color 0.25s ease; }
+  .brand-group:hover .brand-tagline { color: #555555; }
+  .brand-group:hover .brand-tagline::before { width: 20px; background: rgba(21,52,36,0.55); }
 
   .btn-minimal {
-    position: relative;
-    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
     padding: 10px 24px; border-radius: 9999px;
     background: #153424; color: #ffffff;
     font-family: 'Jost', sans-serif; font-weight: 500; font-size: 13px;
     letter-spacing: 0.04em; cursor: pointer; border: 1px solid #153424;
     transition: background-color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
-    box-shadow: 0 2px 8px rgba(21, 52, 36, 0.08);
+    box-shadow: 0 2px 8px rgba(21,52,36,0.08);
   }
-  .btn-minimal:hover {
-    background: #1c4531;
-    border-color: #1c4531;
-    box-shadow: 0 4px 12px rgba(21, 52, 36, 0.16);
-  }
+  .btn-minimal:hover { background: #1c4531; border-color: #1c4531; box-shadow: 0 4px 12px rgba(21,52,36,0.16); }
   .btn-minimal:active { opacity: 0.85; transition-duration: 0.05s; }
   .btn-minimal:disabled { opacity: 0.4; cursor: wait; box-shadow: none; }
 
   .chip {
     display: inline-flex; align-items: center; gap: 8px;
-    padding: 8px 18px; border: 1px solid #e8e8e8; border-radius: 9999px;
-    background: #ffffff; color: #555555;
+    padding: 8px 18px; border: none; border-radius: 9999px;
+    background: #f7f7f7; color: #555555;
     font-family: 'Jost', sans-serif; font-weight: 500; font-size: 13px;
-    letter-spacing: 0.02em;
-    cursor: pointer; white-space: nowrap; flex-shrink: 0;
-    transition: border-color 0.18s ease, color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
+    letter-spacing: 0.02em; cursor: pointer; white-space: nowrap; flex-shrink: 0;
+    transition: color 0.18s ease, background-color 0.18s ease;
   }
   .chip svg { width: 16px; height: 16px; color: #888888; transition: color 0.18s ease; flex-shrink: 0; }
-  .chip:hover { border-color: #153424; color: #153424; }
+  .chip:hover { color: #153424; background: #eef2f0; }
   .chip:hover svg { color: #153424; }
-  .chip:active { background: #f7f7f7; transition-duration: 0.05s; }
-  .chip.active { background: #153424; border-color: #153424; color: #ffffff; }
+  .chip:active { background: #e2e8e5; transition-duration: 0.05s; }
+  .chip.active { background: #153424; color: #ffffff; }
   .chip.active svg { color: #ffffff; }
 
   .cat-option {
-    display: flex; align-items: center; gap: 12px;
-    padding: 12px 16px; border: 1px solid #e8e8e8; border-radius: 14px;
-    background: #ffffff; color: #0f0f0f;
-    font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 500;
-    letter-spacing: 0.02em;
-    cursor: pointer; width: 100%;
-    transition: border-color 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+    display: flex; align-items: center; gap: 10px;
+    min-height: 48px;
+    padding: 10px 14px; border: none; border-radius: 12px;
+    background: #f7f7f7; color: #0f0f0f;
+    font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 500;
+    letter-spacing: 0.02em; cursor: pointer; width: 100%;
+    transition: background-color 0.18s ease, color 0.18s ease;
   }
-  .cat-option svg { width: 20px; height: 20px; color: #888888; transition: color 0.18s ease; }
-  .cat-option:hover { border-color: #153424; }
-  .cat-option:active { background: #f7f7f7; transition-duration: 0.05s; }
-  .cat-option.active { border-color: #153424; background: #153424; color: #ffffff; }
+  .cat-option svg { width: 18px; height: 18px; color: #888888; transition: color 0.18s ease; flex-shrink: 0; }
+  .cat-option span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cat-option:hover { background: #eef2f0; color: #153424; }
+  .cat-option.active { background: #153424; color: #ffffff; }
   .cat-option.active svg { color: #ffffff; }
+
+  .exp-option {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 12px 8px; border: none; border-radius: 12px;
+    background: #f7f7f7; color: #555555; font-size: 11px; font-weight: 500;
+    cursor: pointer; transition: all 0.18s ease; text-align: center; gap: 6px;
+  }
+  .exp-option svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .exp-option:hover { background: #eef2f0; color: #153424; }
+  .exp-option.active { background: #153424; color: #ffffff; }
 
   .card-delete {
     position: absolute; top: 12px; right: 12px;
     width: 32px; height: 32px; border-radius: 50%;
     background: rgba(255, 255, 255, 0.95); color: #0f0f0f;
     display: flex; align-items: center; justify-content: center;
-    border: 1px solid #e5e5e5; cursor: pointer;
+    border: none; cursor: pointer;
     z-index: 10; box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-    transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+    transition: background-color 0.18s ease, color 0.18s ease;
   }
-  .card-delete:hover { border-color: #153424; color: #153424; }
-  .card-delete:active { background: #e11d48; color: #ffffff; border-color: #e11d48; transition-duration: 0.05s; }
-  .card-delete.confirming {
-    background: #e11d48 !important; color: #ffffff !important; border-color: #e11d48 !important;
-  }
+  .card-delete:hover { color: #153424; background: #ffffff; }
+  .card-delete:active { background: #e11d48; color: #ffffff; }
+  .card-delete.confirming { background: #e11d48 !important; color: #ffffff !important; }
   .card-delete .icon-x, .card-delete .icon-check { position: absolute; width: 14px; height: 14px; }
   .card-delete .icon-check { opacity: 0; }
   .card-delete.confirming .icon-x { opacity: 0; }
   .card-delete.confirming .icon-check { opacity: 1; }
 
-  .card { 
-    opacity: 0; transform: translateY(12px); 
-    transition: opacity 0.4s ease, transform 0.4s ease; 
-  }
+  .card { opacity: 0; transform: translateY(12px); transition: opacity 0.4s ease, transform 0.4s ease; }
   .card.revealed { opacity: 1; transform: translateY(0); }
-  
+
+  .card-photo { transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); cursor: zoom-in; }
+  .group:hover .card-photo { transform: scale(1.03); }
+
   .drawer-backdrop { position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,0.25); backdrop-filter: blur(2px); opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
   .drawer-backdrop.open { opacity: 1; pointer-events: auto; }
+
   .drawer {
-    position: fixed; top: 0; right: 0; height: 100%; width: 100%; max-width: 420px; z-index: 100;
-    background: #ffffff; border-left: 1px solid #f0f0f0;
+    position: fixed; top: 0; right: 0; height: 100%; width: 100%; max-width: 440px; z-index: 100;
+    background: #ffffff;
     transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     display: flex; flex-direction: column;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.05);
   }
   .drawer.open { transform: translateX(0); }
 
-  .field-label { 
-    display: block; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 600;
-    text-transform: uppercase; letter-spacing: 0.1em; color: #0f0f0f; margin-bottom: 6px; 
-  }
-  .field-input { 
-    width: 100%; padding: 12px 16px; background: #ffffff;
-    border: 1px solid #e5e5e5; border-radius: 12px; color: #0f0f0f;
-    font-size: 15px; font-family: 'Jost', sans-serif;
-    transition: border-color 0.18s ease, box-shadow 0.18s ease; 
-  }
-  .field-input:focus { outline: none; border-color: #153424; box-shadow: 0 0 0 3px rgba(21,52,36,0.05); }
+  .field-label { display: block; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #0f0f0f; margin-bottom: 6px; }
+  .field-input { width: 100%; padding: 12px 16px; background: #f7f7f7; border: none; border-radius: 12px; color: #0f0f0f; font-size: 14px; font-family: 'Jost', sans-serif; transition: background-color 0.18s ease; }
+  .field-input:focus { outline: none; background: #eef2f0; }
 
-  input[type="search"]::-webkit-search-cancel-button,
-  input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; appearance: none; }
+  .temp-slider-container { position: relative; padding: 12px 0; }
+  input[type="range"].custom-range { -webkit-appearance: none; appearance: none; width: 100%; height: 4px; background: #eef2f0; border-radius: 9999px; outline: none; margin: 6px 0; }
+  input[type="range"].custom-range::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #153424; cursor: pointer; box-shadow: 0 2px 6px rgba(21,52,36,0.2); border: 2px solid #ffffff; transition: transform 0.15s ease, background-color 0.15s ease; }
+  input[type="range"].custom-range::-webkit-slider-thumb:hover { transform: scale(1.15); background: #1c4531; }
+  input[type="range"].custom-range::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: #153424; cursor: pointer; box-shadow: 0 2px 6px rgba(21,52,36,0.2); border: 2px solid #ffffff; }
 
-  .search-minimal {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 0;
-    background: transparent;
-    position: relative;
-    min-width: 0;
-  }
-  .search-minimal > svg {
-    color: #888888;
-    transition: color 0.18s ease;
-    flex-shrink: 0;
-  }
-  .search-minimal:hover > svg,
-  .search-minimal:focus-within > svg {
-    color: #153424;
-  }
-  .search-minimal input {
-    flex: 1 1 auto;
-    min-width: 0;
-    background: transparent;
-    border: none;
-    outline: none;
-    box-shadow: none;
-    font-family: 'Jost', sans-serif;
-    font-size: 15px;
-    font-weight: 400;
+  .custom-select-wrapper { position: relative; width: 100%; padding: 0 16px; }
+  .custom-select-trigger {
+    width: 100%; display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 0; background: transparent; border: none;
+    border-bottom: 1px solid rgba(21,52,36,0.15);
     color: #0f0f0f;
-    padding: 0;
-    transition: color 0.18s ease;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic; font-size: 18px; font-weight: 500;
+    cursor: pointer; text-align: left;
+    transition: border-color 0.2s ease, color 0.2s ease;
   }
-  .search-minimal input::placeholder {
-    color: #888888;
-    font-weight: 400;
-    transition: color 0.18s ease;
-  }
-  .search-minimal input:hover::placeholder,
-  .search-minimal input:focus::placeholder {
-    color: #153424;
-  }
-  .search-clear {
-    flex-shrink: 0;
-    width: 22px; height: 22px;
-    display: flex; align-items: center; justify-content: center;
-    border-radius: 50%;
-    color: #888888;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    transition: color 0.18s ease, background-color 0.18s ease;
-  }
-  .search-clear:hover { color: #153424; background: rgba(21,52,36,0.06); }
-  .search-clear:active { transition-duration: 0.05s; }
+  .custom-select-trigger:hover, .custom-select-wrapper.open .custom-select-trigger { border-bottom-color: #153424; color: #153424; }
+  .custom-select-trigger.placeholder { color: #888888; }
+  .custom-select-arrow { width: 6px; height: 6px; border-right: 1.5px solid #153424; border-bottom: 1.5px solid #153424; transform: rotate(45deg); transition: transform 0.25s ease; opacity: 0.7; flex-shrink: 0; margin-left: 10px; }
+  .custom-select-wrapper.open .custom-select-arrow { transform: rotate(-135deg); }
 
-  .file-drop {
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    padding: 28px 16px; border: 1px dashed #dcdcdc; border-radius: 12px;
-    background: #ffffff; cursor: pointer; transition: border-color 0.18s ease; text-align: center;
+  .custom-select-dropdown {
+    position: absolute; top: 100%; left: 16px; right: 16px;
+    max-height: 240px; overflow-y: auto; background: #ffffff; z-index: 50;
+    margin-top: 6px; padding: 8px 0;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08); border-radius: 12px;
+    opacity: 0; visibility: hidden;
+    transform: translateY(-6px) scale(0.99);
+    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease;
+    scrollbar-width: thin; scrollbar-color: #dcdcdc transparent;
   }
+  .custom-select-dropdown::-webkit-scrollbar { width: 4px; }
+  .custom-select-dropdown::-webkit-scrollbar-track { background: transparent; }
+  .custom-select-dropdown::-webkit-scrollbar-thumb { background: #e0e0e0; border-radius: 4px; }
+  .custom-select-wrapper.open .custom-select-dropdown { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+
+  .custom-option-group-label { padding: 10px 18px 4px 18px; font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: #153424; opacity: 0.6; }
+  .custom-option { padding: 8px 18px; font-family: 'Jost', sans-serif; font-style: normal; font-size: 13.5px; color: #0f0f0f; cursor: pointer; transition: background-color 0.15s ease, color 0.15s ease; }
+  .custom-option:hover { background-color: #f4f6f5; color: #153424; }
+  .custom-option.selected { background-color: #153424; color: #ffffff; font-weight: 500; }
+
+  input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; appearance: none; }
+
+  .search-minimal { display: flex; align-items: center; gap: 12px; padding: 12px 0; background: transparent; position: relative; min-width: 0; }
+  .search-minimal > svg { color: #888888; transition: color 0.18s ease; flex-shrink: 0; }
+  .search-minimal:hover > svg, .search-minimal:focus-within > svg { color: #153424; }
+  .search-minimal input { flex: 1 1 auto; min-width: 0; background: transparent; border: none; outline: none; box-shadow: none; font-family: 'Jost', sans-serif; font-size: 15px; font-weight: 400; color: #0f0f0f; padding: 0; }
+  .search-clear { flex-shrink: 0; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: #888888; background: transparent; border: none; cursor: pointer; transition: color 0.18s ease, background-color 0.18s ease; }
+  .search-clear:hover { color: #153424; background: rgba(21,52,36,0.06); }
+
+  .file-drop { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px; border: 1px dashed #dcdcdc; border-radius: 12px; background: #ffffff; cursor: pointer; transition: border-color 0.18s ease; text-align: center; }
   .file-drop:hover { border-color: #153424; }
   .file-drop input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
 
-  .photo-preview { position: relative; width: 100%; aspect-ratio: 4 / 3; border-radius: 12px; overflow: hidden; border: 1px solid #e5e5e5; }
+  .photo-preview { position: relative; width: 100%; aspect-ratio: 4 / 3; border-radius: 12px; overflow: hidden; }
   .photo-preview img { width: 100%; height: 100%; object-fit: cover; }
-  .photo-preview-clear {
-    position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%;
-    background: rgba(0,0,0,0.7); color: #ffffff; display: flex; align-items: center; justify-content: center;
-    font-size: 15px; cursor: pointer; border: none; transition: background-color 0.18s ease;
-  }
+  .photo-preview-clear { position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(0,0,0,0.7); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer; border: none; transition: background-color 0.18s ease; }
   .photo-preview-clear:hover { background: rgba(0,0,0,0.85); }
 
-  .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* ===== SAISONS ===== */
+  main { position: relative; z-index: 1; }
+  #seasonal-bg {
+    position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0;
+    mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 92%, transparent 100%);
+  }
+  .season-cloud { position: absolute; z-index: 1; pointer-events: none; will-change: transform, opacity; opacity: 0; animation-timing-function: linear; animation-iteration-count: 1; animation-fill-mode: forwards; }
+  .season-cloud svg { display: block; width: 100%; height: auto; }
+  .season-cloud svg path { fill: rgba(21,52,36,0.055); stroke: none; }
+  .season-cloud.drift-right { left: -15vw; animation-name: cloud-right; }
+  .season-cloud.drift-left { right: -15vw; animation-name: cloud-left; }
+  @keyframes cloud-right { 0% { transform: translate3d(0,0,0); opacity: 0; } 8% { opacity: var(--opacity, .8); } 88% { opacity: var(--opacity, .8); } 100% { transform: translate3d(130vw,0,0); opacity: 0; } }
+  @keyframes cloud-left { 0% { transform: translate3d(0,0,0); opacity: 0; } 8% { opacity: var(--opacity, .8); } 88% { opacity: var(--opacity, .8); } 100% { transform: translate3d(-130vw,0,0); opacity: 0; } }
+
+  .season-leaf { position: absolute; top: 0; animation-name: season-leaf-fall; animation-timing-function: linear; animation-iteration-count: infinite; will-change: transform, opacity; transform-origin: center center; }
+  .season-leaf svg { display: block; width: 100%; height: 100%; transform-origin: center center; animation: season-leaf-sway var(--sway, 3s) ease-in-out infinite alternate; filter: drop-shadow(0 1px 1px rgba(21,52,36,0.04)); }
+  @keyframes season-leaf-fall { 0% { transform: translate3d(0,-15vh,0); opacity: 0; } 10% { opacity: var(--opacity, .5); } 90% { opacity: var(--opacity, .5); } 100% { transform: translate3d(var(--drift,40px),115vh,0); opacity: 0; } }
+  @keyframes season-leaf-sway { from { transform: rotate(calc(var(--lean,0deg) - 12deg)); } to { transform: rotate(calc(var(--lean,0deg) + 12deg)); } }
+
+  .season-snow { position: absolute; top: 0; border-radius: 50%; background: rgba(120,150,130,0.45); animation-name: season-snow-fall; animation-timing-function: linear; animation-iteration-count: infinite; will-change: transform, opacity; }
+  @keyframes season-snow-fall { 0% { transform: translate3d(0,-8vh,0); opacity: 0; } 10% { opacity: var(--opacity, .55); } 90% { opacity: var(--opacity, .55); } 100% { transform: translate3d(var(--drift,20px),108vh,0); opacity: 0; } }
+
+  .season-rain { position: absolute; top: -20px; width: 1.2px; height: 9px; background: linear-gradient(to bottom, rgba(90,120,100,0), rgba(90,120,100,0.5)); border-radius: 1px; animation-name: season-rain-fall; animation-timing-function: linear; animation-fill-mode: forwards; will-change: transform, opacity; }
+  @keyframes season-rain-fall { 0% { transform: translate3d(0,-20px,0); opacity: 0; } 10% { opacity: 0.75; } 90% { opacity: 0.75; } 100% { transform: translate3d(var(--drift,10px),105vh,0); opacity: 0; } }
+
+  #cactus-decor { position: fixed; bottom: 24px; right: 28px; z-index: 5; width: 42px; height: 42px; color: rgba(21,52,36,0.32); pointer-events: none; user-select: none; }
+  #cactus-decor svg { width: 100%; height: 100%; display: block; }
+
+  @media (prefers-reduced-motion: reduce) { #seasonal-bg { display: none !important; } }
+
+  /* ============================================================
+     LIGHTBOX — adaptatif portrait / paysage
+     ============================================================ */
+  .lightbox {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(8, 8, 8, 0.96);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease;
+    overflow-y: auto;
+    padding: 24px 20px;
+  }
+  .lightbox.open { opacity: 1; pointer-events: auto; }
+
+  .lightbox-content {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 26px;
+    transform: scale(0.96);
+    opacity: 0;
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+    width: 100%;
+  }
+  .lightbox.open .lightbox-content {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  /* Base img : sera ajusté par les classes portrait/landscape */
+  .lightbox-content img {
+    display: block;
+    max-width: 90vw;
+    max-height: 55vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+    flex-shrink: 0;
+  }
+
+  /* ============ PAYSAGE : image large en haut, texte centré en dessous ============ */
+  .lightbox-content.is-landscape {
+    flex-direction: column;
+    align-items: center;
+    max-width: 94vw;
+    gap: 24px;
+  }
+  .lightbox-content.is-landscape img {
+    max-width: 94vw;
+    max-height: 62vh;
+  }
+
+  /* ============ PORTRAIT : texte à GAUCHE, image à DROITE ============ */
+  .lightbox-content.is-portrait {
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: center;
+    gap: 56px;
+    max-width: 94vw;
+  }
+  .lightbox-content.is-portrait img {
+    max-width: 52vw;
+    max-height: 86vh;
+  }
+
+  /* Panneau d'infos */
+  .lightbox-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+    max-width: 640px;
+    padding: 0 12px;
+    color: #ffffff;
+    text-align: center;
+    align-items: center;
+  }
+
+  /* En portrait, le panneau est à gauche, aligné à gauche, plus étroit */
+  .lightbox-content.is-portrait .lightbox-info {
+    max-width: 380px;
+    text-align: left;
+    align-items: flex-start;
+    padding: 0;
+    flex-shrink: 0;
+  }
+  .lightbox-content.is-portrait .lightbox-info .lb-grid {
+    justify-content: flex-start;
+    gap: 16px 32px;
+    margin-top: 16px;
+    padding-top: 18px;
+  }
+  .lightbox-content.is-portrait .lightbox-info .lb-item {
+    align-items: flex-start;
+    min-width: 0;
+  }
+
+  .lightbox-info .lb-cat {
+    font-family: 'Jost', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: rgba(255, 255, 255, 0.62);
+  }
+  .lightbox-info .lb-name {
+    font-family: 'Bodoni Moda', Georgia, serif;
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 1.15;
+    color: #ffffff;
+    margin: 2px 0 0;
+    letter-spacing: -0.005em;
+  }
+  .lightbox-info .lb-family {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-size: 15.5px;
+    color: rgba(255, 255, 255, 0.62);
+    margin: 0;
+  }
+
+  .lightbox-info .lb-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 18px 44px;
+    padding-top: 18px;
+    margin-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    width: 100%;
+  }
+  .lightbox-info .lb-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 110px;
+  }
+  .lightbox-info .lb-item.lb-full { flex-basis: 100%; }
+  .lightbox-info .lb-key {
+    font-family: 'Jost', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: rgba(255, 255, 255, 0.42);
+  }
+  .lightbox-info .lb-val {
+    font-family: 'Jost', sans-serif;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: #ffffff;
+    line-height: 1.3;
+  }
+
+  /* Bouton retour : flèche seule, sans fond */
+  .lightbox-back {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.72);
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s ease, transform 0.2s ease;
+    z-index: 210;
+  }
+  .lightbox-back:hover { color: #ffffff; transform: translateX(-2px); }
+  .lightbox-back:active { transform: translateX(0); transition-duration: 0.05s; }
+  .lightbox-back svg { width: 26px; height: 26px; stroke-width: 1.5; }
+
+  /* === MOBILE : portrait forcé en colonne === */
+  @media (max-width: 860px) {
+    .lightbox { padding: 16px 14px; }
+    .lightbox-content { gap: 20px; }
+
+    .lightbox-content.is-landscape img { max-height: 55vh; max-width: 94vw; }
+
+    .lightbox-content.is-portrait {
+      flex-direction: column;
+      gap: 20px;
+    }
+    .lightbox-content.is-portrait img {
+      max-width: 94vw;
+      max-height: 52vh;
+    }
+    .lightbox-content.is-portrait .lightbox-info {
+      max-width: 100%;
+      text-align: center;
+      align-items: center;
+      padding: 0 12px;
+    }
+    .lightbox-content.is-portrait .lightbox-info .lb-grid {
+      justify-content: center;
+      gap: 14px 28px;
+    }
+    .lightbox-content.is-portrait .lightbox-info .lb-item {
+      align-items: center;
+      min-width: 90px;
+    }
+
+    .lightbox-info .lb-name { font-size: 21px; }
+    .lightbox-info .lb-grid { gap: 14px 28px; padding-top: 14px; margin-top: 12px; }
+    .lightbox-info .lb-item { min-width: 90px; }
+    .lightbox-back { top: 10px; left: 10px; width: 40px; height: 40px; }
+    .lightbox-back svg { width: 22px; height: 22px; }
+  }
 </style>
 </head>
 
 <body class="font-sans antialiased bg-white text-ink">
+
+<div id="seasonal-bg" aria-hidden="true"></div>
+
+<div id="cactus-decor" aria-hidden="true">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 22V2"/>
+    <path d="M12 10H9a2 2 0 0 1-2-2V6"/>
+    <path d="M12 14h3a2 2 0 0 0 2-2v-2"/>
+  </svg>
+</div>
 
 <header class="site-header">
   <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
@@ -334,7 +510,6 @@
       <span class="brand-title">Plantouille</span>
       <span class="brand-tagline">Cabinet Botanique</span>
     </a>
-
     <button id="open-drawer-btn" type="button" class="btn-minimal">
       <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
       <span>Ajouter</span>
@@ -350,21 +525,20 @@
     </div>
   </section>
 
-  <!-- ===== RECHERCHE (seule, sans menu déroulant) ===== -->
   <section class="pb-4">
     <div class="search-minimal">
       <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
         <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>
       </svg>
-      <input id="plant-search" type="search" aria-label="Rechercher une plante" placeholder="Rechercher une plante…" autocomplete="off">
+      <input id="plant-search" type="search" aria-label="Rechercher une plante" placeholder="Rechercher une plante, famille, origine…" autocomplete="off">
       <button type="button" id="clear-search" aria-label="Effacer la recherche" class="hidden search-clear">
         <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
     </div>
   </section>
 
-  <section class="pb-6 overflow-x-auto no-scrollbar">
-    <div class="flex flex-nowrap items-center gap-2.5 min-w-max">
+  <section class="pb-6 overflow-x-auto no-scrollbar px-6 -mx-6">
+    <div class="flex flex-nowrap items-center gap-2.5 min-w-max px-6 py-1">
       <button type="button" data-category="all" class="chip active">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
         <span>Toutes</span>
@@ -373,18 +547,14 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 22V2"/><path d="M12 10H9a2 2 0 0 1-2-2V6"/><path d="M12 14h3a2 2 0 0 0 2-2v-2"/></svg>
         <span>Cactus</span>
       </button>
-
       <button type="button" data-category="Succulentes" class="chip">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z"/>
           <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(-30 12 21)"/>
           <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(30 12 21)"/>
-          <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(-60 12 21)"/>
-          <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(60 12 21)"/>
         </svg>
         <span>Succulentes</span>
       </button>
-
       <button type="button" data-category="Mesembryanthemum" class="chip">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><ellipse cx="12" cy="14" rx="6" ry="5"/><path d="M12 9V6M9 6c1-1 5-1 6 0"/></svg>
         <span>Mesembryanthemum</span>
@@ -392,6 +562,13 @@
       <button type="button" data-category="Tropicales" class="chip">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 19c0-7 6-13 14-14-1 8-7 14-14 14zM5 19l8-8"/></svg>
         <span>Tropicales</span>
+      </button>
+      <button type="button" data-category="Caudiciformes" class="chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="12" cy="16" rx="7" ry="4"/>
+          <path d="M12 12V6M9 8h6M10 5l2-2 2 2"/>
+        </svg>
+        <span>Caudiciformes</span>
       </button>
     </div>
   </section>
@@ -404,7 +581,7 @@
 <div id="drawer-backdrop" class="drawer-backdrop" aria-hidden="true"></div>
 
 <aside id="drawer" class="drawer" role="dialog" aria-modal="true" aria-hidden="true">
-  <div class="flex items-center justify-between p-5 border-b border-border">
+  <div class="flex items-center justify-between p-6 px-8 border-b border-border">
     <h2 class="font-serif text-2xl text-brand font-medium">Nouveau Spécimen</h2>
     <button id="close-drawer-btn" type="button" aria-label="Fermer" class="text-muted hover:text-ink p-2 cursor-pointer transition-colors duration-150">
       <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
@@ -412,7 +589,7 @@
   </div>
 
   <form id="plant-form" class="flex-1 flex flex-col overflow-hidden" novalidate>
-    <div class="flex-1 overflow-y-auto p-5 space-y-5">
+    <div class="flex-1 overflow-y-auto p-6 px-8 space-y-6">
       <div>
         <label for="plant-name" class="field-label">Nom de la plante</label>
         <input type="text" id="plant-name" required maxlength="120" placeholder="ex: Trichocereus pachanoi" class="field-input">
@@ -420,33 +597,152 @@
 
       <div>
         <label class="field-label">Rubrique</label>
-        <div id="category-picker" class="grid grid-cols-2 gap-2.5">
+        <div id="category-picker" class="grid grid-cols-1 gap-2">
           <button type="button" class="cat-option" data-category="Cactus">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22V2"/><path d="M12 10H9a2 2 0 0 1-2-2V6"/><path d="M12 14h3a2 2 0 0 0 2-2v-2"/></svg>
             <span>Cactus</span>
           </button>
-
           <button type="button" class="cat-option" data-category="Succulentes">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z"/>
-              <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(-30 12 21)"/>
-              <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(30 12 21)"/>
-              <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(-60 12 21)"/>
-              <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(60 12 21)"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z"/></svg>
             <span>Succulentes</span>
           </button>
-
           <button type="button" class="cat-option" data-category="Mesembryanthemum">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><ellipse cx="12" cy="14" rx="6" ry="5"/><path d="M12 9V6M9 6c1-1 5-1 6 0"/></svg>
-            <span>Mesemb</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="14" rx="6" ry="5"/><path d="M12 9V6M9 6c1-1 5-1 6 0"/></svg>
+            <span>Mesembryanthemum</span>
           </button>
           <button type="button" class="cat-option" data-category="Tropicales">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 19c0-7 6-13 14-14-1 8-7 14-14 14zM5 19l8-8"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 19c0-7 6-13 14-14-1 8-7 14-14 14z"/></svg>
             <span>Tropicales</span>
+          </button>
+          <button type="button" class="cat-option" data-category="Caudiciformes">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="16" rx="7" ry="4"/><path d="M12 12V6M9 8h6M10 5l2-2 2 2"/></svg>
+            <span>Caudiciformes</span>
           </button>
         </div>
         <input type="hidden" id="plant-category" value="" required>
+      </div>
+
+      <div>
+        <label class="field-label">Famille botanique</label>
+        <div class="custom-select-wrapper" id="family-select-wrapper">
+          <button type="button" class="custom-select-trigger placeholder" id="family-select-trigger">
+            <span class="trigger-label">Sélectionner une famille...</span>
+            <span class="custom-select-arrow"></span>
+          </button>
+          <div class="custom-select-dropdown" id="family-select-dropdown">
+            <div class="custom-option" data-value="Acanthaceae">Acanthaceae</div>
+            <div class="custom-option" data-value="Aizoaceae">Aizoaceae</div>
+            <div class="custom-option" data-value="Amaryllidaceae">Amaryllidaceae</div>
+            <div class="custom-option" data-value="Anacardiaceae">Anacardiaceae</div>
+            <div class="custom-option" data-value="Apocynaceae">Apocynaceae</div>
+            <div class="custom-option" data-value="Araceae">Araceae</div>
+            <div class="custom-option" data-value="Arecaceae">Arecaceae</div>
+            <div class="custom-option" data-value="Asparagaceae">Asparagaceae</div>
+            <div class="custom-option" data-value="Asphodelaceae">Asphodelaceae</div>
+            <div class="custom-option" data-value="Begoniaceae">Begoniaceae</div>
+            <div class="custom-option" data-value="Bromeliaceae">Bromeliaceae</div>
+            <div class="custom-option" data-value="Burseraceae">Burseraceae</div>
+            <div class="custom-option" data-value="Cactaceae">Cactaceae</div>
+            <div class="custom-option" data-value="Commelinaceae">Commelinaceae</div>
+            <div class="custom-option" data-value="Crassulaceae">Crassulaceae</div>
+            <div class="custom-option" data-value="Cucurbitaceae">Cucurbitaceae</div>
+            <div class="custom-option" data-value="Dioscoreaceae">Dioscoreaceae</div>
+            <div class="custom-option" data-value="Euphorbiaceae">Euphorbiaceae</div>
+            <div class="custom-option" data-value="Fabaceae">Fabaceae</div>
+            <div class="custom-option" data-value="Geraniaceae">Geraniaceae</div>
+            <div class="custom-option" data-value="Lamiaceae">Lamiaceae</div>
+            <div class="custom-option" data-value="Moraceae">Moraceae</div>
+            <div class="custom-option" data-value="Orchidaceae">Orchidaceae</div>
+            <div class="custom-option" data-value="Passifloraceae">Passifloraceae</div>
+            <div class="custom-option" data-value="Pedaliaceae">Pedaliaceae</div>
+            <div class="custom-option" data-value="Piperaceae">Piperaceae</div>
+            <div class="custom-option" data-value="Portulacaceae">Portulacaceae</div>
+            <div class="custom-option" data-value="Rubiaceae">Rubiaceae</div>
+            <div class="custom-option" data-value="Rutaceae">Rutaceae</div>
+            <div class="custom-option" data-value="Zamiaceae">Zamiaceae</div>
+            <div class="custom-option" data-value="Zingiberaceae">Zingiberaceae</div>
+            <div class="custom-option" data-value="Autre famille">Autre famille...</div>
+          </div>
+          <input type="hidden" id="plant-family" value="">
+        </div>
+      </div>
+
+      <div>
+        <label class="field-label">Exposition</label>
+        <div class="grid grid-cols-3 gap-2" id="exposure-picker">
+          <button type="button" class="exp-option" data-exposure="Plein soleil">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg>
+            Plein soleil
+          </button>
+          <button type="button" class="exp-option" data-exposure="Mi-ombre">
+            <svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3.5"/><path d="M8 2.5v1.5M2.5 8H4M4.2 4.2l1 1M11.8 4.2l-1 1M4.2 11.8l1-1"/><path d="M18 19h-5a2.5 2.5 0 0 1 0-5 4 4 0 0 1 7.5-1A2.5 2.5 0 0 1 18 19z"/></svg>
+            Mi-ombre
+          </button>
+          <button type="button" class="exp-option" data-exposure="Ombre">
+            <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            Ombre
+          </button>
+        </div>
+        <input type="hidden" id="plant-exposure" value="">
+      </div>
+
+      <div>
+        <div class="flex justify-between items-center mb-1">
+          <label for="plant-temp" class="field-label mb-0">Température minimale supportée</label>
+          <span id="temp-display" class="text-xs font-semibold text-brand bg-brand/10 px-2.5 py-0.5 rounded-full">0 °C</span>
+        </div>
+        <div class="temp-slider-container">
+          <input type="range" id="plant-temp" min="-20" max="15" step="1" value="0" class="custom-range cursor-pointer">
+        </div>
+        <div class="flex justify-between text-[10px] text-muted mt-1">
+          <span>-20°C (Très rustique)</span>
+          <span>0°C (Hors-gel)</span>
+          <span>+15°C (Tropical)</span>
+        </div>
+      </div>
+
+      <div>
+        <label class="field-label">Origine géographique</label>
+        <div class="custom-select-wrapper" id="origin-select-wrapper">
+          <button type="button" class="custom-select-trigger placeholder" id="origin-select-trigger">
+            <span class="trigger-label">Sélectionner une origine...</span>
+            <span class="custom-select-arrow"></span>
+          </button>
+          <div class="custom-select-dropdown" id="origin-select-dropdown">
+            <div class="custom-option-group-label">Afrique</div>
+            <div class="custom-option" data-value="Afrique du Sud">Afrique du Sud</div>
+            <div class="custom-option" data-value="Namibie">Namibie</div>
+            <div class="custom-option" data-value="Madagascar">Madagascar</div>
+            <div class="custom-option" data-value="Corne de l'Afrique">Corne de l'Afrique</div>
+            <div class="custom-option" data-value="Socotra">Socotra</div>
+            <div class="custom-option" data-value="Afrique tropicale">Afrique tropicale</div>
+            <div class="custom-option" data-value="Afrique du Nord">Afrique du Nord</div>
+            <div class="custom-option" data-value="Macaronésie">Macaronésie</div>
+
+            <div class="custom-option-group-label">Amériques</div>
+            <div class="custom-option" data-value="Mexique">Mexique</div>
+            <div class="custom-option" data-value="Sud-Ouest des États-Unis">Sud-Ouest des États-Unis</div>
+            <div class="custom-option" data-value="Amérique centrale & Caraïbes">Amérique centrale & Caraïbes</div>
+            <div class="custom-option" data-value="Andes & Amérique du Sud Ouest">Andes & Amérique du Sud Ouest</div>
+            <div class="custom-option" data-value="Brésil & Bassin Amazonien">Brésil & Bassin Amazonien</div>
+            <div class="custom-option" data-value="Pampas & Cône Sud">Pampas & Cône Sud</div>
+
+            <div class="custom-option-group-label">Asie & Pacifique</div>
+            <div class="custom-option" data-value="Péninsule Arabique">Péninsule Arabique</div>
+            <div class="custom-option" data-value="Asie du Sud-Est">Asie du Sud-Est</div>
+            <div class="custom-option" data-value="Subcontinent Indien">Subcontinent Indien</div>
+            <div class="custom-option" data-value="Asie de l'Est">Asie de l'Est</div>
+            <div class="custom-option" data-value="Australie & Pacifique">Australie & Pacifique</div>
+
+            <div class="custom-option-group-label">Europe & Méditerranée</div>
+            <div class="custom-option" data-value="Bassin Méditerranéen">Bassin Méditerranéen</div>
+            <div class="custom-option" data-value="Europe alpine & centrale">Europe alpine & centrale</div>
+
+            <div class="custom-option-group-label">Culture</div>
+            <div class="custom-option" data-value="Origine horticole / Hybride">Origine horticole / Hybride</div>
+          </div>
+          <input type="hidden" id="plant-origin" value="">
+        </div>
       </div>
 
       <div>
@@ -462,14 +758,9 @@
           <button type="button" id="clear-photo" class="photo-preview-clear" aria-label="Retirer">×</button>
         </div>
       </div>
-
-      <div>
-        <label for="plant-details" class="field-label">Notes de culture</label>
-        <textarea id="plant-details" rows="3" maxlength="500" placeholder="Exposition, substrat, remarques..." class="field-input resize-none"></textarea>
-      </div>
     </div>
 
-    <div class="p-5 border-t border-border bg-white">
+    <div class="p-6 px-8 border-t border-border bg-white">
       <button type="submit" id="submit-btn" class="btn-minimal w-full py-3.5">
         <span>Enregistrer le spécimen</span>
       </button>
@@ -479,16 +770,59 @@
 
 <div id="toast-container" class="fixed bottom-6 inset-x-4 flex flex-col items-center gap-2 z-[110] pointer-events-none"></div>
 
+<!-- ============ LIGHTBOX ============ -->
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Aperçu détaillé">
+  <button id="lightbox-back" class="lightbox-back" type="button" aria-label="Retour">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M19 12H5M12 19l-7-7 7-7"/>
+    </svg>
+  </button>
+
+  <div class="lightbox-content" id="lightbox-content">
+    <img id="lightbox-img" alt="">
+    <div class="lightbox-info">
+      <span class="lb-cat" id="lb-cat"></span>
+      <h2 class="lb-name" id="lb-name"></h2>
+      <p class="lb-family" id="lb-family"></p>
+      <div class="lb-grid">
+        <div class="lb-item" id="lb-expo-wrap">
+          <span class="lb-key">Exposition</span>
+          <span class="lb-val" id="lb-expo"></span>
+        </div>
+        <div class="lb-item" id="lb-temp-wrap">
+          <span class="lb-key">Température minimale</span>
+          <span class="lb-val" id="lb-temp"></span>
+        </div>
+        <div class="lb-item lb-full" id="lb-origin-wrap">
+          <span class="lb-key">Origine géographique</span>
+          <span class="lb-val" id="lb-origin"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 (function () {
   'use strict';
 
   const DB_NAME = 'plantouille-db';
-  const DB_VERSION = 2;
+  const DB_VERSION = 3;
   const STORE = 'plants';
-  const MAX_WIDTH = 800;
-  const QUALITY = 0.8;
+  const MAX_WIDTH = 1400;
+  const QUALITY = 0.85;
   const $ = (id) => document.getElementById(id);
+
+  const DEMO_PLANTS = [
+    { id: 'demo_1', name: 'Trichocereus pachanoi', category: 'Cactus', family: 'Cactaceae', exposure: 'Plein soleil', minTemp: '-5', origin: 'Andes & Amérique du Sud Ouest', photo: 'https://images.unsplash.com/photo-1459156212016-c812468e2115?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 1000, isDemo: true },
+    { id: 'demo_2', name: 'Echinocactus grusonii', category: 'Cactus', family: 'Cactaceae', exposure: 'Plein soleil', minTemp: '-8', origin: 'Mexique', photo: 'https://images.unsplash.com/photo-1509423350716-97f9360b4e09?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 2000, isDemo: true },
+    { id: 'demo_3', name: 'Lithops aucampiae', category: 'Mesembryanthemum', family: 'Aizoaceae', exposure: 'Plein soleil', minTemp: '5', origin: 'Afrique du Sud', photo: 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 3000, isDemo: true },
+    { id: 'demo_4', name: 'Haworthia fasciata', category: 'Succulentes', family: 'Asphodelaceae', exposure: 'Mi-ombre', minTemp: '-2', origin: 'Afrique du Sud', photo: 'https://images.unsplash.com/photo-1545241047-6083a3684587?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 4000, isDemo: true },
+    { id: 'demo_5', name: 'Euphorbia obesa', category: 'Caudiciformes', family: 'Euphorbiaceae', exposure: 'Plein soleil', minTemp: '2', origin: 'Afrique du Sud', photo: 'https://images.unsplash.com/photo-1567225557594-88d73e55f2cb?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 5000, isDemo: true },
+    { id: 'demo_6', name: 'Monstera deliciosa', category: 'Tropicales', family: 'Araceae', exposure: 'Mi-ombre', minTemp: '10', origin: 'Amérique centrale & Caraïbes', photo: 'https://images.unsplash.com/photo-1614594975525-e45190c55d0b?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 6000, isDemo: true },
+    { id: 'demo_7', name: 'Mammillaria elongata', category: 'Cactus', family: 'Cactaceae', exposure: 'Plein soleil', minTemp: '-4', origin: 'Mexique', photo: 'https://images.unsplash.com/photo-1519336555923-59661f41bb45?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 7000, isDemo: true },
+    { id: 'demo_8', name: 'Crassula ovata', category: 'Succulentes', family: 'Crassulaceae', exposure: 'Plein soleil', minTemp: '-3', origin: 'Afrique du Sud', photo: 'https://images.unsplash.com/photo-1509937528035-ad76254b0356?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 8000, isDemo: true }
+  ];
 
   const drawer = $('drawer');
   const drawerBackdrop = $('drawer-backdrop');
@@ -499,17 +833,36 @@
   const toastContainer = $('toast-container');
   const submitBtn = $('submit-btn');
 
+  const lightbox = $('lightbox');
+  const lightboxContent = $('lightbox-content');
+  const lightboxImg = $('lightbox-img');
+  const lightboxBack = $('lightbox-back');
+  const lbCat = $('lb-cat');
+  const lbName = $('lb-name');
+  const lbFamily = $('lb-family');
+  const lbExpoWrap = $('lb-expo-wrap');
+  const lbExpo = $('lb-expo');
+  const lbTempWrap = $('lb-temp-wrap');
+  const lbTemp = $('lb-temp');
+  const lbOriginWrap = $('lb-origin-wrap');
+  const lbOrigin = $('lb-origin');
+
   const plantNameInput = $('plant-name');
   const plantCategoryInput = $('plant-category');
+  const plantFamilyInput = $('plant-family');
+  const plantExposureInput = $('plant-exposure');
+  const plantTempInput = $('plant-temp');
+  const tempDisplay = $('temp-display');
+  const plantOriginInput = $('plant-origin');
+  
   const plantPhotoInput = $('plant-photo');
-  const plantDetailsInput = $('plant-details');
   const fileDrop = $('file-drop');
   const photoPreview = $('photo-preview');
   const photoPreviewImg = $('photo-preview-img');
   const clearPhotoBtn = $('clear-photo');
 
-  const categoryPicker = $('category-picker');
-  const categoryButtons = Array.from(categoryPicker.querySelectorAll('.cat-option'));
+  const categoryButtons = Array.from(document.querySelectorAll('.cat-option'));
+  const exposureButtons = Array.from(document.querySelectorAll('.exp-option'));
   const chipButtons = Array.from(document.querySelectorAll('.chip'));
 
   const searchInput = $('plant-search');
@@ -519,35 +872,73 @@
   let memFallback = false;
   let currentFilter = 'all';
 
+  function setupCustomSelect(wrapperId, defaultText) {
+    const wrapper = $(wrapperId);
+    if (!wrapper) return;
+    const trigger = wrapper.querySelector('.custom-select-trigger');
+    const labelSpan = trigger.querySelector('.trigger-label');
+    const hiddenInput = wrapper.querySelector('input[type="hidden"]');
+    const options = wrapper.querySelectorAll('.custom-option');
+
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      document.querySelectorAll('.custom-select-wrapper').forEach(w => {
+        if (w !== wrapper) w.classList.remove('open');
+      });
+      wrapper.classList.toggle('open');
+    });
+
+    options.forEach(opt => {
+      opt.addEventListener('click', (e) => {
+        e.stopPropagation();
+        options.forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        const val = opt.getAttribute('data-value');
+        hiddenInput.value = val;
+        labelSpan.textContent = val;
+        trigger.classList.remove('placeholder');
+        wrapper.classList.remove('open');
+      });
+    });
+
+    return function resetSelect() {
+      hiddenInput.value = '';
+      labelSpan.textContent = defaultText;
+      trigger.classList.add('placeholder');
+      options.forEach(o => o.classList.remove('selected'));
+      wrapper.classList.remove('open');
+    };
+  }
+
+  const resetFamilySelect = setupCustomSelect('family-select-wrapper', 'Sélectionner une famille...');
+  const resetOriginSelect = setupCustomSelect('origin-select-wrapper', 'Sélectionner une origine...');
+
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.custom-select-wrapper').forEach(w => w.classList.remove('open'));
+  });
+
   function escapeHtml(str) {
     return String(str ?? '').replace(/[&<>"']/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
   }
-
   function normalize(str) {
-    return String(str ?? '')
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .toLowerCase();
+    return String(str ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   }
 
   function idbOpenRaw() {
     return new Promise((resolve, reject) => {
       if (!('indexedDB' in window)) return reject(new Error('IndexedDB indisponible'));
-      let req;
-      try { req = indexedDB.open(DB_NAME, DB_VERSION); }
-      catch (e) { return reject(e); }
+      let req = indexedDB.open(DB_NAME, DB_VERSION);
       req.onupgradeneeded = () => {
         const db = req.result;
         if (!db.objectStoreNames.contains(STORE)) db.createObjectStore(STORE, { keyPath: 'id' });
       };
       req.onsuccess = () => resolve(req.result);
-      req.onerror = () => reject(req.error || new Error('Erreur ouverture DB'));
+      req.onerror = () => reject(req.error);
     });
   }
   async function getDB() {
     if (memFallback) return null;
-    try { return await idbOpenRaw(); }
-    catch (err) { memFallback = true; return null; }
+    try { return await idbOpenRaw(); } catch (err) { memFallback = true; return null; }
   }
   async function dbGetAll() {
     const db = await getDB();
@@ -599,10 +990,7 @@
         const img = new Image();
         img.onload = () => {
           let w = img.width, h = img.height;
-          if (w > MAX_WIDTH) {
-            h = Math.round((h * MAX_WIDTH) / w);
-            w = MAX_WIDTH;
-          }
+          if (w > MAX_WIDTH) { h = Math.round((h * MAX_WIDTH) / w); w = MAX_WIDTH; }
           const canvas = document.createElement('canvas');
           canvas.width = w; canvas.height = h;
           const ctx = canvas.getContext('2d');
@@ -621,13 +1009,11 @@
     document.body.style.overflow = 'hidden';
     plantNameInput.focus();
   }
-
   function closeDrawer() {
     drawer.classList.remove('open');
     drawerBackdrop.classList.remove('open');
-    document.body.style.overflow = '';
+    if (!lightbox.classList.contains('open')) document.body.style.overflow = '';
   }
-
   function clearPhotoSelection() {
     plantPhotoInput.value = '';
     photoPreviewImg.src = '';
@@ -635,26 +1021,85 @@
     fileDrop.classList.remove('hidden');
   }
 
-  ['click', 'pointerdown', 'touchstart'].forEach(eventType => {
-    if (openDrawerBtn) {
-      openDrawerBtn.addEventListener(eventType, (e) => {
-        e.preventDefault();
-        openDrawer();
-      }, { passive: false });
-    }
-    if (closeDrawerBtn) {
-      closeDrawerBtn.addEventListener(eventType, (e) => {
-        e.preventDefault();
-        closeDrawer();
-      }, { passive: false });
-    }
-    if (drawerBackdrop) {
-      drawerBackdrop.addEventListener(eventType, (e) => {
-        e.preventDefault();
-        closeDrawer();
-      }, { passive: false });
-    }
+  /* ============================================================
+     LIGHTBOX — détection fiable + layout adaptatif
+     ============================================================ */
+  function formatTemp(t) {
+    if (t === undefined || t === null || t === '') return null;
+    const n = Number(t);
+    return (n > 0 ? '+' + n : n) + ' °C';
+  }
+
+  function fillLightboxInfo(plant) {
+    lbCat.textContent = plant.category || '';
+    lbName.textContent = plant.name || '';
+    lbFamily.textContent = plant.family || '';
+    lbFamily.style.display = plant.family ? 'block' : 'none';
+
+    if (plant.exposure) { lbExpoWrap.style.display = 'flex'; lbExpo.textContent = plant.exposure; }
+    else { lbExpoWrap.style.display = 'none'; }
+
+    const tempStr = formatTemp(plant.minTemp);
+    if (tempStr) { lbTempWrap.style.display = 'flex'; lbTemp.textContent = tempStr; }
+    else { lbTempWrap.style.display = 'none'; }
+
+    if (plant.origin) { lbOriginWrap.style.display = 'flex'; lbOrigin.textContent = plant.origin; }
+    else { lbOriginWrap.style.display = 'none'; }
+  }
+
+  function showLightbox() {
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    lightbox.scrollTop = 0;
+  }
+
+  function openLightbox(plant) {
+    // 1) Reset classes
+    lightboxContent.classList.remove('is-portrait', 'is-landscape');
+
+    // 2) Remplit les textes
+    fillLightboxInfo(plant);
+
+    // 3) Charge l'image et détecte l'orientation via lightboxImg.onload (fiable)
+    lightboxImg.onload = function () {
+      const w = lightboxImg.naturalWidth || 0;
+      const h = lightboxImg.naturalHeight || 0;
+
+      lightboxContent.classList.remove('is-portrait', 'is-landscape');
+      if (h > 0 && w > 0 && h > w) {
+        lightboxContent.classList.add('is-portrait');
+      } else {
+        lightboxContent.classList.add('is-landscape');
+      }
+      showLightbox();
+    };
+
+    lightboxImg.onerror = function () {
+      lightboxContent.classList.remove('is-portrait', 'is-landscape');
+      lightboxContent.classList.add('is-landscape');
+      showLightbox();
+    };
+
+    lightboxImg.alt = plant.name || '';
+    lightboxImg.src = plant.photo;
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    if (!drawer.classList.contains('open')) document.body.style.overflow = '';
+  }
+
+  lightboxBack.addEventListener('click', (e) => { e.stopPropagation(); closeLightbox(); });
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
   });
+
+  if (openDrawerBtn) openDrawerBtn.onclick = function(e) { if (e) e.preventDefault(); openDrawer(); };
+  if (closeDrawerBtn) closeDrawerBtn.onclick = function(e) { if (e) e.preventDefault(); closeDrawer(); };
+  if (drawerBackdrop) drawerBackdrop.onclick = function(e) { if (e) e.preventDefault(); closeDrawer(); };
 
   categoryButtons.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -662,6 +1107,19 @@
       btn.classList.add('active');
       plantCategoryInput.value = btn.getAttribute('data-category');
     });
+  });
+
+  exposureButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      exposureButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      plantExposureInput.value = btn.getAttribute('data-exposure');
+    });
+  });
+
+  plantTempInput.addEventListener('input', (e) => {
+    const val = e.target.value;
+    tempDisplay.textContent = (val > 0 ? '+' + val : val) + ' °C';
   });
 
   chipButtons.forEach(btn => {
@@ -679,27 +1137,19 @@
 
   function getFilteredPlants() {
     const term = normalize(searchInput.value.trim());
-
     return plants.filter(p => {
       if (currentFilter !== 'all' && p.category !== currentFilter) return false;
       if (term) {
-        const haystack = normalize(`${p.name} ${p.details || ''} ${p.category || ''}`);
+        const haystack = normalize(`${p.name} ${p.family || ''} ${p.exposure || ''} ${p.origin || ''} ${p.category || ''}`);
         if (!haystack.includes(term)) return false;
       }
       return true;
     });
   }
 
-  searchInput.addEventListener('input', () => {
-    updateSearchClear();
-    renderGrid();
-  });
-
+  searchInput.addEventListener('input', () => { updateSearchClear(); renderGrid(); });
   clearSearchBtn.addEventListener('click', () => {
-    searchInput.value = '';
-    updateSearchClear();
-    searchInput.focus();
-    renderGrid();
+    searchInput.value = ''; updateSearchClear(); searchInput.focus(); renderGrid();
   });
 
   plantPhotoInput.addEventListener('change', async (e) => {
@@ -710,9 +1160,7 @@
       photoPreviewImg.src = compressed;
       fileDrop.classList.add('hidden');
       photoPreview.classList.remove('hidden');
-    } catch (err) {
-      showToast("Erreur d'image");
-    }
+    } catch (err) { showToast("Erreur d'image"); }
   });
 
   clearPhotoBtn.addEventListener('click', clearPhotoSelection);
@@ -721,11 +1169,14 @@
     e.preventDefault();
     const name = plantNameInput.value.trim();
     const category = plantCategoryInput.value;
-    const details = plantDetailsInput.value.trim();
+    const family = plantFamilyInput.value;
+    const exposure = plantExposureInput.value;
+    const minTemp = plantTempInput.value;
+    const origin = plantOriginInput.value;
     const photoSrc = photoPreviewImg.src;
 
     if (!name || !category || !photoSrc) {
-      showToast("Veuillez remplir les champs obligatoires");
+      showToast("Veuillez remplir les champs obligatoires (nom, rubrique, photo)");
       return;
     }
 
@@ -733,28 +1184,28 @@
     try {
       const newPlant = {
         id: 'p_' + Date.now(),
-        name,
-        category,
-        photo: photoSrc,
-        details,
-        date: Date.now()
+        name, category, family, exposure, minTemp, origin,
+        photo: photoSrc, date: Date.now()
       };
-
       await dbPut(newPlant);
+
+      plants = plants.filter(p => !p.isDemo);
       plants.unshift(newPlant);
 
-      searchInput.value = '';
-      updateSearchClear();
+      searchInput.value = ''; updateSearchClear();
       currentFilter = 'all';
       chipButtons.forEach(b => b.classList.toggle('active', b.getAttribute('data-category') === 'all'));
 
-      renderGrid();
-      updateStats();
-      closeDrawer();
-      form.reset();
-      clearPhotoSelection();
+      renderGrid(); updateStats(); closeDrawer();
+      form.reset(); clearPhotoSelection();
+      if (resetFamilySelect) resetFamilySelect();
+      if (resetOriginSelect) resetOriginSelect();
       categoryButtons.forEach(btn => btn.classList.remove('active'));
+      exposureButtons.forEach(btn => btn.classList.remove('active'));
       plantCategoryInput.value = '';
+      plantExposureInput.value = '';
+      plantTempInput.value = '0';
+      tempDisplay.textContent = '0 °C';
       showToast("Spécimen enregistré");
     } catch (err) {
       showToast("Erreur d'enregistrement");
@@ -763,15 +1214,12 @@
     }
   });
 
-  function updateStats() {
-    $('stat-total').textContent = plants.length;
-  }
+  function updateStats() { $('stat-total').textContent = plants.length; }
 
   async function deletePlant(id) {
     await dbDelete(id);
     plants = plants.filter(p => p.id !== id);
-    renderGrid();
-    updateStats();
+    renderGrid(); updateStats();
     showToast("Spécimen retiré");
   }
 
@@ -785,10 +1233,8 @@
         : "Aucun spécimen ne correspond à votre recherche.";
       grid.innerHTML = `
         <div class="col-span-full flex flex-col items-center text-center py-20 gap-3">
-          <svg class="w-9 h-9 text-muted/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 21V11"/>
-            <path d="M12 13c-3.5 0-6-2.5-6-6 3.5 0 6 2.5 6 6z"/>
-            <path d="M12 15c3.5 0 6-2.5 6-6-3.5 0-6 2.5-6 6z"/>
+          <svg class="w-9 h-9 text-muted/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M12 21V11"/><path d="M12 13c-3.5 0-6-2.5-6-6 3.5 0 6 2.5 6 6z"/>
           </svg>
           <p class="text-sm text-muted font-light">${message}</p>
         </div>`;
@@ -799,22 +1245,33 @@
       const card = document.createElement('article');
       card.className = 'card border border-border rounded-2xl overflow-hidden bg-white flex flex-col relative group shadow-sm';
 
+      const tempFormatted = formatTemp(plant.minTemp);
+
       card.innerHTML = `
-        <div class="relative aspect-[4/3] bg-white overflow-hidden border-b border-border">
-          <img src="${escapeHtml(plant.photo)}" alt="${escapeHtml(plant.name)}" class="w-full h-full object-cover">
+        <div class="relative aspect-[4/3] bg-[#fafafa] overflow-hidden border-b border-border">
+          <img class="card-photo w-full h-full object-cover" src="${escapeHtml(plant.photo)}" alt="${escapeHtml(plant.name)}" loading="lazy">
           <button type="button" class="card-delete" aria-label="Supprimer">
             <svg class="icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"/></svg>
             <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg>
           </button>
         </div>
-        <div class="p-5 flex flex-col flex-1 justify-between">
+        <div class="p-5 flex flex-col flex-1 justify-between gap-3">
           <div>
             <span class="text-[10px] uppercase tracking-wider text-brand font-semibold">${escapeHtml(plant.category)}</span>
-            <h3 class="font-serif text-xl font-normal text-ink leading-tight mt-1">${escapeHtml(plant.name)}</h3>
+            <h3 class="font-serif text-xl font-normal text-ink leading-tight mt-0.5">${escapeHtml(plant.name)}</h3>
+            ${plant.family ? `<p class="text-xs italic text-muted mt-0.5">${escapeHtml(plant.family)}</p>` : ''}
           </div>
-          ${plant.details ? `<p class="text-xs text-muted font-light mt-3 line-clamp-2 leading-relaxed">${escapeHtml(plant.details)}</p>` : ''}
+          
+          <div class="grid grid-cols-2 gap-2 pt-2 border-t border-border/60 text-[11px] text-muted">
+            ${plant.exposure ? `<div><span class="font-medium text-ink">Expo:</span> ${escapeHtml(plant.exposure)}</div>` : ''}
+            ${tempFormatted ? `<div><span class="font-medium text-ink">Min:</span> ${escapeHtml(tempFormatted)}</div>` : ''}
+            ${plant.origin ? `<div class="col-span-2"><span class="font-medium text-ink">Origine:</span> ${escapeHtml(plant.origin)}</div>` : ''}
+          </div>
         </div>
       `;
+
+      const imgEl = card.querySelector('.card-photo');
+      if (imgEl) imgEl.addEventListener('click', () => openLightbox(plant));
 
       const delBtn = card.querySelector('.card-delete');
       let confirmTimeout = null;
@@ -839,12 +1296,138 @@
       plants = await dbGetAll();
       plants.sort((a, b) => b.date - a.date);
     } catch (e) { plants = []; }
+
+    if (plants.length === 0) {
+      plants = DEMO_PLANTS.slice();
+    }
+
     updateSearchClear();
     renderGrid();
     updateStats();
   }
-
   init();
+})();
+</script>
+
+<script>
+/* ===== ANIMATIONS SAISONNIÈRES + NUAGE ===== */
+(function () {
+  const container = document.getElementById('seasonal-bg');
+  if (!container) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const rnd = (min, max) => Math.random() * (max - min) + min;
+
+  const month = new Date().getMonth() + 1;
+  let season;
+  if (month >= 3 && month <= 5)       season = 'spring';
+  else if (month >= 6 && month <= 8)  season = 'summer';
+  else if (month >= 9 && month <= 11) season = 'autumn';
+  else                                season = 'winter';
+
+  const forced = new URLSearchParams(window.location.search).get('season');
+  if (forced && ['spring', 'summer', 'autumn', 'winter'].includes(forced)) season = forced;
+
+  const CLOUD_SVG =
+    '<svg viewBox="0 0 60 22" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">' +
+      '<path d="M14,20 C7,20 3,16.5 3,12.5 C3,8.5 6,5.5 10,5.5 C11,3.5 14,1.5 18,1.5 C22,1.5 26,3.5 27,6.5 C28,5.5 30,4.5 33,4.5 C38,4.5 42,7.5 42,11.5 C43,11.5 44,11.5 45,11.5 C51,11.5 55,15.5 55,19 C55,19.5 54.5,20 54,20 L14,20 Z"/>' +
+    '</svg>';
+
+  function spawnCloud() {
+    const cloud = document.createElement('div');
+    const goingRight = Math.random() > 0.5;
+    cloud.className = 'season-cloud ' + (goingRight ? 'drift-right' : 'drift-left');
+    const width = rnd(70, 110);
+    cloud.style.width = width + 'px';
+    cloud.style.top = rnd(6, 18) + '%';
+    cloud.style.setProperty('--opacity', rnd(0.6, 0.85).toFixed(2));
+    const duration = rnd(40, 60);
+    cloud.style.animationDuration = duration + 's';
+    cloud.innerHTML = CLOUD_SVG;
+    container.appendChild(cloud);
+    setTimeout(() => {
+      cloud.remove();
+      setTimeout(spawnCloud, rnd(18000, 35000));
+    }, duration * 1000);
+  }
+
+  function initAutumn() {
+    const COLORS = ['#7a9e4b', '#8fae5d', '#6b8e3e', '#9bb874', '#8a8a52', '#a3a65c'];
+    const SHAPES = [
+      '<svg viewBox="0 0 20 30" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"><path d="M10 1 C 4.5 10, 4.5 21, 10 29 C 15.5 21, 15.5 10, 10 1 Z" fill="currentColor"/><path d="M10 4.5 L 10 25.5" stroke="rgba(255,255,255,0.28)" stroke-width="0.6" stroke-linecap="round"/></svg>',
+      '<svg viewBox="0 0 20 30" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"><path d="M10 1 C 2.5 8, 2.5 22, 10 29 C 17.5 22, 17.5 8, 10 1 Z" fill="currentColor"/><path d="M10 4 L 10 26" stroke="rgba(255,255,255,0.24)" stroke-width="0.6" stroke-linecap="round"/></svg>',
+      '<svg viewBox="0 0 20 30" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"><path d="M10 1 C 6 12, 6 18, 10 29 C 14 18, 14 12, 10 1 Z" fill="currentColor"/></svg>'
+    ];
+    const COUNT = 7;
+    const windAngle = rnd(-25, 25);
+    const windX = Math.sin(windAngle * Math.PI / 180);
+    const driftBase = windX * rnd(20, 40);
+    for (let i = 0; i < COUNT; i++) {
+      const leaf = document.createElement('div');
+      leaf.className = 'season-leaf';
+      const size = rnd(8, 13);
+      leaf.style.left = rnd(-5, 105) + '%';
+      leaf.style.width = size + 'px';
+      leaf.style.height = (size * 1.4) + 'px';
+      leaf.style.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+      leaf.style.setProperty('--drift', (driftBase + rnd(-6, 6)).toFixed(1) + 'vw');
+      leaf.style.setProperty('--lean', (windX * 12 + rnd(-4, 4)).toFixed(1) + 'deg');
+      leaf.style.setProperty('--opacity', rnd(0.30, 0.55).toFixed(2));
+      leaf.style.setProperty('--sway', rnd(3, 5).toFixed(2) + 's');
+      leaf.style.animationDuration = rnd(18, 28).toFixed(2) + 's';
+      leaf.style.animationDelay = '-' + rnd(0, 28).toFixed(2) + 's';
+      leaf.innerHTML = SHAPES[Math.floor(Math.random() * SHAPES.length)];
+      container.appendChild(leaf);
+    }
+  }
+
+  function initWinter() {
+    const COUNT = 20;
+    for (let i = 0; i < COUNT; i++) {
+      const flake = document.createElement('div');
+      flake.className = 'season-snow';
+      const size = rnd(1.5, 3);
+      flake.style.left = rnd(0, 100) + '%';
+      flake.style.width = size + 'px';
+      flake.style.height = size + 'px';
+      flake.style.setProperty('--drift', rnd(-15, 15).toFixed(1) + 'vw');
+      flake.style.setProperty('--opacity', rnd(0.30, 0.55).toFixed(2));
+      flake.style.animationDuration = rnd(16, 28).toFixed(2) + 's';
+      flake.style.animationDelay = '-' + rnd(0, 28).toFixed(2) + 's';
+      if (Math.random() < 0.3) flake.style.filter = 'blur(0.5px)';
+      container.appendChild(flake);
+    }
+  }
+
+  function initSpring() {
+    function burst() {
+      const count = 6 + Math.floor(Math.random() * 4);
+      for (let i = 0; i < count; i++) {
+        setTimeout(() => {
+          const drop = document.createElement('div');
+          drop.className = 'season-rain';
+          drop.style.left = rnd(0, 100) + '%';
+          drop.style.setProperty('--drift', rnd(-4, 4).toFixed(1) + 'vw');
+          drop.style.animationDuration = rnd(1.8, 3).toFixed(2) + 's';
+          container.appendChild(drop);
+          setTimeout(() => drop.remove(), 3500);
+        }, Math.random() * 2800);
+      }
+    }
+    setTimeout(burst, 1800);
+    (function scheduleNext() {
+      setTimeout(() => { burst(); scheduleNext(); }, 12000 + Math.random() * 6000);
+    })();
+  }
+
+  function initSummer() { /* seulement le nuage */ }
+
+  if (season === 'autumn') initAutumn();
+  else if (season === 'winter') initWinter();
+  else if (season === 'spring') initSpring();
+  else initSummer();
+
+  setTimeout(spawnCloud, rnd(2000, 5000));
 })();
 </script>
 

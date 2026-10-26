@@ -34,27 +34,21 @@
 <style>
   * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
   html { scroll-behavior: smooth; height: 100%; }
-  body { 
-    background: #ffffff; color: #0f0f0f; overflow-x: hidden; 
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    min-height: 100%;
-    display: flex; flex-direction: column;
+  body {
+    background: #ffffff; color: #0f0f0f; overflow-x: hidden;
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    min-height: 100%; display: flex; flex-direction: column;
     opacity: 0; animation: appFadeIn 0.8s ease forwards;
   }
   @keyframes appFadeIn { from { opacity: 0; } to { opacity: 1; } }
-
   ::selection { background: #153424; color: #ffffff; }
   ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: #ffffff; }
   ::-webkit-scrollbar-thumb { background: #e0e0e0; border-radius: 4px; }
 
   .site-header {
     position: sticky; top: 0; z-index: 40;
     background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   }
   .site-header::after {
     content: ''; position: absolute;
@@ -63,49 +57,17 @@
     pointer-events: none;
   }
 
-  .btn-minimal, .chip, .cat-option, .card-delete, .exp-option {
-    -webkit-backface-visibility: hidden; backface-visibility: hidden;
-    transform: translateZ(0); -webkit-font-smoothing: subpixel-antialiased;
-  }
-
   .brand-group { display: inline-flex; flex-direction: column; align-items: flex-start; line-height: 1; gap: 6px; padding: 2px 0; flex-shrink: 0; }
-  .brand-title {
-    font-family: 'Bodoni Moda', Georgia, serif; font-weight: 500; font-size: 33px;
-    letter-spacing: -0.014em; color: #153424; line-height: 0.92;
-    font-variation-settings: 'opsz' 96; transition: color 0.25s ease;
-  }
-  .brand-group:hover .brand-title { color: #1c4531; }
-
-  .brand-tagline-container { position: relative; display: inline-flex; align-items: center; }
-  .brand-tagline {
-    display: inline-flex; align-items: center;
-    font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500;
-    text-transform: uppercase; letter-spacing: 0.34em;
-    color: #888888; line-height: 1;
-    transition: color 0.25s ease;
-  }
-  .brand-group:hover .brand-tagline { color: #555555; }
+  .brand-title { font-family: 'Bodoni Moda', Georgia, serif; font-weight: 500; font-size: 33px; letter-spacing: -0.014em; color: #153424; line-height: 0.92; }
+  .brand-tagline { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.34em; color: #888888; }
 
   /* Scène animée */
   .header-scene-wrap { min-height: 44px; }
   .brand-scene { position: absolute; left: 0; right: 0; bottom: -16px; height: 110px; pointer-events: none; z-index: 1; }
-  .brand-scene-sun {
-    position: absolute; left: 0; bottom: 2px;
-    width: 7px; height: 7px; margin-left: -3.5px; border-radius: 50%;
-    background: #d4a548;
-    animation: scene-sun-x 20s linear infinite, scene-sun-y 20s infinite;
-    will-change: left, transform, opacity; z-index: 3;
-  }
-  @keyframes scene-sun-x {
-    0% { left: 0%; opacity: 0; } 4% { opacity: 1; }
-    96% { opacity: 1; } 100% { left: 100%; opacity: 0; }
-  }
-  @keyframes scene-sun-y {
-    0% { transform: translateY(0); animation-timing-function: ease-out; }
-    50% { transform: translateY(-55px); animation-timing-function: ease-in; }
-    100% { transform: translateY(0); }
-  }
-  .brand-scene-plant { position: absolute; bottom: 0; color: #153424; opacity: 0.85; transform-origin: bottom center; z-index: 2; will-change: transform; }
+  .brand-scene-sun { position: absolute; left: 0; bottom: 2px; width: 7px; height: 7px; margin-left: -3.5px; border-radius: 50%; background: #d4a548; animation: scene-sun-x 20s linear infinite, scene-sun-y 20s infinite; z-index: 3; }
+  @keyframes scene-sun-x { 0% { left: 0%; opacity: 0; } 4% { opacity: 1; } 96% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
+  @keyframes scene-sun-y { 0% { transform: translateY(0); animation-timing-function: ease-out; } 50% { transform: translateY(-55px); animation-timing-function: ease-in; } 100% { transform: translateY(0); } }
+  .brand-scene-plant { position: absolute; bottom: 0; color: #153424; opacity: 0.85; transform-origin: bottom center; z-index: 2; }
   .brand-scene-plant svg { display: block; width: 100%; height: 100%; overflow: visible; }
   .brand-scene-plant.plant-globular { left: 12%; width: 22px; height: 22px; margin-left: -11px; animation: scene-plant-globular 20s ease-in-out infinite; }
   .brand-scene-plant.plant-columnar { left: 27%; width: 18px; height: 26px; margin-left: -9px; animation: scene-plant-columnar 20s ease-in-out infinite; }
@@ -127,18 +89,17 @@
   }
 
   .btn-minimal {
-    position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
     padding: 10px 24px; border-radius: 9999px;
     background: #153424; color: #ffffff;
     font-family: 'Jost', sans-serif; font-weight: 500; font-size: 13px;
     letter-spacing: 0.04em; cursor: pointer; border: 1px solid #153424;
-    transition: background-color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
     box-shadow: 0 2px 8px rgba(21,52,36,0.08);
     flex-shrink: 0;
   }
-  .btn-minimal:hover { background: #1c4531; border-color: #1c4531; box-shadow: 0 4px 12px rgba(21,52,36,0.16); }
-  .btn-minimal:active { opacity: 0.85; transition-duration: 0.05s; }
-  .btn-minimal:disabled { opacity: 0.4; cursor: wait; box-shadow: none; }
+  .btn-minimal:hover { background: #1c4531; border-color: #1c4531; }
+  .btn-minimal:active { opacity: 0.85; }
+  .btn-minimal:disabled { opacity: 0.4; cursor: wait; }
 
   .btn-export {
     display: inline-flex; align-items: center; justify-content: center;
@@ -146,95 +107,49 @@
     border-radius: 9999px;
     background: #f7f7f7; color: #153424;
     border: 1px solid #f0f0f0;
-    cursor: pointer;
-    transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
-    flex-shrink: 0;
+    cursor: pointer; flex-shrink: 0;
   }
-  .btn-export:hover { background: #eef2f0; border-color: #e0e0e0; }
+  .btn-export:hover { background: #eef2f0; }
   .btn-export:active { background: #e2e8e5; }
   .btn-export svg { width: 16px; height: 16px; }
 
-  .chip {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 8px 18px; border: none; border-radius: 9999px;
-    background: #f7f7f7; color: #555555;
-    font-family: 'Jost', sans-serif; font-weight: 500; font-size: 13px;
-    letter-spacing: 0.02em; cursor: pointer; white-space: nowrap; flex-shrink: 0;
-    transition: color 0.18s ease, background-color 0.18s ease;
-  }
-  .chip svg { width: 16px; height: 16px; color: #888888; transition: color 0.18s ease; flex-shrink: 0; }
+  .chip { display: inline-flex; align-items: center; gap: 8px; padding: 8px 18px; border: none; border-radius: 9999px; background: #f7f7f7; color: #555555; font-family: 'Jost', sans-serif; font-weight: 500; font-size: 13px; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+  .chip svg { width: 16px; height: 16px; color: #888888; flex-shrink: 0; }
   .chip:hover { color: #153424; background: #eef2f0; }
   .chip:hover svg { color: #153424; }
   .chip.active { background: #153424; color: #ffffff; }
   .chip.active svg { color: #ffffff; }
 
-  .cat-option {
-    display: flex; align-items: center; gap: 10px;
-    min-height: 48px; padding: 10px 14px;
-    border: none; border-radius: 12px;
-    background: #f7f7f7; color: #0f0f0f;
-    font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 500;
-    letter-spacing: 0.02em; cursor: pointer; width: 100%;
-    transition: background-color 0.18s ease, color 0.18s ease;
-  }
-  .cat-option svg { width: 18px; height: 18px; color: #888888; transition: color 0.18s ease; flex-shrink: 0; }
+  .cat-option { display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 10px 14px; border: none; border-radius: 12px; background: #f7f7f7; color: #0f0f0f; font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; width: 100%; }
+  .cat-option svg { width: 18px; height: 18px; color: #888888; flex-shrink: 0; }
   .cat-option span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .cat-option:hover { background: #eef2f0; color: #153424; }
   .cat-option.active { background: #153424; color: #ffffff; }
   .cat-option.active svg { color: #ffffff; }
 
-  .exp-option {
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    padding: 12px 8px; border: none; border-radius: 12px;
-    background: #f7f7f7; color: #555555; font-size: 11px; font-weight: 500;
-    cursor: pointer; transition: all 0.18s ease; text-align: center; gap: 6px;
-  }
+  .exp-option { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px 8px; border: none; border-radius: 12px; background: #f7f7f7; color: #555555; font-size: 11px; font-weight: 500; cursor: pointer; text-align: center; gap: 6px; }
   .exp-option svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
   .exp-option:hover { background: #eef2f0; color: #153424; }
   .exp-option.active { background: #153424; color: #ffffff; }
 
   .step-panel { opacity: 1; transition: opacity 0.3s ease, transform 0.3s ease; }
-  .step-panel.step-hidden {
-    opacity: 0; pointer-events: none; position: absolute;
-    left: 0; right: 0; visibility: hidden; transform: translateY(-4px);
-  }
+  .step-panel.step-hidden { opacity: 0; pointer-events: none; position: absolute; left: 0; right: 0; visibility: hidden; transform: translateY(-4px); }
   .step-panel.step-fade-in { animation: stepFadeIn 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
   @keyframes stepFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
   .custom-select-wrapper { position: relative; width: 100%; }
   .custom-select-wrapper.open { position: relative; z-index: 55; }
-  .custom-select-trigger {
-    width: 100%; display: flex; align-items: center; justify-content: space-between;
-    padding: 10px 0; background: transparent; border: none;
-    border-bottom: 1px solid rgba(21,52,36,0.15);
-    color: #0f0f0f;
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-style: italic; font-size: 18px; font-weight: 500;
-    cursor: pointer; text-align: left;
-    transition: border-color 0.2s ease, color 0.2s ease;
-  }
+  .custom-select-trigger { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 10px 0; background: transparent; border: none; border-bottom: 1px solid rgba(21,52,36,0.15); color: #0f0f0f; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 18px; font-weight: 500; cursor: pointer; text-align: left; }
   .custom-select-trigger:hover, .custom-select-wrapper.open .custom-select-trigger { border-bottom-color: #153424; color: #153424; }
   .custom-select-trigger.placeholder { color: #888888; }
   .custom-select-arrow { width: 6px; height: 6px; border-right: 1.5px solid #153424; border-bottom: 1.5px solid #153424; transform: rotate(45deg); transition: transform 0.25s ease; opacity: 0.7; flex-shrink: 0; margin-left: 10px; }
   .custom-select-wrapper.open .custom-select-arrow { transform: rotate(-135deg); }
 
-  .custom-select-dropdown {
-    position: absolute; top: 100%; left: 0; right: 0;
-    max-height: 340px; overflow-y: auto; background: #ffffff; z-index: 60;
-    margin-top: 6px; padding: 8px 0;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.10), 0 0 0 1px rgba(21,52,36,0.06);
-    border-radius: 12px;
-    opacity: 0; visibility: hidden;
-    transform: translateY(-6px) scale(0.99);
-    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease;
-    scrollbar-width: thin; scrollbar-color: #dcdcdc transparent;
-  }
-  .custom-select-dropdown::-webkit-scrollbar { width: 4px; }
-  .custom-select-dropdown::-webkit-scrollbar-thumb { background: #e0e0e0; border-radius: 4px; }
+  .custom-select-dropdown { position: absolute; top: 100%; left: 0; right: 0; max-height: 340px; overflow-y: auto; background: #ffffff; z-index: 60; margin-top: 6px; padding: 8px 0; box-shadow: 0 15px 35px rgba(0,0,0,0.10), 0 0 0 1px rgba(21,52,36,0.06); border-radius: 12px; opacity: 0; visibility: hidden; transform: translateY(-6px) scale(0.99); }
   .custom-select-wrapper.open .custom-select-dropdown { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
 
   .custom-option-group-label { padding: 10px 18px 4px 18px; font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: #153424; opacity: 0.6; }
-  .custom-option { padding: 8px 18px; font-family: 'Jost', sans-serif; font-style: normal; font-size: 13.5px; color: #0f0f0f; cursor: pointer; transition: background-color 0.15s ease, color 0.15s ease; }
+  .custom-option { padding: 8px 18px; font-family: 'Jost', sans-serif; font-size: 13.5px; color: #0f0f0f; cursor: pointer; }
   .custom-option:hover { background-color: #f4f6f5; color: #153424; }
   .custom-option.selected { background-color: #153424; color: #ffffff; font-weight: 500; }
 
@@ -242,49 +157,18 @@
   .genre-custom-field .field-label { font-size: 10px; color: #888888; font-weight: 500; }
   .genre-custom-field .field-input { font-size: 13px; padding: 10px 14px; background: #f7f7f7; }
 
-  #page-backdrop {
-    position: fixed; inset: 0;
-    background: rgba(255, 255, 255, 0.10);
-    backdrop-filter: blur(3px) saturate(0.95);
-    -webkit-backdrop-filter: blur(3px) saturate(0.95);
-    z-index: 45; opacity: 0; pointer-events: none;
-    transition: opacity 0.25s ease;
-  }
+  #page-backdrop { position: fixed; inset: 0; background: rgba(255, 255, 255, 0.10); backdrop-filter: blur(3px) saturate(0.95); -webkit-backdrop-filter: blur(3px) saturate(0.95); z-index: 45; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
   #page-backdrop.visible { opacity: 1; pointer-events: auto; }
 
-  #drawer-dropdown-backdrop {
-    position: absolute; inset: 0;
-    background: rgba(255, 255, 255, 0.30);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    z-index: 40; opacity: 0; pointer-events: none;
-    transition: opacity 0.25s ease;
-  }
+  #drawer-dropdown-backdrop { position: absolute; inset: 0; background: rgba(255, 255, 255, 0.30); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); z-index: 40; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
   #drawer-dropdown-backdrop.visible { opacity: 1; pointer-events: auto; }
 
-  .back-btn {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 6px 12px 6px 8px;
-    background: transparent; border: none;
-    color: #888888; font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 500;
-    cursor: pointer; border-radius: 9999px;
-    transition: color 0.18s ease, background-color 0.18s ease;
-    white-space: nowrap;
-  }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px 6px 8px; background: transparent; border: none; color: #888888; font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; border-radius: 9999px; white-space: nowrap; }
   .back-btn:hover { color: #153424; background: rgba(21,52,36,0.05); }
   .back-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
 
-  .card-delete {
-    position: absolute; top: 12px; right: 12px;
-    width: 32px; height: 32px; border-radius: 50%;
-    background: rgba(255, 255, 255, 0.95); color: #0f0f0f;
-    display: flex; align-items: center; justify-content: center;
-    border: none; cursor: pointer;
-    z-index: 10; box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-    transition: background-color 0.18s ease, color 0.18s ease;
-  }
+  .card-delete { position: absolute; top: 12px; right: 12px; width: 32px; height: 32px; border-radius: 50%; background: rgba(255, 255, 255, 0.95); color: #0f0f0f; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; z-index: 10; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
   .card-delete:hover { color: #153424; background: #ffffff; }
-  .card-delete:active { background: #e11d48; color: #ffffff; }
   .card-delete.confirming { background: #e11d48 !important; color: #ffffff !important; }
   .card-delete .icon-x, .card-delete .icon-check { position: absolute; width: 14px; height: 14px; }
   .card-delete .icon-check { opacity: 0; }
@@ -299,68 +183,52 @@
   .drawer-backdrop { position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,0.25); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
   .drawer-backdrop.open { opacity: 1; pointer-events: auto; }
 
-  .drawer {
-    position: fixed; top: 0; right: 0; height: 100%; width: 100%; max-width: 440px; z-index: 100;
-    background: #ffffff;
-    transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    display: flex; flex-direction: column;
-    box-shadow: -10px 0 30px rgba(0,0,0,0.05);
-  }
+  .drawer { position: fixed; top: 0; right: 0; height: 100%; width: 100%; max-width: 440px; z-index: 100; background: #ffffff; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; box-shadow: -10px 0 30px rgba(0,0,0,0.05); }
   .drawer.open { transform: translateX(0); }
 
   .field-label { display: block; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #0f0f0f; margin-bottom: 6px; }
-  .field-input { width: 100%; padding: 12px 16px; background: #f7f7f7; border: none; border-radius: 12px; color: #0f0f0f; font-size: 14px; font-family: 'Jost', sans-serif; transition: background-color 0.18s ease; }
+  .field-input { width: 100%; padding: 12px 16px; background: #f7f7f7; border: none; border-radius: 12px; color: #0f0f0f; font-size: 14px; font-family: 'Jost', sans-serif; }
   .field-input:focus { outline: none; background: #eef2f0; }
 
   .temp-slider-container { position: relative; padding: 12px 0; }
   input[type="range"].custom-range { -webkit-appearance: none; appearance: none; width: 100%; height: 4px; background: #eef2f0; border-radius: 9999px; outline: none; margin: 6px 0; }
-  input[type="range"].custom-range::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #153424; cursor: pointer; box-shadow: 0 2px 6px rgba(21,52,36,0.2); border: 2px solid #ffffff; transition: transform 0.15s ease; }
-  input[type="range"].custom-range::-webkit-slider-thumb:hover { transform: scale(1.15); }
-  input[type="range"].custom-range::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: #153424; cursor: pointer; border: 2px solid #ffffff; }
+  input[type="range"].custom-range::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #153424; cursor: pointer; border: 2px solid #ffffff; }
 
-  input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; appearance: none; }
-
-  .search-minimal { display: flex; align-items: center; gap: 12px; padding: 12px 0; background: transparent; position: relative; min-width: 0; }
-  .search-minimal > svg { color: #888888; transition: color 0.18s ease; flex-shrink: 0; }
+  input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; }
+  .search-minimal { display: flex; align-items: center; gap: 12px; padding: 12px 0; min-width: 0; }
+  .search-minimal > svg { color: #888888; flex-shrink: 0; }
   .search-minimal:hover > svg, .search-minimal:focus-within > svg { color: #153424; }
-  .search-minimal input { flex: 1 1 auto; min-width: 0; background: transparent; border: none; outline: none; box-shadow: none; font-family: 'Jost', sans-serif; font-size: 15px; font-weight: 400; color: #0f0f0f; padding: 0; }
+  .search-minimal input { flex: 1 1 auto; min-width: 0; background: transparent; border: none; outline: none; font-family: 'Jost', sans-serif; font-size: 15px; color: #0f0f0f; padding: 0; }
   .search-clear { flex-shrink: 0; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: #888888; background: transparent; border: none; cursor: pointer; }
   .search-clear:hover { color: #153424; background: rgba(21,52,36,0.06); }
 
-  .file-drop { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px; border: 1px dashed #dcdcdc; border-radius: 12px; background: #ffffff; cursor: pointer; transition: border-color 0.18s ease; text-align: center; position: relative; }
+  .file-drop { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px; border: 1px dashed #dcdcdc; border-radius: 12px; background: #ffffff; cursor: pointer; text-align: center; position: relative; }
   .file-drop:hover { border-color: #153424; }
   .file-drop input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
 
   .photo-preview { position: relative; width: 100%; aspect-ratio: 4 / 3; border-radius: 12px; overflow: hidden; }
   .photo-preview img { width: 100%; height: 100%; object-fit: cover; }
   .photo-preview-clear { position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(0,0,0,0.7); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer; border: none; }
-  .photo-preview-clear:hover { background: rgba(0,0,0,0.85); }
 
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
   main { position: relative; }
-  #seasonal-bg {
-    position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0;
-    mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 92%);
-    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 92%);
-  }
-  .season-leaf { position: absolute; top: 0; animation-name: season-leaf-fall; animation-timing-function: linear; animation-iteration-count: infinite; will-change: transform, opacity; transform-origin: center center; }
-  .season-leaf svg { display: block; width: 100%; height: 100%; transform-origin: center center; animation: season-leaf-sway var(--sway, 3s) ease-in-out infinite alternate; }
+  #seasonal-bg { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 92%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 92%); }
+  .season-leaf { position: absolute; top: 0; animation: season-leaf-fall linear infinite; }
   @keyframes season-leaf-fall { 0% { transform: translate3d(0,-15vh,0); opacity: 0; } 10% { opacity: var(--opacity, .4); } 90% { opacity: var(--opacity, .4); } 100% { transform: translate3d(var(--drift,40px),115vh,0); opacity: 0; } }
-  @keyframes season-leaf-sway { from { transform: rotate(calc(var(--lean,0deg) - 10deg)); } to { transform: rotate(calc(var(--lean,0deg) + 10deg)); } }
-  .season-snow { position: absolute; top: 0; border-radius: 50%; background: rgba(120,150,130,0.35); animation-name: season-snow-fall; animation-timing-function: linear; animation-iteration-count: infinite; }
+  .season-snow { position: absolute; top: 0; border-radius: 50%; background: rgba(120,150,130,0.35); animation: season-snow-fall linear infinite; }
   @keyframes season-snow-fall { 0% { transform: translate3d(0,-8vh,0); opacity: 0; } 10% { opacity: var(--opacity, .45); } 90% { opacity: var(--opacity, .45); } 100% { transform: translate3d(var(--drift,20px),108vh,0); opacity: 0; } }
-  .season-rain { position: absolute; top: -20px; width: 1px; height: 8px; background: linear-gradient(to bottom, rgba(90,120,100,0), rgba(90,120,100,0.35)); border-radius: 1px; animation-name: season-rain-fall; animation-timing-function: linear; animation-fill-mode: forwards; }
+  .season-rain { position: absolute; top: -20px; width: 1px; height: 8px; background: linear-gradient(to bottom, rgba(90,120,100,0), rgba(90,120,100,0.35)); animation: season-rain-fall linear forwards; }
   @keyframes season-rain-fall { 0% { transform: translate3d(0,-20px,0); opacity: 0; } 10% { opacity: 0.55; } 90% { opacity: 0.55; } 100% { transform: translate3d(var(--drift,10px),105vh,0); opacity: 0; } }
   @media (prefers-reduced-motion: reduce) { #seasonal-bg { display: none !important; } }
 
-  .lightbox { position: fixed; inset: 0; z-index: 200; background: rgba(8, 8, 8, 0.96); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: flex; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; overflow-y: auto; padding: 24px 20px; }
+  .lightbox { position: fixed; inset: 0; z-index: 200; background: rgba(8, 8, 8, 0.96); backdrop-filter: blur(10px); display: flex; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; overflow-y: auto; padding: 24px 20px; }
   .lightbox.open { opacity: 1; pointer-events: auto; }
   .lightbox-content { margin: auto; display: flex; flex-direction: column; align-items: center; gap: 26px; transform: scale(0.96); opacity: 0; transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease; width: 100%; }
   .lightbox.open .lightbox-content { transform: scale(1); opacity: 1; }
   .lightbox-content img { display: block; max-width: 90vw; max-height: 55vh; width: auto; height: auto; object-fit: contain; border-radius: 4px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55); flex-shrink: 0; }
-  .lightbox-content.is-landscape { flex-direction: column; max-width: 94vw; gap: 24px; }
+  .lightbox-content.is-landscape { max-width: 94vw; gap: 24px; }
   .lightbox-content.is-landscape img { max-width: 94vw; max-height: 62vh; }
   .lightbox-content.is-portrait { flex-direction: row-reverse; justify-content: center; gap: 56px; max-width: 94vw; }
   .lightbox-content.is-portrait img { max-width: 52vw; max-height: 86vh; }
@@ -393,11 +261,9 @@
 
 <header class="site-header">
   <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-    <a href="#" class="brand-group group">
+    <a href="#" class="brand-group">
       <span class="brand-title">Plantouille</span>
-      <div class="brand-tagline-container">
-        <span class="brand-tagline">Cabinet du Dr-Cactus</span>
-      </div>
+      <span class="brand-tagline">Cabinet du Dr-Cactus</span>
     </a>
 
     <div class="header-scene-wrap flex-1 self-stretch relative" aria-hidden="true">
@@ -405,8 +271,7 @@
         <div class="brand-scene-sun"></div>
         <div class="brand-scene-plant plant-globular">
           <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M2 21 Q2 3 11 3 Q20 3 20 21 Z"/>
-            <path d="M11 3 V21"/><path d="M6 4 Q5 12 6 21"/><path d="M16 4 Q17 12 16 21"/>
+            <path d="M2 21 Q2 3 11 3 Q20 3 20 21 Z"/><path d="M11 3 V21"/><path d="M6 4 Q5 12 6 21"/><path d="M16 4 Q17 12 16 21"/>
           </svg>
         </div>
         <div class="brand-scene-plant plant-columnar">
@@ -431,16 +296,14 @@
         </div>
         <div class="brand-scene-plant plant-beaucarnea">
           <svg viewBox="0 0 18 26" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 25 Q2 25 2 21 Q2 16 5 15.5 L13 15.5 Q16 16 16 21 Q16 25 14 25 Z"/>
-            <path d="M9 15.5 V5"/>
-            <path d="M9 5 Q5.5 4 3 1"/><path d="M9 5 Q6.5 3 6 0.5"/><path d="M9 5 L9 0.5"/><path d="M9 5 Q11.5 3 12 0.5"/><path d="M9 5 Q12.5 4 15 1"/>
+            <path d="M4 25 Q2 25 2 21 Q2 16 5 15.5 L13 15.5 Q16 16 16 21 Q16 25 14 25 Z"/><path d="M9 15.5 V5"/><path d="M9 5 Q5.5 4 3 1"/><path d="M9 5 Q6.5 3 6 0.5"/><path d="M9 5 L9 0.5"/><path d="M9 5 Q11.5 3 12 0.5"/><path d="M9 5 Q12.5 4 15 1"/>
           </svg>
         </div>
       </div>
     </div>
 
     <div class="flex items-center gap-2 flex-shrink-0">
-      <button id="export-btn" type="button" class="btn-export" title="Exporter la collection (JSON)">
+      <button id="export-btn" type="button" class="btn-export" title="Exporter la collection">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 3v12M7 10l5 5 5-5M5 21h14"/>
         </svg>
@@ -463,11 +326,9 @@
 
   <section class="pb-4">
     <div class="search-minimal">
-      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-        <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>
-      </svg>
-      <input id="plant-search" type="search" aria-label="Rechercher une plante" placeholder="Rechercher une plante, famille, origine…" autocomplete="off">
-      <button type="button" id="clear-search" aria-label="Effacer la recherche" class="hidden search-clear">
+      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="plant-search" type="search" placeholder="Rechercher une plante, famille, origine…" autocomplete="off">
+      <button type="button" id="clear-search" class="hidden search-clear">
         <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
     </div>
@@ -501,9 +362,7 @@
           <span>Tropicales</span>
         </button>
         <button type="button" data-category="Caudiciformes" class="chip">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <ellipse cx="12" cy="16" rx="7" ry="4"/><path d="M12 12V6M9 8h6M10 5l2-2 2 2"/>
-          </svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="16" rx="7" ry="4"/><path d="M12 12V6M9 8h6M10 5l2-2 2 2"/></svg>
           <span>Caudiciformes</span>
         </button>
       </div>
@@ -516,7 +375,6 @@
           <span>Rubriques</span>
         </button>
       </div>
-
       <div class="custom-select-wrapper" id="filter-species-wrapper">
         <button type="button" class="custom-select-trigger placeholder" id="filter-species-trigger">
           <span class="trigger-label">Sélectionner un genre...</span>
@@ -524,7 +382,6 @@
         </button>
         <div class="custom-select-dropdown" id="filter-species-dropdown"></div>
       </div>
-
       <div class="genre-custom-field">
         <label class="field-label" for="filter-genre-custom-input">Nom du genre (si absent de la liste)</label>
         <input type="text" id="filter-genre-custom-input" class="field-input" placeholder="ex: Un genre rare, personnel…" autocomplete="off">
@@ -595,7 +452,6 @@
               <span>Changer</span>
             </button>
           </div>
-
           <div class="custom-select-wrapper" id="drawer-species-wrapper">
             <button type="button" class="custom-select-trigger placeholder" id="drawer-species-trigger">
               <span class="trigger-label">Sélectionner un genre...</span>
@@ -603,7 +459,6 @@
             </button>
             <div class="custom-select-dropdown" id="drawer-species-dropdown"></div>
           </div>
-
           <div class="genre-custom-field">
             <label class="field-label" for="plant-genre-custom-input">Nom du genre (si absent de la liste)</label>
             <input type="text" id="plant-genre-custom-input" class="field-input" placeholder="ex: Un genre rare, personnel…" autocomplete="off">
@@ -680,7 +535,6 @@
           </div>
           <input type="hidden" id="plant-family" value="">
         </div>
-
         <div class="genre-custom-field">
           <label class="field-label" for="family-custom-input">Nom de la famille (si absente de la liste)</label>
           <input type="text" id="family-custom-input" class="field-input" placeholder="ex: Une famille rare, personnelle…" autocomplete="off">
@@ -758,8 +612,7 @@
           </div>
           <input type="hidden" id="plant-origin" value="">
         </div>
-
-        <div id="origin-country-fields" class="custom-fields" style="display:none;margin-top:14px;padding:14px 16px;background:#f7f7f7;border-radius:12px;">
+        <div id="origin-country-fields" style="display:none;margin-top:14px;padding:14px 16px;background:#f7f7f7;border-radius:12px;">
           <label class="field-label">Pays d'origine (optionnel)</label>
           <input type="text" id="plant-origin-country" class="field-input" placeholder="ex: Brésil, Mexique, Madagascar…" autocomplete="off" style="background:#ffffff;font-size:13px;padding:10px 14px;">
         </div>
@@ -822,100 +675,11 @@
   const $ = (id) => document.getElementById(id);
 
   const SPECIES = {
-    'Cactus': [
-      'Acanthocereus','Acharagma','Ancistrocactus','Aporocactus','Ariocarpus',
-      'Armatocereus','Arrojadoa','Astrophytum','Austrocactus','Austrocephalocereus',
-      'Austrocylindropuntia','Aylostera','Aztekium','Bergerocactus','Blossfeldia',
-      'Borzicactus','Brachycereus','Brasilicactus','Brasilicereus','Browningia',
-      'Calymmanthium','Carnegiea','Cephalocereus','Cereus','Cintia','Cleistocactus',
-      'Coleocephalocereus','Consolea','Copiapoa','Corryocactus','Coryphantha',
-      'Cumulopuntia','Cylindropuntia','Denmoza','Discocactus','Echinocactus',
-      'Echinocereus','Echinomastus','Echinopsis','Epiphyllum','Eriosyce',
-      'Escobaria','Espostoa','Espostoopsis','Eulychnia','Facheiroa','Ferocactus',
-      'Frailea','Geohintonia','Gymnocalycium','Haageocereus','Hamatocactus',
-      'Harrisia','Hatiora','Hylocereus','Isolatocereus','Islaya','Jasminocereus',
-      'Lasiocereus','Leocereus','Lepismium','Leptocereus','Leuchtenbergia',
-      'Lobivia','Lophophora','Loxanthocereus','Mammillaria','Mammilloydia',
-      'Matucana','Melocactus','Micranthocereus','Mila','Monvillea','Morawetzia',
-      'Myrtillocactus','Neobuxbaumia','Neolloydia','Neoporteria','Neoraimondia',
-      'Neowerdermannia','Notocactus','Obregonia','Opuntia','Oreocereus','Oroya',
-      'Ortegocactus','Pachycereus','Parodia','Pediocactus','Pelecyphora',
-      'Peniocereus','Pereskia','Pilosocereus','Polaskia','Pterocactus',
-      'Pygmaeocereus','Rebutia','Rhipsalis','Schlumbergera','Selenicereus',
-      'Setiechinopsis','Stenocactus','Stenocereus','Stephanocereus','Stetsonia',
-      'Strombocactus','Sulcorebutia','Tacinga','Tephrocactus','Thelocactus',
-      'Trichocereus','Tunilla','Turbinicarpus','Uebelmannia','Weberbauerocereus',
-      'Weingartia','Wilcoxia','Yavia'
-    ],
-    'Succulentes': [
-      'Adromischus','Aeonium','Agave','Aichryson','Albuca','Alluaudia','Alluaudiopsis',
-      'Aloe','Anacampseros','Astroloba','Avonia','Beaucarnea','Bowiea','Bulbine',
-      'Calibanus','Caralluma','Ceraria','Ceropegia','Cissus','Cotyledon','Crassula',
-      'Dasylirion','Decarya','Didierea','Dracaena','Dudleya','Duvalia','Echeveria',
-      'Edithcolea','Encephalartos','Euphorbia','Fockea','Frithia','Gasteria',
-      'Gonialoe','Graptopetalum','Graptoveria','Greenovia','Haworthia','Haworthiopsis',
-      'Huernia','Kalanchoe','Kleinia','Kumara','Lapidaria','Larryleachia','Lithops',
-      'Manfreda','Monadenium','Monanthes','Orostachys','Oscularia','Othonna',
-      'Pachyphytum','Pachyveria','Pachypodium','Pedilanthus','Pelargonium','Peperomia',
-      'Plectranthus','Polianthes','Portulacaria','Pseudolithos','Rhombophyllum',
-      'Rochea','Rosularia','Sansevieria','Sedeveria','Sedum','Senecio','Sempervivum',
-      'Sinocrassula','Stapelia','Synadenium','Tulista','Tylecodon','Umbilicus',
-      'Villadia','Xerosicyos','Yucca'
-    ],
-    'Mesembryanthemum': [
-      'Acrodon','Aloinopsis','Amphibolia','Antimima','Apatesia','Aptenia',
-      'Argyroderma','Aspazoma','Bergeranthus','Berrisfordia','Bijlia',
-      'Braunsia','Brownanthus','Carpanthea','Carpobrotus','Carruanthus',
-      'Cephalophyllum','Cerochlamys','Chasmatophyllum','Cheiridopsis',
-      'Circandra','Cleretum','Conicosia','Conophytum','Corpuscularia',
-      'Cylindrophyllum','Dactylopsis','Delosperma','Dinteranthus','Diplosoma',
-      'Disphyma','Dorotheanthus','Dracophilus','Drosanthemum','Eberlanzia',
-      'Ebracteola','Ectotropis','Enarganthe','Erepsia','Esterhuysenia',
-      'Faucaria','Fenestraria','Frithia','Galenia','Gibbaeum','Glottiphyllum',
-      'Hallianthus','Hereroa','Herreanthus','Hydrodea','Imitaria','Jacobsenia',
-      'Jensenobotrya','Jordaaniella','Juttadinteria','Khadia','Lampranthus',
-      'Lapidaria','Leipoldtia','Lithops','Machairophyllum','Malephora',
-      'Maughania','Meyerophytum','Mitrophyllum','Monilaria','Mossia','Muiria',
-      'Namaquanthus','Namibia','Nananthus','Nelia','Neohenricia','Octopoma',
-      'Odontophorus','Oophytum','Ophthalmophyllum','Orthopterum','Oscularia',
-      'Ottosonderia','Peersia','Phyllobolus','Pleiospilos','Polymita','Prenia',
-      'Prepodesma','Psammophora','Pseudobrownanthus','Rabiea','Rhinephyllum',
-      'Rhombophyllum','Ruschia','Ruschianthus','Saphesia','Sceletium',
-      'Schwantesia','Scopelogena','Smicrostigma','Stayneria','Stoeberia',
-      'Stomatium','Tanquana','Titanopsis','Trichodiadema','Vanheerdea',
-      'Vanzijlia','Vlokia','Wooleya','Zeuktophyllum'
-    ],
-    'Tropicales': [
-      'Acalypha','Aglaonema','Alocasia','Alpinia','Ananas','Anthurium','Araucaria',
-      'Ardisia','Aspidistra','Asplenium','Begonia','Billbergia','Bromelia',
-      'Caladium','Calathea','Canna','Chlorophytum','Cissus','Clivia',
-      'Codiaeum','Colocasia','Cordyline','Costus','Crinum','Croton',
-      'Cryptanthus','Ctenanthe','Curculigo','Curcuma','Cycas','Cyrtomium',
-      'Davallia','Dicksonia','Dieffenbachia','Dracaena','Epipremnum',
-      'Eucomis','Ficus','Fittonia','Freesia','Gardenia','Gloriosa',
-      'Guzmania','Haemanthus','Hedychium','Heliconia','Heptapleurum',
-      'Hippeastrum','Homalomena','Hoya','Hymenocallis','Impatiens','Jasminum',
-      'Maranta','Monstera','Musa','Neoregelia','Nepenthes','Nephrolepis',
-      'Nidularium','Pachira','Pandanus','Paphiopedilum','Pellionia',
-      'Peperomia','Philodendron','Phlebodium','Phoenix','Pilea','Piper',
-      'Platycerium','Plumeria','Polystichum','Pothos','Pteris','Rhapis',
-      'Sansevieria','Sarracenia','Scindapsus','Schefflera','Spathiphyllum',
-      'Strelitzia','Stromanthe','Syngonium','Thaumatophyllum','Tillandsia',
-      'Tradescantia','Vriesea','Yucca','Zamioculcas','Zingiber'
-    ],
-    'Caudiciformes': [
-      'Adansonia','Adenia','Adenium','Albuca','Anacampseros','Avonia',
-      'Beaucarnea','Bombax','Brachystelma','Bursera','Ceraria','Ceropegia',
-      'Cibirhiza','Cissus','Commiphora','Cyphostemma','Dendrosicyos',
-      'Dioscorea','Dorstenia','Euphorbia','Ficus','Fockea','Gerrardanthus',
-      'Hydnophytum','Ibervillea','Ipomoea','Jatropha','Kedrostis','Kleinia',
-      'Lannea','Laportea','Massonia','Momordica','Monadenium','Myrmecodia',
-      'Nolina','Operculicarya','Othonna','Oxalis','Pachypodium','Pelargonium',
-      'Phyllanthus','Plumeria','Pseudobombax','Pterodiscus','Pyrenacantha',
-      'Raphionacme','Sarcocaulon','Senecio','Sesamothamnus','Sinningia',
-      'Sterculia','Synadenium','Talinum','Testudinaria','Tylecodon',
-      'Uncarina','Welwitschia','Cussonia'
-    ]
+    'Cactus': ['Acanthocereus','Acharagma','Ancistrocactus','Aporocactus','Ariocarpus','Armatocereus','Arrojadoa','Astrophytum','Austrocactus','Austrocephalocereus','Austrocylindropuntia','Aylostera','Aztekium','Bergerocactus','Blossfeldia','Borzicactus','Brachycereus','Brasilicactus','Brasilicereus','Browningia','Calymmanthium','Carnegiea','Cephalocereus','Cereus','Cintia','Cleistocactus','Coleocephalocereus','Consolea','Copiapoa','Corryocactus','Coryphantha','Cumulopuntia','Cylindropuntia','Denmoza','Discocactus','Echinocactus','Echinocereus','Echinomastus','Echinopsis','Epiphyllum','Eriosyce','Escobaria','Espostoa','Espostoopsis','Eulychnia','Facheiroa','Ferocactus','Frailea','Geohintonia','Gymnocalycium','Haageocereus','Hamatocactus','Harrisia','Hatiora','Hylocereus','Isolatocereus','Islaya','Jasminocereus','Lasiocereus','Leocereus','Lepismium','Leptocereus','Leuchtenbergia','Lobivia','Lophophora','Loxanthocereus','Mammillaria','Mammilloydia','Matucana','Melocactus','Micranthocereus','Mila','Monvillea','Morawetzia','Myrtillocactus','Neobuxbaumia','Neolloydia','Neoporteria','Neoraimondia','Neowerdermannia','Notocactus','Obregonia','Opuntia','Oreocereus','Oroya','Ortegocactus','Pachycereus','Parodia','Pediocactus','Pelecyphora','Peniocereus','Pereskia','Pilosocereus','Polaskia','Pterocactus','Pygmaeocereus','Rebutia','Rhipsalis','Schlumbergera','Selenicereus','Setiechinopsis','Stenocactus','Stenocereus','Stephanocereus','Stetsonia','Strombocactus','Sulcorebutia','Tacinga','Tephrocactus','Thelocactus','Trichocereus','Tunilla','Turbinicarpus','Uebelmannia','Weberbauerocereus','Weingartia','Wilcoxia','Yavia'],
+    'Succulentes': ['Adromischus','Aeonium','Agave','Aichryson','Albuca','Alluaudia','Alluaudiopsis','Aloe','Anacampseros','Astroloba','Avonia','Beaucarnea','Bowiea','Bulbine','Calibanus','Caralluma','Ceraria','Ceropegia','Cissus','Cotyledon','Crassula','Dasylirion','Decarya','Didierea','Dracaena','Dudleya','Duvalia','Echeveria','Edithcolea','Encephalartos','Euphorbia','Fockea','Frithia','Gasteria','Gonialoe','Graptopetalum','Graptoveria','Greenovia','Haworthia','Haworthiopsis','Huernia','Kalanchoe','Kleinia','Kumara','Lapidaria','Larryleachia','Lithops','Manfreda','Monadenium','Monanthes','Orostachys','Oscularia','Othonna','Pachyphytum','Pachyveria','Pachypodium','Pedilanthus','Pelargonium','Peperomia','Plectranthus','Polianthes','Portulacaria','Pseudolithos','Rhombophyllum','Rochea','Rosularia','Sansevieria','Sedeveria','Sedum','Senecio','Sempervivum','Sinocrassula','Stapelia','Synadenium','Tulista','Tylecodon','Umbilicus','Villadia','Xerosicyos','Yucca'],
+    'Mesembryanthemum': ['Acrodon','Aloinopsis','Amphibolia','Antimima','Apatesia','Aptenia','Argyroderma','Aspazoma','Bergeranthus','Berrisfordia','Bijlia','Braunsia','Brownanthus','Carpanthea','Carpobrotus','Carruanthus','Cephalophyllum','Cerochlamys','Chasmatophyllum','Cheiridopsis','Circandra','Cleretum','Conicosia','Conophytum','Corpuscularia','Cylindrophyllum','Dactylopsis','Delosperma','Dinteranthus','Diplosoma','Disphyma','Dorotheanthus','Dracophilus','Drosanthemum','Eberlanzia','Ebracteola','Ectotropis','Enarganthe','Erepsia','Esterhuysenia','Faucaria','Fenestraria','Frithia','Galenia','Gibbaeum','Glottiphyllum','Hallianthus','Hereroa','Herreanthus','Hydrodea','Imitaria','Jacobsenia','Jensenobotrya','Jordaaniella','Juttadinteria','Khadia','Lampranthus','Lapidaria','Leipoldtia','Lithops','Machairophyllum','Malephora','Maughania','Meyerophytum','Mitrophyllum','Monilaria','Mossia','Muiria','Namaquanthus','Namibia','Nananthus','Nelia','Neohenricia','Octopoma','Odontophorus','Oophytum','Ophthalmophyllum','Orthopterum','Oscularia','Ottosonderia','Peersia','Phyllobolus','Pleiospilos','Polymita','Prenia','Prepodesma','Psammophora','Pseudobrownanthus','Rabiea','Rhinephyllum','Rhombophyllum','Ruschia','Ruschianthus','Saphesia','Sceletium','Schwantesia','Scopelogena','Smicrostigma','Stayneria','Stoeberia','Stomatium','Tanquana','Titanopsis','Trichodiadema','Vanheerdea','Vanzijlia','Vlokia','Wooleya','Zeuktophyllum'],
+    'Tropicales': ['Acalypha','Aglaonema','Alocasia','Alpinia','Ananas','Anthurium','Araucaria','Ardisia','Aspidistra','Asplenium','Begonia','Billbergia','Bromelia','Caladium','Calathea','Canna','Chlorophytum','Cissus','Clivia','Codiaeum','Colocasia','Cordyline','Costus','Crinum','Croton','Cryptanthus','Ctenanthe','Curculigo','Curcuma','Cycas','Cyrtomium','Davallia','Dicksonia','Dieffenbachia','Dracaena','Epipremnum','Eucomis','Ficus','Fittonia','Freesia','Gardenia','Gloriosa','Guzmania','Haemanthus','Hedychium','Heliconia','Heptapleurum','Hippeastrum','Homalomena','Hoya','Hymenocallis','Impatiens','Jasminum','Maranta','Monstera','Musa','Neoregelia','Nepenthes','Nephrolepis','Nidularium','Pachira','Pandanus','Paphiopedilum','Pellionia','Peperomia','Philodendron','Phlebodium','Phoenix','Pilea','Piper','Platycerium','Plumeria','Polystichum','Pothos','Pteris','Rhapis','Sansevieria','Sarracenia','Scindapsus','Schefflera','Spathiphyllum','Strelitzia','Stromanthe','Syngonium','Thaumatophyllum','Tillandsia','Tradescantia','Vriesea','Yucca','Zamioculcas','Zingiber'],
+    'Caudiciformes': ['Adansonia','Adenia','Adenium','Albuca','Anacampseros','Avonia','Beaucarnea','Bombax','Brachystelma','Bursera','Ceraria','Ceropegia','Cibirhiza','Cissus','Commiphora','Cyphostemma','Dendrosicyos','Dioscorea','Dorstenia','Euphorbia','Ficus','Fockea','Gerrardanthus','Hydnophytum','Ibervillea','Ipomoea','Jatropha','Kedrostis','Kleinia','Lannea','Laportea','Massonia','Momordica','Monadenium','Myrmecodia','Nolina','Operculicarya','Othonna','Oxalis','Pachypodium','Pelargonium','Phyllanthus','Plumeria','Pseudobombax','Pterodiscus','Pyrenacantha','Raphionacme','Sarcocaulon','Senecio','Sesamothamnus','Sinningia','Sterculia','Synadenium','Talinum','Testudinaria','Tylecodon','Uncarina','Welwitschia','Cussonia']
   };
 
   const DEMO_PLANTS = [
@@ -939,6 +703,7 @@
   const submitBtn = $('submit-btn');
   const pageBackdrop = $('page-backdrop');
   const drawerDropdownBackdrop = $('drawer-dropdown-backdrop');
+  const exportBtn = $('export-btn');
 
   const lightbox = $('lightbox');
   const lightboxContent = $('lightbox-content');
@@ -947,14 +712,10 @@
   const lbCat = $('lb-cat');
   const lbName = $('lb-name');
   const lbFamily = $('lb-family');
-  const lbExpoWrap = $('lb-expo-wrap');
-  const lbExpo = $('lb-expo');
-  const lbTempWrap = $('lb-temp-wrap');
-  const lbTemp = $('lb-temp');
-  const lbSubstrateWrap = $('lb-substrate-wrap');
-  const lbSubstrate = $('lb-substrate');
-  const lbOriginWrap = $('lb-origin-wrap');
-  const lbOrigin = $('lb-origin');
+  const lbExpoWrap = $('lb-expo-wrap'); const lbExpo = $('lb-expo');
+  const lbTempWrap = $('lb-temp-wrap'); const lbTemp = $('lb-temp');
+  const lbSubstrateWrap = $('lb-substrate-wrap'); const lbSubstrate = $('lb-substrate');
+  const lbOriginWrap = $('lb-origin-wrap'); const lbOrigin = $('lb-origin');
 
   const plantNameInput = $('plant-name');
   const plantCategoryInput = $('plant-category');
@@ -999,9 +760,6 @@
   const plantGenreCustomInput = $('plant-genre-custom-input');
   const categoryButtons = Array.from(document.querySelectorAll('#category-picker .cat-option'));
 
-  /* ==== BOUTON EXPORT ==== */
-  const exportBtn = $('export-btn');
-
   let plants = [];
   let memFallback = false;
   let currentFilter = 'all';
@@ -1013,9 +771,7 @@
     return String(str ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   }
 
-  /* ============================================================
-     EXPORT DE LA COLLECTION EN JSON
-     ============================================================ */
+  /* ===== EXPORT ===== */
   function exportCollection() {
     if (!plants || plants.length === 0) {
       showToast("Aucun spécimen à exporter");
@@ -1025,35 +781,80 @@
       exportedAt: new Date().toISOString(),
       count: plants.length,
       plants: plants.map(p => ({
-        id: p.id,
-        name: p.name,
-        category: p.category,
-        family: p.family,
-        substrate: p.substrate,
-        exposure: p.exposure,
-        minTemp: p.minTemp,
-        origin: p.origin,
-        photo: p.photo,
-        date: p.date
+        id: p.id, name: p.name, category: p.category, family: p.family,
+        substrate: p.substrate, exposure: p.exposure, minTemp: p.minTemp,
+        origin: p.origin, photo: p.photo, date: p.date
       }))
     };
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'collection.json';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
-    showToast(`${plants.length} spécimen${plants.length > 1 ? 's' : ''} exporté${plants.length > 1 ? 's' : ''} → uploadez collection.json sur GitHub`);
+    showExportModal(JSON.stringify(data, null, 2), plants.length);
+  }
+
+  function showExportModal(json, count) {
+    const modal = document.createElement('div');
+    modal.id = 'export-modal';
+    modal.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.55);display:flex;align-items:center;justify-content:center;padding:16px;';
+    modal.innerHTML =
+      '<div style="background:#fff;border-radius:16px;max-width:640px;width:100%;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,0.3);">' +
+        '<div style="padding:18px 22px;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center;">' +
+          '<h3 style="font-family:\'Bodoni Moda\',Georgia,serif;font-size:18px;color:#153424;font-weight:500;margin:0;">Exporter ' + count + ' spécimen' + (count > 1 ? 's' : '') + '</h3>' +
+          '<button id="export-modal-close" style="background:transparent;border:none;font-size:26px;color:#888;cursor:pointer;padding:0 8px;line-height:1;">×</button>' +
+        '</div>' +
+        '<div style="padding:18px 22px;overflow-y:auto;flex:1;">' +
+          '<p style="font-size:13px;color:#555;margin:0 0 12px;font-family:\'Jost\',sans-serif;line-height:1.6;">' +
+            '<strong style="color:#153424;">1.</strong> Clique sur <strong>Copier</strong><br>' +
+            '<strong style="color:#153424;">2.</strong> Ouvre l\'app GitHub → fichier <code style="background:#f0f0f0;padding:1px 6px;border-radius:4px;font-size:12px;">collection.json</code><br>' +
+            '<strong style="color:#153424;">3.</strong> Édite (crayon) → efface tout → colle → valide' +
+          '</p>' +
+          '<textarea id="export-textarea" readonly style="width:100%;min-height:280px;padding:12px;font-family:monospace;font-size:11px;border:1px solid #e0e0e0;border-radius:8px;background:#f9f9f9;resize:vertical;box-sizing:border-box;color:#333;">' +
+            json.replace(/</g, '&lt;') +
+          '</textarea>' +
+        '</div>' +
+        '<div style="padding:14px 22px;border-top:1px solid #f0f0f0;display:flex;gap:10px;flex-wrap:wrap;">' +
+          '<button id="export-copy-btn" style="flex:1;min-width:140px;padding:13px;background:#153424;color:#fff;border:none;border-radius:10px;font-family:\'Jost\',sans-serif;font-weight:500;font-size:14px;cursor:pointer;">📋 Copier</button>' +
+          '<button id="export-download-btn" style="padding:13px 22px;background:#f7f7f7;color:#153424;border:none;border-radius:10px;font-family:\'Jost\',sans-serif;font-weight:500;font-size:14px;cursor:pointer;">⬇ Télécharger</button>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(modal);
+
+    const close = () => modal.remove();
+    modal.querySelector('#export-modal-close').addEventListener('click', close);
+    modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+
+    const copyBtn = modal.querySelector('#export-copy-btn');
+    copyBtn.addEventListener('click', async () => {
+      const textarea = modal.querySelector('#export-textarea');
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(json);
+        } else {
+          textarea.focus(); textarea.select();
+          document.execCommand('copy');
+        }
+        copyBtn.textContent = '✓ Copié !';
+        copyBtn.style.background = '#1c4531';
+        setTimeout(() => { copyBtn.textContent = '📋 Copier'; copyBtn.style.background = '#153424'; }, 2000);
+      } catch (err) {
+        textarea.focus(); textarea.select();
+        try { document.execCommand('copy'); } catch (e2) {}
+        copyBtn.textContent = '✓ Copié !';
+        setTimeout(() => { copyBtn.textContent = '📋 Copier'; }, 2000);
+      }
+    });
+
+    const downloadBtn = modal.querySelector('#export-download-btn');
+    downloadBtn.addEventListener('click', () => {
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'collection.json';
+      document.body.appendChild(a); a.click(); a.remove();
+      URL.revokeObjectURL(url);
+    });
   }
 
   if (exportBtn) exportBtn.addEventListener('click', exportCollection);
 
-  /* ============================================================
-     UTILITAIRES UI
-     ============================================================ */
+  /* ===== UTILS UI ===== */
   function updateBackdrop() {
     const drawerAnyOpen = document.querySelectorAll('#drawer .custom-select-wrapper.open').length > 0;
     const pageAnyOpen = filterSpeciesWrapper.classList.contains('open');
@@ -1061,32 +862,17 @@
     drawerDropdownBackdrop.classList.toggle('visible', drawerAnyOpen);
   }
 
-  function scrollTriggerIntoView(el) {
-    if (!el) return;
-    requestAnimationFrame(() => {
-      const rect = el.getBoundingClientRect();
-      const headerOffset = 88;
-      if (rect.top < headerOffset || rect.top > window.innerHeight - 240) {
-        const delta = rect.top - headerOffset;
-        window.scrollTo({ top: Math.max(0, window.scrollY + delta), behavior: 'smooth' });
-      }
-    });
-  }
-
   pageBackdrop.addEventListener('click', () => {
     document.querySelectorAll('main .custom-select-wrapper.open').forEach(w => w.classList.remove('open'));
     updateBackdrop();
   });
-
   drawerDropdownBackdrop.addEventListener('click', (e) => {
     e.stopPropagation();
     document.querySelectorAll('#drawer .custom-select-wrapper.open').forEach(w => w.classList.remove('open'));
     updateBackdrop();
   });
 
-  /* ============================================================
-     FILTRE
-     ============================================================ */
+  /* ===== FILTRE ===== */
   function showChipsStep() {
     filterSpeciesStep.classList.add('step-hidden');
     filterChipsStep.classList.remove('step-hidden');
@@ -1095,7 +881,6 @@
     filterChipsStep.classList.add('step-fade-in');
     filterChipsStep.style.position = '';
     filterSpeciesStep.style.position = 'absolute';
-
     currentFilter = 'all';
     filterChipButtons.forEach(b => b.classList.toggle('active', b.getAttribute('data-category') === 'all'));
     filterSpeciesWrapper.classList.remove('open');
@@ -1113,20 +898,16 @@
     filterSpeciesStep.classList.add('step-fade-in');
     filterSpeciesStep.style.position = '';
     filterChipsStep.style.position = 'absolute';
-
     currentFilter = category;
-
-    let html = `<div class="custom-option-group-label">${category}</div>`;
+    let html = '<div class="custom-option-group-label">' + category + '</div>';
     SPECIES[category].forEach(sp => {
-      html += `<div class="custom-option" data-species="${escapeHtml(sp)}">${escapeHtml(sp)}</div>`;
+      html += '<div class="custom-option" data-species="' + escapeHtml(sp) + '">' + escapeHtml(sp) + '</div>';
     });
     filterSpeciesDropdown.innerHTML = html;
-
     filterSpeciesLabel.textContent = 'Sélectionner un genre...';
     filterSpeciesTrigger.classList.add('placeholder');
     filterSpeciesWrapper.classList.remove('open');
     filterGenreCustomInput.value = '';
-
     renderGrid();
     updateBackdrop();
   }
@@ -1152,9 +933,6 @@
     closeAllSelects(filterSpeciesWrapper);
     filterSpeciesWrapper.classList.toggle('open');
     updateBackdrop();
-    if (filterSpeciesWrapper.classList.contains('open')) {
-      scrollTriggerIntoView(filterSpeciesTrigger);
-    }
   });
 
   filterSpeciesDropdown.addEventListener('click', (e) => {
@@ -1172,13 +950,9 @@
     updateBackdrop();
   });
 
-  filterGenreCustomInput.addEventListener('input', () => {
-    renderGrid();
-  });
+  filterGenreCustomInput.addEventListener('input', renderGrid);
 
-  /* ============================================================
-     DRAWER
-     ============================================================ */
+  /* ===== DRAWER ===== */
   function showDrawerCatsStep() {
     drawerSpeciesStep.classList.add('step-hidden');
     drawerCatsStep.classList.remove('step-hidden');
@@ -1187,7 +961,6 @@
     drawerCatsStep.classList.add('step-fade-in');
     drawerCatsStep.style.position = '';
     drawerSpeciesStep.style.position = 'absolute';
-
     plantCategoryInput.value = '';
     categoryButtons.forEach(b => b.classList.remove('active'));
     drawerSpeciesWrapper.classList.remove('open');
@@ -1205,16 +978,14 @@
     drawerSpeciesStep.classList.add('step-fade-in');
     drawerSpeciesStep.style.position = '';
     drawerCatsStep.style.position = 'absolute';
-
     plantCategoryInput.value = category;
     drawerSpeciesStepLabel.textContent = category;
     drawerSpeciesLabel.textContent = 'Sélectionner un genre...';
     drawerSpeciesTrigger.classList.add('placeholder');
     plantGenreCustomInput.value = '';
-
-    let html = `<div class="custom-option-group-label">${category}</div>`;
+    let html = '<div class="custom-option-group-label">' + category + '</div>';
     SPECIES[category].forEach(sp => {
-      html += `<div class="custom-option" data-species="${escapeHtml(sp)}">${escapeHtml(sp)}</div>`;
+      html += '<div class="custom-option" data-species="' + escapeHtml(sp) + '">' + escapeHtml(sp) + '</div>';
     });
     drawerSpeciesDropdown.innerHTML = html;
     drawerSpeciesWrapper.classList.remove('open');
@@ -1319,9 +1090,7 @@
     }
   });
 
-  /* ============================================================
-     INDEXEDDB
-     ============================================================ */
+  /* ===== INDEXEDDB ===== */
   function idbOpenRaw() {
     return new Promise((resolve, reject) => {
       if (!('indexedDB' in window)) return reject(new Error('IndexedDB indisponible'));
@@ -1375,7 +1144,7 @@
 
   function showToast(message) {
     const toast = document.createElement('div');
-    toast.className = 'pointer-events-auto px-4 py-2.5 bg-ink text-white text-xs font-normal rounded-full shadow-lg transition-all duration-200 max-w-md text-center';
+    toast.className = 'pointer-events-auto px-4 py-2.5 bg-ink text-white text-xs font-normal rounded-full shadow-lg max-w-md text-center';
     toast.textContent = message;
     toastContainer.appendChild(toast);
     setTimeout(() => toast.remove(), 3500);
@@ -1431,17 +1200,13 @@
     lbName.textContent = plant.name || '';
     lbFamily.textContent = plant.family || '';
     lbFamily.style.display = plant.family ? 'block' : 'none';
-
     if (plant.exposure) { lbExpoWrap.style.display = 'flex'; lbExpo.textContent = plant.exposure; }
     else { lbExpoWrap.style.display = 'none'; }
-
     const tempStr = formatTemp(plant.minTemp);
     if (tempStr) { lbTempWrap.style.display = 'flex'; lbTemp.textContent = tempStr; }
     else { lbTempWrap.style.display = 'none'; }
-
     if (plant.substrate) { lbSubstrateWrap.style.display = 'flex'; lbSubstrate.textContent = plant.substrate; }
     else { lbSubstrateWrap.style.display = 'none'; }
-
     if (plant.origin) { lbOriginWrap.style.display = 'flex'; lbOrigin.textContent = plant.origin; }
     else { lbOriginWrap.style.display = 'none'; }
   }
@@ -1456,16 +1221,11 @@
   function openLightbox(plant) {
     lightboxContent.classList.remove('is-portrait', 'is-landscape');
     fillLightboxInfo(plant);
-
     lightboxImg.onload = function () {
       const w = lightboxImg.naturalWidth || 0;
       const h = lightboxImg.naturalHeight || 0;
       lightboxContent.classList.remove('is-portrait', 'is-landscape');
-      if (h > 0 && w > 0 && h > w) {
-        lightboxContent.classList.add('is-portrait');
-      } else {
-        lightboxContent.classList.add('is-landscape');
-      }
+      lightboxContent.classList.add(h > w ? 'is-portrait' : 'is-landscape');
       showLightbox();
     };
     lightboxImg.onerror = function () {
@@ -1473,7 +1233,6 @@
       lightboxContent.classList.add('is-landscape');
       showLightbox();
     };
-
     lightboxImg.alt = plant.name || '';
     lightboxImg.src = plant.photo;
   }
@@ -1518,7 +1277,7 @@
       if (currentFilter !== 'all' && p.category !== currentFilter) return false;
       if (genreTerm && !normalize(p.name).includes(genreTerm)) return false;
       if (term) {
-        const haystack = normalize(`${p.name} ${p.family || ''} ${p.substrate || ''} ${p.exposure || ''} ${p.origin || ''} ${p.category || ''}`);
+        const haystack = normalize((p.name || '') + ' ' + (p.family || '') + ' ' + (p.substrate || '') + ' ' + (p.exposure || '') + ' ' + (p.origin || '') + ' ' + (p.category || ''));
         if (!haystack.includes(term)) return false;
       }
       return true;
@@ -1527,7 +1286,10 @@
 
   searchInput.addEventListener('input', () => { updateSearchClear(); renderGrid(); });
   clearSearchBtn.addEventListener('click', () => {
-    searchInput.value = ''; updateSearchClear(); searchInput.focus(); renderGrid();
+    searchInput.value = '';
+    updateSearchClear();
+    searchInput.focus();
+    renderGrid();
   });
 
   plantPhotoInput.addEventListener('change', async (e) => {
@@ -1561,7 +1323,7 @@
 
     let origin = originRegion;
     if (originCountry && originRegion && originRegion !== 'Horticole / Hybride') {
-      origin = `${originRegion} — ${originCountry}`;
+      origin = originRegion + ' — ' + originCountry;
     }
 
     const finalName = genreCustom || nameInput;
@@ -1583,11 +1345,15 @@
       plants = plants.filter(p => !p.isDemo);
       plants.unshift(newPlant);
 
-      searchInput.value = ''; updateSearchClear();
+      searchInput.value = '';
+      updateSearchClear();
       showChipsStep();
 
-      renderGrid(); updateStats(); closeDrawer();
-      form.reset(); clearPhotoSelection();
+      renderGrid();
+      updateStats();
+      closeDrawer();
+      form.reset();
+      clearPhotoSelection();
       if (resetSubstrateSelect) resetSubstrateSelect();
       if (resetFamilySelect) resetFamilySelect();
       if (resetOriginSelect) resetOriginSelect();
@@ -1600,7 +1366,7 @@
       plantExposureInput.value = '';
       plantTempInput.value = '0';
       tempDisplay.textContent = '0 °C';
-      showToast("Spécimen enregistré — pensez à exporter pour le miroir");
+      showToast("Spécimen enregistré — pensez à exporter");
     } catch (err) {
       showToast("Erreur d'enregistrement");
     } finally {
@@ -1613,7 +1379,8 @@
   async function deletePlant(id) {
     await dbDelete(id);
     plants = plants.filter(p => p.id !== id);
-    renderGrid(); updateStats();
+    renderGrid();
+    updateStats();
     showToast("Spécimen retiré");
   }
 
@@ -1625,13 +1392,9 @@
       const message = plants.length === 0
         ? "Aucun spécimen pour l'instant — ajoutez votre première plante."
         : "Aucun spécimen ne correspond à votre recherche.";
-      grid.innerHTML = `
-        <div class="col-span-full flex flex-col items-center text-center py-20 gap-3">
-          <svg class="w-9 h-9 text-muted/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-            <path d="M12 21V11"/><path d="M12 13c-3.5 0-6-2.5-6-6 3.5 0 6 2.5 6 6z"/>
-          </svg>
-          <p class="text-sm text-muted font-light">${message}</p>
-        </div>`;
+      grid.innerHTML = '<div class="col-span-full flex flex-col items-center text-center py-20 gap-3">' +
+        '<svg class="w-9 h-9 text-muted/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 21V11"/><path d="M12 13c-3.5 0-6-2.5-6-6 3.5 0 6 2.5 6 6z"/></svg>' +
+        '<p class="text-sm text-muted font-light">' + message + '</p></div>';
       return;
     }
 
@@ -1640,36 +1403,36 @@
       card.className = 'card border border-border rounded-2xl overflow-hidden bg-white flex flex-col relative group shadow-sm';
       const tempFormatted = formatTemp(plant.minTemp);
 
-      card.innerHTML = `
-        <div class="relative aspect-[4/3] bg-[#fafafa] overflow-hidden border-b border-border">
-          <img class="card-photo w-full h-full object-cover" src="${escapeHtml(plant.photo)}" alt="${escapeHtml(plant.name)}" loading="lazy">
-          <button type="button" class="card-delete" aria-label="Supprimer">
-            <svg class="icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"/></svg>
-            <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg>
-          </button>
-        </div>
-        <div class="p-5 flex flex-col flex-1 justify-between gap-3">
-          <div>
-            <span class="text-[10px] uppercase tracking-wider text-brand font-semibold">${escapeHtml(plant.category)}</span>
-            <h3 class="font-serif text-xl font-normal text-ink leading-tight mt-0.5">${escapeHtml(plant.name)}</h3>
-            ${plant.family ? `<p class="text-xs italic text-muted mt-0.5">${escapeHtml(plant.family)}</p>` : ''}
-          </div>
-          <div class="grid grid-cols-2 gap-2 pt-2 border-t border-border/60 text-[11px] text-muted">
-            ${plant.exposure ? `<div><span class="font-medium text-ink">Expo:</span> ${escapeHtml(plant.exposure)}</div>` : ''}
-            ${tempFormatted ? `<div><span class="font-medium text-ink">Min:</span> ${escapeHtml(tempFormatted)}</div>` : ''}
-            ${plant.substrate ? `<div class="col-span-2"><span class="font-medium text-ink">Substrat:</span> ${escapeHtml(plant.substrate)}</div>` : ''}
-            ${plant.origin ? `<div class="col-span-2"><span class="font-medium text-ink">Origine:</span> ${escapeHtml(plant.origin)}</div>` : ''}
-          </div>
-        </div>
-      `;
+      let infoHtml = '';
+      if (plant.exposure) infoHtml += '<div><span class="font-medium text-ink">Expo:</span> ' + escapeHtml(plant.exposure) + '</div>';
+      if (tempFormatted) infoHtml += '<div><span class="font-medium text-ink">Min:</span> ' + escapeHtml(tempFormatted) + '</div>';
+      if (plant.substrate) infoHtml += '<div class="col-span-2"><span class="font-medium text-ink">Substrat:</span> ' + escapeHtml(plant.substrate) + '</div>';
+      if (plant.origin) infoHtml += '<div class="col-span-2"><span class="font-medium text-ink">Origine:</span> ' + escapeHtml(plant.origin) + '</div>';
+
+      card.innerHTML =
+        '<div class="relative aspect-[4/3] bg-[#fafafa] overflow-hidden border-b border-border">' +
+          '<img class="card-photo w-full h-full object-cover" src="' + escapeHtml(plant.photo) + '" alt="' + escapeHtml(plant.name) + '" loading="lazy">' +
+          '<button type="button" class="card-delete" aria-label="Supprimer">' +
+            '<svg class="icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"/></svg>' +
+            '<svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg>' +
+          '</button>' +
+        '</div>' +
+        '<div class="p-5 flex flex-col flex-1 justify-between gap-3">' +
+          '<div>' +
+            '<span class="text-[10px] uppercase tracking-wider text-brand font-semibold">' + escapeHtml(plant.category) + '</span>' +
+            '<h3 class="font-serif text-xl font-normal text-ink leading-tight mt-0.5">' + escapeHtml(plant.name) + '</h3>' +
+            (plant.family ? '<p class="text-xs italic text-muted mt-0.5">' + escapeHtml(plant.family) + '</p>' : '') +
+          '</div>' +
+          '<div class="grid grid-cols-2 gap-2 pt-2 border-t border-border/60 text-[11px] text-muted">' + infoHtml + '</div>' +
+        '</div>';
 
       const imgEl = card.querySelector('.card-photo');
       if (imgEl) imgEl.addEventListener('click', () => openLightbox(plant));
 
       const delBtn = card.querySelector('.card-delete');
       let confirmTimeout = null;
-      delBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
+      delBtn.addEventListener('click', (ev) => {
+        ev.stopPropagation();
         if (!delBtn.classList.contains('confirming')) {
           delBtn.classList.add('confirming');
           clearTimeout(confirmTimeout);
@@ -1711,22 +1474,20 @@
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   const rnd = (min, max) => Math.random() * (max - min) + min;
-
   const month = new Date().getMonth() + 1;
   let season;
-  if (month >= 3 && month <= 5)       season = 'spring';
-  else if (month >= 6 && month <= 8)  season = 'summer';
+  if (month >= 3 && month <= 5) season = 'spring';
+  else if (month >= 6 && month <= 8) season = 'summer';
   else if (month >= 9 && month <= 11) season = 'autumn';
-  else                                season = 'winter';
+  else season = 'winter';
 
   const forced = new URLSearchParams(window.location.search).get('season');
-  if (forced && ['spring', 'summer', 'autumn', 'winter'].includes(forced)) season = forced;
+  if (forced && ['spring','summer','autumn','winter'].includes(forced)) season = forced;
 
-  function initAutumn() {
-    const COLORS = ['#7a9e4b', '#8fae5d', '#6b8e3e', '#9bb874', '#8a8a52'];
-    const SHAPE = '<svg viewBox="0 0 20 30" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"><path d="M10 1 C 4.5 10, 4.5 21, 10 29 C 15.5 21, 15.5 10, 10 1 Z" fill="currentColor"/><path d="M10 4.5 L 10 25.5" stroke="rgba(255,255,255,0.22)" stroke-width="0.5" stroke-linecap="round"/></svg>';
-    const COUNT = 5;
-    for (let i = 0; i < COUNT; i++) {
+  if (season === 'autumn') {
+    const COLORS = ['#7a9e4b','#8fae5d','#6b8e3e','#9bb874','#8a8a52'];
+    const SHAPE = '<svg viewBox="0 0 20 30" xmlns="http://www.w3.org/2000/svg"><path d="M10 1 C 4.5 10, 4.5 21, 10 29 C 15.5 21, 15.5 10, 10 1 Z" fill="currentColor"/></svg>';
+    for (let i = 0; i < 5; i++) {
       const leaf = document.createElement('div');
       leaf.className = 'season-leaf';
       const size = rnd(6, 10);
@@ -1735,19 +1496,14 @@
       leaf.style.height = (size * 1.4) + 'px';
       leaf.style.color = COLORS[Math.floor(Math.random() * COLORS.length)];
       leaf.style.setProperty('--drift', rnd(-15, 25).toFixed(1) + 'vw');
-      leaf.style.setProperty('--lean', rnd(-4, 4).toFixed(1) + 'deg');
       leaf.style.setProperty('--opacity', rnd(0.20, 0.40).toFixed(2));
-      leaf.style.setProperty('--sway', rnd(4, 6).toFixed(2) + 's');
       leaf.style.animationDuration = rnd(22, 32).toFixed(2) + 's';
       leaf.style.animationDelay = '-' + rnd(0, 32).toFixed(2) + 's';
       leaf.innerHTML = SHAPE;
       container.appendChild(leaf);
     }
-  }
-
-  function initWinter() {
-    const COUNT = 14;
-    for (let i = 0; i < COUNT; i++) {
+  } else if (season === 'winter') {
+    for (let i = 0; i < 14; i++) {
       const flake = document.createElement('div');
       flake.className = 'season-snow';
       const size = rnd(1.2, 2.2);
@@ -1760,12 +1516,9 @@
       flake.style.animationDelay = '-' + rnd(0, 30).toFixed(2) + 's';
       container.appendChild(flake);
     }
-  }
-
-  function initSpring() {
+  } else if (season === 'spring') {
     function burst() {
-      const count = 4 + Math.floor(Math.random() * 3);
-      for (let i = 0; i < count; i++) {
+      for (let i = 0; i < 4 + Math.floor(Math.random() * 3); i++) {
         setTimeout(() => {
           const drop = document.createElement('div');
           drop.className = 'season-rain';
@@ -1778,17 +1531,8 @@
       }
     }
     setTimeout(burst, 2200);
-    (function scheduleNext() {
-      setTimeout(() => { burst(); scheduleNext(); }, 15000 + Math.random() * 8000);
-    })();
+    (function next() { setTimeout(() => { burst(); next(); }, 15000 + Math.random() * 8000); })();
   }
-
-  function initSummer() { }
-
-  if (season === 'autumn') initAutumn();
-  else if (season === 'winter') initWinter();
-  else if (season === 'spring') initSpring();
-  else initSummer();
 })();
 </script>
 

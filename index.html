@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#ffffff">
 <title>Plantouille — Cabinet du Dr-Cactus</title>
 
-<!-- Favicon simplifié -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='none' stroke='%23153424' stroke-width='4'/%3E%3Cpath d='M50 90 V40 a4 4 0 0 1 8 0 v50' fill='none' stroke='%23153424' stroke-width='4'/%3E%3Cpath d='M50 60 h-10 a4 4 0 0 1 -4 -4 v-10 a4 4 0 0 1 8 0 v6 h6' fill='none' stroke='%23153424' stroke-width='4'/%3E%3Cpath d='M58 70 h10 a4 4 0 0 0 4 -4 v-10 a4 4 0 0 0 -8 0 v6 h-6' fill='none' stroke='%23153424' stroke-width='4'/%3E%3Ccircle cx='50' cy='20' r='8' fill='none' stroke='%23153424' stroke-width='4'/%3E%3C/svg%3E">
+<!-- Favicon : Cactus blanc sur cercle vert -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23153424'/%3E%3Cpath d='M46 85 V35 a4 4 0 0 1 8 0 v50 M46 55 H34 a4 4 0 0 1 -4 -4 V40 a4 4 0 0 1 8 0 v7 h8 M54 65 H66 a4 4 0 0 0 4 -4 V45 a4 4 0 0 0 -8 0 v12 h-8' fill='none' stroke='%23ffffff' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,49 +24,71 @@ body {
   display: flex;
   flex-direction: column;
   -webkit-font-smoothing: antialiased;
-  transition: background-color 0.6s ease;
+  transition: background-color 0.6s ease, color 0.6s ease;
 }
 
-/* Mode Nuit (Secret) */
-body.secret-mode { background: #0a0a0a; color: #e0e0e0; }
-body.secret-mode .site-header { background: rgba(10, 10, 10, 0.95); }
-body.secret-mode .site-header::after { background: linear-gradient(to right, transparent, rgba(212,165,72,.2) 50%, transparent); }
-body.secret-mode .brand-title { color: #d4a548; }
-body.secret-mode .brand-tagline { color: #888888; }
-body.secret-mode .stats strong { color: #d4a548; }
-body.secret-mode .lock-btn-mobile { background: #1a1a1a; border-color: #333; color: #d4a548; }
-body.secret-mode main { color: #e0e0e0; }
-body.secret-mode .search input { color: #e0e0e0; }
-body.secret-mode .chip:not(.secret) { background: #1a1a1a; color: #aaa; }
-body.secret-mode .chip:not(.secret):hover { background: #2a2a2a; }
-body.secret-mode .card { background: #111; border-color: #222; }
-body.secret-mode .card-name { color: #e0e0e0; }
-body.secret-mode .card-info b { color: #e0e0e0; }
-body.secret-mode .card-info { border-top-color: #222; }
-body.secret-mode .empty { color: #666; }
-body.secret-mode .drawer { background: #111; }
-body.secret-mode .drawer-head { border-bottom-color: #222; }
-body.secret-mode .drawer-head h2 { color: #d4a548; }
-body.secret-mode .drawer-foot { background: #111; border-top-color: #222; }
-body.secret-mode .field label { color: #aaa; }
-body.secret-mode .field input[type="text"] { background: #222; color: #fff; }
-body.secret-mode .sel-trigger { color: #e0e0e0; border-bottom-color: #333; }
-body.secret-mode .sel-trigger:hover { border-bottom-color: #d4a548; color: #d4a548; }
-body.secret-mode .sel-dd { background: #1a1a1a; }
-body.secret-mode .opt-group { color: #d4a548; }
-body.secret-mode .opt { color: #ccc; }
-body.secret-mode .opt:hover { background: #2a2a2a; color: #fff; }
-body.secret-mode .exp-opt { background: #222; color: #aaa; }
-body.secret-mode .exp-opt:hover { background: #333; }
-body.secret-mode .exp-opt.active { background: #d4a548; color: #000; }
-body.secret-mode .slider-wrap input[type="range"] { background: #333; }
-body.secret-mode .slider-wrap input[type="range"]::-webkit-slider-thumb { background: #d4a548; }
-body.secret-mode .temp-val { color: #d4a548; background: rgba(212,165,72,.15); }
-body.secret-mode .file-drop { background: #1a1a1a; border-color: #333; }
-body.secret-mode .file-drop span { color: #aaa; }
+/* =========================================
+   INVERSION DES COULEURS (MODE SECRET)
+   ========================================= */
+body.secret-mode { background: #153424; color: #ffffff; }
+body.secret-mode .site-header { background: rgba(21, 52, 36, 0.95); }
+body.secret-mode .site-header::after { background: linear-gradient(to right, transparent, rgba(255,255,255,.2) 50%, transparent); }
+body.secret-mode .brand-title { color: #ffffff; }
+body.secret-mode .brand-tagline { color: #aaaaaa; }
+body.secret-mode .stats strong { color: #ffffff; }
+body.secret-mode .stats { color: #aaaaaa; }
+body.secret-mode .lock-btn-mobile { background: #1c4531; border-color: #2a5c41; color: #ffffff; }
+body.secret-mode main { color: #ffffff; }
+body.secret-mode .search input { color: #ffffff; }
+body.secret-mode .search svg { color: #aaaaaa; }
+body.secret-mode .chip:not(.secret) { background: #1c4531; color: #ffffff; border-color: transparent; }
+body.secret-mode .chip:not(.secret):hover { background: #2a5c41; }
+body.secret-mode .chip:not(.secret).active { background: #ffffff; color: #153424; }
+body.secret-mode .chip:not(.secret).active svg { color: #153424; }
+body.secret-mode .card { background: #153424; border-color: #1c4531; }
+body.secret-mode .card-name { color: #ffffff; }
+body.secret-mode .card-info b { color: #ffffff; }
+body.secret-mode .card-info { border-top-color: #1c4531; color: #aaaaaa; }
+body.secret-mode .card-fam { color: #aaaaaa; }
+body.secret-mode .card-img-wrap { background: #1c4531; border-bottom-color: #1c4531; }
+body.secret-mode .empty { color: #aaaaaa; }
+body.secret-mode .drawer { background: #153424; }
+body.secret-mode .drawer-head { border-bottom-color: #1c4531; }
+body.secret-mode .drawer-head h2 { color: #ffffff; }
+body.secret-mode .drawer-foot { background: #153424; border-top-color: #1c4531; }
+body.secret-mode .field label { color: #aaaaaa; }
+body.secret-mode .field input[type="text"] { background: #1c4531; color: #ffffff; }
+body.secret-mode .field input[type="text"]:focus { background: #2a5c41; }
+body.secret-mode .sel-trigger { color: #ffffff; border-bottom-color: #2a5c41; }
+body.secret-mode .sel-trigger:hover { border-bottom-color: #ffffff; color: #ffffff; }
+body.secret-mode .sel-arrow { border-color: #ffffff; }
+body.secret-mode .sel-dd { background: #1c4531; box-shadow: 0 15px 35px rgba(0,0,0,.3); }
+body.secret-mode .opt-group { color: #aaaaaa; }
+body.secret-mode .opt { color: #ffffff; }
+body.secret-mode .opt:hover { background: #2a5c41; color: #ffffff; }
+body.secret-mode .opt.sel { background: #ffffff; color: #153424; }
+body.secret-mode .exp-opt { background: #1c4531; color: #aaaaaa; }
+body.secret-mode .exp-opt:hover { background: #2a5c41; }
+body.secret-mode .exp-opt.active { background: #ffffff; color: #153424; }
+body.secret-mode .slider-wrap input[type="range"] { background: #1c4531; }
+body.secret-mode .slider-wrap input[type="range"]::-webkit-slider-thumb { background: #ffffff; border-color: #153424; }
+body.secret-mode .temp-val { color: #ffffff; background: rgba(255,255,255,.15); }
+body.secret-mode .file-drop { background: #1c4531; border-color: #2a5c41; }
+body.secret-mode .file-drop span { color: #aaaaaa; }
+body.secret-mode .file-drop:hover { border-color: #ffffff; }
+body.secret-mode .admin-tag { background: rgba(255,255,255,.1); border-color: #2a5c41; color: #ffffff; }
+body.secret-mode .admin-tag::before { background: #ffffff; }
+body.secret-mode .btn.sec { background: transparent; color: #ffffff; border-color: #2a5c41; }
+body.secret-mode .btn.sec:hover { background: #1c4531; }
+body.secret-mode .back-btn:hover { color: #ffffff; background: #1c4531; }
+body.secret-mode .custom-field label { color: #aaaaaa; }
+body.secret-mode .custom-field input { background: #1c4531; color: #ffffff; }
+body.secret-mode .modal-box { background: #153424; }
+body.secret-mode .modal-box h3 { color: #ffffff; }
+body.secret-mode .modal-acts .secondary { background: #1c4531; color: #ffffff; }
 
 ::selection { background: #153424; color: #ffffff; }
-body.secret-mode ::selection { background: #d4a548; color: #000; }
+body.secret-mode ::selection { background: #ffffff; color: #153424; }
 
 /* ============ HEADER ============ */
 .site-header {
@@ -100,12 +122,7 @@ body.secret-mode ::selection { background: #d4a548; color: #000; }
   position: relative;
 }
 
-.brand-wrap {
-  display: flex;
-  align-items: center;
-  position: relative;
-  z-index: 2;
-}
+.brand-wrap { display: flex; align-items: center; position: relative; z-index: 2; }
 
 .brand-title {
   font-family: 'Bodoni Moda', Georgia, serif;
@@ -127,12 +144,7 @@ body.secret-mode ::selection { background: #d4a548; color: #000; }
   transition: color 0.6s ease;
 }
 
-.dr-secret {
-  display: inline;
-  cursor: pointer;
-  user-select: none;
-  transition: color 0.2s ease;
-}
+.dr-secret { display: inline; cursor: pointer; user-select: none; transition: color 0.2s ease; }
 .dr-secret:hover { color: #d4a548; }
 
 /* ============ SCÈNE ANIMÉE ============ */
@@ -148,22 +160,22 @@ body.secret-mode ::selection { background: #d4a548; color: #000; }
   position: absolute;
   left: 0; right: 0; bottom: 0;
   height: 1px;
-  background: rgba(21, 52, 36, 0.2);
+  background: rgba(21, 52, 36, 0.15);
   transition: background-color 0.6s ease;
 }
-body.secret-mode .scene-line { background: rgba(212, 165, 72, 0.3); }
+body.secret-mode .scene-line { background: rgba(255, 255, 255, 0.2); }
 
-/* Soleil / Lune */
+/* Soleil / Lune (Croissant) */
 .scene-sun, .scene-moon {
   position: absolute;
   bottom: 0;
-  width: 10px; height: 10px;
-  margin-left: -5px;
+  width: 12px; height: 12px;
+  margin-left: -6px;
   z-index: 3;
   transition: opacity 0.6s ease;
 }
 .scene-sun { border-radius: 50%; background: #d4a548; animation: sunX 30s linear infinite, sunY 30s ease-in-out infinite; opacity: 1; }
-.scene-moon { color: #d4a548; opacity: 0; animation: moonX 30s linear infinite, moonY 30s ease-in-out infinite; }
+.scene-moon { color: #ffffff; opacity: 0; animation: moonX 30s linear infinite, moonY 30s ease-in-out infinite; }
 .scene-moon svg { width: 100%; height: 100%; fill: currentColor; display: block; }
 
 body.secret-mode .scene-sun { opacity: 0; }
@@ -174,7 +186,7 @@ body.secret-mode .scene-moon { opacity: 1; }
 @keyframes moonX { 0% { left: 0; opacity: 0; } 2% { opacity: 1; } 98% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
 @keyframes moonY { 0% { transform: translateY(0); } 50% { transform: translateY(-55px); } 100% { transform: translateY(0); } }
 
-/* Plantes Normales */
+/* Plantes */
 .scene-normal, .scene-secret {
   position: absolute;
   inset: 0;
@@ -190,58 +202,48 @@ body.secret-mode .scene-secret { opacity: 1; }
   position: absolute;
   bottom: 0;
   color: #153424;
-  transform-origin: bottom center;
   z-index: 2;
+  transition: color 0.6s ease;
 }
-body.secret-mode .scene-plant { color: #d4a548; }
-
-/* Animation de pousse douce */
-@keyframes growPlant {
-  0% { transform: scaleY(0); opacity: 0; }
-  100% { transform: scaleY(1); opacity: 1; }
-}
+body.secret-mode .scene-plant { color: #ffffff; }
 
 .scene-plant svg {
   display: block;
   width: 100%;
   height: 100%;
   overflow: visible;
-  animation: growPlant 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
-/* Positionnement regroupé au centre (30% à 70%) */
-.sp-col   { left: 38%; width: 13px; height: 22px; margin-left: -6.5px; }
+/* Positionnement (regroupé au centre) */
+.sp-col   { left: 38%; width: 16px; height: 24px; margin-left: -8px; }
 .sp-aloe  { left: 44%; width: 22px; height: 12px; margin-left: -11px; }
-.sp-ech   { left: 50%; width: 18px; height: 9px; margin-left: -9px; }
-.sp-yuc   { left: 56%; width: 14px; height: 20px; margin-left: -7px; }
-.sp-bea   { left: 62%; width: 16px; height: 18px; margin-left: -8px; }
+.sp-ech   { left: 50%; width: 20px; height: 10px; margin-left: -10px; }
+.sp-yuc   { left: 56%; width: 16px; height: 20px; margin-left: -8px; }
+.sp-bea   { left: 62%; width: 18px; height: 18px; margin-left: -9px; }
 
-.sp-mush  { left: 38%; width: 14px; height: 16px; margin-left: -7px; }
-.sp-cann  { left: 44%; width: 16px; height: 14px; margin-left: -8px; }
-.sp-popp  { left: 50%; width: 14px; height: 20px; margin-left: -7px; }
-.sp-trich { left: 56%; width: 15px; height: 22px; margin-left: -7.5px; }
-.sp-peyot { left: 62%; width: 15px; height: 10px; margin-left: -7.5px; }
+.sp-mush  { left: 36%; width: 16px; height: 18px; margin-left: -8px; }
+.sp-cann  { left: 42%; width: 18px; height: 18px; margin-left: -9px; }
+.sp-popp  { left: 49%; width: 16px; height: 20px; margin-left: -8px; }
+.sp-trich { left: 56%; width: 14px; height: 22px; margin-left: -7px; }
+.sp-peyot { left: 63%; width: 18px; height: 12px; margin-left: -9px; }
 
-/* Oiseau */
+/* Oiseau (Ombre chinoise) */
 .scene-bird {
   position: absolute;
-  width: 12px;
-  height: 8px;
+  width: 18px;
+  height: 14px;
   color: #153424;
   z-index: 4;
   transition: color 0.6s ease, left 3s linear, bottom 3s ease-in-out;
   will-change: left, bottom;
 }
-body.secret-mode .scene-bird { color: #d4a548; }
+body.secret-mode .scene-bird { color: #ffffff; }
 
-.scene-bird svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-  transition: transform 0.4s ease;
-}
-.scene-bird.flip svg { transform: scaleX(-1); }
+.scene-bird svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.bird-normal { display: block; }
+.bird-witch { display: none; }
+body.secret-mode .bird-normal { display: none; }
+body.secret-mode .bird-witch { display: block; }
 
 .bird-wing {
   transform-box: fill-box;
@@ -253,11 +255,13 @@ body.secret-mode .scene-bird { color: #d4a548; }
   to { transform: rotate(30deg); }
 }
 
+.scene-bird.flip svg { transform: scaleX(-1); }
+
 /* Cadenas */
 .scene-lock {
   position: absolute;
   right: 2%;
-  bottom: 45px; /* Remonté au dessus de la ligne */
+  bottom: 45px;
   width: 14px;
   height: 14px;
   background: transparent;
@@ -268,9 +272,9 @@ body.secret-mode .scene-bird { color: #d4a548; }
   padding: 0;
   z-index: 5;
   pointer-events: auto;
-  transition: opacity 0.2s ease, color 0.2s ease;
+  transition: opacity 0.2s ease, color 0.6s ease;
 }
-body.secret-mode .scene-lock { color: #d4a548; opacity: 0.4; }
+body.secret-mode .scene-lock { color: #ffffff; opacity: 0.5; }
 .scene-lock:hover { opacity: 0.95; color: #d4a548; }
 .scene-lock svg { width: 100%; height: 100%; }
 
@@ -291,6 +295,7 @@ body.secret-mode .scene-lock { color: #d4a548; opacity: 0.4; }
   text-transform: uppercase;
   letter-spacing: 0.05em;
   line-height: 1;
+  transition: color 0.6s ease;
 }
 
 .stats strong {
@@ -304,8 +309,7 @@ body.secret-mode .scene-lock { color: #d4a548; opacity: 0.4; }
 }
 
 .lock-btn-mobile {
-  width: 40px;
-  height: 40px;
+  width: 40px; height: 40px;
   border-radius: 50%;
   background: #f7f7f7;
   color: #153424;
@@ -353,8 +357,9 @@ main {
   font-size: 11px;
   font-weight: 600;
   color: #153424;
+  transition: all 0.6s ease;
 }
-body.secret-mode .admin-tag { background: rgba(212,165,72,.1); border-color: #d4a548; color: #d4a548; }
+
 .admin-tag::before {
   content: '';
   width: 6px; height: 6px;
@@ -379,17 +384,15 @@ body.secret-mode .admin-tag { background: rgba(212,165,72,.1); border-color: #d4
 }
 .btn:hover { background: #1c4531; }
 .btn.sec { background: #ffffff; color: #153424; border: 1px solid #d8e8dd; }
-body.secret-mode .btn.sec { background: transparent; color: #d4a548; border-color: #333; }
 
 .btn.secret-add {
   background: #153424;
   color: #ecdfb8;
   border: 1px solid #d4a548;
 }
-.btn.secret-add:hover { background: #1c4531; border-color: #b8903d; color: #fff; }
-.btn.secret-add svg { color: #d4a548; }
+body.secret-mode .btn.secret-add { background: #ffffff; color: #153424; border-color: #ffffff; }
+body.secret-mode .btn.secret-add svg { color: #153424; }
 
-/* Bannière Mode Secret */
 .secret-banner {
   display: none;
   align-items: center;
@@ -398,34 +401,31 @@ body.secret-mode .btn.sec { background: transparent; color: #d4a548; border-colo
   padding: 10px 16px;
   margin-bottom: 12px;
   border-radius: 12px;
-  background: #111;
-  border: 1px solid #333;
-  color: #d4a548;
+  background: #1c4531;
+  border: 1px solid #2a5c41;
+  color: #ffffff;
   font-size: 12px;
   font-weight: 500;
   animation: bannerIn 0.4s ease;
 }
 .secret-banner.on { display: flex; }
 
-@keyframes bannerIn {
-  0% { opacity: 0; transform: translateY(-6px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
+@keyframes bannerIn { 0% { opacity: 0; transform: translateY(-6px); } 100% { opacity: 1; transform: translateY(0); } }
 
 .secret-banner-label { display: flex; align-items: center; gap: 8px; }
 .secret-banner-label::before {
   content: '';
   width: 7px; height: 7px;
   border-radius: 50%;
-  background: #d4a548;
-  box-shadow: 0 0 8px rgba(212,165,72,.6);
+  background: #ffffff;
+  box-shadow: 0 0 8px rgba(255,255,255,.4);
 }
 
 .secret-banner button {
   padding: 7px 14px;
   border-radius: 999px;
-  background: #d4a548;
-  color: #000;
+  background: #ffffff;
+  color: #153424;
   border: none;
   font-size: 11px;
   font-weight: 600;
@@ -446,7 +446,7 @@ body.secret-mode .btn.sec { background: transparent; color: #d4a548; border-colo
   padding: 10px 0;
   margin-bottom: 8px;
 }
-.search svg { color: #888888; flex-shrink: 0; }
+.search svg { color: #888888; flex-shrink: 0; transition: color 0.6s ease; }
 .search input {
   flex: 1;
   border: none; outline: none;
@@ -496,7 +496,7 @@ body.secret-mode .btn.sec { background: transparent; color: #d4a548; border-colo
 }
 .chip.secret svg { color: #d4a548; }
 .chip.secret:hover { background: rgba(212,165,72,.1); }
-.chip.secret.active { background: #d4a548; color: #000; }
+.chip.secret.active { background: #d4a548; color: #000; border-color: #d4a548; }
 .chip.secret.active svg { color: #000; }
 
 /* Species Step */
@@ -518,9 +518,9 @@ body.secret-mode .btn.sec { background: transparent; color: #d4a548; border-colo
   border: none;
   cursor: pointer;
   font-family: inherit;
+  transition: all 0.2s ease;
 }
 .back-btn:hover { color: #153424; background: #f7f7f7; }
-body.secret-mode .back-btn:hover { color: #d4a548; background: #222; }
 .back-btn svg { width: 12px; height: 12px; }
 
 /* Select Custom */
@@ -543,6 +543,7 @@ body.secret-mode .back-btn:hover { color: #d4a548; background: #222; }
   cursor: pointer;
   text-align: left;
   font-weight: 500;
+  transition: all 0.3s ease;
 }
 .sel-trigger.placeholder { color: #888888; }
 .sel-trigger:hover { border-bottom-color: #153424; color: #153424; }
@@ -570,6 +571,7 @@ body.secret-mode .back-btn:hover { color: #d4a548; background: #222; }
   box-shadow: 0 15px 35px rgba(0,0,0,.10);
   border-radius: 12px;
   display: none;
+  transition: background-color 0.6s ease;
 }
 .sel-wrap.open .sel-dd { display: block; }
 
@@ -581,6 +583,7 @@ body.secret-mode .back-btn:hover { color: #d4a548; background: #222; }
   letter-spacing: 0.12em;
   color: #153424;
   opacity: 0.6;
+  transition: color 0.6s ease;
 }
 
 .opt {
@@ -588,12 +591,13 @@ body.secret-mode .back-btn:hover { color: #d4a548; background: #222; }
   font-size: 13.5px;
   color: #0f0f0f;
   cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 .opt:hover { background: #f4f6f5; color: #153424; }
 .opt.sel { background: #153424; color: #ffffff; }
 
 .custom-field { margin-top: 10px; }
-.custom-field label { font-size: 10px; color: #888888; font-weight: 500; display: block; margin-bottom: 4px; }
+.custom-field label { font-size: 10px; color: #888888; font-weight: 500; display: block; margin-bottom: 4px; transition: color 0.6s ease; }
 .custom-field input {
   width: 100%;
   padding: 10px 14px;
@@ -604,6 +608,7 @@ body.secret-mode .back-btn:hover { color: #d4a548; background: #222; }
   font-size: 13px;
   color: #0f0f0f;
   outline: none;
+  transition: all 0.6s ease;
 }
 
 /* Backdrops */
@@ -615,8 +620,9 @@ body.secret-mode .back-btn:hover { color: #d4a548; background: #222; }
   z-index: 45;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.25s ease, background-color 0.6s ease;
 }
+body.secret-mode #page-backdrop { background: rgba(21,52,36,.30); }
 #page-backdrop.visible { opacity: 1; pointer-events: auto; }
 
 #drawer-dropdown-backdrop {
@@ -627,8 +633,9 @@ body.secret-mode .back-btn:hover { color: #d4a548; background: #222; }
   z-index: 40;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.25s ease, background-color 0.6s ease;
 }
+body.secret-mode #drawer-dropdown-backdrop { background: rgba(21,52,36,.40); }
 #drawer-dropdown-backdrop.visible { opacity: 1; pointer-events: auto; }
 
 /* Grid */
@@ -649,8 +656,8 @@ body.secret-mode .back-btn:hover { color: #d4a548; background: #222; }
   position: relative;
   box-shadow: 0 1px 3px rgba(0,0,0,.04);
   animation: cardFadeIn 0.5s ease forwards;
+  transition: background-color 0.6s ease, border-color 0.6s ease;
 }
-body.secret-mode .card { background: #111; border-color: #222; }
 
 @keyframes cardFadeIn {
   from { opacity: 0; transform: translateY(10px); }
@@ -663,14 +670,10 @@ body.secret-mode .card { background: #111; border-color: #222; }
   background: #fafafa;
   overflow: hidden;
   border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.6s ease, border-color 0.6s ease;
 }
-body.secret-mode .card-img-wrap { background: #1a1a1a; border-bottom-color: #222; }
 
-.card-img-wrap img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  cursor: zoom-in;
-}
+.card-img-wrap img { width: 100%; height: 100%; object-fit: cover; cursor: zoom-in; }
 
 .card-del {
   position: absolute;
@@ -702,13 +705,11 @@ body.secret-mode .card-img-wrap { background: #1a1a1a; border-bottom-color: #222
   justify-content: space-between;
 }
 
-.card-cat { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: #153424; font-weight: 600; }
+.card-cat { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: #153424; font-weight: 600; transition: color 0.6s ease; }
 body.secret-mode .card-cat { color: #d4a548; }
 
-.card-name { font-family: 'Bodoni Moda', Georgia, serif; font-size: 19px; color: #0f0f0f; line-height: 1.2; margin-top: 2px; font-weight: 400; }
-body.secret-mode .card-name { color: #e0e0e0; }
-
-.card-fam { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 12px; color: #888888; margin-top: 2px; }
+.card-name { font-family: 'Bodoni Moda', Georgia, serif; font-size: 19px; color: #0f0f0f; line-height: 1.2; margin-top: 2px; font-weight: 400; transition: color 0.6s ease; }
+.card-fam { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 12px; color: #888888; margin-top: 2px; transition: color 0.6s ease; }
 
 .card-info {
   display: grid;
@@ -718,13 +719,12 @@ body.secret-mode .card-name { color: #e0e0e0; }
   border-top: 1px solid #f0f0f0;
   font-size: 11px;
   color: #888888;
+  transition: border-color 0.6s ease, color 0.6s ease;
 }
-body.secret-mode .card-info { border-top-color: #222; }
-.card-info b { font-weight: 500; color: #0f0f0f; }
-body.secret-mode .card-info b { color: #e0e0e0; }
+.card-info b { font-weight: 500; color: #0f0f0f; transition: color 0.6s ease; }
 .card-info .full { grid-column: 1/-1; }
 
-.empty { padding: 80px 20px; text-align: center; color: #888888; font-size: 14px; grid-column: 1/-1; }
+.empty { padding: 80px 20px; text-align: center; color: #888888; font-size: 14px; grid-column: 1/-1; transition: color 0.6s ease; }
 .empty svg { width: 36px; height: 36px; color: #cccccc; display: block; margin: 0 auto 12px; }
 
 /* Drawer */
@@ -765,21 +765,21 @@ body.secret-mode .card-info b { color: #e0e0e0; }
   position: relative;
   z-index: 50;
   background: inherit;
+  transition: border-color 0.6s ease;
 }
 
-.drawer-head h2 { font-family: 'Bodoni Moda', Georgia, serif; font-size: 22px; color: #153424; font-weight: 500; }
-body.secret-mode .drawer-head h2 { color: #d4a548; }
+.drawer-head h2 { font-family: 'Bodoni Moda', Georgia, serif; font-size: 22px; color: #153424; font-weight: 500; transition: color 0.6s ease; }
 
 .close-x { background: transparent; border: none; color: #888888; cursor: pointer; padding: 6px; }
 .close-x svg { width: 22px; height: 22px; display: block; }
 
 .drawer-body { flex: 1; overflow-y: auto; padding: 20px 24px; position: relative; z-index: 50; }
 
-.drawer-foot { padding: 16px 24px; border-top: 1px solid #f0f0f0; background: inherit; position: relative; z-index: 50; }
+.drawer-foot { padding: 16px 24px; border-top: 1px solid #f0f0f0; background: inherit; position: relative; z-index: 50; transition: border-color 0.6s ease; }
 
 /* Form */
 .field { margin-bottom: 18px; }
-.field label { display: block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #0f0f0f; margin-bottom: 6px; }
+.field label { display: block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #0f0f0f; margin-bottom: 6px; transition: color 0.6s ease; }
 .field input[type="text"] {
   width: 100%;
   padding: 11px 14px;
@@ -790,6 +790,7 @@ body.secret-mode .drawer-head h2 { color: #d4a548; }
   font-size: 14px;
   font-family: inherit;
   outline: none;
+  transition: all 0.6s ease;
 }
 .field input[type="text"]:focus { background: #eef2f0; }
 
@@ -809,12 +810,15 @@ body.secret-mode .drawer-head h2 { color: #d4a548; }
   font-family: inherit;
   text-align: left;
   width: 100%;
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 .cat-opt svg { width: 16px; height: 16px; color: #888888; flex-shrink: 0; }
 .cat-opt:hover { background: #eef2f0; color: #153424; }
 .cat-opt.active { background: #153424; color: #ffffff; }
 .cat-opt.active svg { color: #ffffff; }
+
+body.secret-mode .cat-opt:not([data-mode="secret"]) { background: #1c4531; color: #ffffff; }
+body.secret-mode .cat-opt:not([data-mode="secret"]).active { background: #ffffff; color: #153424; }
 
 .cat-opt[data-mode="secret"] {
   background: transparent;
@@ -825,6 +829,10 @@ body.secret-mode .drawer-head h2 { color: #d4a548; }
 .cat-opt[data-mode="secret"]:hover { border-color: #b8903d; background: #f4f6f5; }
 .cat-opt[data-mode="secret"].active { background: #153424; color: #ecdfb8; border-color: #153424; }
 .cat-opt[data-mode="secret"].active svg { color: #d4a548; }
+
+body.secret-mode .cat-opt[data-mode="secret"] { border-color: #ffffff; color: #ffffff; }
+body.secret-mode .cat-opt[data-mode="secret"].active { background: #ffffff; color: #153424; }
+body.secret-mode .cat-opt[data-mode="secret"].active svg { color: #153424; }
 
 .exp-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
 .exp-opt {
@@ -843,7 +851,7 @@ body.secret-mode .drawer-head h2 { color: #d4a548; }
   font-family: inherit;
   gap: 4px;
   text-align: center;
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 .exp-opt svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .exp-opt:hover { background: #eef2f0; color: #153424; }
@@ -857,6 +865,7 @@ body.secret-mode .drawer-head h2 { color: #d4a548; }
   border-radius: 999px;
   outline: none;
   -webkit-appearance: none;
+  transition: background 0.6s ease;
 }
 .slider-wrap input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
@@ -865,9 +874,10 @@ body.secret-mode .drawer-head h2 { color: #d4a548; }
   background: #153424;
   cursor: pointer;
   border: 2px solid #ffffff;
+  transition: background 0.6s ease;
 }
 
-.temp-val { font-size: 12px; font-weight: 600; color: #153424; background: rgba(21,52,36,.08); padding: 2px 10px; border-radius: 999px; }
+.temp-val { font-size: 12px; font-weight: 600; color: #153424; background: rgba(21,52,36,.08); padding: 2px 10px; border-radius: 999px; transition: all 0.6s ease; }
 .temp-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
 .temp-legend { display: flex; justify-content: space-between; font-size: 10px; color: #888888; margin-top: 4px; }
 
@@ -883,10 +893,11 @@ body.secret-mode .drawer-head h2 { color: #d4a548; }
   cursor: pointer;
   text-align: center;
   position: relative;
+  transition: all 0.6s ease;
 }
 .file-drop:hover { border-color: #153424; }
 .file-drop svg { width: 24px; height: 24px; color: #888888; margin-bottom: 8px; }
-.file-drop span { font-size: 12px; color: #0f0f0f; font-weight: 500; }
+.file-drop span { font-size: 12px; color: #0f0f0f; font-weight: 500; transition: color 0.6s ease; }
 .file-drop input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
 
 .photo-prev { position: relative; width: 100%; aspect-ratio: 4/3; border-radius: 12px; overflow: hidden; display: none; }
@@ -914,14 +925,17 @@ body.secret-mode .drawer-head h2 { color: #d4a548; }
   padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s;
 }
 .modal.on { opacity: 1; pointer-events: auto; }
-.modal-box { background: #ffffff; border-radius: 18px; padding: 26px 22px; width: 100%; max-width: 380px; box-shadow: 0 20px 60px rgba(0,0,0,.2); }
-.modal-box h3 { font-family: 'Bodoni Moda', Georgia, serif; font-size: 22px; color: #153424; margin-bottom: 6px; font-weight: 500; }
-.modal-box p { font-size: 13px; color: #888888; margin-bottom: 20px; line-height: 1.5; }
-.code-inp { width: 100%; padding: 16px; font-family: monospace; font-size: 22px; text-align: center; letter-spacing: 10px; background: #f7f7f7; border: 2px solid transparent; border-radius: 10px; color: #153424; outline: none; }
+.modal-box { background: #ffffff; border-radius: 18px; padding: 26px 22px; width: 100%; max-width: 380px; box-shadow: 0 20px 60px rgba(0,0,0,.2); transition: background-color 0.6s ease; }
+.modal-box h3 { font-family: 'Bodoni Moda', Georgia, serif; font-size: 22px; color: #153424; margin-bottom: 6px; font-weight: 500; transition: color 0.6s ease; }
+.modal-box p { font-size: 13px; color: #888888; margin-bottom: 20px; line-height: 1.5; transition: color 0.6s ease; }
+.code-inp { width: 100%; padding: 16px; font-family: monospace; font-size: 22px; text-align: center; letter-spacing: 10px; background: #f7f7f7; border: 2px solid transparent; border-radius: 10px; color: #153424; outline: none; transition: all 0.6s ease; }
 .code-inp:focus { border-color: #153424; background: #ffffff; }
+body.secret-mode .code-inp { background: #1c4531; color: #ffffff; }
+body.secret-mode .code-inp:focus { border-color: #ffffff; background: #2a5c41; }
 .modal-acts { display: flex; gap: 10px; margin-top: 16px; }
-.modal-acts button { flex: 1; padding: 11px; border-radius: 10px; font-family: inherit; font-weight: 500; font-size: 14px; border: none; cursor: pointer; }
+.modal-acts button { flex: 1; padding: 11px; border-radius: 10px; font-family: inherit; font-weight: 500; font-size: 14px; border: none; cursor: pointer; transition: all 0.2s ease; }
 .modal-acts .primary { background: #153424; color: #ffffff; }
+body.secret-mode .modal-acts .primary { background: #ffffff; color: #153424; }
 .modal-acts .secondary { background: #f7f7f7; color: #153424; }
 
 /* Lightbox */
@@ -946,7 +960,8 @@ body.secret-mode .drawer-head h2 { color: #d4a548; }
 
 /* Toasts */
 .toast-wrap { position: fixed; bottom: 24px; left: 16px; right: 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 400; pointer-events: none; }
-.toast { padding: 12px 18px; background: #0f0f0f; color: #ffffff; font-size: 12px; border-radius: 999px; box-shadow: 0 10px 30px rgba(0,0,0,.2); max-width: 440px; text-align: center; font-family: inherit; pointer-events: auto; line-height: 1.4; }
+.toast { padding: 12px 18px; background: #0f0f0f; color: #ffffff; font-size: 12px; border-radius: 999px; box-shadow: 0 10px 30px rgba(0,0,0,.2); max-width: 440px; text-align: center; font-family: inherit; pointer-events: auto; line-height: 1.4; transition: background-color 0.6s ease, color 0.6s ease; }
+body.secret-mode .toast { background: #ffffff; color: #153424; }
 
 /* Saisons */
 .season-bg { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
@@ -967,7 +982,7 @@ body.secret-mode .drawer-head h2 { color: #d4a548; }
 
 @media (prefers-reduced-motion: reduce) {
   .season-bg { display: none !important; }
-  .scene-sun, .scene-moon, .scene-plant svg, .bird-wing { animation: none !important; }
+  .scene-sun, .scene-moon, .bird-wing { animation: none !important; }
 }
 </style>
 </head>
@@ -988,86 +1003,112 @@ body.secret-mode .drawer-head h2 { color: #d4a548; }
     <div class="brand-scene" aria-hidden="true">
       <div class="scene-line"></div>
       
-      <!-- Soleil / Lune -->
+      <!-- Soleil / Lune (Croissant) -->
       <div class="scene-sun"></div>
       <div class="scene-moon">
-        <svg viewBox="0 0 24 24"><path d="M12 2 A 10 10 0 1 0 12 22 A 8 8 0 1 1 12 2 Z" /></svg>
+        <svg viewBox="0 0 24 24"><path d="M 12 2 A 10 10 0 1 0 22 12 A 8 8 0 1 1 12 2 Z" /></svg>
       </div>
 
       <!-- Scène Normale -->
       <div class="scene-normal">
         <div class="scene-plant sp-col">
-          <svg viewBox="0 0 24 30" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-            <path d="M12 30 V4 a2 2 0 0 1 4 0 v26" />
-            <path d="M12 16 h-6 a2 2 0 0 1 -2 -2 V8 a2 2 0 0 1 4 0 v4 h4" />
-            <path d="M16 20 h6 a2 2 0 0 0 2 -2 V10 a2 2 0 0 0 -4 0 v6 h-4" />
-            <path d="M11 8 h-1 M11 12 h-1 M11 20 h-1 M17 10 h1 M17 14 h1" stroke-width="1" />
+          <svg viewBox="0 0 24 30" fill="currentColor">
+            <rect x="9" y="2" width="6" height="28" rx="3"/>
+            <rect x="3" y="10" width="4" height="8" rx="2"/>
+            <rect x="3" y="16" width="8" height="4" rx="2"/>
+            <rect x="17" y="12" width="4" height="6" rx="2"/>
+            <rect x="13" y="16" width="8" height="4" rx="2"/>
           </svg>
         </div>
         <div class="scene-plant sp-aloe">
-          <svg viewBox="0 0 24 16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
-            <path d="M12 16 L12 2 M12 16 L6 4 M12 16 L18 4 M12 16 L2 8 M12 16 L22 8 M12 16 L4 12 M12 16 L20 12" />
+          <svg viewBox="0 0 24 16" fill="currentColor">
+            <path d="M12 16 L10 4 L14 4 Z M12 16 L4 8 L8 6 Z M12 16 L20 8 L16 6 Z M12 16 L2 12 L6 10 Z M12 16 L22 12 L18 10 Z M12 16 L12 2 L15 6 Z M12 16 L12 2 L9 6 Z"/>
           </svg>
         </div>
         <div class="scene-plant sp-ech">
-          <svg viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
-            <path d="M12 12 L12 2 M12 12 L6 4 M12 12 L18 4 M12 12 L2 6 M12 12 L22 6 M12 12 L4 10 M12 12 L20 10" />
+          <svg viewBox="0 0 24 12" fill="currentColor">
+            <path d="M12 12 C 10 8, 10 4, 12 2 C 14 4, 14 8, 12 12 Z"/>
+            <path d="M12 12 C 8 10, 4 8, 6 4 C 8 4, 10 8, 12 12 Z"/>
+            <path d="M12 12 C 16 10, 20 8, 18 4 C 16 4, 14 8, 12 12 Z"/>
+            <path d="M12 12 C 10 10, 4 10, 4 6 C 6 6, 10 10, 12 12 Z"/>
+            <path d="M12 12 C 14 10, 20 10, 20 6 C 18 6, 14 10, 12 12 Z"/>
           </svg>
         </div>
         <div class="scene-plant sp-yuc">
-          <svg viewBox="0 0 24 30" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M12 30 V14" />
-            <path d="M12 14 L8 2 M12 14 L16 2 M12 14 L2 6 M12 14 L22 6 M12 14 L4 12 M12 14 L20 12" />
+          <svg viewBox="0 0 24 30" fill="currentColor">
+            <rect x="10" y="12" width="4" height="18" rx="2"/>
+            <path d="M12 14 L8 2 L14 2 Z M12 14 L4 6 L10 4 Z M12 14 L20 6 L14 4 Z M12 14 L2 10 L6 8 Z M12 14 L22 10 L18 8 Z"/>
           </svg>
         </div>
         <div class="scene-plant sp-bea">
-          <svg viewBox="0 0 24 30" fill="none" stroke="currentColor" stroke-width="1.5">
-            <ellipse cx="12" cy="28" rx="8" ry="2" />
-            <path d="M12 26 V10" />
-            <path d="M12 10 L8 2 M12 10 L16 2 M12 10 L2 4 M12 10 L22 4 M12 10 L6 8 M12 10 L18 8" />
+          <svg viewBox="0 0 24 30" fill="currentColor">
+            <ellipse cx="12" cy="28" rx="8" ry="2"/>
+            <rect x="11" y="10" width="2" height="18"/>
+            <path d="M12 12 L8 4 L12 2 Z M12 12 L16 4 L12 2 Z M12 12 L4 8 L8 6 Z M12 12 L20 8 L16 6 Z M12 12 L2 12 L6 8 Z M12 12 L22 12 L18 8 Z"/>
           </svg>
         </div>
       </div>
 
-      <!-- Scène Secrète -->
+      <!-- Scène Secrète (Ombres chinoises) -->
       <div class="scene-secret">
+        <!-- Champignon -->
         <div class="scene-plant sp-mush">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-            <path d="M12 24 V12 M5 12 Q12 2 19 12 Z" />
+          <svg viewBox="0 0 40 40" fill="currentColor">
+            <path d="M18 38 C18 30 20 26 22 22 C24 26 26 30 26 38 Z"/>
+            <path d="M5 22 C5 10 35 10 35 22 C35 26 5 26 5 22 Z"/>
           </svg>
         </div>
+        <!-- Cannabis -->
         <div class="scene-plant sp-cann">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
-            <path d="M12 24 V12 M12 16 L6 10 M12 16 L18 10 M12 12 L8 4 M12 12 L16 4" />
+          <svg viewBox="0 0 40 40" fill="currentColor">
+            <path d="M20 38 V16 M20 24 L10 14 L4 16 L6 8 L2 6 L10 4 L8 0 L14 4 L16 0 L18 4 L24 0 L26 4 L32 0 L30 4 L38 6 L34 8 L36 16 L30 14 Z"/>
+            <path d="M20 30 L12 26 L14 20 Z M20 30 L28 26 L26 20 Z"/>
           </svg>
         </div>
+        <!-- Pavot -->
         <div class="scene-plant sp-popp">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-            <path d="M12 24 V10 M12 10 C 5 10, 5 2, 12 4 C 19 2, 19 10, 12 10" />
+          <svg viewBox="0 0 40 40" fill="currentColor">
+            <path d="M20 38 Q15 25 20 16"/>
+            <ellipse cx="20" cy="16" rx="5" ry="6"/>
+            <path d="M18 12 L20 10 L22 12 M17 14 L20 12 M23 14 L20 12" stroke="currentColor" stroke-width="2"/>
+            <path d="M16 14 C8 10 4 18 8 22 C12 24 16 20 16 16 Z"/>
+            <path d="M24 14 C32 10 36 18 32 22 C28 24 24 20 24 16 Z"/>
           </svg>
         </div>
+        <!-- Trichocereus -->
         <div class="scene-plant sp-trich">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-            <path d="M9 24 V2 M15 24 V2 M9 6 h6 M9 12 h6 M9 18 h6" />
+          <svg viewBox="0 0 40 40" fill="currentColor">
+            <rect x="14" y="6" width="12" height="34" rx="6"/>
+            <path d="M17 8 V38 M20 6 V38 M23 8 V38" stroke="#153424" stroke-width="1.5"/>
+            <path d="M14 12 L11 10 M14 18 L11 16 M14 24 L11 22 M14 30 L11 28 M26 12 L29 10 M26 18 L29 16 M26 24 L29 22 M26 30 L29 28" stroke="#153424" stroke-width="2"/>
           </svg>
         </div>
+        <!-- Peyotl -->
         <div class="scene-plant sp-peyot">
-          <svg viewBox="0 0 24 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-            <circle cx="12" cy="12" r="4" />
-            <path d="M12 8 V4 M9 10 V6 M15 10 V6 M7 12 H2 M17 12 H22" />
+          <svg viewBox="0 0 40 40" fill="currentColor">
+            <path d="M12 38 Q20 34 28 38"/>
+            <path d="M10 30 Q10 15 20 15 Q30 15 30 30 Q20 34 10 30"/>
+            <circle cx="15" cy="22" r="3" fill="#153424"/>
+            <circle cx="25" cy="22" r="3" fill="#153424"/>
+            <circle cx="20" cy="28" r="3" fill="#153424"/>
+            <path d="M20 30 L20 36" stroke="#153424" stroke-width="2"/>
+            <circle cx="20" cy="15" r="2" fill="#153424"/>
           </svg>
         </div>
       </div>
 
-      <!-- Oiseau volant -->
+      <!-- Oiseau (Ombre chinoise) -->
       <div class="scene-bird" id="scene-bird">
-        <svg viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-          <g class="bird-wing">
-            <path d="M7 6 C5 2, 2 1, 0 3 C2 4, 4.5 5, 7 6 Z" fill="currentColor"/>
-          </g>
-          <ellipse cx="9" cy="7" rx="4" ry="2.5" />
-          <circle cx="13.5" cy="5.5" r="2" />
-          <path d="M15 5 L18 5.5 L15.5 6" fill="currentColor"/>
+        <!-- Oiseau normal -->
+        <svg class="bird-normal" viewBox="0 0 24 16" fill="currentColor">
+          <path d="M2 8 C6 4 10 6 12 8 C14 6 18 4 22 8 C18 8 16 10 14 12 C12 10 10 10 8 12 C6 10 4 8 2 8 Z"/>
+        </svg>
+        <!-- Sorcière sur balai -->
+        <svg class="bird-witch" viewBox="0 0 24 20" fill="currentColor">
+          <path d="M4 16 L20 16 L22 18 L4 18 Z"/>
+          <path d="M14 6 L18 2 L20 6 L16 10 Z"/>
+          <path d="M10 10 L14 8 L16 12 L12 14 Z"/>
+          <path d="M8 14 L14 12 L16 16 L8 16 Z"/>
         </svg>
       </div>
 
@@ -1535,7 +1576,6 @@ body.secret-mode .drawer-head h2 { color: #d4a548; }
   const MAXW = 900;
   const Q = 0.72;
 
-  // Listes complètes
   const SPECIES = {
     'Cactus': ['Acanthocereus','Acharagma','Ancistrocactus','Aporocactus','Ariocarpus','Armatocereus','Arrojadoa','Astrophytum','Austrocactus','Austrocephalocereus','Austrocylindropuntia','Aylostera','Aztekium','Bergerocactus','Blossfeldia','Borzicactus','Brachycereus','Brasilicactus','Brasilicereus','Browningia','Calymmanthium','Carnegiea','Cephalocereus','Cereus','Cintia','Cleistocactus','Coleocephalocereus','Consolea','Copiapoa','Corryocactus','Coryphantha','Cumulopuntia','Cylindropuntia','Denmoza','Discocactus','Echinocactus','Echinocereus','Echinomastus','Echinopsis','Epiphyllum','Eriosyce','Escobaria','Espostoa','Espostoopsis','Eulychnia','Facheiroa','Ferocactus','Frailea','Geohintonia','Gymnocalycium','Haageocereus','Hamatocactus','Harrisia','Hatiora','Hylocereus','Isolatocereus','Islaya','Jasminocereus','Lasiocereus','Leocereus','Lepismium','Leptocereus','Leuchtenbergia','Lobivia','Lophophora','Loxanthocereus','Mammillaria','Mammilloydia','Matucana','Melocactus','Micranthocereus','Mila','Monvillea','Morawetzia','Myrtillocactus','Neobuxbaumia','Neolloydia','Neoporteria','Neoraimondia','Neowerdermannia','Notocactus','Obregonia','Opuntia','Oreocereus','Oroya','Ortegocactus','Pachycereus','Parodia','Pediocactus','Pelecyphora','Peniocereus','Pereskia','Pilosocereus','Polaskia','Pterocactus','Pygmaeocereus','Rebutia','Rhipsalis','Schlumbergera','Selenicereus','Setiechinopsis','Stenocactus','Stenocereus','Stephanocereus','Stetsonia','Strombocactus','Sulcorebutia','Tacinga','Tephrocactus','Thelocactus','Trichocereus','Tunilla','Turbinicarpus','Uebelmannia','Weberbauerocereus','Weingartia','Wilcoxia','Yavia'],
     'Succulentes': ['Adromischus','Adenia','Aeonium','Agave','Aichryson','Albuca','Alluaudia','Alluaudiopsis','Aloe','Anacampseros','Aptenia','Apteranthes','Astroloba','Avonia','Beaucarnea','Bowiea','Brachystelma','Bulbine','Calibanus','Caralluma','Ceraria','Ceropegia','Cissus','Cotyledon','Crassula','Dasylirion','Decarya','Didierea','Dracaena','Dudleya','Duvalia','Echeveria','Echidnopsis','Edithcolea','Encephalartos','Euphorbia','Fockea','Frithia','Gasteria','Gonialoe','Graptopetalum','Graptophytum','Graptosedum','Graptoveria','Greenovia','Haworthia','Haworthiopsis','Hoodia','Huernia','Hylotelephium','Jovibarba','Kalanchoe','Kleinia','Kumara','Lapidaria','Larryleachia','Lavrania','Lenophyllum','Lithops','Manfreda','Monadenium','Monanthes','Orbea','Orostachys','Oscularia','Othonna','Pachyphytum','Pachyveria','Pachypodium','Pedilanthus','Pelargonium','Peperomia','Petrosedum','Phedimus','Piaranthus','Plectranthus','Polianthes','Portulacaria','Pseudolithos','Quaqua','Rhodiola','Rhombophyllum','Rochea','Rosularia','Sansevieria','Sarcostemma','Sedeveria','Sedum','Senecio','Sempervivum','Sinocrassula','Stapelia','Stapelianthus','Synadenium','Tacitus','Tavaresia','Trichocaulon','Tulista','Tylecodon','Umbilicus','Villadia','Xerosicyos','Yucca'],
@@ -1574,7 +1614,6 @@ body.secret-mode .drawer-head h2 { color: #d4a548; }
   let genreFilter = '';
   let selSub = '', selFam = '', selExp = '', selOri = '';
 
-  // Fonctions utilitaires
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const norm = s => String(s == null ? '' : s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   const fmtT = t => {
@@ -1589,10 +1628,8 @@ body.secret-mode .drawer-head h2 { color: #d4a548; }
     $('toast-wrap').appendChild(t);
     setTimeout(() => t.remove(), ms);
   };
-
   const isSecret = cat => SECRETS.includes(cat);
 
-  // Stockage
   const loadP = () => {
     try {
       const r = localStorage.getItem(KEY);
@@ -1605,16 +1642,10 @@ body.secret-mode .drawer-head h2 { color: #d4a548; }
     try {
       localStorage.setItem(KEY, JSON.stringify(plants));
       return true;
-    } catch (e) {
-      toast('Stockage plein');
-      return false;
-    }
+    } catch (e) { toast('Stockage plein'); return false; }
   };
-  const stats = () => {
-    $('stat-total').textContent = plants.length;
-  };
+  const stats = () => $('stat-total').textContent = plants.length;
 
-  // Synchronisation des backdrops
   const syncBack = () => {
     const m = document.querySelector('main .sel-wrap.open');
     const d = document.querySelector('#drawer .sel-wrap.open');
@@ -1624,7 +1655,6 @@ body.secret-mode .drawer-head h2 { color: #d4a548; }
     if (dd) dd.classList.toggle('visible', !!d);
   };
 
-  // Filtrage et rendu
   const filterList = () => {
     const term = norm($('search-input').value.trim());
     const gt = norm(genreFilter);
@@ -1689,9 +1719,7 @@ body.secret-mode .drawer-head h2 { color: #d4a548; }
             d.classList.add('confirming');
             clearTimeout(to);
             to = setTimeout(() => d.classList.remove('confirming'), 2500);
-          } else {
-            delP(p);
-          }
+          } else { delP(p); }
         });
       }
       g.appendChild(c);
@@ -1755,7 +1783,6 @@ body.secret-mode .drawer-head h2 { color: #d4a548; }
     secretMode = !!mode;
     document.body.classList.toggle('secret-mode', secretMode);
     
-    // Gestion de l'affichage des chips
     document.querySelectorAll('#chips-row .chip').forEach(c => {
       const m = c.getAttribute('data-mode') || 'normal';
       if (secretMode) {
@@ -1768,7 +1795,6 @@ body.secret-mode .drawer-head h2 { color: #d4a548; }
     $('secret-banner').classList.toggle('on', secretMode);
     updateSecretAddBtn();
 
-    // Reset des filtres à chaque changement de mode
     filter = 'all';
     genreFilter = '';
     $('filter-genre-custom').value = '';
@@ -1843,7 +1869,6 @@ body.secret-mode .drawer-head h2 { color: #d4a548; }
     $('temp-val').textContent = (v > 0 ? '+' + v : v) + ' °C';
   });
 
-  // Gestion du filtre de catégorie principal
   const selectCategory = (cat, btnEl) => {
     document.querySelectorAll('#chips-row .chip').forEach(x => x.classList.remove('active'));
     btnEl.classList.add('active');
@@ -1915,7 +1940,6 @@ body.secret-mode .drawer-head h2 { color: #d4a548; }
     render();
   });
 
-  // Drawer Cat Picker
   document.querySelectorAll('#cat-picker .cat-opt').forEach(b => {
     b.addEventListener('click', () => {
       document.querySelectorAll('#cat-picker .cat-opt').forEach(x => x.classList.remove('active'));
@@ -1957,7 +1981,6 @@ body.secret-mode .drawer-head h2 { color: #d4a548; }
     syncBack();
   });
 
-  // Photo
   const resizeImg = f => {
     return new Promise((res, rej) => {
       const r = new FileReader();
@@ -1997,7 +2020,6 @@ body.secret-mode .drawer-head h2 { color: #d4a548; }
     $('file-drop').style.display = 'flex';
   });
 
-  // Formulaire
   $('plant-form').addEventListener('submit', e => {
     e.preventDefault();
     const nameIn = $('p-name').value.trim();
@@ -2014,15 +2036,8 @@ body.secret-mode .drawer-head h2 { color: #d4a548; }
     const nP = { id: 'p_' + Date.now(), name: fName, category: cat, family: fFam, substrate: selSub, exposure: selExp, minTemp: $('p-temp').value, origin: fOri, photo: photo, date: Date.now() };
     const backup = plants.slice();
     plants.unshift(nP);
-    if (saveP()) {
-      stats();
-      render();
-      resetForm();
-      closeDrawer();
-      toast('Spécimen enregistré ✓');
-    } else {
-      plants = backup;
-    }
+    if (saveP()) { stats(); render(); resetForm(); closeDrawer(); toast('Spécimen enregistré ✓'); }
+    else { plants = backup; }
   });
 
   const resetForm = () => {
@@ -2080,7 +2095,6 @@ body.secret-mode .drawer-head h2 { color: #d4a548; }
     document.body.style.overflow = '';
   };
 
-  // Lock
   const triggerLock = () => {
     if (unlocked) { lock(); return; }
     $('code-input').value = '';
@@ -2121,7 +2135,6 @@ body.secret-mode .drawer-head h2 { color: #d4a548; }
     }
   });
 
-  // Mode Secret
   const makePlaceholder = (c1, c2, letter) => {
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
       <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
@@ -2160,18 +2173,16 @@ body.secret-mode .drawer-head h2 { color: #d4a548; }
 
   $('exit-secret-btn').addEventListener('click', () => setSecretMode(false));
 
-  // Animation de l'oiseau
   const startBird = () => {
     const bird = $('scene-bird');
     if (!bird) return;
     let currentPos = 50;
     
     const move = () => {
-      // Vol aléatoire au dessus des plantes (entre 20% et 80% de largeur, et 15px à 45px de hauteur)
       const newPos = 20 + Math.random() * 60;
       const newHeight = 15 + Math.random() * 30;
       const dist = Math.abs(newPos - currentPos);
-      const duration = Math.max(2500, dist * 100); // Vitesse douce
+      const duration = Math.max(2500, dist * 100);
       
       if (newPos < currentPos) bird.classList.add('flip');
       else bird.classList.remove('flip');
@@ -2186,7 +2197,6 @@ body.secret-mode .drawer-head h2 { color: #d4a548; }
     setTimeout(move, 500);
   };
 
-  // Saisons
   const initSeasons = () => {
     const c = $('season-bg');
     if (!c || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -2225,7 +2235,6 @@ body.secret-mode .drawer-head h2 { color: #d4a548; }
     }
   };
 
-  // Init global
   const init = () => {
     plants = loadP();
     if (localStorage.getItem(SEED_KEY) !== '1') seedSecretPlants();

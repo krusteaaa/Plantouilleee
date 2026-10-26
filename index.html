@@ -5,180 +5,1275 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#ffffff">
 <title>Plantouille — Cabinet du Dr-Cactus</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23153424' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 21V7M12 7l-4-4M12 7l4-4'/%3E%3C/svg%3E">
+
+<!-- Favicon : cactus saguaro -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='10' y='3' width='4' height='18' rx='2' fill='%23153424'/%3E%3Crect x='4' y='8' width='3' height='6' rx='1.5' fill='%23153424'/%3E%3Crect x='4' y='11' width='6' height='3' rx='1.5' fill='%23153424'/%3E%3Crect x='17' y='9' width='3' height='5' rx='1.5' fill='%23153424'/%3E%3Crect x='14' y='11' width='6' height='3' rx='1.5' fill='%23153424'/%3E%3C/svg%3E">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{background:#fff;color:#0f0f0f;font-family:'Jost',system-ui,sans-serif;min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
-::selection{background:#153424;color:#fff}
-.site-header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.95);backdrop-filter:blur(12px)}
-.site-header::after{content:'';position:absolute;left:8%;right:8%;bottom:0;height:1px;background:linear-gradient(to right,transparent,rgba(21,52,36,.10) 20%,rgba(21,52,36,.15) 50%,rgba(21,52,36,.10) 80%,transparent);pointer-events:none}
-.header-inner{max-width:1100px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;position:relative}
-.brand{position:relative;z-index:2}
-.brand-title{font-family:'Bodoni Moda',Georgia,serif;font-weight:500;font-size:28px;color:#153424;line-height:.95}
-.brand-tagline{font-family:'Jost',sans-serif;font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.32em;color:#888;margin-top:4px}
-.brand-scene{position:absolute;left:8%;right:8%;bottom:0;height:70px;pointer-events:none;z-index:1}
-.scene-sun{position:absolute;left:0;bottom:0;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:#d4a548;animation:sunX 30s linear infinite,sunY 30s ease-in-out infinite;z-index:3}
-@keyframes sunX{0%{left:0;opacity:0}2%{opacity:1}98%{opacity:1}100%{left:100%;opacity:0}}
-@keyframes sunY{0%{transform:translateY(0)}50%{transform:translateY(-62px)}100%{transform:translateY(0)}}
-.scene-plant{position:absolute;bottom:0;color:#153424;transform-origin:bottom center;z-index:2}
-.scene-plant svg{display:block;width:100%;height:100%;overflow:visible}
-.sp-glob{left:15%;width:22px;height:22px;margin-left:-11px;animation:pg 30s ease-in-out infinite}
-.sp-col{left:30%;width:18px;height:26px;margin-left:-9px;animation:pc 30s ease-in-out infinite}
-.sp-aloe{left:45%;width:24px;height:20px;margin-left:-12px;animation:pa 30s ease-in-out infinite}
-.sp-ech{left:60%;width:24px;height:14px;margin-left:-12px;animation:pe 30s ease-in-out infinite}
-.sp-yuc{left:75%;width:18px;height:26px;margin-left:-9px;animation:py 30s ease-in-out infinite}
-.sp-bea{left:89%;width:20px;height:26px;margin-left:-10px;animation:pb 30s ease-in-out infinite}
-@keyframes pg{0%,8%{transform:scaleY(0)}13%{transform:scaleY(1.06)}16%,45%{transform:scaleY(1)}52%,100%{transform:scaleY(0)}}
-@keyframes pc{0%,23%{transform:scaleY(0)}28%{transform:scaleY(1.06)}31%,60%{transform:scaleY(1)}67%,100%{transform:scaleY(0)}}
-@keyframes pa{0%,38%{transform:scaleY(0)}43%{transform:scaleY(1.06)}46%,75%{transform:scaleY(1)}82%,100%{transform:scaleY(0)}}
-@keyframes pe{0%,53%{transform:scaleY(0)}58%{transform:scaleY(1.06)}61%,90%{transform:scaleY(1)}95%,100%{transform:scaleY(0)}}
-@keyframes py{0%,68%{transform:scaleY(0)}73%{transform:scaleY(1.06)}76%,93%{transform:scaleY(1)}97%,100%{transform:scaleY(0)}}
-@keyframes pb{0%,83%{transform:scaleY(0)}88%{transform:scaleY(1.06)}91%,95%{transform:scaleY(1)}99%,100%{transform:scaleY(0)}}
-@media(max-width:700px){.brand-scene{display:none}}
-.header-right{display:flex;align-items:center;gap:12px;flex-shrink:0;position:relative;z-index:2}
-.lock-btn{width:40px;height:40px;border-radius:50%;background:#f7f7f7;color:#153424;border:1px solid #f0f0f0;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.lock-btn.unlocked{background:#153424;color:#fff;border-color:#153424}
-.lock-btn svg{width:16px;height:16px}
-.stats{text-align:right;font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.05em;line-height:1}
-.stats strong{font-family:'Bodoni Moda',Georgia,serif;font-size:22px;color:#153424;font-weight:500;display:block;margin-bottom:4px}
-main{max-width:1100px;margin:0 auto;padding:20px 24px 60px;flex:1;width:100%}
-.admin-bar{display:none;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
-.admin-bar.on{display:flex}
-.admin-tag{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:#f0f7f2;border:1px solid #d8e8dd;font-size:11px;font-weight:600;color:#153424}
-.admin-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:#22c55e}
-.btn{padding:9px 18px;border-radius:999px;background:#153424;color:#fff;font-size:12px;font-weight:500;border:none;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:6px}
-.btn:hover{background:#1c4531}
-.btn.sec{background:#fff;color:#153424;border:1px solid #d8e8dd}
-.search{display:flex;align-items:center;gap:10px;padding:10px 0;margin-bottom:8px}
-.search svg{color:#888;flex-shrink:0}
-.search input{flex:1;border:none;outline:none;font-family:inherit;font-size:15px;background:transparent;color:#0f0f0f}
-.chips-row{display:flex;gap:10px;overflow-x:auto;padding:8px 0;margin-bottom:16px}
-.chips-row::-webkit-scrollbar{display:none}
-.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;background:#f7f7f7;color:#555;font-size:13px;font-weight:500;border:none;cursor:pointer;white-space:nowrap;flex-shrink:0;font-family:inherit}
-.chip svg{width:14px;height:14px;color:#888}
-.chip:hover{background:#eef2f0;color:#153424}
-.chip.active{background:#153424;color:#fff}
-.chip.active svg{color:#fff}
-.species-step{display:none}
-.species-step.on{display:block;margin-bottom:16px}
-.species-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.back-btn{display:inline-flex;align-items:center;gap:4px;padding:6px 12px;border-radius:999px;background:transparent;color:#888;font-size:12px;font-weight:500;border:none;cursor:pointer;font-family:inherit}
-.back-btn:hover{color:#153424;background:#f7f7f7}
-.back-btn svg{width:12px;height:12px}
-.sel-wrap{position:relative;width:100%}
-.sel-wrap.open{position:relative;z-index:55}
-.sel-trigger{width:100%;display:flex;align-items:center;justify-content:space-between;padding:10px 0;background:transparent;border:none;border-bottom:1px solid rgba(21,52,36,.15);color:#0f0f0f;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:17px;cursor:pointer;text-align:left;font-weight:500}
-.sel-trigger.placeholder{color:#888}
-.sel-trigger:hover{border-bottom-color:#153424;color:#153424}
-.sel-arrow{width:6px;height:6px;border-right:1.5px solid #153424;border-bottom:1.5px solid #153424;transform:rotate(45deg);flex-shrink:0;margin-left:10px}
-.sel-wrap.open .sel-arrow{transform:rotate(-135deg)}
-.sel-dd{position:absolute;top:100%;left:0;right:0;max-height:320px;overflow-y:auto;background:#fff;z-index:60;margin-top:6px;padding:6px 0;box-shadow:0 15px 35px rgba(0,0,0,.1);border-radius:12px;display:none}
-.sel-wrap.open .sel-dd{display:block}
-.opt-group{padding:10px 16px 4px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:#153424;opacity:.6}
-.opt{padding:8px 16px;font-size:13.5px;color:#0f0f0f;cursor:pointer}
-.opt:hover{background:#f4f6f5;color:#153424}
-.opt.sel{background:#153424;color:#fff}
-.custom-field{margin-top:10px}
-.custom-field label{font-size:10px;color:#888;font-weight:500;display:block;margin-bottom:4px}
-.custom-field input{width:100%;padding:10px 14px;background:#f7f7f7;border:none;border-radius:10px;font-family:inherit;font-size:13px;color:#0f0f0f;outline:none}
-#page-backdrop{position:fixed;inset:0;background:rgba(255,255,255,.10);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);z-index:45;opacity:0;pointer-events:none;transition:opacity .25s}
-#page-backdrop.visible{opacity:1;pointer-events:auto}
-#drawer-dropdown-backdrop{position:absolute;inset:0;background:rgba(255,255,255,.30);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);z-index:40;opacity:0;pointer-events:none;transition:opacity .25s}
-#drawer-dropdown-backdrop.visible{opacity:1;pointer-events:auto}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px}
-.card{border:1px solid #f0f0f0;border-radius:16px;overflow:hidden;background:#fff;display:flex;flex-direction:column;position:relative;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-.card-img-wrap{position:relative;aspect-ratio:4/3;background:#fafafa;overflow:hidden;border-bottom:1px solid #f0f0f0}
-.card-img-wrap img{width:100%;height:100%;object-fit:cover;cursor:zoom-in}
-.card-del{position:absolute;top:10px;right:10px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.95);color:#0f0f0f;border:none;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.06)}
-.card-del.confirming{background:#e11d48;color:#fff}
-.card-del svg{width:14px;height:14px;position:absolute}
-.card-del .ck{opacity:0}
-.card-del.confirming .x{opacity:0}
-.card-del.confirming .ck{opacity:1}
-.card-body{padding:16px;display:flex;flex-direction:column;gap:10px;flex:1;justify-content:space-between}
-.card-cat{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#153424;font-weight:600}
-.card-name{font-family:'Bodoni Moda',Georgia,serif;font-size:19px;color:#0f0f0f;line-height:1.2;margin-top:2px;font-weight:400}
-.card-fam{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:12px;color:#888;margin-top:2px}
-.card-info{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding-top:8px;border-top:1px solid #f0f0f0;font-size:11px;color:#888}
-.card-info b{font-weight:500;color:#0f0f0f}
-.card-info .full{grid-column:1/-1}
-.empty{padding:80px 20px;text-align:center;color:#888;font-size:14px;grid-column:1/-1}
-.empty svg{width:36px;height:36px;color:#ccc;display:block;margin:0 auto 12px}
-.drawer-bg{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.25);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .3s}
-.drawer-bg.open{opacity:1;pointer-events:auto}
-.drawer{position:fixed;top:0;right:0;height:100vh;width:100%;max-width:440px;background:#fff;z-index:100;transform:translateX(100%);transition:transform .35s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;box-shadow:-10px 0 30px rgba(0,0,0,.05)}
-.drawer.open{transform:translateX(0)}
-.drawer-head{padding:20px 24px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:50;background:#fff}
-.drawer-head h2{font-family:'Bodoni Moda',Georgia,serif;font-size:22px;color:#153424;font-weight:500}
-.close-x{background:transparent;border:none;color:#888;cursor:pointer;padding:6px}
-.close-x svg{width:22px;height:22px;display:block}
-.drawer-body{flex:1;overflow-y:auto;padding:20px 24px;position:relative;z-index:50}
-.drawer-foot{padding:16px 24px;border-top:1px solid #f0f0f0;background:#fff;position:relative;z-index:50}
-.field{margin-bottom:18px}
-.field label{display:block;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#0f0f0f;margin-bottom:6px}
-.field input[type=text]{width:100%;padding:11px 14px;background:#f7f7f7;border:none;border-radius:10px;color:#0f0f0f;font-size:14px;font-family:inherit;outline:none}
-.field input[type=text]:focus{background:#eef2f0}
-.cat-grid{display:grid;grid-template-columns:1fr;gap:6px}
-.cat-opt{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;background:#f7f7f7;color:#0f0f0f;font-size:12px;font-weight:500;border:none;cursor:pointer;font-family:inherit;text-align:left;width:100%}
-.cat-opt svg{width:16px;height:16px;color:#888;flex-shrink:0}
-.cat-opt:hover{background:#eef2f0;color:#153424}
-.cat-opt.active{background:#153424;color:#fff}
-.cat-opt.active svg{color:#fff}
-.exp-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
-.exp-opt{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 4px;border-radius:10px;background:#f7f7f7;color:#555;font-size:10px;font-weight:500;border:none;cursor:pointer;font-family:inherit;gap:4px;text-align:center}
-.exp-opt svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.exp-opt:hover{background:#eef2f0;color:#153424}
-.exp-opt.active{background:#153424;color:#fff}
-.slider-wrap{padding:10px 0}
-.slider-wrap input[type=range]{width:100%;height:4px;background:#eef2f0;border-radius:999px;outline:none;-webkit-appearance:none}
-.slider-wrap input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#153424;cursor:pointer;border:2px solid #fff}
-.temp-val{font-size:12px;font-weight:600;color:#153424;background:rgba(21,52,36,.08);padding:2px 10px;border-radius:999px}
-.temp-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.temp-legend{display:flex;justify-content:space-between;font-size:10px;color:#888;margin-top:4px}
-.file-drop{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px;border:1px dashed #dcdcdc;border-radius:12px;background:#fff;cursor:pointer;text-align:center;position:relative}
-.file-drop:hover{border-color:#153424}
-.file-drop svg{width:24px;height:24px;color:#888;margin-bottom:8px}
-.file-drop span{font-size:12px;color:#0f0f0f;font-weight:500}
-.file-drop input{position:absolute;inset:0;opacity:0;cursor:pointer}
-.photo-prev{position:relative;width:100%;aspect-ratio:4/3;border-radius:12px;overflow:hidden;display:none}
-.photo-prev img{width:100%;height:100%;object-fit:cover}
-.photo-prev button{position:absolute;top:10px;right:10px;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,.7);color:#fff;border:none;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center}
-.modal{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s}
-.modal.on{opacity:1;pointer-events:auto}
-.modal-box{background:#fff;border-radius:18px;padding:26px 22px;width:100%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,.2)}
-.modal-box h3{font-family:'Bodoni Moda',Georgia,serif;font-size:22px;color:#153424;margin-bottom:6px;font-weight:500}
-.modal-box p{font-size:13px;color:#888;margin-bottom:20px;line-height:1.5}
-.code-inp{width:100%;padding:16px;font-family:monospace;font-size:22px;text-align:center;letter-spacing:10px;background:#f7f7f7;border:2px solid transparent;border-radius:10px;color:#153424;outline:none}
-.code-inp:focus{border-color:#153424;background:#fff}
-.modal-acts{display:flex;gap:10px;margin-top:16px}
-.modal-acts button{flex:1;padding:11px;border-radius:10px;font-family:inherit;font-weight:500;font-size:14px;border:none;cursor:pointer}
-.modal-acts .primary{background:#153424;color:#fff}
-.modal-acts .secondary{background:#f7f7f7;color:#153424}
-.lightbox{position:fixed;inset:0;z-index:200;background:rgba(8,8,8,.96);backdrop-filter:blur(10px);display:flex;opacity:0;pointer-events:none;transition:opacity .3s;overflow-y:auto;padding:24px 20px}
-.lightbox.open{opacity:1;pointer-events:auto}
-.lb-close{position:fixed;top:16px;left:16px;width:44px;height:44px;background:transparent;border:none;color:rgba(255,255,255,.72);cursor:pointer;z-index:210;display:flex;align-items:center;justify-content:center}
-.lb-close svg{width:26px;height:26px}
-.lb-content{margin:auto;display:flex;flex-direction:column;align-items:center;gap:24px;width:100%;max-width:900px}
-.lb-content img{display:block;max-width:90vw;max-height:60vh;width:auto;height:auto;object-fit:contain;border-radius:4px;box-shadow:0 20px 50px rgba(0,0,0,.55)}
-.lb-info{color:#fff;text-align:center;max-width:640px;padding:0 12px}
-.lb-cat{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:rgba(255,255,255,.62)}
-.lb-name{font-family:'Bodoni Moda',Georgia,serif;font-weight:500;font-size:26px;margin:4px 0 0}
-.lb-fam{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:15px;color:rgba(255,255,255,.62);margin:2px 0 0}
-.lb-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:16px 40px;padding-top:16px;margin-top:16px;border-top:1px solid rgba(255,255,255,.12)}
-.lb-item{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:110px}
-.lb-key{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.16em;color:rgba(255,255,255,.42)}
-.lb-val{font-size:13.5px;font-weight:500;color:#fff}
-.toast-wrap{position:fixed;bottom:24px;left:16px;right:16px;display:flex;flex-direction:column;align-items:center;gap:8px;z-index:400;pointer-events:none}
-.toast{padding:12px 18px;background:#0f0f0f;color:#fff;font-size:12px;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.2);max-width:440px;text-align:center;font-family:inherit;pointer-events:auto;line-height:1.4}
-.season-bg{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
-.season-leaf{position:absolute;top:0;animation:leafFall linear infinite}
-@keyframes leafFall{0%{transform:translate3d(0,-15vh,0);opacity:0}10%{opacity:.4}90%{opacity:.4}100%{transform:translate3d(var(--drift,40px),115vh,0);opacity:0}}
-.season-snow{position:absolute;top:0;border-radius:50%;background:rgba(120,150,130,.35);animation:snowFall linear infinite}
-@keyframes snowFall{0%{transform:translate3d(0,-8vh,0);opacity:0}10%{opacity:.45}90%{opacity:.45}100%{transform:translate3d(var(--drift,20px),108vh,0);opacity:0}}
-@media(prefers-reduced-motion:reduce){.season-bg{display:none!important}.scene-sun,.scene-plant{animation:none!important}}
+/* ============ RESET ============ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: #ffffff;
+  color: #0f0f0f;
+  font-family: 'Jost', system-ui, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: #153424;
+  color: #ffffff;
+}
+
+/* ============ HEADER ============ */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.site-header::after {
+  content: '';
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(21, 52, 36, 0.10) 20%,
+    rgba(21, 52, 36, 0.15) 50%,
+    rgba(21, 52, 36, 0.10) 80%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  position: relative;
+}
+
+.brand {
+  position: relative;
+  z-index: 2;
+}
+
+.brand-title {
+  font-family: 'Bodoni Moda', Georgia, serif;
+  font-weight: 500;
+  font-size: 28px;
+  color: #153424;
+  line-height: 0.95;
+}
+
+.brand-tagline {
+  font-family: 'Jost', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  color: #888888;
+  margin-top: 4px;
+}
+
+/* ============ SCÈNE ANIMÉE ============ */
+.brand-scene {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 0;
+  height: 70px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.scene-sun {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  border-radius: 50%;
+  background: #d4a548;
+  animation: sunX 30s linear infinite, sunY 30s ease-in-out infinite;
+  will-change: left, transform, opacity;
+  z-index: 3;
+}
+
+@keyframes sunX {
+  0% { left: 0; opacity: 0; }
+  2% { opacity: 1; }
+  98% { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+
+@keyframes sunY {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-62px); }
+  100% { transform: translateY(0); }
+}
+
+.scene-plant {
+  position: absolute;
+  bottom: 0;
+  color: #153424;
+  transform-origin: bottom center;
+  z-index: 2;
+}
+
+.scene-plant svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Plantes plus petites et réalistes en silhouette */
+.sp-glob {
+  left: 15%;
+  width: 16px;
+  height: 16px;
+  margin-left: -8px;
+  animation: pg 30s ease-in-out infinite;
+}
+.sp-col {
+  left: 30%;
+  width: 14px;
+  height: 20px;
+  margin-left: -7px;
+  animation: pc 30s ease-in-out infinite;
+}
+.sp-aloe {
+  left: 45%;
+  width: 18px;
+  height: 14px;
+  margin-left: -9px;
+  animation: pa 30s ease-in-out infinite;
+}
+.sp-ech {
+  left: 60%;
+  width: 18px;
+  height: 10px;
+  margin-left: -9px;
+  animation: pe 30s ease-in-out infinite;
+}
+.sp-yuc {
+  left: 75%;
+  width: 14px;
+  height: 20px;
+  margin-left: -7px;
+  animation: py 30s ease-in-out infinite;
+}
+.sp-bea {
+  left: 89%;
+  width: 15px;
+  height: 20px;
+  margin-left: -7.5px;
+  animation: pb 30s ease-in-out infinite;
+}
+
+@keyframes pg {
+  0%, 8% { transform: scaleY(0); }
+  13% { transform: scaleY(1.06); }
+  16%, 45% { transform: scaleY(1); }
+  52%, 100% { transform: scaleY(0); }
+}
+@keyframes pc {
+  0%, 23% { transform: scaleY(0); }
+  28% { transform: scaleY(1.06); }
+  31%, 60% { transform: scaleY(1); }
+  67%, 100% { transform: scaleY(0); }
+}
+@keyframes pa {
+  0%, 38% { transform: scaleY(0); }
+  43% { transform: scaleY(1.06); }
+  46%, 75% { transform: scaleY(1); }
+  82%, 100% { transform: scaleY(0); }
+}
+@keyframes pe {
+  0%, 53% { transform: scaleY(0); }
+  58% { transform: scaleY(1.06); }
+  61%, 90% { transform: scaleY(1); }
+  95%, 100% { transform: scaleY(0); }
+}
+@keyframes py {
+  0%, 68% { transform: scaleY(0); }
+  73% { transform: scaleY(1.06); }
+  76%, 93% { transform: scaleY(1); }
+  97%, 100% { transform: scaleY(0); }
+}
+@keyframes pb {
+  0%, 83% { transform: scaleY(0); }
+  88% { transform: scaleY(1.06); }
+  91%, 95% { transform: scaleY(1); }
+  99%, 100% { transform: scaleY(0); }
+}
+
+@media (max-width: 700px) {
+  .brand-scene { display: none; }
+}
+
+/* ============ HEADER RIGHT ============ */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.lock-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f7f7f7;
+  color: #153424;
+  border: 1px solid #f0f0f0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.lock-btn.unlocked {
+  background: #153424;
+  color: #ffffff;
+  border-color: #153424;
+}
+
+.lock-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.stats {
+  text-align: right;
+  font-size: 11px;
+  color: #888888;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+.stats strong {
+  font-family: 'Bodoni Moda', Georgia, serif;
+  font-size: 22px;
+  color: #153424;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* ============ MAIN ============ */
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 24px 60px;
+  flex: 1;
+  width: 100%;
+}
+
+.admin-bar {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.admin-bar.on {
+  display: flex;
+}
+
+.admin-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #f0f7f2;
+  border: 1px solid #d8e8dd;
+  font-size: 11px;
+  font-weight: 600;
+  color: #153424;
+}
+
+.admin-tag::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+}
+
+.btn {
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: #153424;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn:hover { background: #1c4531; }
+
+.btn.sec {
+  background: #ffffff;
+  color: #153424;
+  border: 1px solid #d8e8dd;
+}
+
+/* ============ SEARCH ============ */
+.search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  margin-bottom: 8px;
+}
+
+.search svg { color: #888888; flex-shrink: 0; }
+
+.search input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 15px;
+  background: transparent;
+  color: #0f0f0f;
+}
+
+/* ============ CHIPS ============ */
+.chips-row {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 8px 0;
+  margin-bottom: 16px;
+}
+
+.chips-row::-webkit-scrollbar { display: none; }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: #f7f7f7;
+  color: #555555;
+  font-size: 13px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-family: inherit;
+}
+
+.chip svg { width: 14px; height: 14px; color: #888888; }
+.chip:hover { background: #eef2f0; color: #153424; }
+.chip.active { background: #153424; color: #ffffff; }
+.chip.active svg { color: #ffffff; }
+
+/* ============ SPECIES STEP ============ */
+.species-step { display: none; }
+.species-step.on { display: block; margin-bottom: 16px; }
+
+.species-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: transparent;
+  color: #888888;
+  font-size: 12px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.back-btn:hover { color: #153424; background: #f7f7f7; }
+.back-btn svg { width: 12px; height: 12px; }
+
+/* ============ SELECT CUSTOM ============ */
+.sel-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.sel-wrap.open {
+  position: relative;
+  z-index: 55;
+}
+
+.sel-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(21, 52, 36, 0.15);
+  color: #0f0f0f;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 17px;
+  cursor: pointer;
+  text-align: left;
+  font-weight: 500;
+}
+
+.sel-trigger.placeholder { color: #888888; }
+.sel-trigger:hover { border-bottom-color: #153424; color: #153424; }
+
+.sel-arrow {
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid #153424;
+  border-bottom: 1.5px solid #153424;
+  transform: rotate(45deg);
+  flex-shrink: 0;
+  margin-left: 10px;
+}
+
+.sel-wrap.open .sel-arrow { transform: rotate(-135deg); }
+
+.sel-dd {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 320px;
+  overflow-y: auto;
+  background: #ffffff;
+  z-index: 60;
+  margin-top: 6px;
+  padding: 6px 0;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.10);
+  border-radius: 12px;
+  display: none;
+}
+
+.sel-wrap.open .sel-dd { display: block; }
+
+.opt-group {
+  padding: 10px 16px 4px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #153424;
+  opacity: 0.6;
+}
+
+.opt {
+  padding: 8px 16px;
+  font-size: 13.5px;
+  color: #0f0f0f;
+  cursor: pointer;
+}
+
+.opt:hover { background: #f4f6f5; color: #153424; }
+.opt.sel { background: #153424; color: #ffffff; }
+
+.custom-field { margin-top: 10px; }
+
+.custom-field label {
+  font-size: 10px;
+  color: #888888;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.custom-field input {
+  width: 100%;
+  padding: 10px 14px;
+  background: #f7f7f7;
+  border: none;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 13px;
+  color: #0f0f0f;
+  outline: none;
+}
+
+/* ============ BACKDROPS FLOUS ============ */
+#page-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.30);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  z-index: 45;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+#page-backdrop.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#drawer-dropdown-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.40);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 40;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+#drawer-dropdown-backdrop.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ============ GRID + CARDS ============ */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  border: 1px solid #f0f0f0;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.card-img-wrap {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: #fafafa;
+  overflow: hidden;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: zoom-in;
+}
+
+.card-del {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  color: #0f0f0f;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.card-del.confirming { background: #e11d48; color: #ffffff; }
+
+.card-del svg {
+  width: 14px;
+  height: 14px;
+  position: absolute;
+}
+
+.card-del .ck { opacity: 0; }
+.card-del.confirming .x { opacity: 0; }
+.card-del.confirming .ck { opacity: 1; }
+
+.card-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.card-cat {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #153424;
+  font-weight: 600;
+}
+
+.card-name {
+  font-family: 'Bodoni Moda', Georgia, serif;
+  font-size: 19px;
+  color: #0f0f0f;
+  line-height: 1.2;
+  margin-top: 2px;
+  font-weight: 400;
+}
+
+.card-fam {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 12px;
+  color: #888888;
+  margin-top: 2px;
+}
+
+.card-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  padding-top: 8px;
+  border-top: 1px solid #f0f0f0;
+  font-size: 11px;
+  color: #888888;
+}
+
+.card-info b {
+  font-weight: 500;
+  color: #0f0f0f;
+}
+
+.card-info .full {
+  grid-column: 1 / -1;
+}
+
+.empty {
+  padding: 80px 20px;
+  text-align: center;
+  color: #888888;
+  font-size: 14px;
+  grid-column: 1 / -1;
+}
+
+.empty svg {
+  width: 36px;
+  height: 36px;
+  color: #cccccc;
+  display: block;
+  margin: 0 auto 12px;
+}
+
+/* ============ DRAWER ============ */
+.drawer-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.drawer-bg.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 100%;
+  max-width: 440px;
+  background: #ffffff;
+  z-index: 100;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.05);
+}
+
+.drawer.open { transform: translateX(0); }
+
+.drawer-head {
+  padding: 20px 24px;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 50;
+  background: #ffffff;
+}
+
+.drawer-head h2 {
+  font-family: 'Bodoni Moda', Georgia, serif;
+  font-size: 22px;
+  color: #153424;
+  font-weight: 500;
+}
+
+.close-x {
+  background: transparent;
+  border: none;
+  color: #888888;
+  cursor: pointer;
+  padding: 6px;
+}
+
+.close-x svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+.drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 24px;
+  position: relative;
+  z-index: 50;
+}
+
+.drawer-foot {
+  padding: 16px 24px;
+  border-top: 1px solid #f0f0f0;
+  background: #ffffff;
+  position: relative;
+  z-index: 50;
+}
+
+/* ============ FORM FIELDS ============ */
+.field { margin-bottom: 18px; }
+
+.field label {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #0f0f0f;
+  margin-bottom: 6px;
+}
+
+.field input[type="text"] {
+  width: 100%;
+  padding: 11px 14px;
+  background: #f7f7f7;
+  border: none;
+  border-radius: 10px;
+  color: #0f0f0f;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+}
+
+.field input[type="text"]:focus { background: #eef2f0; }
+
+.cat-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+}
+
+.cat-opt {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #f7f7f7;
+  color: #0f0f0f;
+  font-size: 12px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  width: 100%;
+}
+
+.cat-opt svg {
+  width: 16px;
+  height: 16px;
+  color: #888888;
+  flex-shrink: 0;
+}
+
+.cat-opt:hover { background: #eef2f0; color: #153424; }
+.cat-opt.active { background: #153424; color: #ffffff; }
+.cat-opt.active svg { color: #ffffff; }
+
+.exp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px;
+}
+
+.exp-opt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 4px;
+  border-radius: 10px;
+  background: #f7f7f7;
+  color: #555555;
+  font-size: 10px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  gap: 4px;
+  text-align: center;
+}
+
+.exp-opt svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.exp-opt:hover { background: #eef2f0; color: #153424; }
+.exp-opt.active { background: #153424; color: #ffffff; }
+
+.slider-wrap { padding: 10px 0; }
+
+.slider-wrap input[type="range"] {
+  width: 100%;
+  height: 4px;
+  background: #eef2f0;
+  border-radius: 999px;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.slider-wrap input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #153424;
+  cursor: pointer;
+  border: 2px solid #ffffff;
+}
+
+.temp-val {
+  font-size: 12px;
+  font-weight: 600;
+  color: #153424;
+  background: rgba(21, 52, 36, 0.08);
+  padding: 2px 10px;
+  border-radius: 999px;
+}
+
+.temp-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.temp-legend {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #888888;
+  margin-top: 4px;
+}
+
+.file-drop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  border: 1px dashed #dcdcdc;
+  border-radius: 12px;
+  background: #ffffff;
+  cursor: pointer;
+  text-align: center;
+  position: relative;
+}
+
+.file-drop:hover { border-color: #153424; }
+
+.file-drop svg {
+  width: 24px;
+  height: 24px;
+  color: #888888;
+  margin-bottom: 8px;
+}
+
+.file-drop span {
+  font-size: 12px;
+  color: #0f0f0f;
+  font-weight: 500;
+}
+
+.file-drop input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.photo-prev {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 12px;
+  overflow: hidden;
+  display: none;
+}
+
+.photo-prev img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-prev button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.7);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ============ MODALES ============ */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+}
+
+.modal.on { opacity: 1; pointer-events: auto; }
+
+.modal-box {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 26px 22px;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.modal-box h3 {
+  font-family: 'Bodoni Moda', Georgia, serif;
+  font-size: 22px;
+  color: #153424;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.modal-box p {
+  font-size: 13px;
+  color: #888888;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.code-inp {
+  width: 100%;
+  padding: 16px;
+  font-family: monospace;
+  font-size: 22px;
+  text-align: center;
+  letter-spacing: 10px;
+  background: #f7f7f7;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  color: #153424;
+  outline: none;
+}
+
+.code-inp:focus {
+  border-color: #153424;
+  background: #ffffff;
+}
+
+.modal-acts {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.modal-acts button {
+  flex: 1;
+  padding: 11px;
+  border-radius: 10px;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-acts .primary { background: #153424; color: #ffffff; }
+.modal-acts .secondary { background: #f7f7f7; color: #153424; }
+
+/* ============ LIGHTBOX ============ */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(8, 8, 8, 0.96);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  overflow-y: auto;
+  padding: 24px 20px;
+}
+
+.lightbox.open { opacity: 1; pointer-events: auto; }
+
+.lb-close {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.72);
+  cursor: pointer;
+  z-index: 210;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lb-close svg { width: 26px; height: 26px; }
+
+.lb-content {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  max-width: 900px;
+}
+
+.lb-content img {
+  display: block;
+  max-width: 90vw;
+  max-height: 60vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+}
+
+.lb-info {
+  color: #ffffff;
+  text-align: center;
+  max-width: 640px;
+  padding: 0 12px;
+}
+
+.lb-cat {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.lb-name {
+  font-family: 'Bodoni Moda', Georgia, serif;
+  font-weight: 500;
+  font-size: 26px;
+  margin: 4px 0 0;
+}
+
+.lb-fam {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.62);
+  margin: 2px 0 0;
+}
+
+.lb-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px 40px;
+  padding-top: 16px;
+  margin-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.lb-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 110px;
+}
+
+.lb-key {
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.lb-val {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+/* ============ TOASTS ============ */
+.toast-wrap {
+  position: fixed;
+  bottom: 24px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 400;
+  pointer-events: none;
+}
+
+.toast {
+  padding: 12px 18px;
+  background: #0f0f0f;
+  color: #ffffff;
+  font-size: 12px;
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  max-width: 440px;
+  text-align: center;
+  font-family: inherit;
+  pointer-events: auto;
+  line-height: 1.4;
+}
+
+/* ============ SAISONS ============ */
+.season-bg {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.season-leaf {
+  position: absolute;
+  top: 0;
+  animation: leafFall linear infinite;
+}
+
+@keyframes leafFall {
+  0% { transform: translate3d(0, -15vh, 0); opacity: 0; }
+  10% { opacity: 0.4; }
+  90% { opacity: 0.4; }
+  100% { transform: translate3d(var(--drift, 40px), 115vh, 0); opacity: 0; }
+}
+
+.season-snow {
+  position: absolute;
+  top: 0;
+  border-radius: 50%;
+  background: rgba(120, 150, 130, 0.35);
+  animation: snowFall linear infinite;
+}
+
+@keyframes snowFall {
+  0% { transform: translate3d(0, -8vh, 0); opacity: 0; }
+  10% { opacity: 0.45; }
+  90% { opacity: 0.45; }
+  100% { transform: translate3d(var(--drift, 20px), 108vh, 0); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .season-bg { display: none !important; }
+  .scene-sun, .scene-plant { animation: none !important; }
+}
 </style>
 </head>
 <body>
@@ -192,19 +1287,84 @@ main{max-width:1100px;margin:0 auto;padding:20px 24px 60px;flex:1;width:100%}
       <div class="brand-title">Plantouille</div>
       <div class="brand-tagline">Cabinet du Dr-Cactus</div>
     </div>
+
     <div class="brand-scene" aria-hidden="true">
       <div class="scene-sun"></div>
-      <div class="scene-plant sp-glob"><svg viewBox="0 0 22 22" fill="currentColor"><path d="M3 22 Q3 5 11 5 Q19 5 19 22 Z"/></svg></div>
-      <div class="scene-plant sp-col"><svg viewBox="0 0 18 26" fill="currentColor"><rect x="7" y="2" width="4" height="24" rx="2"/><rect x="2" y="9" width="3" height="6" rx="1.5"/><rect x="2" y="13" width="5" height="3" rx="1"/><rect x="13" y="11" width="3" height="5" rx="1.5"/><rect x="11" y="14" width="5" height="3" rx="1"/></svg></div>
-      <div class="scene-plant sp-aloe"><svg viewBox="0 0 24 20" fill="currentColor"><path d="M10 20 L14 20 L1 8 Z"/><path d="M10 20 L14 20 L5 4 Z"/><path d="M10 20 L14 20 L12 0 Z"/><path d="M10 20 L14 20 L19 4 Z"/><path d="M10 20 L14 20 L23 8 Z"/></svg></div>
-      <div class="scene-plant sp-ech"><svg viewBox="0 0 24 14" fill="currentColor"><path d="M8 14 L16 14 L0 3 Z"/><path d="M8 14 L16 14 L4 1 Z"/><path d="M8 14 L16 14 L12 0 Z"/><path d="M8 14 L16 14 L20 1 Z"/><path d="M8 14 L16 14 L24 3 Z"/></svg></div>
-      <div class="scene-plant sp-yuc"><svg viewBox="0 0 18 26" fill="currentColor"><rect x="8" y="11" width="2" height="15"/><path d="M9 12 L3 4 L5 2 Z"/><path d="M9 12 L7 1 L9 0 Z"/><path d="M9 12 L9 0 L11 1 Z"/><path d="M9 12 L13 2 L15 4 Z"/></svg></div>
-      <div class="scene-plant sp-bea"><svg viewBox="0 0 20 26" fill="currentColor"><ellipse cx="10" cy="22" rx="8" ry="4"/><rect x="9" y="6" width="2" height="16"/><path d="M10 7 L3 3 L5 1 Z"/><path d="M10 7 L9 1 L10 0 Z"/><path d="M10 7 L10 0 L11 1 Z"/><path d="M10 7 L15 1 L17 3 Z"/></svg></div>
+
+      <!-- Cactus globulaire -->
+      <div class="scene-plant sp-glob">
+        <svg viewBox="0 0 22 22" fill="currentColor">
+          <path d="M3 22 Q3 5 11 5 Q19 5 19 22 Z"/>
+        </svg>
+      </div>
+
+      <!-- Cactus colonnaire (saguaro) -->
+      <div class="scene-plant sp-col">
+        <svg viewBox="0 0 18 26" fill="currentColor">
+          <rect x="7" y="2" width="4" height="24" rx="2"/>
+          <rect x="2" y="9" width="3" height="6" rx="1.5"/>
+          <rect x="2" y="13" width="5" height="3" rx="1"/>
+          <rect x="13" y="11" width="3" height="5" rx="1.5"/>
+          <rect x="11" y="14" width="5" height="3" rx="1"/>
+        </svg>
+      </div>
+
+      <!-- Aloe -->
+      <div class="scene-plant sp-aloe">
+        <svg viewBox="0 0 24 20" fill="currentColor">
+          <path d="M10 20 L14 20 L1 8 Z"/>
+          <path d="M10 20 L14 20 L5 4 Z"/>
+          <path d="M10 20 L14 20 L12 0 Z"/>
+          <path d="M10 20 L14 20 L19 4 Z"/>
+          <path d="M10 20 L14 20 L23 8 Z"/>
+        </svg>
+      </div>
+
+      <!-- Echeveria -->
+      <div class="scene-plant sp-ech">
+        <svg viewBox="0 0 24 14" fill="currentColor">
+          <path d="M8 14 L16 14 L0 3 Z"/>
+          <path d="M8 14 L16 14 L4 1 Z"/>
+          <path d="M8 14 L16 14 L12 0 Z"/>
+          <path d="M8 14 L16 14 L20 1 Z"/>
+          <path d="M8 14 L16 14 L24 3 Z"/>
+        </svg>
+      </div>
+
+      <!-- Yucca -->
+      <div class="scene-plant sp-yuc">
+        <svg viewBox="0 0 18 26" fill="currentColor">
+          <rect x="8" y="11" width="2" height="15"/>
+          <path d="M9 12 L3 4 L5 2 Z"/>
+          <path d="M9 12 L7 1 L9 0 Z"/>
+          <path d="M9 12 L9 0 L11 1 Z"/>
+          <path d="M9 12 L13 2 L15 4 Z"/>
+        </svg>
+      </div>
+
+      <!-- Beaucarnea -->
+      <div class="scene-plant sp-bea">
+        <svg viewBox="0 0 20 26" fill="currentColor">
+          <ellipse cx="10" cy="22" rx="8" ry="4"/>
+          <rect x="9" y="6" width="2" height="16"/>
+          <path d="M10 7 L3 3 L5 1 Z"/>
+          <path d="M10 7 L9 1 L10 0 Z"/>
+          <path d="M10 7 L10 0 L11 1 Z"/>
+          <path d="M10 7 L15 1 L17 3 Z"/>
+        </svg>
+      </div>
     </div>
+
     <div class="header-right">
-      <div class="stats"><strong id="stat-total">0</strong>spécimens</div>
+      <div class="stats">
+        <strong id="stat-total">0</strong>
+        spécimens
+      </div>
       <button id="lock-btn" class="lock-btn" title="Accès admin">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
       </button>
     </div>
   </div>
@@ -212,29 +1372,87 @@ main{max-width:1100px;margin:0 auto;padding:20px 24px 60px;flex:1;width:100%}
 <main>
   <div id="admin-bar" class="admin-bar">
     <span class="admin-tag">Mode admin</span>
-    <button id="add-btn" class="btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>Ajouter</button>
+    <button id="add-btn" class="btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M12 5v14M5 12h14"/>
+      </svg>
+      Ajouter
+    </button>
     <button id="lock-again" class="btn sec">Verrouiller</button>
   </div>
+
   <div class="search">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+      <circle cx="11" cy="11" r="7"/>
+      <path d="M20 20l-3.5-3.5"/>
+    </svg>
     <input id="search-input" type="search" placeholder="Rechercher une plante, famille, origine…" autocomplete="off">
   </div>
+
   <div id="chips-step">
     <div class="chips-row">
-      <button class="chip active" data-cat="all"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>Toutes</button>
-      <button class="chip" data-cat="Cactus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22V2"/><path d="M12 10H9a2 2 0 0 1-2-2V6"/><path d="M12 14h3a2 2 0 0 0 2-2v-2"/></svg>Cactus</button>
-      <button class="chip" data-cat="Succulentes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z"/><path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(-30 12 21)"/><path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(30 12 21)"/></svg>Succulentes</button>
-      <button class="chip" data-cat="Mesembryanthemum"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="14" rx="6" ry="5"/><path d="M12 9V6M9 6c1-1 5-1 6 0"/></svg>Mesembryanthemum</button>
-      <button class="chip" data-cat="Tropicales"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 19c0-7 6-13 14-14-1 8-7 14-14 14zM5 19l8-8"/></svg>Tropicales</button>
-      <button class="chip" data-cat="Caudiciformes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="16" rx="7" ry="4"/><path d="M12 12V6M9 8h6M10 5l2-2 2 2"/></svg>Caudiciformes</button>
+      <button class="chip active" data-cat="all">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="6" cy="6" r="2"/>
+          <circle cx="18" cy="6" r="2"/>
+          <circle cx="6" cy="18" r="2"/>
+          <circle cx="18" cy="18" r="2"/>
+        </svg>
+        Toutes
+      </button>
+      <button class="chip" data-cat="Cactus">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 22V2"/>
+          <path d="M12 10H9a2 2 0 0 1-2-2V6"/>
+          <path d="M12 14h3a2 2 0 0 0 2-2v-2"/>
+        </svg>
+        Cactus
+      </button>
+      <button class="chip" data-cat="Succulentes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+          <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z"/>
+          <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(-30 12 21)"/>
+          <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(30 12 21)"/>
+        </svg>
+        Succulentes
+      </button>
+      <button class="chip" data-cat="Mesembryanthemum">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <ellipse cx="12" cy="14" rx="6" ry="5"/>
+          <path d="M12 9V6M9 6c1-1 5-1 6 0"/>
+        </svg>
+        Mesembryanthemum
+      </button>
+      <button class="chip" data-cat="Tropicales">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M5 19c0-7 6-13 14-14-1 8-7 14-14 14zM5 19l8-8"/>
+        </svg>
+        Tropicales
+      </button>
+      <button class="chip" data-cat="Caudiciformes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <ellipse cx="12" cy="16" rx="7" ry="4"/>
+          <path d="M12 12V6M9 8h6M10 5l2-2 2 2"/>
+        </svg>
+        Caudiciformes
+      </button>
     </div>
   </div>
+
   <div id="species-step" class="species-step">
     <div class="species-row">
-      <button id="back-to-chips" class="back-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Rubriques</button>
+      <button id="back-to-chips" class="back-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Rubriques
+      </button>
     </div>
     <div class="sel-wrap" id="filter-species-wrap">
-      <button class="sel-trigger placeholder" id="filter-species-btn"><span class="lbl">Sélectionner un genre…</span><span class="sel-arrow"></span></button>
+      <button class="sel-trigger placeholder" id="filter-species-btn">
+        <span class="lbl">Sélectionner un genre…</span>
+        <span class="sel-arrow"></span>
+      </button>
       <div class="sel-dd" id="filter-species-dd"></div>
     </div>
     <div class="custom-field">
@@ -242,41 +1460,97 @@ main{max-width:1100px;margin:0 auto;padding:20px 24px 60px;flex:1;width:100%}
       <input type="text" id="filter-genre-custom" placeholder="ex: un genre rare…">
     </div>
   </div>
+
   <div id="grid" class="grid"></div>
 </main>
 
 <div id="drawer-bg" class="drawer-bg"></div>
+
 <aside id="drawer" class="drawer">
   <div id="drawer-dropdown-backdrop"></div>
+
   <div class="drawer-head">
     <h2>Nouveau spécimen</h2>
-    <button id="close-drawer" class="close-x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    <button id="close-drawer" class="close-x">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M18 6L6 18M6 6l12 12"/>
+      </svg>
+    </button>
   </div>
+
   <form id="plant-form" style="flex:1;display:flex;flex-direction:column;overflow:hidden">
     <div class="drawer-body">
-      <div class="field"><label>Nom de la plante *</label><input type="text" id="p-name" placeholder="ex: Trichocereus pachanoi"></div>
+
+      <div class="field">
+        <label>Nom de la plante *</label>
+        <input type="text" id="p-name" placeholder="ex: Trichocereus pachanoi">
+      </div>
+
       <div class="field">
         <label>Rubrique *</label>
         <div class="cat-grid" id="cat-picker">
-          <button type="button" class="cat-opt" data-cat="Cactus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22V2"/><path d="M12 10H9a2 2 0 0 1-2-2V6"/><path d="M12 14h3a2 2 0 0 0 2-2v-2"/></svg>Cactus</button>
-          <button type="button" class="cat-opt" data-cat="Succulentes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z"/><path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(-30 12 21)"/><path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(30 12 21)"/></svg>Succulentes</button>
-          <button type="button" class="cat-opt" data-cat="Mesembryanthemum"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="14" rx="6" ry="5"/><path d="M12 9V6M9 6c1-1 5-1 6 0"/></svg>Mesembryanthemum</button>
-          <button type="button" class="cat-opt" data-cat="Tropicales"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 19c0-7 6-13 14-14-1 8-7 14-14 14z"/></svg>Tropicales</button>
-          <button type="button" class="cat-opt" data-cat="Caudiciformes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="16" rx="7" ry="4"/><path d="M12 12V6M9 8h6M10 5l2-2 2 2"/></svg>Caudiciformes</button>
+          <button type="button" class="cat-opt" data-cat="Cactus">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 22V2"/>
+              <path d="M12 10H9a2 2 0 0 1-2-2V6"/>
+              <path d="M12 14h3a2 2 0 0 0 2-2v-2"/>
+            </svg>
+            Cactus
+          </button>
+          <button type="button" class="cat-opt" data-cat="Succulentes">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+              <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z"/>
+              <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(-30 12 21)"/>
+              <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(30 12 21)"/>
+            </svg>
+            Succulentes
+          </button>
+          <button type="button" class="cat-opt" data-cat="Mesembryanthemum">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <ellipse cx="12" cy="14" rx="6" ry="5"/>
+              <path d="M12 9V6M9 6c1-1 5-1 6 0"/>
+            </svg>
+            Mesembryanthemum
+          </button>
+          <button type="button" class="cat-opt" data-cat="Tropicales">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M5 19c0-7 6-13 14-14-1 8-7 14-14 14z"/>
+            </svg>
+            Tropicales
+          </button>
+          <button type="button" class="cat-opt" data-cat="Caudiciformes">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <ellipse cx="12" cy="16" rx="7" ry="4"/>
+              <path d="M12 12V6M9 8h6M10 5l2-2 2 2"/>
+            </svg>
+            Caudiciformes
+          </button>
         </div>
+
         <div id="drawer-species-step" style="display:none;margin-top:10px">
           <div class="sel-wrap" id="drawer-species-wrap">
-            <button type="button" class="sel-trigger placeholder" id="drawer-species-btn"><span class="lbl">Sélectionner un genre…</span><span class="sel-arrow"></span></button>
+            <button type="button" class="sel-trigger placeholder" id="drawer-species-btn">
+              <span class="lbl">Sélectionner un genre…</span>
+              <span class="sel-arrow"></span>
+            </button>
             <div class="sel-dd" id="drawer-species-dd"></div>
           </div>
-          <div class="custom-field"><label for="p-genre-custom">Nom du genre (si absent)</label><input type="text" id="p-genre-custom" placeholder="ex: un genre rare…"></div>
+          <div class="custom-field">
+            <label for="p-genre-custom">Nom du genre (si absent)</label>
+            <input type="text" id="p-genre-custom" placeholder="ex: un genre rare…">
+          </div>
         </div>
+
         <input type="hidden" id="p-cat" value="">
       </div>
+
       <div class="field">
         <label>Substrat</label>
         <div class="sel-wrap" id="substrate-wrap">
-          <button type="button" class="sel-trigger placeholder" id="substrate-btn"><span class="lbl">Sélectionner un substrat…</span><span class="sel-arrow"></span></button>
+          <button type="button" class="sel-trigger placeholder" id="substrate-btn">
+            <span class="lbl">Sélectionner un substrat…</span>
+            <span class="sel-arrow"></span>
+          </button>
           <div class="sel-dd" id="substrate-dd">
             <div class="opt-group">Cactus & Succulentes</div>
             <div class="opt" data-val="Substrat 3 tiers (Terreau, sable, pouzzolane)">Substrat 3 tiers</div>
@@ -294,62 +1568,152 @@ main{max-width:1100px;margin:0 auto;padding:20px 24px 60px;flex:1;width:100%}
           <input type="hidden" id="p-substrate" value="">
         </div>
       </div>
+
       <div class="field">
         <label>Famille botanique</label>
         <div class="sel-wrap" id="family-wrap">
-          <button type="button" class="sel-trigger placeholder" id="family-btn"><span class="lbl">Sélectionner une famille…</span><span class="sel-arrow"></span></button>
+          <button type="button" class="sel-trigger placeholder" id="family-btn">
+            <span class="lbl">Sélectionner une famille…</span>
+            <span class="sel-arrow"></span>
+          </button>
           <div class="sel-dd" id="family-dd">
-            <div class="opt" data-val="Acanthaceae">Acanthaceae</div><div class="opt" data-val="Aizoaceae">Aizoaceae</div><div class="opt" data-val="Amaryllidaceae">Amaryllidaceae</div><div class="opt" data-val="Apocynaceae">Apocynaceae</div><div class="opt" data-val="Araceae">Araceae</div><div class="opt" data-val="Arecaceae">Arecaceae</div><div class="opt" data-val="Asparagaceae">Asparagaceae</div><div class="opt" data-val="Asphodelaceae">Asphodelaceae</div><div class="opt" data-val="Bromeliaceae">Bromeliaceae</div><div class="opt" data-val="Burseraceae">Burseraceae</div><div class="opt" data-val="Cactaceae">Cactaceae</div><div class="opt" data-val="Crassulaceae">Crassulaceae</div><div class="opt" data-val="Dioscoreaceae">Dioscoreaceae</div><div class="opt" data-val="Euphorbiaceae">Euphorbiaceae</div><div class="opt" data-val="Fabaceae">Fabaceae</div><div class="opt" data-val="Moraceae">Moraceae</div><div class="opt" data-val="Orchidaceae">Orchidaceae</div><div class="opt" data-val="Portulacaceae">Portulacaceae</div><div class="opt" data-val="Rubiaceae">Rubiaceae</div><div class="opt" data-val="Zamiaceae">Zamiaceae</div><div class="opt" data-val="Zingiberaceae">Zingiberaceae</div>
+            <div class="opt" data-val="Acanthaceae">Acanthaceae</div>
+            <div class="opt" data-val="Aizoaceae">Aizoaceae</div>
+            <div class="opt" data-val="Amaryllidaceae">Amaryllidaceae</div>
+            <div class="opt" data-val="Apocynaceae">Apocynaceae</div>
+            <div class="opt" data-val="Araceae">Araceae</div>
+            <div class="opt" data-val="Arecaceae">Arecaceae</div>
+            <div class="opt" data-val="Asparagaceae">Asparagaceae</div>
+            <div class="opt" data-val="Asphodelaceae">Asphodelaceae</div>
+            <div class="opt" data-val="Bromeliaceae">Bromeliaceae</div>
+            <div class="opt" data-val="Burseraceae">Burseraceae</div>
+            <div class="opt" data-val="Cactaceae">Cactaceae</div>
+            <div class="opt" data-val="Crassulaceae">Crassulaceae</div>
+            <div class="opt" data-val="Dioscoreaceae">Dioscoreaceae</div>
+            <div class="opt" data-val="Euphorbiaceae">Euphorbiaceae</div>
+            <div class="opt" data-val="Fabaceae">Fabaceae</div>
+            <div class="opt" data-val="Moraceae">Moraceae</div>
+            <div class="opt" data-val="Orchidaceae">Orchidaceae</div>
+            <div class="opt" data-val="Portulacaceae">Portulacaceae</div>
+            <div class="opt" data-val="Rubiaceae">Rubiaceae</div>
+            <div class="opt" data-val="Zamiaceae">Zamiaceae</div>
+            <div class="opt" data-val="Zingiberaceae">Zingiberaceae</div>
           </div>
           <input type="hidden" id="p-family" value="">
         </div>
-        <div class="custom-field"><label for="p-family-custom">Nom de la famille (si absente)</label><input type="text" id="p-family-custom" placeholder="ex: une famille rare…"></div>
+        <div class="custom-field">
+          <label for="p-family-custom">Nom de la famille (si absente)</label>
+          <input type="text" id="p-family-custom" placeholder="ex: une famille rare…">
+        </div>
       </div>
+
       <div class="field">
         <label>Exposition</label>
         <div class="exp-grid" id="exp-picker">
-          <button type="button" class="exp-opt" data-exp="Plein soleil"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg>Soleil</button>
-          <button type="button" class="exp-opt" data-exp="Mi-ombre"><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3.5"/><path d="M8 2.5v1.5M2.5 8H4M4.2 4.2l1 1M11.8 4.2l-1 1M4.2 11.8l1-1"/><path d="M18 19h-5a2.5 2.5 0 0 1 0-5 4 4 0 0 1 7.5-1A2.5 2.5 0 0 1 18 19z"/></svg>Mi-ombre</button>
-          <button type="button" class="exp-opt" data-exp="Ombre"><svg viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>Ombre</button>
+          <button type="button" class="exp-opt" data-exp="Plein soleil">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/>
+            </svg>
+            Soleil
+          </button>
+          <button type="button" class="exp-opt" data-exp="Mi-ombre">
+            <svg viewBox="0 0 24 24">
+              <circle cx="8" cy="8" r="3.5"/>
+              <path d="M8 2.5v1.5M2.5 8H4M4.2 4.2l1 1M11.8 4.2l-1 1M4.2 11.8l1-1"/>
+              <path d="M18 19h-5a2.5 2.5 0 0 1 0-5 4 4 0 0 1 7.5-1A2.5 2.5 0 0 1 18 19z"/>
+            </svg>
+            Mi-ombre
+          </button>
+          <button type="button" class="exp-opt" data-exp="Ombre">
+            <svg viewBox="0 0 24 24">
+              <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
+            </svg>
+            Ombre
+          </button>
         </div>
         <input type="hidden" id="p-exp" value="">
       </div>
+
       <div class="field">
-        <div class="temp-head"><label style="margin:0">Température minimale</label><span id="temp-val" class="temp-val">0 °C</span></div>
-        <div class="slider-wrap"><input type="range" id="p-temp" min="-20" max="15" step="1" value="0"></div>
-        <div class="temp-legend"><span>-20°C</span><span>0°C</span><span>+15°C</span></div>
+        <div class="temp-head">
+          <label style="margin:0">Température minimale</label>
+          <span id="temp-val" class="temp-val">0 °C</span>
+        </div>
+        <div class="slider-wrap">
+          <input type="range" id="p-temp" min="-20" max="15" step="1" value="0">
+        </div>
+        <div class="temp-legend">
+          <span>-20°C</span>
+          <span>0°C</span>
+          <span>+15°C</span>
+        </div>
       </div>
+
       <div class="field">
         <label>Origine géographique</label>
         <div class="sel-wrap" id="origin-wrap">
-          <button type="button" class="sel-trigger placeholder" id="origin-btn"><span class="lbl">Sélectionner une région…</span><span class="sel-arrow"></span></button>
+          <button type="button" class="sel-trigger placeholder" id="origin-btn">
+            <span class="lbl">Sélectionner une région…</span>
+            <span class="sel-arrow"></span>
+          </button>
           <div class="sel-dd" id="origin-dd">
-            <div class="opt-group">Afrique</div><div class="opt" data-val="Afrique du Nord">Afrique du Nord</div><div class="opt" data-val="Afrique de l'Ouest">Afrique de l'Ouest</div><div class="opt" data-val="Afrique centrale">Afrique centrale</div><div class="opt" data-val="Afrique de l'Est">Afrique de l'Est</div><div class="opt" data-val="Afrique australe">Afrique australe</div>
-            <div class="opt-group">Amériques</div><div class="opt" data-val="Amérique du Nord">Amérique du Nord</div><div class="opt" data-val="Amérique centrale">Amérique centrale</div><div class="opt" data-val="Amérique du Sud">Amérique du Sud</div><div class="opt" data-val="Caraïbes">Caraïbes</div>
-            <div class="opt-group">Asie</div><div class="opt" data-val="Moyen-Orient">Moyen-Orient</div><div class="opt" data-val="Asie du Sud">Asie du Sud</div><div class="opt" data-val="Asie du Sud-Est">Asie du Sud-Est</div><div class="opt" data-val="Asie de l'Est">Asie de l'Est</div>
-            <div class="opt-group">Europe</div><div class="opt" data-val="Europe du Nord">Europe du Nord</div><div class="opt" data-val="Europe de l'Ouest">Europe de l'Ouest</div><div class="opt" data-val="Europe du Sud">Europe du Sud</div><div class="opt" data-val="Europe de l'Est">Europe de l'Est</div>
-            <div class="opt-group">Océanie</div><div class="opt" data-val="Australie & Nouvelle-Zélande">Australie & Nouvelle-Zélande</div><div class="opt" data-val="Pacifique">Pacifique</div>
-            <div class="opt-group">Culture</div><div class="opt" data-val="Horticole / Hybride">Horticole / Hybride</div>
+            <div class="opt-group">Afrique</div>
+            <div class="opt" data-val="Afrique du Nord">Afrique du Nord</div>
+            <div class="opt" data-val="Afrique de l'Ouest">Afrique de l'Ouest</div>
+            <div class="opt" data-val="Afrique centrale">Afrique centrale</div>
+            <div class="opt" data-val="Afrique de l'Est">Afrique de l'Est</div>
+            <div class="opt" data-val="Afrique australe">Afrique australe</div>
+            <div class="opt-group">Amériques</div>
+            <div class="opt" data-val="Amérique du Nord">Amérique du Nord</div>
+            <div class="opt" data-val="Amérique centrale">Amérique centrale</div>
+            <div class="opt" data-val="Amérique du Sud">Amérique du Sud</div>
+            <div class="opt" data-val="Caraïbes">Caraïbes</div>
+            <div class="opt-group">Asie</div>
+            <div class="opt" data-val="Moyen-Orient">Moyen-Orient</div>
+            <div class="opt" data-val="Asie du Sud">Asie du Sud</div>
+            <div class="opt" data-val="Asie du Sud-Est">Asie du Sud-Est</div>
+            <div class="opt" data-val="Asie de l'Est">Asie de l'Est</div>
+            <div class="opt-group">Europe</div>
+            <div class="opt" data-val="Europe du Nord">Europe du Nord</div>
+            <div class="opt" data-val="Europe de l'Ouest">Europe de l'Ouest</div>
+            <div class="opt" data-val="Europe du Sud">Europe du Sud</div>
+            <div class="opt" data-val="Europe de l'Est">Europe de l'Est</div>
+            <div class="opt-group">Océanie</div>
+            <div class="opt" data-val="Australie & Nouvelle-Zélande">Australie & Nouvelle-Zélande</div>
+            <div class="opt" data-val="Pacifique">Pacifique</div>
+            <div class="opt-group">Culture</div>
+            <div class="opt" data-val="Horticole / Hybride">Horticole / Hybride</div>
           </div>
           <input type="hidden" id="p-origin" value="">
         </div>
         <div id="origin-country-wrap" style="display:none;margin-top:10px">
-          <label style="font-size:10px;color:#888;font-weight:500;display:block;margin-bottom:4px">Pays (optionnel)</label>
+          <label style="font-size:10px;color:#888888;font-weight:500;display:block;margin-bottom:4px">Pays (optionnel)</label>
           <input type="text" id="p-origin-country" placeholder="ex: Mexique" style="width:100%;padding:10px 14px;background:#f7f7f7;border:none;border-radius:10px;font-family:inherit;font-size:13px;outline:none">
         </div>
       </div>
+
       <div class="field">
         <label>Photo *</label>
         <div id="file-drop" class="file-drop">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 16V4M6 10l6-6 6 6M4 20h16"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M12 16V4M6 10l6-6 6 6M4 20h16"/>
+          </svg>
           <span>Prendre ou choisir une photo</span>
           <input type="file" id="p-photo" accept="image/*" capture="environment">
         </div>
-        <div id="photo-prev" class="photo-prev"><img id="photo-prev-img" alt=""><button type="button" id="clear-photo">×</button></div>
+        <div id="photo-prev" class="photo-prev">
+          <img id="photo-prev-img" alt="">
+          <button type="button" id="clear-photo">×</button>
+        </div>
       </div>
+
     </div>
+
     <div class="drawer-foot">
-      <button type="submit" id="submit-btn" class="btn" style="width:100%;justify-content:center;padding:13px">Enregistrer</button>
+      <button type="submit" id="submit-btn" class="btn" style="width:100%;justify-content:center;padding:13px">
+        Enregistrer
+      </button>
     </div>
   </form>
 </aside>
@@ -359,12 +1723,19 @@ main{max-width:1100px;margin:0 auto;padding:20px 24px 60px;flex:1;width:100%}
     <h3>Accès administrateur</h3>
     <p>Entrez votre code pour déverrouiller la modification.</p>
     <input type="text" id="code-input" class="code-inp" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="••••" autocomplete="off">
-    <div class="modal-acts"><button type="button" id="code-cancel" class="secondary">Annuler</button><button type="button" id="code-ok" class="primary">Valider</button></div>
+    <div class="modal-acts">
+      <button type="button" id="code-cancel" class="secondary">Annuler</button>
+      <button type="button" id="code-ok" class="primary">Valider</button>
+    </div>
   </div>
 </div>
 
 <div id="lightbox" class="lightbox" aria-hidden="true">
-  <button id="lb-close" class="lb-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+  <button id="lb-close" class="lb-close">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M19 12H5M12 19l-7-7 7-7"/>
+    </svg>
+  </button>
   <div class="lb-content">
     <img id="lb-img" alt="">
     <div class="lb-info">
@@ -372,10 +1743,22 @@ main{max-width:1100px;margin:0 auto;padding:20px 24px 60px;flex:1;width:100%}
       <div class="lb-name" id="lb-name"></div>
       <div class="lb-fam" id="lb-fam"></div>
       <div class="lb-grid">
-        <div class="lb-item" id="lb-expo-w" style="display:none"><div class="lb-key">Exposition</div><div class="lb-val" id="lb-expo"></div></div>
-        <div class="lb-item" id="lb-temp-w" style="display:none"><div class="lb-key">Température min</div><div class="lb-val" id="lb-temp"></div></div>
-        <div class="lb-item" id="lb-sub-w" style="display:none"><div class="lb-key">Substrat</div><div class="lb-val" id="lb-sub"></div></div>
-        <div class="lb-item" id="lb-ori-w" style="display:none"><div class="lb-key">Origine</div><div class="lb-val" id="lb-ori"></div></div>
+        <div class="lb-item" id="lb-expo-w" style="display:none">
+          <div class="lb-key">Exposition</div>
+          <div class="lb-val" id="lb-expo"></div>
+        </div>
+        <div class="lb-item" id="lb-temp-w" style="display:none">
+          <div class="lb-key">Température min</div>
+          <div class="lb-val" id="lb-temp"></div>
+        </div>
+        <div class="lb-item" id="lb-sub-w" style="display:none">
+          <div class="lb-key">Substrat</div>
+          <div class="lb-val" id="lb-sub"></div>
+        </div>
+        <div class="lb-item" id="lb-ori-w" style="display:none">
+          <div class="lb-key">Origine</div>
+          <div class="lb-val" id="lb-ori"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -383,321 +1766,606 @@ main{max-width:1100px;margin:0 auto;padding:20px 24px 60px;flex:1;width:100%}
 
 <div id="toast-wrap" class="toast-wrap"></div>
 <script>
-(function(){
-'use strict';
-var $=function(id){return document.getElementById(id)};
-var ADMIN='2404',KEY='plantouille_v5',MAXW=900,Q=0.72;
-var SP={
-'Cactus':['Acanthocereus','Acharagma','Ancistrocactus','Aporocactus','Ariocarpus','Armatocereus','Arrojadoa','Astrophytum','Austrocactus','Austrocephalocereus','Austrocylindropuntia','Aylostera','Aztekium','Bergerocactus','Blossfeldia','Borzicactus','Brachycereus','Brasilicactus','Brasilicereus','Browningia','Calymmanthium','Carnegiea','Cephalocereus','Cereus','Cintia','Cleistocactus','Coleocephalocereus','Consolea','Copiapoa','Corryocactus','Coryphantha','Cumulopuntia','Cylindropuntia','Denmoza','Discocactus','Echinocactus','Echinocereus','Echinomastus','Echinopsis','Epiphyllum','Eriosyce','Escobaria','Espostoa','Espostoopsis','Eulychnia','Facheiroa','Ferocactus','Frailea','Geohintonia','Gymnocalycium','Haageocereus','Hamatocactus','Harrisia','Hatiora','Hylocereus','Isolatocereus','Islaya','Jasminocereus','Lasiocereus','Leocereus','Lepismium','Leptocereus','Leuchtenbergia','Lobivia','Lophophora','Loxanthocereus','Mammillaria','Mammilloydia','Matucana','Melocactus','Micranthocereus','Mila','Monvillea','Morawetzia','Myrtillocactus','Neobuxbaumia','Neolloydia','Neoporteria','Neoraimondia','Neowerdermannia','Notocactus','Obregonia','Opuntia','Oreocereus','Oroya','Ortegocactus','Pachycereus','Parodia','Pediocactus','Pelecyphora','Peniocereus','Pereskia','Pilosocereus','Polaskia','Pterocactus','Pygmaeocereus','Rebutia','Rhipsalis','Schlumbergera','Selenicereus','Setiechinopsis','Stenocactus','Stenocereus','Stephanocereus','Stetsonia','Strombocactus','Sulcorebutia','Tacinga','Tephrocactus','Thelocactus','Trichocereus','Tunilla','Turbinicarpus','Uebelmannia','Weberbauerocereus','Weingartia','Wilcoxia','Yavia'],
-'Succulentes':['Adromischus','Adenia','Aeonium','Agave','Aichryson','Albuca','Alluaudia','Alluaudiopsis','Aloe','Anacampseros','Aptenia','Apteranthes','Astroloba','Avonia','Beaucarnea','Bowiea','Brachystelma','Bulbine','Calibanus','Caralluma','Ceraria','Ceropegia','Cissus','Cotyledon','Crassula','Dasylirion','Decarya','Didierea','Dracaena','Dudleya','Duvalia','Echeveria','Echidnopsis','Edithcolea','Encephalartos','Euphorbia','Fockea','Frithia','Gasteria','Gonialoe','Graptopetalum','Graptophytum','Graptosedum','Graptoveria','Greenovia','Haworthia','Haworthiopsis','Hoodia','Huernia','Hylotelephium','Jovibarba','Kalanchoe','Kleinia','Kumara','Lapidaria','Larryleachia','Lavrania','Lenophyllum','Lithops','Manfreda','Monadenium','Monanthes','Orbea','Orostachys','Oscularia','Othonna','Pachyphytum','Pachyveria','Pachypodium','Pedilanthus','Pelargonium','Peperomia','Petrosedum','Phedimus','Piaranthus','Plectranthus','Polianthes','Portulacaria','Pseudolithos','Quaqua','Rhodiola','Rhombophyllum','Rochea','Rosularia','Sansevieria','Sarcostemma','Sedeveria','Sedum','Senecio','Sempervivum','Sinocrassula','Stapelia','Stapelianthus','Synadenium','Tacitus','Tavaresia','Trichocaulon','Tulista','Tylecodon','Umbilicus','Villadia','Xerosicyos','Yucca'],
-'Mesembryanthemum':['Acrodon','Aloinopsis','Amphibolia','Antimima','Apatesia','Aptenia','Argyroderma','Aspazoma','Bergeranthus','Berrisfordia','Bijlia','Braunsia','Brownanthus','Carpanthea','Carpobrotus','Carruanthus','Cephalophyllum','Cerochlamys','Chasmatophyllum','Cheiridopsis','Circandra','Cleretum','Conicosia','Conophytum','Corpuscularia','Cylindrophyllum','Dactylopsis','Delosperma','Dinteranthus','Diplosoma','Disphyma','Dorotheanthus','Dracophilus','Drosanthemum','Eberlanzia','Ebracteola','Ectotropis','Enarganthe','Erepsia','Esterhuysenia','Faucaria','Fenestraria','Frithia','Galenia','Gibbaeum','Glottiphyllum','Hallianthus','Hereroa','Herreanthus','Hydrodea','Imitaria','Jacobsenia','Jensenobotrya','Jordaaniella','Juttadinteria','Khadia','Lampranthus','Lapidaria','Leipoldtia','Lithops','Machairophyllum','Malephora','Maughania','Meyerophytum','Mitrophyllum','Monilaria','Mossia','Muiria','Namaquanthus','Namibia','Nananthus','Nelia','Neohenricia','Octopoma','Odontophorus','Oophytum','Ophthalmophyllum','Orthopterum','Oscularia','Ottosonderia','Peersia','Phyllobolus','Pleiospilos','Polymita','Prenia','Prepodesma','Psammophora','Pseudobrownanthus','Rabiea','Rhinephyllum','Rhombophyllum','Ruschia','Ruschianthus','Saphesia','Sceletium','Schwantesia','Scopelogena','Smicrostigma','Stayneria','Stoeberia','Stomatium','Tanquana','Titanopsis','Trichodiadema','Vanheerdea','Vanzijlia','Vlokia','Wooleya','Zeuktophyllum'],
-'Tropicales':['Acalypha','Aglaonema','Alocasia','Alpinia','Ananas','Anthurium','Araucaria','Ardisia','Aspidistra','Asplenium','Begonia','Billbergia','Bromelia','Brugmansia','Caladium','Calathea','Canna','Chlorophytum','Cissus','Clivia','Coccoloba','Codiaeum','Colocasia','Cordyline','Costus','Crinum','Croton','Cryptanthus','Ctenanthe','Curculigo','Curcuma','Cycas','Cyrtomium','Davallia','Dicksonia','Dieffenbachia','Dracaena','Epipremnum','Eranthemum','Eucomis','Ficus','Fittonia','Freesia','Gardenia','Gloriosa','Guzmania','Haemanthus','Hedychium','Heliconia','Hemigraphis','Heptapleurum','Hippeastrum','Homalomena','Hoya','Hymenocallis','Impatiens','Ixora','Jasminum','Justicia','Kaempferia','Leea','Maranta','Monstera','Musa','Neoregelia','Nepenthes','Nephrolepis','Nidularium','Pachira','Pandanus','Paphiopedilum','Passiflora','Pellionia','Peperomia','Pentas','Philodendron','Phlebodium','Phoenix','Pilea','Piper','Platycerium','Plumeria','Polystichum','Pothos','Pseuderanthemum','Pteris','Rhapis','Ruellia','Sanchezia','Sansevieria','Sarracenia','Scindapsus','Schefflera','Spathiphyllum','Strelitzia','Stromanthe','Syngonium','Thaumatophyllum','Thunbergia','Tillandsia','Tradescantia','Vriesea','Yucca','Zamioculcas','Zingiber'],
-'Caudiciformes':['Adansonia','Adenia','Adenium','Albuca','Alectra','Anacampseros','Avonia','Barleria','Beaucarnea','Bombax','Bowiea','Brachystelma','Bulbine','Bursera','Calibanus','Caralluma','Ceraria','Ceropegia','Cibirhiza','Cissus','Commiphora','Conophytum','Cotyledon','Crassula','Cussonia','Cynanchum','Cyphostemma','Decabelone','Decarya','Delonix','Dendrosicyos','Didierea','Dioscorea','Dorstenia','Drimia','Duvalia','Echidnopsis','Encephalartos','Euphorbia','Ficus','Fockea','Fouquieria','Gerrardanthus','Hoodia','Huernia','Hydnophytum','Ibervillea','Idria','Ipomoea','Jatropha','Kedrostis','Kleinia','Kokia','Lannea','Laportea','Larryleachia','Lavrania','Lithops','Massonia','Melocactus','Monadenium','Momordica','Monsonia','Moringa','Myrmecodia','Nolina','Operculicarya','Orbea','Ornithogalum','Othonna','Oxalis','Pachypodium','Pelargonium','Phyllanthus','Piaranthus','Plumeria','Pseudobombax','Pseudolithos','Pterodiscus','Pyrenacantha','Quaqua','Raphionacme','Sarcocaulon','Sarcostemma','Sceletium','Senecio','Sesamothamnus','Sinningia','Stapelia','Stapelianthus','Sterculia','Synadenium','Talinum','Tavaresia','Testudinaria','Trichocaulon','Trichodiadema','Tylecodon','Uncarina','Welwitschia','Whitesloanea','Xerosicyos']};
+(function () {
+  'use strict';
 
-var plants=[],unlocked=false,photo='',filter='all',genreFilter='';
-var selSub='',selFam='',selExp='',selOri='';
+  var $ = function (id) { return document.getElementById(id); };
+  var ADMIN = '2404';
+  var KEY = 'plantouille_v5';
+  var MAXW = 900;
+  var Q = 0.72;
 
-function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]})}
-function norm(s){return String(s==null?'':s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()}
-function fmtT(t){if(t==null||t==='')return null;var n=Number(t);return(n>0?'+'+n:n)+' °C'}
-function toast(m,ms){var t=document.createElement('div');t.className='toast';t.textContent=m;$('toast-wrap').appendChild(t);setTimeout(function(){t.remove()},ms||3000)}
+  var SPECIES = {
+    'Cactus': ['Acanthocereus','Acharagma','Ancistrocactus','Aporocactus','Ariocarpus','Armatocereus','Arrojadoa','Astrophytum','Austrocactus','Austrocephalocereus','Austrocylindropuntia','Aylostera','Aztekium','Bergerocactus','Blossfeldia','Borzicactus','Brachycereus','Brasilicactus','Brasilicereus','Browningia','Calymmanthium','Carnegiea','Cephalocereus','Cereus','Cintia','Cleistocactus','Coleocephalocereus','Consolea','Copiapoa','Corryocactus','Coryphantha','Cumulopuntia','Cylindropuntia','Denmoza','Discocactus','Echinocactus','Echinocereus','Echinomastus','Echinopsis','Epiphyllum','Eriosyce','Escobaria','Espostoa','Espostoopsis','Eulychnia','Facheiroa','Ferocactus','Frailea','Geohintonia','Gymnocalycium','Haageocereus','Hamatocactus','Harrisia','Hatiora','Hylocereus','Isolatocereus','Islaya','Jasminocereus','Lasiocereus','Leocereus','Lepismium','Leptocereus','Leuchtenbergia','Lobivia','Lophophora','Loxanthocereus','Mammillaria','Mammilloydia','Matucana','Melocactus','Micranthocereus','Mila','Monvillea','Morawetzia','Myrtillocactus','Neobuxbaumia','Neolloydia','Neoporteria','Neoraimondia','Neowerdermannia','Notocactus','Obregonia','Opuntia','Oreocereus','Oroya','Ortegocactus','Pachycereus','Parodia','Pediocactus','Pelecyphora','Peniocereus','Pereskia','Pilosocereus','Polaskia','Pterocactus','Pygmaeocereus','Rebutia','Rhipsalis','Schlumbergera','Selenicereus','Setiechinopsis','Stenocactus','Stenocereus','Stephanocereus','Stetsonia','Strombocactus','Sulcorebutia','Tacinga','Tephrocactus','Thelocactus','Trichocereus','Tunilla','Turbinicarpus','Uebelmannia','Weberbauerocereus','Weingartia','Wilcoxia','Yavia'],
+    'Succulentes': ['Adromischus','Adenia','Aeonium','Agave','Aichryson','Albuca','Alluaudia','Alluaudiopsis','Aloe','Anacampseros','Aptenia','Apteranthes','Astroloba','Avonia','Beaucarnea','Bowiea','Brachystelma','Bulbine','Calibanus','Caralluma','Ceraria','Ceropegia','Cissus','Cotyledon','Crassula','Dasylirion','Decarya','Didierea','Dracaena','Dudleya','Duvalia','Echeveria','Echidnopsis','Edithcolea','Encephalartos','Euphorbia','Fockea','Frithia','Gasteria','Gonialoe','Graptopetalum','Graptophytum','Graptosedum','Graptoveria','Greenovia','Haworthia','Haworthiopsis','Hoodia','Huernia','Hylotelephium','Jovibarba','Kalanchoe','Kleinia','Kumara','Lapidaria','Larryleachia','Lavrania','Lenophyllum','Lithops','Manfreda','Monadenium','Monanthes','Orbea','Orostachys','Oscularia','Othonna','Pachyphytum','Pachyveria','Pachypodium','Pedilanthus','Pelargonium','Peperomia','Petrosedum','Phedimus','Piaranthus','Plectranthus','Polianthes','Portulacaria','Pseudolithos','Quaqua','Rhodiola','Rhombophyllum','Rochea','Rosularia','Sansevieria','Sarcostemma','Sedeveria','Sedum','Senecio','Sempervivum','Sinocrassula','Stapelia','Stapelianthus','Synadenium','Tacitus','Tavaresia','Trichocaulon','Tulista','Tylecodon','Umbilicus','Villadia','Xerosicyos','Yucca'],
+    'Mesembryanthemum': ['Acrodon','Aloinopsis','Amphibolia','Antimima','Apatesia','Aptenia','Argyroderma','Aspazoma','Bergeranthus','Berrisfordia','Bijlia','Braunsia','Brownanthus','Carpanthea','Carpobrotus','Carruanthus','Cephalophyllum','Cerochlamys','Chasmatophyllum','Cheiridopsis','Circandra','Cleretum','Conicosia','Conophytum','Corpuscularia','Cylindrophyllum','Dactylopsis','Delosperma','Dinteranthus','Diplosoma','Disphyma','Dorotheanthus','Dracophilus','Drosanthemum','Eberlanzia','Ebracteola','Ectotropis','Enarganthe','Erepsia','Esterhuysenia','Faucaria','Fenestraria','Frithia','Galenia','Gibbaeum','Glottiphyllum','Hallianthus','Hereroa','Herreanthus','Hydrodea','Imitaria','Jacobsenia','Jensenobotrya','Jordaaniella','Juttadinteria','Khadia','Lampranthus','Lapidaria','Leipoldtia','Lithops','Machairophyllum','Malephora','Maughania','Meyerophytum','Mitrophyllum','Monilaria','Mossia','Muiria','Namaquanthus','Namibia','Nananthus','Nelia','Neohenricia','Octopoma','Odontophorus','Oophytum','Ophthalmophyllum','Orthopterum','Oscularia','Ottosonderia','Peersia','Phyllobolus','Pleiospilos','Polymita','Prenia','Prepodesma','Psammophora','Pseudobrownanthus','Rabiea','Rhinephyllum','Rhombophyllum','Ruschia','Ruschianthus','Saphesia','Sceletium','Schwantesia','Scopelogena','Smicrostigma','Stayneria','Stoeberia','Stomatium','Tanquana','Titanopsis','Trichodiadema','Vanheerdea','Vanzijlia','Vlokia','Wooleya','Zeuktophyllum'],
+    'Tropicales': ['Acalypha','Aglaonema','Alocasia','Alpinia','Ananas','Anthurium','Araucaria','Ardisia','Aspidistra','Asplenium','Begonia','Billbergia','Bromelia','Brugmansia','Caladium','Calathea','Canna','Chlorophytum','Cissus','Clivia','Coccoloba','Codiaeum','Colocasia','Cordyline','Costus','Crinum','Croton','Cryptanthus','Ctenanthe','Curculigo','Curcuma','Cycas','Cyrtomium','Davallia','Dicksonia','Dieffenbachia','Dracaena','Epipremnum','Eranthemum','Eucomis','Ficus','Fittonia','Freesia','Gardenia','Gloriosa','Guzmania','Haemanthus','Hedychium','Heliconia','Hemigraphis','Heptapleurum','Hippeastrum','Homalomena','Hoya','Hymenocallis','Impatiens','Ixora','Jasminum','Justicia','Kaempferia','Leea','Maranta','Monstera','Musa','Neoregelia','Nepenthes','Nephrolepis','Nidularium','Pachira','Pandanus','Paphiopedilum','Passiflora','Pellionia','Peperomia','Pentas','Philodendron','Phlebodium','Phoenix','Pilea','Piper','Platycerium','Plumeria','Polystichum','Pothos','Pseuderanthemum','Pteris','Rhapis','Ruellia','Sanchezia','Sansevieria','Sarracenia','Scindapsus','Schefflera','Spathiphyllum','Strelitzia','Stromanthe','Syngonium','Thaumatophyllum','Thunbergia','Tillandsia','Tradescantia','Vriesea','Yucca','Zamioculcas','Zingiber'],
+    'Caudiciformes': ['Adansonia','Adenia','Adenium','Albuca','Alectra','Anacampseros','Avonia','Barleria','Beaucarnea','Bombax','Bowiea','Brachystelma','Bulbine','Bursera','Calibanus','Caralluma','Ceraria','Ceropegia','Cibirhiza','Cissus','Commiphora','Conophytum','Cotyledon','Crassula','Cussonia','Cynanchum','Cyphostemma','Decabelone','Decarya','Delonix','Dendrosicyos','Didierea','Dioscorea','Dorstenia','Drimia','Duvalia','Echidnopsis','Encephalartos','Euphorbia','Ficus','Fockea','Fouquieria','Gerrardanthus','Hoodia','Huernia','Hydnophytum','Ibervillea','Idria','Ipomoea','Jatropha','Kedrostis','Kleinia','Kokia','Lannea','Laportea','Larryleachia','Lavrania','Lithops','Massonia','Melocactus','Monadenium','Momordica','Monsonia','Moringa','Myrmecodia','Nolina','Operculicarya','Orbea','Ornithogalum','Othonna','Oxalis','Pachypodium','Pelargonium','Phyllanthus','Piaranthus','Plumeria','Pseudobombax','Pseudolithos','Pterodiscus','Pyrenacantha','Quaqua','Raphionacme','Sarcocaulon','Sarcostemma','Sceletium','Senecio','Sesamothamnus','Sinningia','Stapelia','Stapelianthus','Sterculia','Synadenium','Talinum','Tavaresia','Testudinaria','Trichocaulon','Trichodiadema','Tylecodon','Uncarina','Welwitschia','Whitesloanea','Xerosicyos']
+  };
 
-function loadP(){try{var r=localStorage.getItem(KEY);if(!r)return[];var a=JSON.parse(r);return Array.isArray(a)?a:[]}catch(e){return[]}}
-function saveP(){try{localStorage.setItem(KEY,JSON.stringify(plants));return true}catch(e){toast('Stockage plein');return false}}
-function stats(){$('stat-total').textContent=plants.length}
+  var plants = [];
+  var unlocked = false;
+  var photo = '';
+  var filter = 'all';
+  var genreFilter = '';
+  var selSub = '';
+  var selFam = '';
+  var selExp = '';
+  var selOri = '';
 
-function syncBack(){
-  var m=document.querySelector('main .sel-wrap.open'),d=document.querySelector('#drawer .sel-wrap.open');
-  var pb=$('page-backdrop'),dd=$('drawer-dropdown-backdrop');
-  if(pb)pb.classList.toggle('visible',!!m);
-  if(dd)dd.classList.toggle('visible',!!d);
-}
-
-function filterList(){
-  var term=norm($('search-input').value.trim()),gt=norm(genreFilter);
-  return plants.filter(function(p){
-    if(filter!=='all'&&p.category!==filter)return false;
-    if(gt&&norm(p.name).indexOf(gt)===-1)return false;
-    if(term){
-      var h=norm((p.name||'')+' '+(p.family||'')+' '+(p.substrate||'')+' '+(p.exposure||'')+' '+(p.origin||'')+' '+(p.category||''));
-      if(h.indexOf(term)===-1)return false;
-    }
-    return true;
-  });
-}
-
-function render(){
-  var list=filterList(),g=$('grid');g.innerHTML='';
-  if(list.length===0){
-    g.innerHTML='<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 21V11"/><path d="M12 13c-3.5 0-6-2.5-6-6 3.5 0 6 2.5 6 6z"/></svg>'+(plants.length===0?"Aucun spécimen pour l'instant.":"Aucun spécimen ne correspond.")+'</div>';return;
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
   }
-  list.forEach(function(p){
-    var c=document.createElement('article');c.className='card';
-    var tf=fmtT(p.minTemp),info='';
-    if(p.exposure)info+='<div><b>Expo:</b> '+esc(p.exposure)+'</div>';
-    if(tf)info+='<div><b>Min:</b> '+esc(tf)+'</div>';
-    if(p.substrate)info+='<div class="full"><b>Substrat:</b> '+esc(p.substrate)+'</div>';
-    if(p.origin)info+='<div class="full"><b>Origine:</b> '+esc(p.origin)+'</div>';
-    var db=unlocked?'<button type="button" class="card-del"><svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"/></svg><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg></button>':'';
-    c.innerHTML='<div class="card-img-wrap"><img src="'+esc(p.photo)+'" alt="'+esc(p.name)+'" loading="lazy">'+db+'</div><div class="card-body"><div><div class="card-cat">'+esc(p.category)+'</div><div class="card-name">'+esc(p.name)+'</div>'+(p.family?'<div class="card-fam">'+esc(p.family)+'</div>':'')+'</div><div class="card-info">'+info+'</div></div>';
-    c.querySelector('.card-img-wrap img').addEventListener('click',function(){openLB(p)});
-    var d=c.querySelector('.card-del');
-    if(d){var to=null;d.addEventListener('click',function(e){e.stopPropagation();if(!d.classList.contains('confirming')){d.classList.add('confirming');clearTimeout(to);to=setTimeout(function(){d.classList.remove('confirming')},2500)}else{delP(p)}})}
-    g.appendChild(c);
-  });
-}
 
-function delP(p){plants=plants.filter(function(x){return x.id!==p.id});if(saveP()){stats();render();toast('Spécimen retiré')}}
+  function norm(s) {
+    return String(s == null ? '' : s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  }
 
-function openLB(p){
-  $('lb-img').src=p.photo;$('lb-img').alt=p.name||'';
-  $('lb-cat').textContent=p.category||'';$('lb-name').textContent=p.name||'';
-  $('lb-fam').textContent=p.family||'';$('lb-fam').style.display=p.family?'block':'none';
-  var tf=fmtT(p.minTemp);
-  if(p.exposure){$('lb-expo-w').style.display='flex';$('lb-expo').textContent=p.exposure}else{$('lb-expo-w').style.display='none'}
-  if(tf){$('lb-temp-w').style.display='flex';$('lb-temp').textContent=tf}else{$('lb-temp-w').style.display='none'}
-  if(p.substrate){$('lb-sub-w').style.display='flex';$('lb-sub').textContent=p.substrate}else{$('lb-sub-w').style.display='none'}
-  if(p.origin){$('lb-ori-w').style.display='flex';$('lb-ori').textContent=p.origin}else{$('lb-ori-w').style.display='none'}
-  $('lightbox').classList.add('open');document.body.style.overflow='hidden';
-}
-function closeLB(){$('lightbox').classList.remove('open');document.body.style.overflow=''}
+  function fmtT(t) {
+    if (t == null || t === '') return null;
+    var n = Number(t);
+    return (n > 0 ? '+' + n : n) + ' °C';
+  }
 
-function openModal(id){$(id).classList.add('on');document.body.style.overflow='hidden'}
-function closeModal(id){$(id).classList.remove('on');if(!$('drawer').classList.contains('open'))document.body.style.overflow=''}
+  function toast(m, ms) {
+    var t = document.createElement('div');
+    t.className = 'toast';
+    t.textContent = m;
+    $('toast-wrap').appendChild(t);
+    setTimeout(function () { t.remove(); }, ms || 3000);
+  }
 
-function unlock(){
-  unlocked=true;$('lock-btn').classList.add('unlocked');
-  $('lock-btn').innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>';
-  $('admin-bar').classList.add('on');render();toast('Mode admin activé',2000);
-}
-function lock(){
-  unlocked=false;$('lock-btn').classList.remove('unlocked');
-  $('lock-btn').innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
-  $('admin-bar').classList.remove('on');render();
-}
+  function loadP() {
+    try {
+      var r = localStorage.getItem(KEY);
+      if (!r) return [];
+      var a = JSON.parse(r);
+      return Array.isArray(a) ? a : [];
+    } catch (e) { return []; }
+  }
 
-function setupSel(wrapId,btnId,ddId,hiddenId,defaultText,cb){
-  var w=$(wrapId),b=$(btnId),dd=$(ddId),h=$(hiddenId);
-  b.addEventListener('click',function(e){
-    e.stopPropagation();
-    document.querySelectorAll('.sel-wrap.open').forEach(function(x){if(x!==w)x.classList.remove('open')});
-    w.classList.toggle('open');syncBack();
-  });
-  dd.querySelectorAll('.opt').forEach(function(o){
-    o.addEventListener('click',function(e){
+  function saveP() {
+    try {
+      localStorage.setItem(KEY, JSON.stringify(plants));
+      return true;
+    } catch (e) {
+      toast('Stockage plein');
+      return false;
+    }
+  }
+
+  function stats() {
+    $('stat-total').textContent = plants.length;
+  }
+
+  function syncBack() {
+    var m = document.querySelector('main .sel-wrap.open');
+    var d = document.querySelector('#drawer .sel-wrap.open');
+    var pb = $('page-backdrop');
+    var dd = $('drawer-dropdown-backdrop');
+    if (pb) pb.classList.toggle('visible', !!m);
+    if (dd) dd.classList.toggle('visible', !!d);
+  }
+
+  function filterList() {
+    var term = norm($('search-input').value.trim());
+    var gt = norm(genreFilter);
+    return plants.filter(function (p) {
+      if (filter !== 'all' && p.category !== filter) return false;
+      if (gt && norm(p.name).indexOf(gt) === -1) return false;
+      if (term) {
+        var h = norm((p.name||'') + ' ' + (p.family||'') + ' ' + (p.substrate||'') + ' ' + (p.exposure||'') + ' ' + (p.origin||'') + ' ' + (p.category||''));
+        if (h.indexOf(term) === -1) return false;
+      }
+      return true;
+    });
+  }
+
+  function render() {
+    var list = filterList();
+    var g = $('grid');
+    g.innerHTML = '';
+    if (list.length === 0) {
+      g.innerHTML = '<div class="empty">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 21V11"/><path d="M12 13c-3.5 0-6-2.5-6-6 3.5 0 6 2.5 6 6z"/></svg>' +
+        (plants.length === 0 ? "Aucun spécimen pour l'instant." : "Aucun spécimen ne correspond.") +
+        '</div>';
+      return;
+    }
+    list.forEach(function (p) {
+      var c = document.createElement('article');
+      c.className = 'card';
+      var tf = fmtT(p.minTemp);
+      var info = '';
+      if (p.exposure) info += '<div><b>Expo:</b> ' + esc(p.exposure) + '</div>';
+      if (tf) info += '<div><b>Min:</b> ' + esc(tf) + '</div>';
+      if (p.substrate) info += '<div class="full"><b>Substrat:</b> ' + esc(p.substrate) + '</div>';
+      if (p.origin) info += '<div class="full"><b>Origine:</b> ' + esc(p.origin) + '</div>';
+      var db = unlocked
+        ? '<button type="button" class="card-del"><svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"/></svg><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg></button>'
+        : '';
+      c.innerHTML =
+        '<div class="card-img-wrap"><img src="' + esc(p.photo) + '" alt="' + esc(p.name) + '" loading="lazy">' + db + '</div>' +
+        '<div class="card-body">' +
+          '<div>' +
+            '<div class="card-cat">' + esc(p.category) + '</div>' +
+            '<div class="card-name">' + esc(p.name) + '</div>' +
+            (p.family ? '<div class="card-fam">' + esc(p.family) + '</div>' : '') +
+          '</div>' +
+          '<div class="card-info">' + info + '</div>' +
+        '</div>';
+      c.querySelector('.card-img-wrap img').addEventListener('click', function () { openLB(p); });
+      var d = c.querySelector('.card-del');
+      if (d) {
+        var to = null;
+        d.addEventListener('click', function (e) {
+          e.stopPropagation();
+          if (!d.classList.contains('confirming')) {
+            d.classList.add('confirming');
+            clearTimeout(to);
+            to = setTimeout(function () { d.classList.remove('confirming'); }, 2500);
+          } else {
+            delP(p);
+          }
+        });
+      }
+      g.appendChild(c);
+    });
+  }
+
+  function delP(p) {
+    plants = plants.filter(function (x) { return x.id !== p.id; });
+    if (saveP()) {
+      stats();
+      render();
+      toast('Spécimen retiré');
+    }
+  }
+
+  function openLB(p) {
+    $('lb-img').src = p.photo;
+    $('lb-img').alt = p.name || '';
+    $('lb-cat').textContent = p.category || '';
+    $('lb-name').textContent = p.name || '';
+    $('lb-fam').textContent = p.family || '';
+    $('lb-fam').style.display = p.family ? 'block' : 'none';
+    var tf = fmtT(p.minTemp);
+    if (p.exposure) { $('lb-expo-w').style.display = 'flex'; $('lb-expo').textContent = p.exposure; }
+    else { $('lb-expo-w').style.display = 'none'; }
+    if (tf) { $('lb-temp-w').style.display = 'flex'; $('lb-temp').textContent = tf; }
+    else { $('lb-temp-w').style.display = 'none'; }
+    if (p.substrate) { $('lb-sub-w').style.display = 'flex'; $('lb-sub').textContent = p.substrate; }
+    else { $('lb-sub-w').style.display = 'none'; }
+    if (p.origin) { $('lb-ori-w').style.display = 'flex'; $('lb-ori').textContent = p.origin; }
+    else { $('lb-ori-w').style.display = 'none'; }
+    $('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLB() {
+    $('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function openModal(id) {
+    $(id).classList.add('on');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal(id) {
+    $(id).classList.remove('on');
+    if (!$('drawer').classList.contains('open')) document.body.style.overflow = '';
+  }
+
+  function unlock() {
+    unlocked = true;
+    $('lock-btn').classList.add('unlocked');
+    $('lock-btn').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>';
+    $('admin-bar').classList.add('on');
+    render();
+    toast('Mode admin activé', 2000);
+  }
+
+  function lock() {
+    unlocked = false;
+    $('lock-btn').classList.remove('unlocked');
+    $('lock-btn').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
+    $('admin-bar').classList.remove('on');
+    render();
+  }
+
+  function setupSel(wrapId, btnId, ddId, hiddenId, defaultText, cb) {
+    var w = $(wrapId);
+    var b = $(btnId);
+    var dd = $(ddId);
+    var h = $(hiddenId);
+    b.addEventListener('click', function (e) {
       e.stopPropagation();
-      dd.querySelectorAll('.opt').forEach(function(x){x.classList.remove('sel')});
-      o.classList.add('sel');
-      var v=o.getAttribute('data-val');
-      h.value=v;b.querySelector('.lbl').textContent=v;b.classList.remove('placeholder');
-      w.classList.remove('open');syncBack();
-      if(cb)cb(v);
+      document.querySelectorAll('.sel-wrap.open').forEach(function (x) {
+        if (x !== w) x.classList.remove('open');
+      });
+      w.classList.toggle('open');
+      syncBack();
+    });
+    dd.querySelectorAll('.opt').forEach(function (o) {
+      o.addEventListener('click', function (e) {
+        e.stopPropagation();
+        dd.querySelectorAll('.opt').forEach(function (x) { x.classList.remove('sel'); });
+        o.classList.add('sel');
+        var v = o.getAttribute('data-val');
+        h.value = v;
+        b.querySelector('.lbl').textContent = v;
+        b.classList.remove('placeholder');
+        w.classList.remove('open');
+        syncBack();
+        if (cb) cb(v);
+      });
+    });
+    return function reset() {
+      h.value = '';
+      b.querySelector('.lbl').textContent = defaultText;
+      b.classList.add('placeholder');
+      dd.querySelectorAll('.opt').forEach(function (x) { x.classList.remove('sel'); });
+      w.classList.remove('open');
+      if (cb) cb('');
+    };
+  }
+
+  var resetSub = setupSel('substrate-wrap', 'substrate-btn', 'substrate-dd', 'p-substrate', 'Sélectionner un substrat…', function (v) { selSub = v; });
+  var resetFam = setupSel('family-wrap', 'family-btn', 'family-dd', 'p-family', 'Sélectionner une famille…', function (v) { selFam = v; });
+  var resetOri = setupSel('origin-wrap', 'origin-btn', 'origin-dd', 'p-origin', 'Sélectionner une région…', function (v) {
+    selOri = v;
+    $('origin-country-wrap').style.display = (v && v !== 'Horticole / Hybride') ? 'block' : 'none';
+    if (!v || v === 'Horticole / Hybride') $('p-origin-country').value = '';
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.sel-wrap')) {
+      document.querySelectorAll('.sel-wrap.open').forEach(function (w) { w.classList.remove('open'); });
+      syncBack();
+    }
+  });
+
+  document.querySelectorAll('#exp-picker .exp-opt').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('#exp-picker .exp-opt').forEach(function (x) { x.classList.remove('active'); });
+      b.classList.add('active');
+      selExp = b.getAttribute('data-exp');
+      $('p-exp').value = selExp;
     });
   });
-  return function reset(){
-    h.value='';b.querySelector('.lbl').textContent=defaultText;b.classList.add('placeholder');
-    dd.querySelectorAll('.opt').forEach(function(x){x.classList.remove('sel')});w.classList.remove('open');
-    if(cb)cb('');
-  };
-}
 
-var resetSub=setupSel('substrate-wrap','substrate-btn','substrate-dd','p-substrate','Sélectionner un substrat…',function(v){selSub=v});
-var resetFam=setupSel('family-wrap','family-btn','family-dd','p-family','Sélectionner une famille…',function(v){selFam=v});
-var resetOri=setupSel('origin-wrap','origin-btn','origin-dd','p-origin','Sélectionner une région…',function(v){
-  selOri=v;
-  $('origin-country-wrap').style.display=(v&&v!=='Horticole / Hybride')?'block':'none';
-  if(!v||v==='Horticole / Hybride')$('p-origin-country').value='';
-});
-
-document.addEventListener('click',function(e){
-  if(!e.target.closest('.sel-wrap')){
-    document.querySelectorAll('.sel-wrap.open').forEach(function(w){w.classList.remove('open')});
-    syncBack();
-  }
-});
-
-document.querySelectorAll('#exp-picker .exp-opt').forEach(function(b){
-  b.addEventListener('click',function(){
-    document.querySelectorAll('#exp-picker .exp-opt').forEach(function(x){x.classList.remove('active')});
-    b.classList.add('active');selExp=b.getAttribute('data-exp');$('p-exp').value=selExp;
+  $('p-temp').addEventListener('input', function (e) {
+    var v = e.target.value;
+    $('temp-val').textContent = (v > 0 ? '+' + v : v) + ' °C';
   });
-});
 
-$('p-temp').addEventListener('input',function(e){var v=e.target.value;$('temp-val').textContent=(v>0?'+'+v:v)+' °C'});
+  document.querySelectorAll('#chips-step .chip').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var cat = b.getAttribute('data-cat');
+      if (cat === 'all') {
+        document.querySelectorAll('#chips-step .chip').forEach(function (x) { x.classList.remove('active'); });
+        b.classList.add('active');
+        filter = 'all';
+        genreFilter = '';
+        $('species-step').classList.remove('on');
+        $('chips-step').style.display = '';
+        render();
+      } else {
+        document.querySelectorAll('#chips-step .chip').forEach(function (x) { x.classList.remove('active'); });
+        b.classList.add('active');
+        filter = cat;
+        genreFilter = '';
+        $('chips-step').style.display = 'none';
+        $('species-step').classList.add('on');
+        var dd = $('filter-species-dd');
+        var html = '<div class="opt-group">' + cat + '</div>';
+        SPECIES[cat].forEach(function (s) {
+          html += '<div class="opt" data-val="' + esc(s) + '">' + esc(s) + '</div>';
+        });
+        dd.innerHTML = html;
+        dd.querySelectorAll('.opt').forEach(function (o) {
+          o.addEventListener('click', function (e) {
+            e.stopPropagation();
+            dd.querySelectorAll('.opt').forEach(function (x) { x.classList.remove('sel'); });
+            o.classList.add('sel');
+            var v = o.getAttribute('data-val');
+            $('filter-species-btn').querySelector('.lbl').textContent = v;
+            $('filter-species-btn').classList.remove('placeholder');
+            $('filter-species-wrap').classList.remove('open');
+            $('filter-genre-custom').value = v;
+            genreFilter = v;
+            syncBack();
+            render();
+          });
+        });
+        $('filter-species-btn').querySelector('.lbl').textContent = 'Sélectionner un genre…';
+        $('filter-species-btn').classList.add('placeholder');
+        $('filter-species-wrap').classList.remove('open');
+        $('filter-genre-custom').value = '';
+        render();
+      }
+    });
+  });
 
-document.querySelectorAll('#chips-step .chip').forEach(function(b){
-  b.addEventListener('click',function(){
-    var cat=b.getAttribute('data-cat');
-    if(cat==='all'){
-      document.querySelectorAll('#chips-step .chip').forEach(function(x){x.classList.remove('active')});
-      b.classList.add('active');filter='all';genreFilter='';
-      $('species-step').classList.remove('on');$('chips-step').style.display='';render();
-    } else {
-      document.querySelectorAll('#chips-step .chip').forEach(function(x){x.classList.remove('active')});
-      b.classList.add('active');filter=cat;genreFilter='';
-      $('chips-step').style.display='none';$('species-step').classList.add('on');
-      var dd=$('filter-species-dd'),html='<div class="opt-group">'+cat+'</div>';
-      SP[cat].forEach(function(s){html+='<div class="opt" data-val="'+esc(s)+'">'+esc(s)+'</div>'});
-      dd.innerHTML=html;
-      dd.querySelectorAll('.opt').forEach(function(o){
-        o.addEventListener('click',function(e){
-          e.stopPropagation();dd.querySelectorAll('.opt').forEach(function(x){x.classList.remove('sel')});o.classList.add('sel');
-          var v=o.getAttribute('data-val');
-          $('filter-species-btn').querySelector('.lbl').textContent=v;$('filter-species-btn').classList.remove('placeholder');
-          $('filter-species-wrap').classList.remove('open');$('filter-genre-custom').value=v;genreFilter=v;
-          syncBack();render();
+  $('filter-species-btn').addEventListener('click', function (e) {
+    e.stopPropagation();
+    document.querySelectorAll('.sel-wrap.open').forEach(function (w) {
+      if (w !== $('filter-species-wrap')) w.classList.remove('open');
+    });
+    $('filter-species-wrap').classList.toggle('open');
+    syncBack();
+  });
+
+  $('filter-genre-custom').addEventListener('input', function (e) {
+    genreFilter = e.target.value.trim();
+    render();
+  });
+
+  $('back-to-chips').addEventListener('click', function () {
+    filter = 'all';
+    genreFilter = '';
+    $('species-step').classList.remove('on');
+    $('chips-step').style.display = '';
+    document.querySelectorAll('#chips-step .chip').forEach(function (x) {
+      x.classList.toggle('active', x.getAttribute('data-cat') === 'all');
+    });
+    render();
+  });
+
+  document.querySelectorAll('#cat-picker .cat-opt').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('#cat-picker .cat-opt').forEach(function (x) { x.classList.remove('active'); });
+      b.classList.add('active');
+      var cat = b.getAttribute('data-cat');
+      $('p-cat').value = cat;
+      var dd = $('drawer-species-dd');
+      var html = '<div class="opt-group">' + cat + '</div>';
+      SPECIES[cat].forEach(function (s) {
+        html += '<div class="opt" data-val="' + esc(s) + '">' + esc(s) + '</div>';
+      });
+      dd.innerHTML = html;
+      dd.querySelectorAll('.opt').forEach(function (o) {
+        o.addEventListener('click', function (e) {
+          e.stopPropagation();
+          dd.querySelectorAll('.opt').forEach(function (x) { x.classList.remove('sel'); });
+          o.classList.add('sel');
+          var v = o.getAttribute('data-val');
+          $('drawer-species-btn').querySelector('.lbl').textContent = v;
+          $('drawer-species-btn').classList.remove('placeholder');
+          $('drawer-species-wrap').classList.remove('open');
+          $('p-genre-custom').value = v;
+          if (!$('p-name').value.trim()) $('p-name').value = v;
+          syncBack();
         });
       });
-      $('filter-species-btn').querySelector('.lbl').textContent='Sélectionner un genre…';$('filter-species-btn').classList.add('placeholder');
-      $('filter-species-wrap').classList.remove('open');$('filter-genre-custom').value='';render();
+      $('drawer-species-btn').querySelector('.lbl').textContent = 'Sélectionner un genre…';
+      $('drawer-species-btn').classList.add('placeholder');
+      $('drawer-species-wrap').classList.remove('open');
+      $('p-genre-custom').value = '';
+      $('drawer-species-step').style.display = 'block';
+    });
+  });
+
+  $('drawer-species-btn').addEventListener('click', function (e) {
+    e.stopPropagation();
+    document.querySelectorAll('.sel-wrap.open').forEach(function (w) {
+      if (w !== $('drawer-species-wrap')) w.classList.remove('open');
+    });
+    $('drawer-species-wrap').classList.toggle('open');
+    syncBack();
+  });
+
+  function resizeImg(f) {
+    return new Promise(function (res, rej) {
+      var r = new FileReader();
+      r.onload = function (e) {
+        var i = new Image();
+        i.onload = function () {
+          var w = i.width, h = i.height;
+          if (w > MAXW) {
+            h = Math.round(h * MAXW / w);
+            w = MAXW;
+          }
+          var c = document.createElement('canvas');
+          c.width = w;
+          c.height = h;
+          c.getContext('2d').drawImage(i, 0, 0, w, h);
+          res(c.toDataURL('image/jpeg', Q));
+        };
+        i.onerror = function () { rej(new Error('Img')); };
+        i.src = e.target.result;
+      };
+      r.onerror = function () { rej(new Error('Read')); };
+      r.readAsDataURL(f);
+    });
+  }
+
+  $('p-photo').addEventListener('change', function (e) {
+    var f = e.target.files[0];
+    if (!f) return;
+    resizeImg(f).then(function (d) {
+      photo = d;
+      $('photo-prev-img').src = d;
+      $('file-drop').style.display = 'none';
+      $('photo-prev').style.display = 'block';
+    }).catch(function () { toast('Erreur image'); });
+  });
+
+  $('clear-photo').addEventListener('click', function () {
+    photo = '';
+    $('p-photo').value = '';
+    $('photo-prev').style.display = 'none';
+    $('file-drop').style.display = 'flex';
+  });
+
+  $('plant-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var nameIn = $('p-name').value.trim();
+    var gC = $('p-genre-custom').value.trim();
+    var cat = $('p-cat').value;
+    var fC = $('p-family-custom').value.trim();
+    var oC = $('p-origin-country').value.trim();
+    var fName = gC || nameIn;
+    var fFam = fC || selFam;
+    var fOri = selOri;
+    if (oC && selOri && selOri !== 'Horticole / Hybride') fOri = selOri + ' — ' + oC;
+    if (!fName || !cat || !photo) {
+      toast('Nom, rubrique et photo obligatoires');
+      return;
+    }
+    var nP = {
+      id: 'p_' + Date.now(),
+      name: fName,
+      category: cat,
+      family: fFam,
+      substrate: selSub,
+      exposure: selExp,
+      minTemp: $('p-temp').value,
+      origin: fOri,
+      photo: photo,
+      date: Date.now()
+    };
+    var backup = plants.slice();
+    plants.unshift(nP);
+    if (saveP()) {
+      stats();
+      render();
+      resetForm();
+      closeDrawer();
+      toast('Spécimen enregistré ✓');
+    } else {
+      plants = backup;
     }
   });
-});
 
-$('filter-species-btn').addEventListener('click',function(e){
-  e.stopPropagation();
-  document.querySelectorAll('.sel-wrap.open').forEach(function(w){if(w!==$('filter-species-wrap'))w.classList.remove('open')});
-  $('filter-species-wrap').classList.toggle('open');syncBack();
-});
-
-$('filter-genre-custom').addEventListener('input',function(e){genreFilter=e.target.value.trim();render()});
-
-$('back-to-chips').addEventListener('click',function(){
-  filter='all';genreFilter='';
-  $('species-step').classList.remove('on');$('chips-step').style.display='';
-  document.querySelectorAll('#chips-step .chip').forEach(function(x){x.classList.toggle('active',x.getAttribute('data-cat')==='all')});render();
-});
-
-document.querySelectorAll('#cat-picker .cat-opt').forEach(function(b){
-  b.addEventListener('click',function(){
-    document.querySelectorAll('#cat-picker .cat-opt').forEach(function(x){x.classList.remove('active')});b.classList.add('active');
-    var cat=b.getAttribute('data-cat');$('p-cat').value=cat;
-    var dd=$('drawer-species-dd'),html='<div class="opt-group">'+cat+'</div>';
-    SP[cat].forEach(function(s){html+='<div class="opt" data-val="'+esc(s)+'">'+esc(s)+'</div>'});
-    dd.innerHTML=html;
-    dd.querySelectorAll('.opt').forEach(function(o){
-      o.addEventListener('click',function(e){
-        e.stopPropagation();dd.querySelectorAll('.opt').forEach(function(x){x.classList.remove('sel')});o.classList.add('sel');
-        var v=o.getAttribute('data-val');
-        $('drawer-species-btn').querySelector('.lbl').textContent=v;$('drawer-species-btn').classList.remove('placeholder');
-        $('drawer-species-wrap').classList.remove('open');$('p-genre-custom').value=v;
-        if(!$('p-name').value.trim())$('p-name').value=v;
-        syncBack();
-      });
-    });
-    $('drawer-species-btn').querySelector('.lbl').textContent='Sélectionner un genre…';$('drawer-species-btn').classList.add('placeholder');
-    $('drawer-species-wrap').classList.remove('open');$('p-genre-custom').value='';$('drawer-species-step').style.display='block';
-  });
-});
-
-$('drawer-species-btn').addEventListener('click',function(e){
-  e.stopPropagation();
-  document.querySelectorAll('.sel-wrap.open').forEach(function(w){if(w!==$('drawer-species-wrap'))w.classList.remove('open')});
-  $('drawer-species-wrap').classList.toggle('open');syncBack();
-});
-
-function resizeImg(f){
-  return new Promise(function(res,rej){
-    var r=new FileReader();
-    r.onload=function(e){
-      var i=new Image();
-      i.onload=function(){
-        var w=i.width,h=i.height;
-        if(w>MAXW){h=Math.round(h*MAXW/w);w=MAXW}
-        var c=document.createElement('canvas');c.width=w;c.height=h;
-        c.getContext('2d').drawImage(i,0,0,w,h);
-        res(c.toDataURL('image/jpeg',Q));
-      };
-      i.onerror=function(){rej(new Error('Img'))};i.src=e.target.result;
-    };
-    r.onerror=function(){rej(new Error('Read'))};r.readAsDataURL(f);
-  });
-}
-
-$('p-photo').addEventListener('change',function(e){
-  var f=e.target.files[0];if(!f)return;
-  resizeImg(f).then(function(d){photo=d;$('photo-prev-img').src=d;$('file-drop').style.display='none';$('photo-prev').style.display='block'}).catch(function(){toast('Erreur image')});
-});
-
-$('clear-photo').addEventListener('click',function(){photo='';$('p-photo').value='';$('photo-prev').style.display='none';$('file-drop').style.display='flex'});
-
-$('plant-form').addEventListener('submit',function(e){
-  e.preventDefault();
-  var nameIn=$('p-name').value.trim(),gC=$('p-genre-custom').value.trim(),cat=$('p-cat').value;
-  var fC=$('p-family-custom').value.trim(),oC=$('p-origin-country').value.trim();
-  var fName=gC||nameIn,fFam=fC||selFam,fOri=selOri;
-  if(oC&&selOri&&selOri!=='Horticole / Hybride')fOri=selOri+' — '+oC;
-  if(!fName||!cat||!photo){toast('Nom, rubrique et photo obligatoires');return}
-  var nP={id:'p_'+Date.now(),name:fName,category:cat,family:fFam,substrate:selSub,exposure:selExp,minTemp:$('p-temp').value,origin:fOri,photo:photo,date:Date.now()};
-  var backup=plants.slice();plants.unshift(nP);
-  if(saveP()){stats();render();resetForm();closeDrawer();toast('Spécimen enregistré ✓')}else{plants=backup}
-});
-
-function resetForm(){
-  $('plant-form').reset();photo='';
-  $('photo-prev').style.display='none';$('file-drop').style.display='flex';
-  $('p-cat').value='';$('p-exp').value='';$('p-genre-custom').value='';$('p-family-custom').value='';$('p-origin-country').value='';
-  $('origin-country-wrap').style.display='none';$('drawer-species-step').style.display='none';$('temp-val').textContent='0 °C';
-  selSub='';selFam='';selExp='';selOri='';
-  document.querySelectorAll('#cat-picker .cat-opt').forEach(function(x){x.classList.remove('active')});
-  document.querySelectorAll('#exp-picker .exp-opt').forEach(function(x){x.classList.remove('active')});
-  resetSub();resetFam();resetOri();
-}
-
-function openDrawer(){
-  if(!unlocked)return;
-  resetForm();
-  $('drawer').classList.add('open');$('drawer-bg').classList.add('open');document.body.style.overflow='hidden';
-  setTimeout(function(){$('p-name').focus()},200);
-}
-function closeDrawer(){
-  $('drawer').classList.remove('open');$('drawer-bg').classList.remove('open');
-  document.querySelectorAll('#drawer .sel-wrap.open').forEach(function(w){w.classList.remove('open')});
-  syncBack();document.body.style.overflow='';
-}
-
-$('lock-btn').addEventListener('click',function(){
-  if(unlocked){lock();return}
-  $('code-input').value='';openModal('code-modal');setTimeout(function(){$('code-input').focus()},200);
-});
-$('code-cancel').addEventListener('click',function(){closeModal('code-modal')});
-$('code-ok').addEventListener('click',function(){
-  if($('code-input').value.trim()===ADMIN){closeModal('code-modal');unlock()}
-  else{$('code-input').value='';$('code-input').style.borderColor='#e11d48';setTimeout(function(){$('code-input').style.borderColor=''},600);toast('Code incorrect')}
-});
-$('code-input').addEventListener('keydown',function(e){if(e.key==='Enter')$('code-ok').click()});
-
-$('add-btn').addEventListener('click',openDrawer);
-$('lock-again').addEventListener('click',lock);
-$('close-drawer').addEventListener('click',closeDrawer);
-$('drawer-bg').addEventListener('click',closeDrawer);
-$('search-input').addEventListener('input',render);
-$('lb-close').addEventListener('click',function(e){e.stopPropagation();closeLB()});
-$('lightbox').addEventListener('click',function(e){if(e.target===$('lightbox'))closeLB()});
-document.addEventListener('keydown',function(e){
-  if(e.key==='Escape'){
-    if($('lightbox').classList.contains('open'))closeLB();
-    else if($('code-modal').classList.contains('on'))closeModal('code-modal');
-    else if($('drawer').classList.contains('open'))closeDrawer();
+  function resetForm() {
+    $('plant-form').reset();
+    photo = '';
+    $('photo-prev').style.display = 'none';
+    $('file-drop').style.display = 'flex';
+    $('p-cat').value = '';
+    $('p-exp').value = '';
+    $('p-genre-custom').value = '';
+    $('p-family-custom').value = '';
+    $('p-origin-country').value = '';
+    $('origin-country-wrap').style.display = 'none';
+    $('drawer-species-step').style.display = 'none';
+    $('temp-val').textContent = '0 °C';
+    selSub = '';
+    selFam = '';
+    selExp = '';
+    selOri = '';
+    document.querySelectorAll('#cat-picker .cat-opt').forEach(function (x) { x.classList.remove('active'); });
+    document.querySelectorAll('#exp-picker .exp-opt').forEach(function (x) { x.classList.remove('active'); });
+    resetSub();
+    resetFam();
+    resetOri();
   }
-});
 
-(function(){
-  var c=$('season-bg');if(!c||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  var rnd=function(a,b){return Math.random()*(b-a)+a};
-  var m=new Date().getMonth()+1;
-  var s=m>=3&&m<=5?'spring':m>=6&&m<=8?'summer':m>=9&&m<=11?'autumn':'winter';
-  if(s==='autumn'){
-    var CO=['#7a9e4b','#8fae5d','#6b8e3e','#9bb874','#8a8a52'];
-    var SH='<svg viewBox="0 0 20 30" xmlns="http://www.w3.org/2000/svg"><path d="M10 1 C 4.5 10, 4.5 21, 10 29 C 15.5 21, 15.5 10, 10 1 Z" fill="currentColor"/></svg>';
-    for(var i=0;i<5;i++){var d=document.createElement('div');d.className='season-leaf';var z=rnd(6,10);d.style.left=rnd(-5,105)+'%';d.style.width=z+'px';d.style.height=(z*1.4)+'px';d.style.color=CO[Math.floor(Math.random()*CO.length)];d.style.setProperty('--drift',rnd(-15,25).toFixed(1)+'vw');d.style.animationDuration=rnd(22,32).toFixed(2)+'s';d.style.animationDelay='-'+rnd(0,32).toFixed(2)+'s';d.innerHTML=SH;c.appendChild(d)}
-  } else if(s==='winter'){
-    for(var j=0;j<14;j++){var f=document.createElement('div');f.className='season-snow';var sz=rnd(1.2,2.2);f.style.left=rnd(0,100)+'%';f.style.width=sz+'px';f.style.height=sz+'px';f.style.setProperty('--drift',rnd(-12,12).toFixed(1)+'vw');f.style.animationDuration=rnd(20,30).toFixed(2)+'s';f.style.animationDelay='-'+rnd(0,30).toFixed(2)+'s';c.appendChild(f)}
+  function openDrawer() {
+    if (!unlocked) return;
+    resetForm();
+    $('drawer').classList.add('open');
+    $('drawer-bg').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function () { $('p-name').focus(); }, 200);
   }
-})();
 
-plants=loadP();plants.sort(function(a,b){return(b.date||0)-(a.date||0)});
-stats();render();
+  function closeDrawer() {
+    $('drawer').classList.remove('open');
+    $('drawer-bg').classList.remove('open');
+    document.querySelectorAll('#drawer .sel-wrap.open').forEach(function (w) { w.classList.remove('open'); });
+    syncBack();
+    document.body.style.overflow = '';
+  }
+
+  $('lock-btn').addEventListener('click', function () {
+    if (unlocked) { lock(); return; }
+    $('code-input').value = '';
+    openModal('code-modal');
+    setTimeout(function () { $('code-input').focus(); }, 200);
+  });
+
+  $('code-cancel').addEventListener('click', function () { closeModal('code-modal'); });
+
+  $('code-ok').addEventListener('click', function () {
+    if ($('code-input').value.trim() === ADMIN) {
+      closeModal('code-modal');
+      unlock();
+    } else {
+      $('code-input').value = '';
+      $('code-input').style.borderColor = '#e11d48';
+      setTimeout(function () { $('code-input').style.borderColor = ''; }, 600);
+      toast('Code incorrect');
+    }
+  });
+
+  $('code-input').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') $('code-ok').click();
+  });
+
+  $('add-btn').addEventListener('click', openDrawer);
+  $('lock-again').addEventListener('click', lock);
+  $('close-drawer').addEventListener('click', closeDrawer);
+  $('drawer-bg').addEventListener('click', closeDrawer);
+  $('search-input').addEventListener('input', render);
+  $('lb-close').addEventListener('click', function (e) { e.stopPropagation(); closeLB(); });
+  $('lightbox').addEventListener('click', function (e) { if (e.target === $('lightbox')) closeLB(); });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      if ($('lightbox').classList.contains('open')) closeLB();
+      else if ($('code-modal').classList.contains('on')) closeModal('code-modal');
+      else if ($('drawer').classList.contains('open')) closeDrawer();
+    }
+  });
+
+  (function () {
+    var c = $('season-bg');
+    if (!c || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var rnd = function (a, b) { return Math.random() * (b - a) + a; };
+    var m = new Date().getMonth() + 1;
+    var s = m >= 3 && m <= 5 ? 'spring' : m >= 6 && m <= 8 ? 'summer' : m >= 9 && m <= 11 ? 'autumn' : 'winter';
+    if (s === 'autumn') {
+      var CO = ['#7a9e4b', '#8fae5d', '#6b8e3e', '#9bb874', '#8a8a52'];
+      var SH = '<svg viewBox="0 0 20 30" xmlns="http://www.w3.org/2000/svg"><path d="M10 1 C 4.5 10, 4.5 21, 10 29 C 15.5 21, 15.5 10, 10 1 Z" fill="currentColor"/></svg>';
+      for (var i = 0; i < 5; i++) {
+        var d = document.createElement('div');
+        d.className = 'season-leaf';
+        var z = rnd(6, 10);
+        d.style.left = rnd(-5, 105) + '%';
+        d.style.width = z + 'px';
+        d.style.height = (z * 1.4) + 'px';
+        d.style.color = CO[Math.floor(Math.random() * CO.length)];
+        d.style.setProperty('--drift', rnd(-15, 25).toFixed(1) + 'vw');
+        d.style.animationDuration = rnd(22, 32).toFixed(2) + 's';
+        d.style.animationDelay = '-' + rnd(0, 32).toFixed(2) + 's';
+        d.innerHTML = SH;
+        c.appendChild(d);
+      }
+    } else if (s === 'winter') {
+      for (var j = 0; j < 14; j++) {
+        var f = document.createElement('div');
+        f.className = 'season-snow';
+        var sz = rnd(1.2, 2.2);
+        f.style.left = rnd(0, 100) + '%';
+        f.style.width = sz + 'px';
+        f.style.height = sz + 'px';
+        f.style.setProperty('--drift', rnd(-12, 12).toFixed(1) + 'vw');
+        f.style.animationDuration = rnd(20, 30).toFixed(2) + 's';
+        f.style.animationDelay = '-' + rnd(0, 30).toFixed(2) + 's';
+        c.appendChild(f);
+      }
+    }
+  })();
+
+  plants = loadP();
+  plants.sort(function (a, b) { return (b.date || 0) - (a.date || 0); });
+  stats();
+  render();
 
 })();
 </script>

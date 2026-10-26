@@ -6,7 +6,8 @@
 <meta name="theme-color" content="#ffffff">
 <title>Plantouille — Cabinet du Dr-Cactus</title>
 
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23153424'/%3E%3Cpath d='M46 85 V35 a4 4 0 0 1 8 0 v50 M46 55 H34 a4 4 0 0 1 -4 -4 V40 a4 4 0 0 1 8 0 v7 h8 M54 65 H66 a4 4 0 0 0 4 -4 V45 a4 4 0 0 0 -8 0 v12 h-8' fill='none' stroke='%23ffffff' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<!-- Favicon : Cactus bien visible -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23153424' d='M40 90V50H25a5 5 0 0 1-5-5V30a5 5 0 0 1 10 0v15h10V15a5 5 0 0 1 10 0v30h10V25a5 5 0 0 1 10 0v20a5 5 0 0 1-5 5H60v40H40z'/%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -80,7 +81,7 @@ body.secret-mode .modal-acts .secondary { background: #1c4531; color: #ffffff; }
 body.secret-mode .toast { background: #ffffff; color: #153424; }
 body.secret-mode .card-cat { color: #ffffff; }
 
-/* Boutons de rubriques : Inversion classique */
+/* Boutons de rubriques : Inversion classique (Silhouettes) */
 body.secret-mode .chip { background: #1c4531; color: #ffffff; border-color: transparent; }
 body.secret-mode .chip:hover { background: #2a5c41; }
 body.secret-mode .chip.active { background: #ffffff; color: #153424; border-color: #ffffff; }
@@ -189,11 +190,11 @@ body.secret-mode .scene-sun { display: none; }
 body.secret-mode .scene-moon { display: block; }
 
 @keyframes astroPath {
-  0% { left: 0%; bottom: -10px; opacity: 0; transform: scale(0.8); }
-  10% { opacity: 1; transform: scale(1); }
-  50% { bottom: 50px; }
-  90% { opacity: 1; transform: scale(1); }
-  100% { left: 100%; bottom: -10px; opacity: 0; transform: scale(0.8); }
+  0% { left: 0%; bottom: -10px; opacity: 0; }
+  10% { opacity: 1; }
+  50% { bottom: 55px; }
+  90% { opacity: 1; }
+  100% { left: 100%; bottom: -10px; opacity: 0; }
 }
 
 /* Scènes Jour / Nuit */
@@ -208,21 +209,25 @@ body.secret-mode .scene-moon { display: block; }
 body.secret-mode .scene-normal { opacity: 0; }
 body.secret-mode .scene-secret { opacity: 1; }
 
-/* Plantes : Pousse + Balancement continu */
-.scene-plant {
+/* Plantes : Conteneur (Pousse) + SVG (Balancement) */
+.plant-wrapper {
   position: absolute;
   bottom: 0;
-  color: #153424;
-  z-index: 2;
   transform-origin: bottom center;
-  transition: color 0.8s ease;
-  animation: popUpPlant 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
-             swayPlant 3s ease-in-out 1s infinite alternate;
+  animation: growPlant 1s ease-out forwards;
 }
 
-@keyframes popUpPlant {
+@keyframes growPlant {
   0% { transform: scaleY(0); opacity: 0; }
   100% { transform: scaleY(1); opacity: 1; }
+}
+
+.scene-plant {
+  display: block;
+  color: #153424;
+  transform-origin: bottom center;
+  animation: swayPlant 3s ease-in-out infinite alternate;
+  transition: color 0.8s ease;
 }
 
 @keyframes swayPlant {
@@ -240,17 +245,17 @@ body.secret-mode .scene-plant { color: #ffffff; }
 }
 
 /* Positionnement (regroupé au centre) */
-.sp-col   { left: 38%; width: 16px; height: 24px; margin-left: -8px; }
-.sp-aloe  { left: 44%; width: 22px; height: 12px; margin-left: -11px; }
-.sp-ech   { left: 50%; width: 20px; height: 10px; margin-left: -10px; }
-.sp-yuc   { left: 56%; width: 16px; height: 20px; margin-left: -8px; }
-.sp-bea   { left: 62%; width: 18px; height: 18px; margin-left: -9px; }
+.pw-col   { left: 38%; width: 16px; height: 24px; margin-left: -8px; }
+.pw-aloe  { left: 44%; width: 22px; height: 12px; margin-left: -11px; }
+.pw-ech   { left: 50%; width: 20px; height: 10px; margin-left: -10px; }
+.pw-yuc   { left: 56%; width: 16px; height: 20px; margin-left: -8px; }
+.pw-bea   { left: 62%; width: 18px; height: 18px; margin-left: -9px; }
 
-.sp-mush  { left: 36%; width: 16px; height: 18px; margin-left: -8px; }
-.sp-cann  { left: 42%; width: 18px; height: 18px; margin-left: -9px; }
-.sp-popp  { left: 49%; width: 16px; height: 20px; margin-left: -8px; }
-.sp-trich { left: 56%; width: 14px; height: 22px; margin-left: -7px; }
-.sp-peyot { left: 63%; width: 18px; height: 12px; margin-left: -9px; }
+.pw-mush  { left: 36%; width: 16px; height: 18px; margin-left: -8px; }
+.pw-cann  { left: 42%; width: 18px; height: 18px; margin-left: -9px; }
+.pw-popp  { left: 49%; width: 16px; height: 20px; margin-left: -8px; }
+.pw-trich { left: 56%; width: 14px; height: 22px; margin-left: -7px; }
+.pw-peyot { left: 63%; width: 18px; height: 12px; margin-left: -9px; }
 
 /* Oiseau / Sorcière */
 .scene-bird {
@@ -490,7 +495,7 @@ body.secret-mode .exit-secret { display: inline-flex; }
   font-family: inherit;
   transition: all 0.2s ease;
 }
-.chip svg { width: 14px; height: 14px; color: #888888; }
+.chip svg { width: 16px; height: 16px; color: #888888; transition: color 0.3s ease; }
 .chip:hover { background: #eef2f0; color: #153424; }
 .chip.active { background: #153424; color: #ffffff; border-color: #153424; }
 .chip.active svg { color: #ffffff; }
@@ -807,13 +812,14 @@ body.secret-mode #drawer-dropdown-backdrop { background: rgba(21,52,36,.40); }
   width: 100%;
   transition: background 0.2s ease, color 0.2s ease;
 }
-.cat-opt svg { width: 16px; height: 16px; color: #888888; flex-shrink: 0; }
+.cat-opt svg { width: 18px; height: 18px; color: #888888; flex-shrink: 0; }
 .cat-opt:hover { background: #eef2f0; color: #153424; }
 .cat-opt.active { background: #153424; color: #ffffff; }
 .cat-opt.active svg { color: #ffffff; }
 
 body.secret-mode .cat-opt:not([data-mode="secret"]) { background: #1c4531; color: #ffffff; }
 body.secret-mode .cat-opt:not([data-mode="secret"]).active { background: #ffffff; color: #153424; }
+body.secret-mode .cat-opt:not([data-mode="secret"]).active svg { color: #153424; }
 
 .cat-opt[data-mode="secret"] {
   background: transparent;
@@ -998,99 +1004,117 @@ body.secret-mode .modal-acts .primary { background: #ffffff; color: #153424; }
         <svg viewBox="0 0 24 24"><path d="M 12 2 A 10 10 0 1 0 22 12 A 8 8 0 1 1 12 2 Z" /></svg>
       </div>
 
-      <!-- Scène Normale -->
+      <!-- Scène Normale (Ombres Chinoises) -->
       <div class="scene-normal">
-        <div class="scene-plant sp-col">
-          <svg viewBox="0 0 24 30" fill="currentColor">
-            <rect x="9" y="2" width="6" height="28" rx="3"/>
-            <rect x="3" y="10" width="4" height="8" rx="2"/>
-            <rect x="3" y="16" width="8" height="4" rx="2"/>
-            <rect x="17" y="12" width="4" height="6" rx="2"/>
-            <rect x="13" y="16" width="8" height="4" rx="2"/>
-          </svg>
+        <div class="plant-wrapper pw-col">
+          <div class="scene-plant">
+            <svg viewBox="0 0 24 30" fill="currentColor">
+              <rect x="9" y="2" width="6" height="28" rx="3"/>
+              <rect x="3" y="10" width="4" height="8" rx="2"/>
+              <rect x="3" y="16" width="8" height="4" rx="2"/>
+              <rect x="17" y="12" width="4" height="6" rx="2"/>
+              <rect x="13" y="16" width="8" height="4" rx="2"/>
+            </svg>
+          </div>
         </div>
-        <div class="scene-plant sp-aloe">
-          <svg viewBox="0 0 24 16" fill="currentColor">
-            <path d="M12 16 L10 4 L14 4 Z M12 16 L4 8 L8 6 Z M12 16 L20 8 L16 6 Z M12 16 L2 12 L6 10 Z M12 16 L22 12 L18 10 Z M12 16 L12 2 L15 6 Z M12 16 L12 2 L9 6 Z"/>
-          </svg>
+        <div class="plant-wrapper pw-aloe">
+          <div class="scene-plant">
+            <svg viewBox="0 0 24 16" fill="currentColor">
+              <path d="M12 16 L10 4 L14 4 Z M12 16 L4 8 L8 6 Z M12 16 L20 8 L16 6 Z M12 16 L2 12 L6 10 Z M12 16 L22 12 L18 10 Z M12 16 L12 2 L15 6 Z M12 16 L12 2 L9 6 Z"/>
+            </svg>
+          </div>
         </div>
-        <div class="scene-plant sp-ech">
-          <svg viewBox="0 0 24 12" fill="currentColor">
-            <path d="M12 12 C 10 8, 10 4, 12 2 C 14 4, 14 8, 12 12 Z"/>
-            <path d="M12 12 C 8 10, 4 8, 6 4 C 8 4, 10 8, 12 12 Z"/>
-            <path d="M12 12 C 16 10, 20 8, 18 4 C 16 4, 14 8, 12 12 Z"/>
-            <path d="M12 12 C 10 10, 4 10, 4 6 C 6 6, 10 10, 12 12 Z"/>
-            <path d="M12 12 C 14 10, 20 10, 20 6 C 18 6, 14 10, 12 12 Z"/>
-          </svg>
+        <div class="plant-wrapper pw-ech">
+          <div class="scene-plant">
+            <svg viewBox="0 0 24 12" fill="currentColor">
+              <path d="M12 12 C 10 8, 10 4, 12 2 C 14 4, 14 8, 12 12 Z"/>
+              <path d="M12 12 C 8 10, 4 8, 6 4 C 8 4, 10 8, 12 12 Z"/>
+              <path d="M12 12 C 16 10, 20 8, 18 4 C 16 4, 14 8, 12 12 Z"/>
+              <path d="M12 12 C 10 10, 4 10, 4 6 C 6 6, 10 10, 12 12 Z"/>
+              <path d="M12 12 C 14 10, 20 10, 20 6 C 18 6, 14 10, 12 12 Z"/>
+            </svg>
+          </div>
         </div>
-        <div class="scene-plant sp-yuc">
-          <svg viewBox="0 0 24 30" fill="currentColor">
-            <rect x="10" y="12" width="4" height="18" rx="2"/>
-            <path d="M12 14 L8 2 L14 2 Z M12 14 L4 6 L10 4 Z M12 14 L20 6 L14 4 Z M12 14 L2 10 L6 8 Z M12 14 L22 10 L18 8 Z"/>
-          </svg>
+        <div class="plant-wrapper pw-yuc">
+          <div class="scene-plant">
+            <svg viewBox="0 0 24 30" fill="currentColor">
+              <rect x="10" y="12" width="4" height="18" rx="2"/>
+              <path d="M12 14 L8 2 L14 2 Z M12 14 L4 6 L10 4 Z M12 14 L20 6 L14 4 Z M12 14 L2 10 L6 8 Z M12 14 L22 10 L18 8 Z"/>
+            </svg>
+          </div>
         </div>
-        <div class="scene-plant sp-bea">
-          <svg viewBox="0 0 24 30" fill="currentColor">
-            <ellipse cx="12" cy="28" rx="8" ry="2"/>
-            <rect x="11" y="10" width="2" height="18"/>
-            <path d="M12 12 L8 4 L12 2 Z M12 12 L16 4 L12 2 Z M12 12 L4 8 L8 6 Z M12 12 L20 8 L16 6 Z M12 12 L2 12 L6 8 Z M12 12 L22 12 L18 8 Z"/>
-          </svg>
+        <div class="plant-wrapper pw-bea">
+          <div class="scene-plant">
+            <svg viewBox="0 0 24 30" fill="currentColor">
+              <ellipse cx="12" cy="28" rx="8" ry="2"/>
+              <rect x="11" y="10" width="2" height="18"/>
+              <path d="M12 12 L8 4 L12 2 Z M12 12 L16 4 L12 2 Z M12 12 L4 8 L8 6 Z M12 12 L20 8 L16 6 Z M12 12 L2 12 L6 8 Z M12 12 L22 12 L18 8 Z"/>
+            </svg>
+          </div>
         </div>
       </div>
 
-      <!-- Scène Secrète -->
+      <!-- Scène Secrète (Ombres Chinoises) -->
       <div class="scene-secret">
-        <div class="scene-plant sp-mush">
-          <svg viewBox="0 0 40 40" fill="currentColor">
-            <path d="M18 38 C18 30 20 26 22 22 C24 26 26 30 26 38 Z"/>
-            <path d="M5 22 C5 10 35 10 35 22 C35 26 5 26 5 22 Z"/>
-          </svg>
+        <div class="plant-wrapper pw-mush">
+          <div class="scene-plant">
+            <svg viewBox="0 0 40 40" fill="currentColor">
+              <path d="M18 38 C18 30 20 26 22 22 C24 26 26 30 26 38 Z"/>
+              <path d="M5 22 C5 10 35 10 35 22 C35 26 5 26 5 22 Z"/>
+            </svg>
+          </div>
         </div>
-        <div class="scene-plant sp-cann">
-          <svg viewBox="0 0 40 40" fill="currentColor">
-            <path d="M20 38 V16 M20 24 L10 14 L4 16 L6 8 L2 6 L10 4 L8 0 L14 4 L16 0 L18 4 L24 0 L26 4 L32 0 L30 4 L38 6 L34 8 L36 16 L30 14 Z"/>
-            <path d="M20 30 L12 26 L14 20 Z M20 30 L28 26 L26 20 Z"/>
-          </svg>
+        <div class="plant-wrapper pw-cann">
+          <div class="scene-plant">
+            <svg viewBox="0 0 40 40" fill="currentColor">
+              <path d="M20 38 V16 M20 24 L10 14 L4 16 L6 8 L2 6 L10 4 L8 0 L14 4 L16 0 L18 4 L24 0 L26 4 L32 0 L30 4 L38 6 L34 8 L36 16 L30 14 Z"/>
+              <path d="M20 30 L12 26 L14 20 Z M20 30 L28 26 L26 20 Z"/>
+            </svg>
+          </div>
         </div>
-        <div class="scene-plant sp-popp">
-          <svg viewBox="0 0 40 40" fill="currentColor">
-            <path d="M20 38 Q15 25 20 16"/>
-            <ellipse cx="20" cy="16" rx="5" ry="6"/>
-            <path d="M18 12 L20 10 L22 12 M17 14 L20 12 M23 14 L20 12" stroke="currentColor" stroke-width="2"/>
-            <path d="M16 14 C8 10 4 18 8 22 C12 24 16 20 16 16 Z"/>
-            <path d="M24 14 C32 10 36 18 32 22 C28 24 24 20 24 16 Z"/>
-          </svg>
+        <div class="plant-wrapper pw-popp">
+          <div class="scene-plant">
+            <svg viewBox="0 0 40 40" fill="currentColor">
+              <path d="M20 38 Q15 25 20 16"/>
+              <ellipse cx="20" cy="16" rx="5" ry="6"/>
+              <path d="M18 12 L20 10 L22 12 M17 14 L20 12 M23 14 L20 12" stroke="currentColor" stroke-width="2"/>
+              <path d="M16 14 C8 10 4 18 8 22 C12 24 16 20 16 16 Z"/>
+              <path d="M24 14 C32 10 36 18 32 22 C28 24 24 20 24 16 Z"/>
+            </svg>
+          </div>
         </div>
-        <div class="scene-plant sp-trich">
-          <svg viewBox="0 0 40 40" fill="currentColor">
-            <rect x="14" y="6" width="12" height="34" rx="6"/>
-            <path d="M17 8 V38 M20 6 V38 M23 8 V38" stroke="#153424" stroke-width="1.5"/>
-            <path d="M14 12 L11 10 M14 18 L11 16 M14 24 L11 22 M14 30 L11 28 M26 12 L29 10 M26 18 L29 16 M26 24 L29 22 M26 30 L29 28" stroke="#153424" stroke-width="2"/>
-          </svg>
+        <div class="plant-wrapper pw-trich">
+          <div class="scene-plant">
+            <svg viewBox="0 0 40 40" fill="currentColor">
+              <rect x="14" y="6" width="12" height="34" rx="6"/>
+              <path d="M17 8 V38 M20 6 V38 M23 8 V38" stroke="#153424" stroke-width="1.5"/>
+              <path d="M14 12 L11 10 M14 18 L11 16 M14 24 L11 22 M14 30 L11 28 M26 12 L29 10 M26 18 L29 16 M26 24 L29 22 M26 30 L29 28" stroke="#153424" stroke-width="2"/>
+            </svg>
+          </div>
         </div>
-        <div class="scene-plant sp-peyot">
-          <svg viewBox="0 0 40 40" fill="currentColor">
-            <path d="M12 38 Q20 34 28 38"/>
-            <path d="M10 30 Q10 15 20 15 Q30 15 30 30 Q20 34 10 30"/>
-            <circle cx="15" cy="22" r="3" fill="#153424"/>
-            <circle cx="25" cy="22" r="3" fill="#153424"/>
-            <circle cx="20" cy="28" r="3" fill="#153424"/>
-            <path d="M20 30 L20 36" stroke="#153424" stroke-width="2"/>
-            <circle cx="20" cy="15" r="2" fill="#153424"/>
-          </svg>
+        <div class="plant-wrapper pw-peyot">
+          <div class="scene-plant">
+            <svg viewBox="0 0 40 40" fill="currentColor">
+              <path d="M12 38 Q20 34 28 38"/>
+              <path d="M10 30 Q10 15 20 15 Q30 15 30 30 Q20 34 10 30"/>
+              <circle cx="15" cy="22" r="3" fill="#153424"/>
+              <circle cx="25" cy="22" r="3" fill="#153424"/>
+              <circle cx="20" cy="28" r="3" fill="#153424"/>
+              <path d="M20 30 L20 36" stroke="#153424" stroke-width="2"/>
+              <circle cx="20" cy="15" r="2" fill="#153424"/>
+            </svg>
+          </div>
         </div>
       </div>
 
       <!-- Oiseau / Sorcière -->
       <div class="scene-bird" id="scene-bird">
-        <!-- Oiseau normal -->
         <svg class="bird-normal" viewBox="0 0 24 16" fill="currentColor">
           <g class="bird-wing">
             <path d="M12 8 C10 4 6 2 2 4 C4 6 8 8 12 8 Z" />
           </g>
           <path d="M2 8 C6 8 8 10 10 12 C12 12 14 10 16 8 C18 10 20 10 22 8 C20 6 18 6 16 8 C14 6 12 4 10 4 C8 4 6 6 2 8 Z"/>
         </svg>
-        <!-- Sorcière sur balai -->
         <svg class="bird-witch" viewBox="0 0 24 20" fill="currentColor">
           <path d="M2 16 L18 16 L20 18 L2 18 Z"/>
           <path d="M18 16 L22 14 M18 16 L22 18" stroke="currentColor" stroke-width="1"/>
@@ -1156,51 +1180,51 @@ body.secret-mode .modal-acts .primary { background: #ffffff; color: #153424; }
 
   <div id="chips-step">
     <div class="chips-row" id="chips-row">
-      <!-- Normal Chips -->
+      <!-- Normal Chips : Ombres chinoises -->
       <button class="chip active" data-cat="all" data-mode="normal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/></svg>
         Toutes
       </button>
       <button class="chip" data-cat="Cactus" data-mode="normal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22V2"/><path d="M12 10H9a2 2 0 0 1-2-2V6"/><path d="M12 14h3a2 2 0 0 0 2-2v-2"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 22V4a2 2 0 0 1 4 0v18h-4zm-4-8V8a2 2 0 0 1 4 0v6H6zm12-4v8a2 2 0 0 1-4 0v-8h4z"/></svg>
         Cactus
       </button>
       <button class="chip" data-cat="Succulentes" data-mode="normal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z"/><path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(-30 12 21)"/><path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(30 12 21)"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c-2.5-1-4.5-3-4.5-6 0-2 1.5-3 3-3s3 1.5 3 3v3c1.5-3 3-5 5-5s3.5 2 3.5 5c0 3-2.5 5-7 6l-3-3zm0 0c2.5-1 4.5-3 4.5-6 0-2-1.5-3-3-3s-3 1.5-3 3v3c-1.5-3-3-5-5-5s-3.5 2-3.5 5c0 3 2.5 5 7 6l3-3z"/></svg>
         Succulentes
       </button>
       <button class="chip" data-cat="Mesembryanthemum" data-mode="normal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="14" rx="6" ry="5"/><path d="M12 9V6M9 6c1-1 5-1 6 0"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c-3 0-6-2-6-6s3-6 6-6 6 2 6 6-3 6-6 6zm0-14a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>
         Mesembryanthemum
       </button>
       <button class="chip" data-cat="Tropicales" data-mode="normal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 19c0-7 6-13 14-14-1 8-7 14-14 14zM5 19l8-8"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22V12c-4 0-8-2-8-6 4 0 6 2 8 6 2-4 4-6 8-6 0 4-4 6-8 6v10z"/></svg>
         Tropicales
       </button>
       <button class="chip" data-cat="Caudiciformes" data-mode="normal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="16" rx="7" ry="4"/><path d="M12 12V6M9 8h6M10 5l2-2 2 2"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c-4 0-6-2-6-6s2-6 6-6 6 2 6 6-2 6-6 6zm0-14c-2 0-3-2-3-4s1-4 3-4 3 2 3 4-1 4-3 4z"/></svg>
         Caudiciformes
       </button>
 
-      <!-- Secret Chips -->
+      <!-- Secret Chips : Ombres chinoises -->
       <button class="chip secret active" data-cat="all" data-mode="secret" style="display:none">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/></svg>
         Toutes
       </button>
       <button class="chip secret" data-cat="Sorcières" data-mode="secret" style="display:none">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 18h16l-2-2H6l-2 2zm4-2V8l4-6 4 6v8H8z"/></svg>
         Sorcières
       </button>
       <button class="chip secret" data-cat="Chamanique" data-mode="secret" style="display:none">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="14" r="7" /><path d="M12 7 v14 M8 8.5 v11 M16 8.5 v11 M6 12 h12" /><path d="M10 7 Q12 3 14 7" /></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22a4 4 0 0 0 4-4v-4a4 4 0 0 0-8 0v4a4 4 0 0 0 4 4zm0-14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
         Chamanique
       </button>
       <button class="chip secret" data-cat="Cannabis" data-mode="secret" style="display:none">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 V12 M12 16 L6 10 M12 16 L18 10 M12 12 L8 4 M12 12 L16 4" /></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22l-1-8 3-6-4 4-4-4 3 6-5 2 6 2-3 6 5-4z"/></svg>
         Cannabis
       </button>
       <button class="chip secret" data-cat="Champignons" data-mode="secret" style="display:none">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13c0-4.4 3.6-8 8-8s8 3.6 8 8z"/><path d="M9.5 13v4a2.5 2.5 0 0 0 5 0v-4"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22v-8h-3v8h6v-8h-3zm-8-8c0-4.4 3.6-8 8-8s8 3.6 8 8H4z"/></svg>
         Champignons
       </button>
     </div>
@@ -1252,40 +1276,40 @@ body.secret-mode .modal-acts .primary { background: #ffffff; color: #153424; }
         <label>Rubrique *</label>
         <div class="cat-grid" id="cat-picker">
           <button type="button" class="cat-opt" data-cat="Cactus" data-mode="normal">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22V2"/><path d="M12 10H9a2 2 0 0 1-2-2V6"/><path d="M12 14h3a2 2 0 0 0 2-2v-2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 22V4a2 2 0 0 1 4 0v18h-4zm-4-8V8a2 2 0 0 1 4 0v6H6zm12-4v8a2 2 0 0 1-4 0v-8h4z"/></svg>
             Cactus
           </button>
           <button type="button" class="cat-opt" data-cat="Succulentes" data-mode="normal">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z"/><path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(-30 12 21)"/><path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(30 12 21)"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c-2.5-1-4.5-3-4.5-6 0-2 1.5-3 3-3s3 1.5 3 3v3c1.5-3 3-5 5-5s3.5 2 3.5 5c0 3-2.5 5-7 6l-3-3zm0 0c2.5-1 4.5-3 4.5-6 0-2-1.5-3-3-3s-3 1.5-3 3v3c-1.5-3-3-5-5-5s-3.5 2-3.5 5c0 3 2.5 5 7 6l3-3z"/></svg>
             Succulentes
           </button>
           <button type="button" class="cat-opt" data-cat="Mesembryanthemum" data-mode="normal">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="14" rx="6" ry="5"/><path d="M12 9V6M9 6c1-1 5-1 6 0"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c-3 0-6-2-6-6s3-6 6-6 6 2 6 6-3 6-6 6zm0-14a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>
             Mesembryanthemum
           </button>
           <button type="button" class="cat-opt" data-cat="Tropicales" data-mode="normal">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 19c0-7 6-13 14-14-1 8-7 14-14 14z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22V12c-4 0-8-2-8-6 4 0 6 2 8 6 2-4 4-6 8-6 0 4-4 6-8 6v10z"/></svg>
             Tropicales
           </button>
           <button type="button" class="cat-opt" data-cat="Caudiciformes" data-mode="normal">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="16" rx="7" ry="4"/><path d="M12 12V6M9 8h6M10 5l2-2 2 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c-4 0-6-2-6-6s2-6 6-6 6 2 6 6-2 6-6 6zm0-14c-2 0-3-2-3-4s1-4 3-4 3 2 3 4-1 4-3 4z"/></svg>
             Caudiciformes
           </button>
 
           <button type="button" class="cat-opt" data-cat="Sorcières" data-mode="secret">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 18h16l-2-2H6l-2 2zm4-2V8l4-6 4 6v8H8z"/></svg>
             Sorcières
           </button>
           <button type="button" class="cat-opt" data-cat="Chamanique" data-mode="secret">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="14" r="7" /><path d="M12 7 v14 M8 8.5 v11 M16 8.5 v11 M6 12 h12" /><path d="M10 7 Q12 3 14 7" /></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22a4 4 0 0 0 4-4v-4a4 4 0 0 0-8 0v4a4 4 0 0 0 4 4zm0-14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
             Chamanique
           </button>
           <button type="button" class="cat-opt" data-cat="Cannabis" data-mode="secret">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 V12 M12 16 L6 10 M12 16 L18 10 M12 12 L8 4 M12 12 L16 4" /></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22l-1-8 3-6-4 4-4-4 3 6-5 2 6 2-3 6 5-4z"/></svg>
             Cannabis
           </button>
           <button type="button" class="cat-opt" data-cat="Champignons" data-mode="secret">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13c0-4.4 3.6-8 8-8s8 3.6 8 8z"/><path d="M9.5 13v4a2.5 2.5 0 0 0 5 0v-4"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22v-8h-3v8h6v-8h-3zm-8-8c0-4.4 3.6-8 8-8s8 3.6 8 8H4z"/></svg>
             Champignons
           </button>
         </div>
@@ -1792,7 +1816,7 @@ body.secret-mode .modal-acts .primary { background: #ffffff; color: #153424; }
     $('chips-step').style.display = '';
 
     // Relance les animations des plantes
-    document.querySelectorAll('.scene-plant').forEach(p => {
+    document.querySelectorAll('.plant-wrapper').forEach(p => {
       p.style.animation = 'none';
       void p.offsetWidth;
       p.style.animation = null;

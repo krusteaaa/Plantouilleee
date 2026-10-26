@@ -4,9 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#ffffff">
-<title>Plantouille — Cabinet du Dr-Cactus</title>
+<title>Plantouille — Collection du Cabinet du Dr-Cactus</title>
 
-<!-- Favicon : Icône de feuille / plante minimaliste -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23153424' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 21V7M12 7l-4-4M12 7l4-4'/%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,558 +15,297 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
   tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          paper: '#ffffff', surface: '#ffffff', ink: '#0f0f0f',
-          muted: '#888888', border: '#f0f0f0', brand: '#153424',
-        },
-        fontFamily: {
-          serif: ['"Bodoni Moda"', 'Georgia', 'serif'],
-          sans: ['Jost', 'system-ui', 'sans-serif'],
-          hand: ['"Cormorant Garamond"', 'Georgia', 'serif'],
-        },
+    theme: { extend: {
+      colors: { paper: '#ffffff', surface: '#ffffff', ink: '#0f0f0f', muted: '#888888', border: '#f0f0f0', brand: '#153424' },
+      fontFamily: {
+        serif: ['"Bodoni Moda"', 'Georgia', 'serif'],
+        sans: ['Jost', 'system-ui', 'sans-serif'],
+        hand: ['"Cormorant Garamond"', 'Georgia', 'serif'],
       },
-    },
+    } },
   };
 </script>
 
 <style>
   * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
   html { scroll-behavior: smooth; height: 100%; }
-  body { 
-    background: #ffffff; color: #0f0f0f; overflow-x: hidden; 
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    min-height: 100%;
-    display: flex; flex-direction: column;
+  body {
+    background: #ffffff; color: #0f0f0f; overflow-x: hidden;
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    min-height: 100%; display: flex; flex-direction: column;
     opacity: 0; animation: appFadeIn 0.8s ease forwards;
   }
   @keyframes appFadeIn { from { opacity: 0; } to { opacity: 1; } }
-
   ::selection { background: #153424; color: #ffffff; }
   ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: #ffffff; }
   ::-webkit-scrollbar-thumb { background: #e0e0e0; border-radius: 4px; }
 
-  .site-header {
-    position: sticky; top: 0; z-index: 40;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-  }
-  .site-header::after {
-    content: ''; position: absolute;
-    left: 8%; right: 8%; bottom: 0; height: 1px;
-    background: linear-gradient(to right, transparent 0%, rgba(21,52,36,0.10) 20%, rgba(21,52,36,0.15) 50%, rgba(21,52,36,0.10) 80%, transparent 100%);
-    pointer-events: none;
-  }
+  .site-header { position: sticky; top: 0; z-index: 40; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+  .site-header::after { content: ''; position: absolute; left: 8%; right: 8%; bottom: 0; height: 1px; background: linear-gradient(to right, transparent 0%, rgba(21,52,36,0.10) 20%, rgba(21,52,36,0.15) 50%, rgba(21,52,36,0.10) 80%, transparent 100%); pointer-events: none; }
 
-  .btn-minimal, .chip, .cat-option, .card-delete, .exp-option {
-    -webkit-backface-visibility: hidden; backface-visibility: hidden;
-    transform: translateZ(0); -webkit-font-smoothing: subpixel-antialiased;
-  }
-
-  .brand-group { display: inline-flex; flex-direction: column; align-items: flex-start; line-height: 1; gap: 6px; padding: 2px 0; }
-  .brand-title {
-    font-family: 'Bodoni Moda', Georgia, serif; font-weight: 500; font-size: 33px;
-    letter-spacing: -0.014em; color: #153424; line-height: 0.92;
-    font-variation-settings: 'opsz' 96; transition: color 0.25s ease;
-  }
+  .brand-group { display: inline-flex; flex-direction: column; align-items: flex-start; line-height: 1; gap: 6px; padding: 2px 0; flex-shrink: 0; text-decoration: none; }
+  .brand-title { font-family: 'Bodoni Moda', Georgia, serif; font-weight: 500; font-size: 33px; letter-spacing: -0.014em; color: #153424; line-height: 0.92; }
   .brand-group:hover .brand-title { color: #1c4531; }
+  .brand-tagline { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.34em; color: #888888; }
 
-  .brand-tagline-container {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
+  /* Scène */
+  .header-scene-wrap { min-height: 44px; }
+  .brand-scene { position: absolute; left: 0; right: 0; bottom: -16px; height: 110px; pointer-events: none; z-index: 1; }
+  .brand-scene-sun { position: absolute; left: 0; bottom: 2px; width: 7px; height: 7px; margin-left: -3.5px; border-radius: 50%; background: #d4a548; animation: scene-sun-x 20s linear infinite, scene-sun-y 20s infinite; z-index: 3; }
+  @keyframes scene-sun-x { 0% { left: 0%; opacity: 0; } 4% { opacity: 1; } 96% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
+  @keyframes scene-sun-y { 0% { transform: translateY(0); animation-timing-function: ease-out; } 50% { transform: translateY(-55px); animation-timing-function: ease-in; } 100% { transform: translateY(0); } }
+  .brand-scene-plant { position: absolute; bottom: 0; color: #153424; opacity: 0.85; transform-origin: bottom center; z-index: 2; }
+  .brand-scene-plant svg { display: block; width: 100%; height: 100%; overflow: visible; }
+  .brand-scene-plant.plant-globular { left: 12%; width: 22px; height: 22px; margin-left: -11px; animation: scene-plant-globular 20s ease-in-out infinite; }
+  .brand-scene-plant.plant-columnar { left: 27%; width: 18px; height: 26px; margin-left: -9px; animation: scene-plant-columnar 20s ease-in-out infinite; }
+  .brand-scene-plant.plant-aloe { left: 42%; width: 22px; height: 20px; margin-left: -11px; animation: scene-plant-aloe 20s ease-in-out infinite; }
+  .brand-scene-plant.plant-echeveria { left: 57%; width: 22px; height: 16px; margin-left: -11px; animation: scene-plant-echeveria 20s ease-in-out infinite; }
+  .brand-scene-plant.plant-yucca { left: 72%; width: 18px; height: 26px; margin-left: -9px; animation: scene-plant-yucca 20s ease-in-out infinite; }
+  .brand-scene-plant.plant-beaucarnea { left: 87%; width: 18px; height: 26px; margin-left: -9px; animation: scene-plant-beaucarnea 20s ease-in-out infinite; }
+  @keyframes scene-plant-globular { 0%,5%{transform:scaleY(0);} 12%,14%{transform:scaleY(1);} 19%,100%{transform:scaleY(0);} }
+  @keyframes scene-plant-columnar { 0%,20%{transform:scaleY(0);} 27%,29%{transform:scaleY(1);} 34%,100%{transform:scaleY(0);} }
+  @keyframes scene-plant-aloe { 0%,35%{transform:scaleY(0);} 42%,44%{transform:scaleY(1);} 49%,100%{transform:scaleY(0);} }
+  @keyframes scene-plant-echeveria { 0%,50%{transform:scaleY(0);} 57%,59%{transform:scaleY(1);} 64%,100%{transform:scaleY(0);} }
+  @keyframes scene-plant-yucca { 0%,65%{transform:scaleY(0);} 72%,74%{transform:scaleY(1);} 79%,100%{transform:scaleY(0);} }
+  @keyframes scene-plant-beaucarnea { 0%,80%{transform:scaleY(0);} 87%,89%{transform:scaleY(1);} 94%,100%{transform:scaleY(0);} }
+  @media (max-width: 640px) { .header-scene-wrap { display: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .brand-scene-sun, .brand-scene-plant { animation: none !important; }
+    .brand-scene-sun { left: 50%; transform: translateY(-55px); opacity: 1; }
+    .brand-scene-plant { transform: scaleY(1); }
   }
-  
-  .brand-tagline {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500;
-    text-transform: uppercase; letter-spacing: 0.34em;
-    color: #888888; line-height: 1; padding-left: 1px;
-    transition: color 0.25s ease;
-  }
-  .brand-tagline::before { 
-    content: ''; display: block; width: 14px; height: 1px; 
-    background: rgba(21,52,36,0.35); 
-    transition: width 0.3s ease, background-color 0.25s ease; 
-  }
-  .brand-group:hover .brand-tagline { color: #555555; }
-  .brand-group:hover .brand-tagline::before { width: 20px; background: rgba(21,52,36,0.55); }
 
-  .btn-minimal {
-    position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-    padding: 10px 24px; border-radius: 9999px;
-    background: #153424; color: #ffffff;
-    font-family: 'Jost', sans-serif; font-weight: 500; font-size: 13px;
-    letter-spacing: 0.04em; cursor: pointer; border: 1px solid #153424;
-    transition: background-color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
-    box-shadow: 0 2px 8px rgba(21,52,36,0.08);
-  }
-  .btn-minimal:hover { background: #1c4531; border-color: #1c4531; box-shadow: 0 4px 12px rgba(21,52,36,0.16); }
-  .btn-minimal:active { opacity: 0.85; transition-duration: 0.05s; }
-  .btn-minimal:disabled { opacity: 0.4; cursor: wait; box-shadow: none; }
-
-  .chip {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 8px 18px; border: none; border-radius: 9999px;
-    background: #f7f7f7; color: #555555;
-    font-family: 'Jost', sans-serif; font-weight: 500; font-size: 13px;
-    letter-spacing: 0.02em; cursor: pointer; white-space: nowrap; flex-shrink: 0;
-    transition: color 0.18s ease, background-color 0.18s ease;
-  }
+  .chip { display: inline-flex; align-items: center; gap: 8px; padding: 8px 18px; border: none; border-radius: 9999px; background: #f7f7f7; color: #555555; font-family: 'Jost', sans-serif; font-weight: 500; font-size: 13px; cursor: pointer; white-space: nowrap; flex-shrink: 0; transition: color 0.18s ease, background-color 0.18s ease; }
   .chip svg { width: 16px; height: 16px; color: #888888; transition: color 0.18s ease; flex-shrink: 0; }
   .chip:hover { color: #153424; background: #eef2f0; }
   .chip:hover svg { color: #153424; }
-  .chip:active { background: #e2e8e5; transition-duration: 0.05s; }
   .chip.active { background: #153424; color: #ffffff; }
   .chip.active svg { color: #ffffff; }
 
-  .cat-option {
-    display: flex; align-items: center; gap: 10px;
-    min-height: 48px;
-    padding: 10px 14px; border: none; border-radius: 12px;
-    background: #f7f7f7; color: #0f0f0f;
-    font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 500;
-    letter-spacing: 0.02em; cursor: pointer; width: 100%;
-    transition: background-color 0.18s ease, color 0.18s ease;
-  }
-  .cat-option svg { width: 18px; height: 18px; color: #888888; transition: color 0.18s ease; flex-shrink: 0; }
-  .cat-option span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .cat-option:hover { background: #eef2f0; color: #153424; }
-  .cat-option.active { background: #153424; color: #ffffff; }
-  .cat-option.active svg { color: #ffffff; }
+  .step-panel { opacity: 1; transition: opacity 0.3s ease, transform 0.3s ease; }
+  .step-panel.step-hidden { opacity: 0; pointer-events: none; position: absolute; left: 0; right: 0; visibility: hidden; transform: translateY(-4px); }
+  .step-panel.step-fade-in { animation: stepFadeIn 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+  @keyframes stepFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-  .exp-option {
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    padding: 12px 8px; border: none; border-radius: 12px;
-    background: #f7f7f7; color: #555555; font-size: 11px; font-weight: 500;
-    cursor: pointer; transition: all 0.18s ease; text-align: center; gap: 6px;
-  }
-  .exp-option svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-  .exp-option:hover { background: #eef2f0; color: #153424; }
-  .exp-option.active { background: #153424; color: #ffffff; }
-
-  .card-delete {
-    position: absolute; top: 12px; right: 12px;
-    width: 32px; height: 32px; border-radius: 50%;
-    background: rgba(255, 255, 255, 0.95); color: #0f0f0f;
-    display: flex; align-items: center; justify-content: center;
-    border: none; cursor: pointer;
-    z-index: 10; box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-    transition: background-color 0.18s ease, color 0.18s ease;
-  }
-  .card-delete:hover { color: #153424; background: #ffffff; }
-  .card-delete:active { background: #e11d48; color: #ffffff; }
-  .card-delete.confirming { background: #e11d48 !important; color: #ffffff !important; }
-  .card-delete .icon-x, .card-delete .icon-check { position: absolute; width: 14px; height: 14px; }
-  .card-delete .icon-check { opacity: 0; }
-  .card-delete.confirming .icon-x { opacity: 0; }
-  .card-delete.confirming .icon-check { opacity: 1; }
-
-  .card { opacity: 0; transform: translateY(12px); transition: opacity 0.4s ease, transform 0.4s ease; }
-  .card.revealed { opacity: 1; transform: translateY(0); }
-
-  .card-photo { transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); cursor: zoom-in; }
-  .group:hover .card-photo { transform: scale(1.03); }
-
-  .drawer-backdrop { position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,0.25); backdrop-filter: blur(2px); opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
-  .drawer-backdrop.open { opacity: 1; pointer-events: auto; }
-
-  .drawer {
-    position: fixed; top: 0; right: 0; height: 100%; width: 100%; max-width: 440px; z-index: 100;
-    background: #ffffff;
-    transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    display: flex; flex-direction: column;
-    box-shadow: -10px 0 30px rgba(0,0,0,0.05);
-  }
-  .drawer.open { transform: translateX(0); }
-
-  .field-label { display: block; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #0f0f0f; margin-bottom: 6px; }
-  .field-input { width: 100%; padding: 12px 16px; background: #f7f7f7; border: none; border-radius: 12px; color: #0f0f0f; font-size: 14px; font-family: 'Jost', sans-serif; transition: background-color 0.18s ease; }
-  .field-input:focus { outline: none; background: #eef2f0; }
-
-  .temp-slider-container { position: relative; padding: 12px 0; }
-  input[type="range"].custom-range { -webkit-appearance: none; appearance: none; width: 100%; height: 4px; background: #eef2f0; border-radius: 9999px; outline: none; margin: 6px 0; }
-  input[type="range"].custom-range::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #153424; cursor: pointer; box-shadow: 0 2px 6px rgba(21,52,36,0.2); border: 2px solid #ffffff; transition: transform 0.15s ease, background-color 0.15s ease; }
-  input[type="range"].custom-range::-webkit-slider-thumb:hover { transform: scale(1.15); background: #1c4531; }
-  input[type="range"].custom-range::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: #153424; cursor: pointer; box-shadow: 0 2px 6px rgba(21,52,36,0.2); border: 2px solid #ffffff; }
-
-  .custom-select-wrapper { position: relative; width: 100%; padding: 0 16px; }
-  .custom-select-trigger {
-    width: 100%; display: flex; align-items: center; justify-content: space-between;
-    padding: 10px 0; background: transparent; border: none;
-    border-bottom: 1px solid rgba(21,52,36,0.15);
-    color: #0f0f0f;
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-style: italic; font-size: 18px; font-weight: 500;
-    cursor: pointer; text-align: left;
-    transition: border-color 0.2s ease, color 0.2s ease;
-  }
+  .custom-select-wrapper { position: relative; width: 100%; }
+  .custom-select-wrapper.open { position: relative; z-index: 55; }
+  .custom-select-trigger { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 10px 0; background: transparent; border: none; border-bottom: 1px solid rgba(21,52,36,0.15); color: #0f0f0f; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 18px; font-weight: 500; cursor: pointer; text-align: left; transition: border-color 0.2s ease, color 0.2s ease; }
   .custom-select-trigger:hover, .custom-select-wrapper.open .custom-select-trigger { border-bottom-color: #153424; color: #153424; }
   .custom-select-trigger.placeholder { color: #888888; }
   .custom-select-arrow { width: 6px; height: 6px; border-right: 1.5px solid #153424; border-bottom: 1.5px solid #153424; transform: rotate(45deg); transition: transform 0.25s ease; opacity: 0.7; flex-shrink: 0; margin-left: 10px; }
   .custom-select-wrapper.open .custom-select-arrow { transform: rotate(-135deg); }
 
-  .custom-select-dropdown {
-    position: absolute; top: 100%; left: 16px; right: 16px;
-    max-height: 240px; overflow-y: auto; background: #ffffff; z-index: 50;
-    margin-top: 6px; padding: 8px 0;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.08); border-radius: 12px;
-    opacity: 0; visibility: hidden;
-    transform: translateY(-6px) scale(0.99);
-    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease;
-    scrollbar-width: thin; scrollbar-color: #dcdcdc transparent;
-  }
-  .custom-select-dropdown::-webkit-scrollbar { width: 4px; }
-  .custom-select-dropdown::-webkit-scrollbar-track { background: transparent; }
-  .custom-select-dropdown::-webkit-scrollbar-thumb { background: #e0e0e0; border-radius: 4px; }
+  .custom-select-dropdown { position: absolute; top: 100%; left: 0; right: 0; max-height: 340px; overflow-y: auto; background: #ffffff; z-index: 60; margin-top: 6px; padding: 8px 0; box-shadow: 0 15px 35px rgba(0,0,0,0.10), 0 0 0 1px rgba(21,52,36,0.06); border-radius: 12px; opacity: 0; visibility: hidden; transform: translateY(-6px) scale(0.99); transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease; }
   .custom-select-wrapper.open .custom-select-dropdown { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
 
   .custom-option-group-label { padding: 10px 18px 4px 18px; font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: #153424; opacity: 0.6; }
-  .custom-option { padding: 8px 18px; font-family: 'Jost', sans-serif; font-style: normal; font-size: 13.5px; color: #0f0f0f; cursor: pointer; transition: background-color 0.15s ease, color 0.15s ease; }
+  .custom-option { padding: 8px 18px; font-family: 'Jost', sans-serif; font-size: 13.5px; color: #0f0f0f; cursor: pointer; transition: background-color 0.15s ease, color 0.15s ease; }
   .custom-option:hover { background-color: #f4f6f5; color: #153424; }
   .custom-option.selected { background-color: #153424; color: #ffffff; font-weight: 500; }
 
-  input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; appearance: none; }
+  .genre-custom-field { margin-top: 12px; }
+  .genre-custom-field .field-label { font-size: 10px; color: #888888; font-weight: 500; }
+  .genre-custom-field .field-input { font-size: 13px; padding: 10px 14px; background: #f7f7f7; }
 
+  #page-backdrop { position: fixed; inset: 0; background: rgba(255, 255, 255, 0.10); backdrop-filter: blur(3px) saturate(0.95); -webkit-backdrop-filter: blur(3px) saturate(0.95); z-index: 45; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
+  #page-backdrop.visible { opacity: 1; pointer-events: auto; }
+
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px 6px 8px; background: transparent; border: none; color: #888888; font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; border-radius: 9999px; transition: color 0.18s ease, background-color 0.18s ease; white-space: nowrap; }
+  .back-btn:hover { color: #153424; background: rgba(21,52,36,0.05); }
+  .back-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  .card { opacity: 0; transform: translateY(12px); transition: opacity 0.4s ease, transform 0.4s ease; }
+  .card.revealed { opacity: 1; transform: translateY(0); }
+  .card-photo { transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); cursor: zoom-in; }
+  .group:hover .card-photo { transform: scale(1.03); }
+
+  .field-label { display: block; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #0f0f0f; margin-bottom: 6px; }
+  .field-input { width: 100%; padding: 12px 16px; background: #f7f7f7; border: none; border-radius: 12px; color: #0f0f0f; font-size: 14px; font-family: 'Jost', sans-serif; }
+  .field-input:focus { outline: none; background: #eef2f0; }
+
+  input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; appearance: none; }
   .search-minimal { display: flex; align-items: center; gap: 12px; padding: 12px 0; background: transparent; position: relative; min-width: 0; }
   .search-minimal > svg { color: #888888; transition: color 0.18s ease; flex-shrink: 0; }
   .search-minimal:hover > svg, .search-minimal:focus-within > svg { color: #153424; }
-  .search-minimal input { flex: 1 1 auto; min-width: 0; background: transparent; border: none; outline: none; box-shadow: none; font-family: 'Jost', sans-serif; font-size: 15px; font-weight: 400; color: #0f0f0f; padding: 0; }
-  .search-clear { flex-shrink: 0; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: #888888; background: transparent; border: none; cursor: pointer; transition: color 0.18s ease, background-color 0.18s ease; }
+  .search-minimal input { flex: 1 1 auto; min-width: 0; background: transparent; border: none; outline: none; box-shadow: none; font-family: 'Jost', sans-serif; font-size: 15px; color: #0f0f0f; padding: 0; }
+  .search-clear { flex-shrink: 0; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: #888888; background: transparent; border: none; cursor: pointer; }
   .search-clear:hover { color: #153424; background: rgba(21,52,36,0.06); }
-
-  .file-drop { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px; border: 1px dashed #dcdcdc; border-radius: 12px; background: #ffffff; cursor: pointer; transition: border-color 0.18s ease; text-align: center; }
-  .file-drop:hover { border-color: #153424; }
-  .file-drop input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
-
-  .photo-preview { position: relative; width: 100%; aspect-ratio: 4 / 3; border-radius: 12px; overflow: hidden; }
-  .photo-preview img { width: 100%; height: 100%; object-fit: cover; }
-  .photo-preview-clear { position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(0,0,0,0.7); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer; border: none; transition: background-color 0.18s ease; }
-  .photo-preview-clear:hover { background: rgba(0,0,0,0.85); }
 
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-  /* ===== SAISONS ===== */
-  main { position: relative; z-index: 1; }
-  #seasonal-bg {
-    position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0;
-    mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 92%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 92%, transparent 100%);
-  }
-  .season-cloud { position: absolute; z-index: 1; pointer-events: none; will-change: transform, opacity; opacity: 0; animation-timing-function: linear; animation-iteration-count: 1; animation-fill-mode: forwards; }
-  .season-cloud svg { display: block; width: 100%; height: auto; }
-  .season-cloud svg path { fill: rgba(21,52,36,0.055); stroke: none; }
-  .season-cloud.drift-right { left: -15vw; animation-name: cloud-right; }
-  .season-cloud.drift-left { right: -15vw; animation-name: cloud-left; }
-  @keyframes cloud-right { 0% { transform: translate3d(0,0,0); opacity: 0; } 8% { opacity: var(--opacity, .8); } 88% { opacity: var(--opacity, .8); } 100% { transform: translate3d(130vw,0,0); opacity: 0; } }
-  @keyframes cloud-left { 0% { transform: translate3d(0,0,0); opacity: 0; } 8% { opacity: var(--opacity, .8); } 88% { opacity: var(--opacity, .8); } 100% { transform: translate3d(-130vw,0,0); opacity: 0; } }
-
-  .season-leaf { position: absolute; top: 0; animation-name: season-leaf-fall; animation-timing-function: linear; animation-iteration-count: infinite; will-change: transform, opacity; transform-origin: center center; }
-  .season-leaf svg { display: block; width: 100%; height: 100%; transform-origin: center center; animation: season-leaf-sway var(--sway, 3s) ease-in-out infinite alternate; filter: drop-shadow(0 1px 1px rgba(21,52,36,0.04)); }
-  @keyframes season-leaf-fall { 0% { transform: translate3d(0,-15vh,0); opacity: 0; } 10% { opacity: var(--opacity, .5); } 90% { opacity: var(--opacity, .5); } 100% { transform: translate3d(var(--drift,40px),115vh,0); opacity: 0; } }
-  @keyframes season-leaf-sway { from { transform: rotate(calc(var(--lean,0deg) - 12deg)); } to { transform: rotate(calc(var(--lean,0deg) + 12deg)); } }
-
-  .season-snow { position: absolute; top: 0; border-radius: 50%; background: rgba(120,150,130,0.45); animation-name: season-snow-fall; animation-timing-function: linear; animation-iteration-count: infinite; will-change: transform, opacity; }
-  @keyframes season-snow-fall { 0% { transform: translate3d(0,-8vh,0); opacity: 0; } 10% { opacity: var(--opacity, .55); } 90% { opacity: var(--opacity, .55); } 100% { transform: translate3d(var(--drift,20px),108vh,0); opacity: 0; } }
-
-  .season-rain { position: absolute; top: -20px; width: 1.2px; height: 9px; background: linear-gradient(to bottom, rgba(90,120,100,0), rgba(90,120,100,0.5)); border-radius: 1px; animation-name: season-rain-fall; animation-timing-function: linear; animation-fill-mode: forwards; will-change: transform, opacity; }
-  @keyframes season-rain-fall { 0% { transform: translate3d(0,-20px,0); opacity: 0; } 10% { opacity: 0.75; } 90% { opacity: 0.75; } 100% { transform: translate3d(var(--drift,10px),105vh,0); opacity: 0; } }
-
+  main { position: relative; }
+  #seasonal-bg { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 92%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 92%); }
+  .season-leaf { position: absolute; top: 0; animation: season-leaf-fall linear infinite; will-change: transform, opacity; }
+  @keyframes season-leaf-fall { 0% { transform: translate3d(0,-15vh,0); opacity: 0; } 10% { opacity: var(--opacity, .4); } 90% { opacity: var(--opacity, .4); } 100% { transform: translate3d(var(--drift,40px),115vh,0); opacity: 0; } }
+  .season-snow { position: absolute; top: 0; border-radius: 50%; background: rgba(120,150,130,0.35); animation: season-snow-fall linear infinite; }
+  @keyframes season-snow-fall { 0% { transform: translate3d(0,-8vh,0); opacity: 0; } 10% { opacity: var(--opacity, .45); } 90% { opacity: var(--opacity, .45); } 100% { transform: translate3d(var(--drift,20px),108vh,0); opacity: 0; } }
+  .season-rain { position: absolute; top: -20px; width: 1px; height: 8px; background: linear-gradient(to bottom, rgba(90,120,100,0), rgba(90,120,100,0.35)); border-radius: 1px; animation: season-rain-fall linear forwards; }
+  @keyframes season-rain-fall { 0% { transform: translate3d(0,-20px,0); opacity: 0; } 10% { opacity: 0.55; } 90% { opacity: 0.55; } 100% { transform: translate3d(var(--drift,10px),105vh,0); opacity: 0; } }
   @media (prefers-reduced-motion: reduce) { #seasonal-bg { display: none !important; } }
 
-  /* ============================================================
-     LIGHTBOX — adaptatif portrait / paysage
-     ============================================================ */
-  .lightbox {
-    position: fixed; inset: 0; z-index: 200;
-    background: rgba(8, 8, 8, 0.96);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    display: flex;
-    opacity: 0; pointer-events: none;
-    transition: opacity 0.3s ease;
-    overflow-y: auto;
-    padding: 24px 20px;
-  }
+  .lightbox { position: fixed; inset: 0; z-index: 200; background: rgba(8, 8, 8, 0.96); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: flex; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; overflow-y: auto; padding: 24px 20px; }
   .lightbox.open { opacity: 1; pointer-events: auto; }
-
-  .lightbox-content {
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 26px;
-    transform: scale(0.96);
-    opacity: 0;
-    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
-    width: 100%;
-  }
-  .lightbox.open .lightbox-content {
-    transform: scale(1);
-    opacity: 1;
-  }
-
-  .lightbox-content img {
-    display: block;
-    max-width: 90vw;
-    max-height: 55vh;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    border-radius: 4px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
-    flex-shrink: 0;
-  }
-
-  .lightbox-content.is-landscape {
-    flex-direction: column;
-    align-items: center;
-    max-width: 94vw;
-    gap: 24px;
-  }
-  .lightbox-content.is-landscape img {
-    max-width: 94vw;
-    max-height: 62vh;
-  }
-
-  .lightbox-content.is-portrait {
-    flex-direction: row-reverse;
-    align-items: center;
-    justify-content: center;
-    gap: 56px;
-    max-width: 94vw;
-  }
-  .lightbox-content.is-portrait img {
-    max-width: 52vw;
-    max-height: 86vh;
-  }
-
-  .lightbox-info {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    width: 100%;
-    max-width: 640px;
-    padding: 0 12px;
-    color: #ffffff;
-    text-align: center;
-    align-items: center;
-  }
-
-  .lightbox-content.is-portrait .lightbox-info {
-    max-width: 380px;
-    text-align: left;
-    align-items: flex-start;
-    padding: 0;
-    flex-shrink: 0;
-  }
-  .lightbox-content.is-portrait .lightbox-info .lb-grid {
-    justify-content: flex-start;
-    gap: 16px 32px;
-    margin-top: 16px;
-    padding-top: 18px;
-  }
-  .lightbox-content.is-portrait .lightbox-info .lb-item {
-    align-items: flex-start;
-    min-width: 0;
-  }
-
-  .lightbox-info .lb-cat {
-    font-family: 'Jost', sans-serif;
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    color: rgba(255, 255, 255, 0.62);
-  }
-  .lightbox-info .lb-name {
-    font-family: 'Bodoni Moda', Georgia, serif;
-    font-weight: 500;
-    font-size: 26px;
-    line-height: 1.15;
-    color: #ffffff;
-    margin: 2px 0 0;
-    letter-spacing: -0.005em;
-  }
-  .lightbox-info .lb-family {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-style: italic;
-    font-size: 15.5px;
-    color: rgba(255, 255, 255, 0.62);
-    margin: 0;
-  }
-
-  .lightbox-info .lb-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 18px 44px;
-    padding-top: 18px;
-    margin-top: 16px;
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
-    width: 100%;
-  }
-  .lightbox-info .lb-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    min-width: 110px;
-  }
+  .lightbox-content { margin: auto; display: flex; flex-direction: column; align-items: center; gap: 26px; transform: scale(0.96); opacity: 0; transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease; width: 100%; }
+  .lightbox.open .lightbox-content { transform: scale(1); opacity: 1; }
+  .lightbox-content img { display: block; max-width: 90vw; max-height: 55vh; width: auto; height: auto; object-fit: contain; border-radius: 4px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55); flex-shrink: 0; }
+  .lightbox-content.is-landscape { max-width: 94vw; gap: 24px; }
+  .lightbox-content.is-landscape img { max-width: 94vw; max-height: 62vh; }
+  .lightbox-content.is-portrait { flex-direction: row-reverse; justify-content: center; gap: 56px; max-width: 94vw; }
+  .lightbox-content.is-portrait img { max-width: 52vw; max-height: 86vh; }
+  .lightbox-info { display: flex; flex-direction: column; gap: 4px; width: 100%; max-width: 640px; padding: 0 12px; color: #ffffff; text-align: center; align-items: center; }
+  .lightbox-content.is-portrait .lightbox-info { max-width: 380px; text-align: left; align-items: flex-start; padding: 0; flex-shrink: 0; }
+  .lightbox-info .lb-cat { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.18em; color: rgba(255, 255, 255, 0.62); }
+  .lightbox-info .lb-name { font-family: 'Bodoni Moda', Georgia, serif; font-weight: 500; font-size: 26px; line-height: 1.15; color: #ffffff; margin: 2px 0 0; }
+  .lightbox-info .lb-family { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 15.5px; color: rgba(255, 255, 255, 0.62); margin: 0; }
+  .lightbox-info .lb-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px 44px; padding-top: 18px; margin-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.12); width: 100%; }
+  .lightbox-info .lb-item { display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 110px; }
   .lightbox-info .lb-item.lb-full { flex-basis: 100%; }
-  .lightbox-info .lb-key {
-    font-family: 'Jost', sans-serif;
-    font-size: 9px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    color: rgba(255, 255, 255, 0.42);
-  }
-  .lightbox-info .lb-val {
-    font-family: 'Jost', sans-serif;
-    font-size: 13.5px;
-    font-weight: 500;
-    color: #ffffff;
-    line-height: 1.3;
-  }
-
-  .lightbox-back {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: transparent;
-    border: none;
-    color: rgba(255, 255, 255, 0.72);
-    cursor: pointer;
-    padding: 0;
-    transition: color 0.2s ease, transform 0.2s ease;
-    z-index: 210;
-  }
-  .lightbox-back:hover { color: #ffffff; transform: translateX(-2px); }
-  .lightbox-back:active { transform: translateX(0); transition-duration: 0.05s; }
+  .lightbox-info .lb-key { font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.16em; color: rgba(255, 255, 255, 0.42); }
+  .lightbox-info .lb-val { font-family: 'Jost', sans-serif; font-size: 13.5px; font-weight: 500; color: #ffffff; line-height: 1.3; }
+  .lightbox-back { position: fixed; top: 20px; left: 20px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: transparent; border: none; color: rgba(255, 255, 255, 0.72); cursor: pointer; z-index: 210; }
+  .lightbox-back:hover { color: #ffffff; }
   .lightbox-back svg { width: 26px; height: 26px; stroke-width: 1.5; }
-
   @media (max-width: 860px) {
-    .lightbox { padding: 16px 14px; }
-    .lightbox-content { gap: 20px; }
-
-    .lightbox-content.is-landscape img { max-height: 55vh; max-width: 94vw; }
-
-    .lightbox-content.is-portrait {
-      flex-direction: column;
-      gap: 20px;
-    }
-    .lightbox-content.is-portrait img {
-      max-width: 94vw;
-      max-height: 52vh;
-    }
-    .lightbox-content.is-portrait .lightbox-info {
-      max-width: 100%;
-      text-align: center;
-      align-items: center;
-      padding: 0 12px;
-    }
-    .lightbox-content.is-portrait .lightbox-info .lb-grid {
-      justify-content: center;
-      gap: 14px 28px;
-    }
-    .lightbox-content.is-portrait .lightbox-info .lb-item {
-      align-items: center;
-      min-width: 90px;
-    }
-
+    .lightbox-content.is-portrait { flex-direction: column; gap: 20px; }
+    .lightbox-content.is-portrait img { max-width: 94vw; max-height: 52vh; }
+    .lightbox-content.is-portrait .lightbox-info { max-width: 100%; text-align: center; align-items: center; padding: 0 12px; }
     .lightbox-info .lb-name { font-size: 21px; }
-    .lightbox-info .lb-grid { gap: 14px 28px; padding-top: 14px; margin-top: 12px; }
-    .lightbox-info .lb-item { min-width: 90px; }
-    .lightbox-back { top: 10px; left: 10px; width: 40px; height: 40px; }
-    .lightbox-back svg { width: 22px; height: 22px; }
   }
+
+  .demo-banner { display: none; padding: 10px 16px; background: #fef7e6; border: 1px solid #f3e0b0; border-radius: 12px; color: #7a5e1e; font-size: 12px; font-family: 'Jost', sans-serif; line-height: 1.4; }
+  .demo-banner.visible { display: block; }
 </style>
 </head>
 
 <body class="font-sans antialiased bg-white text-ink">
 
+<div id="page-backdrop"></div>
 <div id="seasonal-bg" aria-hidden="true"></div>
 
 <header class="site-header">
-  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
-    <a href="#" class="brand-group group">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="index.html" class="brand-group">
       <span class="brand-title">Plantouille</span>
-      <div class="brand-tagline-container">
-        <span class="brand-tagline">Cabinet du Dr-Cactus</span>
-      </div>
+      <span class="brand-tagline">Collection du Dr-Cactus</span>
     </a>
-    <button id="open-drawer-btn" type="button" class="btn-minimal">
-      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
-      <span>Ajouter</span>
-    </button>
+
+    <div class="header-scene-wrap flex-1 self-stretch relative" aria-hidden="true">
+      <div class="brand-scene">
+        <div class="brand-scene-sun"></div>
+        <div class="brand-scene-plant plant-globular">
+          <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 21 Q2 3 11 3 Q20 3 20 21 Z"/><path d="M11 3 V21"/><path d="M6 4 Q5 12 6 21"/><path d="M16 4 Q17 12 16 21"/>
+          </svg>
+        </div>
+        <div class="brand-scene-plant plant-columnar">
+          <svg viewBox="0 0 18 26" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 25 V3"/><path d="M9 12 H5 Q3 12 3 10 V6"/><path d="M9 15 H13 Q15 15 15 13 V9"/>
+          </svg>
+        </div>
+        <div class="brand-scene-plant plant-aloe">
+          <svg viewBox="0 0 22 20" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 19 L2 9"/><path d="M11 19 L5 4"/><path d="M11 19 L9 1"/><path d="M11 19 L11 0.5"/><path d="M11 19 L13 1"/><path d="M11 19 L17 4"/><path d="M11 19 L20 9"/>
+          </svg>
+        </div>
+        <div class="brand-scene-plant plant-echeveria">
+          <svg viewBox="0 0 22 16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 15 Q3 13 1.5 7 Q6 10 11 15"/><path d="M11 15 Q6 9 5 3 Q8 8 11 15"/><path d="M11 15 L10.5 2 Q11 1 11.5 2 L11 15"/><path d="M11 15 Q16 9 17 3 Q14 8 11 15"/><path d="M11 15 Q19 13 20.5 7 Q16 10 11 15"/>
+          </svg>
+        </div>
+        <div class="brand-scene-plant plant-yucca">
+          <svg viewBox="0 0 18 26" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 25 V10"/><path d="M9 10 L2 5"/><path d="M9 10 L4 2"/><path d="M9 10 L7 1"/><path d="M9 10 L9 0.5"/><path d="M9 10 L11 1"/><path d="M9 10 L14 2"/><path d="M9 10 L16 5"/>
+          </svg>
+        </div>
+        <div class="brand-scene-plant plant-beaucarnea">
+          <svg viewBox="0 0 18 26" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 25 Q2 25 2 21 Q2 16 5 15.5 L13 15.5 Q16 16 16 21 Q16 25 14 25 Z"/><path d="M9 15.5 V5"/><path d="M9 5 Q5.5 4 3 1"/><path d="M9 5 Q6.5 3 6 0.5"/><path d="M9 5 L9 0.5"/><path d="M9 5 Q11.5 3 12 0.5"/><path d="M9 5 Q12.5 4 15 1"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-right flex-shrink-0">
+      <div class="flex items-baseline gap-2 text-muted justify-end">
+        <span id="stat-total" class="font-serif text-2xl text-brand font-medium">0</span>
+        <span class="text-[11px] font-medium tracking-wider uppercase">spécimens</span>
+      </div>
+    </div>
   </div>
 </header>
 
 <main class="max-w-6xl mx-auto px-6 w-full flex-1 pb-16">
-  <section class="pt-5 pb-1 flex items-center justify-end">
-    <div class="flex items-baseline gap-2 text-muted">
-      <span id="stat-total" class="font-serif text-2xl text-brand font-medium">0</span>
-      <span class="text-[11px] font-medium tracking-wider uppercase">spécimens</span>
+  <section class="pt-5 pb-4">
+    <div id="demo-banner" class="demo-banner">
+      <strong>Mode démonstration.</strong> Aucun fichier <code>collection.json</code> n'a été trouvé. Les spécimens affichés sont des exemples. Exportez votre collection depuis l'admin et déposez <code>collection.json</code> à côté de cette page.
     </div>
   </section>
 
   <section class="pb-4">
     <div class="search-minimal">
-      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-        <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>
-      </svg>
-      <input id="plant-search" type="search" aria-label="Rechercher une plante" placeholder="Rechercher une plante, famille, origine…" autocomplete="off">
-      <button type="button" id="clear-search" aria-label="Effacer la recherche" class="hidden search-clear">
+      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="plant-search" type="search" placeholder="Rechercher une plante, famille, origine…" autocomplete="off">
+      <button type="button" id="clear-search" class="hidden search-clear">
         <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
     </div>
   </section>
 
-  <section class="pb-6 overflow-x-auto no-scrollbar px-6 -mx-6">
-    <div class="flex flex-nowrap items-center gap-2.5 min-w-max px-6 py-1">
-      <button type="button" data-category="all" class="chip active">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
-        <span>Toutes</span>
-      </button>
-      <button type="button" data-category="Cactus" class="chip">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 22V2"/><path d="M12 10H9a2 2 0 0 1-2-2V6"/><path d="M12 14h3a2 2 0 0 0 2-2v-2"/></svg>
-        <span>Cactus</span>
-      </button>
-      <button type="button" data-category="Succulentes" class="chip">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z"/>
-          <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(-30 12 21)"/>
-          <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(30 12 21)"/>
-        </svg>
-        <span>Succulentes</span>
-      </button>
-      <button type="button" data-category="Mesembryanthemum" class="chip">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><ellipse cx="12" cy="14" rx="6" ry="5"/><path d="M12 9V6M9 6c1-1 5-1 6 0"/></svg>
-        <span>Mesembryanthemum</span>
-      </button>
-      <button type="button" data-category="Tropicales" class="chip">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 19c0-7 6-13 14-14-1 8-7 14-14 14zM5 19l8-8"/></svg>
-        <span>Tropicales</span>
-      </button>
-      <button type="button" data-category="Caudiciformes" class="chip">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <ellipse cx="12" cy="16" rx="7" ry="4"/>
-          <path d="M12 12V6M9 8h6M10 5l2-2 2 2"/>
-        </svg>
-        <span>Caudiciformes</span>
-      </button>
+  <section class="pb-6">
+    <div id="filter-chips-step" class="step-panel overflow-x-auto no-scrollbar px-6 -mx-6">
+      <div class="flex flex-nowrap items-center gap-2.5 min-w-max px-6 py-1">
+        <button type="button" data-category="all" class="chip active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+          <span>Toutes</span>
+        </button>
+        <button type="button" data-category="Cactus" class="chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 22V2"/><path d="M12 10H9a2 2 0 0 1-2-2V6"/><path d="M12 14h3a2 2 0 0 0 2-2v-2"/></svg>
+          <span>Cactus</span>
+        </button>
+        <button type="button" data-category="Succulentes" class="chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z"/>
+            <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(-30 12 21)"/>
+            <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(30 12 21)"/>
+          </svg>
+          <span>Succulentes</span>
+        </button>
+        <button type="button" data-category="Mesembryanthemum" class="chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><ellipse cx="12" cy="14" rx="6" ry="5"/><path d="M12 9V6M9 6c1-1 5-1 6 0"/></svg>
+          <span>Mesembryanthemum</span>
+        </button>
+        <button type="button" data-category="Tropicales" class="chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 19c0-7 6-13 14-14-1 8-7 14-14 14zM5 19l8-8"/></svg>
+          <span>Tropicales</span>
+        </button>
+        <button type="button" data-category="Caudiciformes" class="chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="12" cy="16" rx="7" ry="4"/><path d="M12 12V6M9 8h6M10 5l2-2 2 2"/>
+          </svg>
+          <span>Caudiciformes</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="filter-species-step" class="step-panel step-hidden">
+      <div class="flex items-center gap-3 mb-2">
+        <button type="button" id="filter-back-btn" class="back-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <span>Rubriques</span>
+        </button>
+      </div>
+      <div class="custom-select-wrapper" id="filter-species-wrapper">
+        <button type="button" class="custom-select-trigger placeholder" id="filter-species-trigger">
+          <span class="trigger-label">Sélectionner un genre...</span>
+          <span class="custom-select-arrow"></span>
+        </button>
+        <div class="custom-select-dropdown" id="filter-species-dropdown"></div>
+      </div>
+      <div class="genre-custom-field">
+        <label class="field-label" for="filter-genre-custom-input">Filtrer par genre</label>
+        <input type="text" id="filter-genre-custom-input" class="field-input" placeholder="ex: Mammillaria" autocomplete="off">
+      </div>
     </div>
   </section>
 
@@ -576,240 +314,16 @@
   </section>
 </main>
 
-<div id="drawer-backdrop" class="drawer-backdrop" aria-hidden="true"></div>
+<footer class="max-w-6xl mx-auto px-6 w-full pb-8 pt-4 border-t border-border">
+  <p class="text-[11px] text-muted text-center font-light tracking-wide">
+    Site miroir — Lecture seule · <a href="index.html" class="text-brand hover:underline">Accéder à l'admin</a>
+  </p>
+</footer>
 
-<aside id="drawer" class="drawer" role="dialog" aria-modal="true" aria-hidden="true">
-  <div class="flex items-center justify-between p-6 px-8 border-b border-border">
-    <h2 class="font-serif text-2xl text-brand font-medium">Nouveau Spécimen</h2>
-    <button id="close-drawer-btn" type="button" aria-label="Fermer" class="text-muted hover:text-ink p-2 cursor-pointer transition-colors duration-150">
-      <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
-    </button>
-  </div>
-
-  <form id="plant-form" class="flex-1 flex flex-col overflow-hidden" novalidate>
-    <div class="flex-1 overflow-y-auto p-6 px-8 space-y-6">
-      <div>
-        <label for="plant-name" class="field-label">Nom de la plante</label>
-        <input type="text" id="plant-name" required maxlength="120" placeholder="ex: Trichocereus pachanoi" class="field-input">
-      </div>
-
-      <div>
-        <label class="field-label">Rubrique</label>
-        <div id="category-picker" class="grid grid-cols-1 gap-2">
-          <button type="button" class="cat-option" data-category="Cactus">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22V2"/><path d="M12 10H9a2 2 0 0 1-2-2V6"/><path d="M12 14h3a2 2 0 0 0 2-2v-2"/></svg>
-            <span>Cactus</span>
-          </button>
-          <button type="button" class="cat-option" data-category="Succulentes">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z"/>
-              <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(-30 12 21)"/>
-              <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(30 12 21)"/>
-            </svg>
-            <span>Succulentes</span>
-          </button>
-          <button type="button" class="cat-option" data-category="Mesembryanthemum">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="14" rx="6" ry="5"/><path d="M12 9V6M9 6c1-1 5-1 6 0"/></svg>
-            <span>Mesembryanthemum</span>
-          </button>
-          <button type="button" class="cat-option" data-category="Tropicales">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 19c0-7 6-13 14-14-1 8-7 14-14 14z"/></svg>
-            <span>Tropicales</span>
-          </button>
-          <button type="button" class="cat-option" data-category="Caudiciformes">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="16" rx="7" ry="4"/><path d="M12 12V6M9 8h6M10 5l2-2 2 2"/></svg>
-            <span>Caudiciformes</span>
-          </button>
-        </div>
-        <input type="hidden" id="plant-category" value="" required>
-      </div>
-
-      <!-- Rubrique : Substrat -->
-      <div>
-        <label class="field-label">Substrat</label>
-        <div class="custom-select-wrapper" id="substrate-select-wrapper">
-          <button type="button" class="custom-select-trigger placeholder" id="substrate-select-trigger">
-            <span class="trigger-label">Sélectionner un substrat...</span>
-            <span class="custom-select-arrow"></span>
-          </button>
-          <div class="custom-select-dropdown" id="substrate-select-dropdown">
-            <div class="custom-option-group-label">Cactus & Succulentes</div>
-            <div class="custom-option" data-value="Substrat 3 tiers (Terreau, sable, pouzzolane)">Substrat 3 tiers (Terreau, sable, pouzzolane)</div>
-            <div class="custom-option" data-value="Mélange minéral pur (Ponce, pouzzolane, akadama)">Mélange minéral pur (Ponce, pouzzolane, akadama)</div>
-
-            <div class="custom-option-group-label">Mesembryanthemum (Lithops, etc.)</div>
-            <div class="custom-option" data-value="100% Minéral (Sable grossier, pouzzolane, très peu de terre)">100% Minéral (Sable grossier, pouzzolane, très peu de terre)</div>
-
-            <div class="custom-option-group-label">Plantes Tropicales</div>
-            <div class="custom-option" data-value="Terreau riche, perlite & écorces de pin (Léger et drainant)">Terreau riche, perlite & écorces de pin (Léger et drainant)</div>
-            <div class="custom-option" data-value="Mélange type Jungle (Terreau, tourbe, coco, perlite)">Mélange type Jungle (Terreau, tourbe, coco, perlite)</div>
-
-            <div class="custom-option-group-label">Caudiciformes</div>
-            <div class="custom-option" data-value="Substrat hautement drainant (Ponce, terreau tamisé)">Substrat hautement drainant (Ponce, terreau tamisé)</div>
-
-            <div class="custom-option-group-label">Universel</div>
-            <div class="custom-option" data-value="Terreau horticole standard avec drainage">Terreau horticole standard avec drainage</div>
-          </div>
-          <input type="hidden" id="plant-substrate" value="">
-        </div>
-      </div>
-
-      <div>
-        <label class="field-label">Famille botanique</label>
-        <div class="custom-select-wrapper" id="family-select-wrapper">
-          <button type="button" class="custom-select-trigger placeholder" id="family-select-trigger">
-            <span class="trigger-label">Sélectionner une famille...</span>
-            <span class="custom-select-arrow"></span>
-          </button>
-          <div class="custom-select-dropdown" id="family-select-dropdown">
-            <div class="custom-option" data-value="Acanthaceae">Acanthaceae</div>
-            <div class="custom-option" data-value="Aizoaceae">Aizoaceae</div>
-            <div class="custom-option" data-value="Amaryllidaceae">Amaryllidaceae</div>
-            <div class="custom-option" data-value="Anacardiaceae">Anacardiaceae</div>
-            <div class="custom-option" data-value="Apocynaceae">Apocynaceae</div>
-            <div class="custom-option" data-value="Araceae">Araceae</div>
-            <div class="custom-option" data-value="Arecaceae">Arecaceae</div>
-            <div class="custom-option" data-value="Asparagaceae">Asparagaceae</div>
-            <div class="custom-option" data-value="Asphodelaceae">Asphodelaceae</div>
-            <div class="custom-option" data-value="Begoniaceae">Begoniaceae</div>
-            <div class="custom-option" data-value="Bromeliaceae">Bromeliaceae</div>
-            <div class="custom-option" data-value="Burseraceae">Burseraceae</div>
-            <div class="custom-option" data-value="Cactaceae">Cactaceae</div>
-            <div class="custom-option" data-value="Commelinaceae">Commelinaceae</div>
-            <div class="custom-option" data-value="Crassulaceae">Crassulaceae</div>
-            <div class="custom-option" data-value="Cucurbitaceae">Cucurbitaceae</div>
-            <div class="custom-option" data-value="Dioscoreaceae">Dioscoreaceae</div>
-            <div class="custom-option" data-value="Euphorbiaceae">Euphorbiaceae</div>
-            <div class="custom-option" data-value="Fabaceae">Fabaceae</div>
-            <div class="custom-option" data-value="Geraniaceae">Geraniaceae</div>
-            <div class="custom-option" data-value="Lamiaceae">Lamiaceae</div>
-            <div class="custom-option" data-value="Moraceae">Moraceae</div>
-            <div class="custom-option" data-value="Orchidaceae">Orchidaceae</div>
-            <div class="custom-option" data-value="Passifloraceae">Passifloraceae</div>
-            <div class="custom-option" data-value="Pedaliaceae">Pedaliaceae</div>
-            <div class="custom-option" data-value="Piperaceae">Piperaceae</div>
-            <div class="custom-option" data-value="Portulacaceae">Portulacaceae</div>
-            <div class="custom-option" data-value="Rubiaceae">Rubiaceae</div>
-            <div class="custom-option" data-value="Rutaceae">Rutaceae</div>
-            <div class="custom-option" data-value="Zamiaceae">Zamiaceae</div>
-            <div class="custom-option" data-value="Zingiberaceae">Zingiberaceae</div>
-            <div class="custom-option" data-value="Autre famille">Autre famille...</div>
-          </div>
-          <input type="hidden" id="plant-family" value="">
-        </div>
-      </div>
-
-      <div>
-        <label class="field-label">Exposition</label>
-        <div class="grid grid-cols-3 gap-2" id="exposure-picker">
-          <button type="button" class="exp-option" data-exposure="Plein soleil">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg>
-            Plein soleil
-          </button>
-          <button type="button" class="exp-option" data-exposure="Mi-ombre">
-            <svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3.5"/><path d="M8 2.5v1.5M2.5 8H4M4.2 4.2l1 1M11.8 4.2l-1 1M4.2 11.8l1-1"/><path d="M18 19h-5a2.5 2.5 0 0 1 0-5 4 4 0 0 1 7.5-1A2.5 2.5 0 0 1 18 19z"/></svg>
-            Mi-ombre
-          </button>
-          <button type="button" class="exp-option" data-exposure="Ombre">
-            <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-            Ombre
-          </button>
-        </div>
-        <input type="hidden" id="plant-exposure" value="">
-      </div>
-
-      <div>
-        <div class="flex justify-between items-center mb-1">
-          <label for="plant-temp" class="field-label mb-0">Température minimale supportée</label>
-          <span id="temp-display" class="text-xs font-semibold text-brand bg-brand/10 px-2.5 py-0.5 rounded-full">0 °C</span>
-        </div>
-        <div class="temp-slider-container">
-          <input type="range" id="plant-temp" min="-20" max="15" step="1" value="0" class="custom-range cursor-pointer">
-        </div>
-        <div class="flex justify-between text-[10px] text-muted mt-1">
-          <span>-20°C (Très rustique)</span>
-          <span>0°C (Hors-gel)</span>
-          <span>+15°C (Tropical)</span>
-        </div>
-      </div>
-
-      <div>
-        <label class="field-label">Origine géographique</label>
-        <div class="custom-select-wrapper" id="origin-select-wrapper">
-          <button type="button" class="custom-select-trigger placeholder" id="origin-select-trigger">
-            <span class="trigger-label">Sélectionner une origine...</span>
-            <span class="custom-select-arrow"></span>
-          </button>
-          <div class="custom-select-dropdown" id="origin-select-dropdown">
-            <div class="custom-option-group-label">Afrique</div>
-            <div class="custom-option" data-value="Afrique du Sud">Afrique du Sud</div>
-            <div class="custom-option" data-value="Namibie">Namibie</div>
-            <div class="custom-option" data-value="Madagascar">Madagascar</div>
-            <div class="custom-option" data-value="Corne de l'Afrique">Corne de l'Afrique</div>
-            <div class="custom-option" data-value="Socotra">Socotra</div>
-            <div class="custom-option" data-value="Afrique tropicale">Afrique tropicale</div>
-            <div class="custom-option" data-value="Afrique du Nord">Afrique du Nord</div>
-            <div class="custom-option" data-value="Macaronésie">Macaronésie</div>
-
-            <div class="custom-option-group-label">Amériques</div>
-            <div class="custom-option" data-value="Mexique">Mexique</div>
-            <div class="custom-option" data-value="Sud-Ouest des États-Unis">Sud-Ouest des États-Unis</div>
-            <div class="custom-option" data-value="Amérique centrale & Caraïbes">Amérique centrale & Caraïbes</div>
-            <div class="custom-option" data-value="Andes & Amérique du Sud Ouest">Andes & Amérique du Sud Ouest</div>
-            <div class="custom-option" data-value="Brésil & Bassin Amazonien">Brésil & Bassin Amazonien</div>
-            <div class="custom-option" data-value="Pampas & Cône Sud">Pampas & Cône Sud</div>
-
-            <div class="custom-option-group-label">Asie & Pacifique</div>
-            <div class="custom-option" data-value="Péninsule Arabique">Péninsule Arabique</div>
-            <div class="custom-option" data-value="Asie du Sud-Est">Asie du Sud-Est</div>
-            <div class="custom-option" data-value="Subcontinent Indien">Subcontinent Indien</div>
-            <div class="custom-option" data-value="Asie de l'Est">Asie de l'Est</div>
-            <div class="custom-option" data-value="Australie & Pacifique">Australie & Pacifique</div>
-
-            <div class="custom-option-group-label">Europe & Méditerranée</div>
-            <div class="custom-option" data-value="Bassin Méditerranéen">Bassin Méditerranéen</div>
-            <div class="custom-option" data-value="Europe alpine & centrale">Europe alpine & centrale</div>
-
-            <div class="custom-option-group-label">Culture</div>
-            <div class="custom-option" data-value="Origine horticole / Hybride">Origine horticole / Hybride</div>
-          </div>
-          <input type="hidden" id="plant-origin" value="">
-        </div>
-      </div>
-
-      <div>
-        <label class="field-label">Photographie</label>
-        <div id="file-drop" class="file-drop relative">
-          <svg class="w-6 h-6 text-muted mb-2 stroke-[1.2]" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 16V4M6 10l6-6 6 6M4 20h16"/></svg>
-          <span class="text-xs text-ink font-medium">Sélectionner ou prendre une photo</span>
-          <span class="text-[11px] text-muted mt-1">Appareil photo ou galerie</span>
-          <input type="file" id="plant-photo" accept="image/*" required>
-        </div>
-        <div id="photo-preview" class="photo-preview hidden">
-          <img id="photo-preview-img" alt="Aperçu">
-          <button type="button" id="clear-photo" class="photo-preview-clear" aria-label="Retirer">×</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="p-6 px-8 border-t border-border bg-white">
-      <button type="submit" id="submit-btn" class="btn-minimal w-full py-3.5">
-        <span>Enregistrer le spécimen</span>
-      </button>
-    </div>
-  </form>
-</aside>
-
-<div id="toast-container" class="fixed bottom-6 inset-x-4 flex flex-col items-center gap-2 z-[110] pointer-events-none"></div>
-
-<!-- ============ LIGHTBOX ============ -->
-<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Aperçu détaillé">
+<div id="lightbox" class="lightbox" aria-hidden="true">
   <button id="lightbox-back" class="lightbox-back" type="button" aria-label="Retour">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M19 12H5M12 19l-7-7 7-7"/>
-    </svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
   </button>
-
   <div class="lightbox-content" id="lightbox-content">
     <img id="lightbox-img" alt="">
     <div class="lightbox-info">
@@ -817,22 +331,10 @@
       <h2 class="lb-name" id="lb-name"></h2>
       <p class="lb-family" id="lb-family"></p>
       <div class="lb-grid">
-        <div class="lb-item" id="lb-expo-wrap">
-          <span class="lb-key">Exposition</span>
-          <span class="lb-val" id="lb-expo"></span>
-        </div>
-        <div class="lb-item" id="lb-temp-wrap">
-          <span class="lb-key">Température minimale</span>
-          <span class="lb-val" id="lb-temp"></span>
-        </div>
-        <div class="lb-item lb-full" id="lb-substrate-wrap">
-          <span class="lb-key">Substrat</span>
-          <span class="lb-val" id="lb-substrate"></span>
-        </div>
-        <div class="lb-item lb-full" id="lb-origin-wrap">
-          <span class="lb-key">Origine géographique</span>
-          <span class="lb-val" id="lb-origin"></span>
-        </div>
+        <div class="lb-item" id="lb-expo-wrap"><span class="lb-key">Exposition</span><span class="lb-val" id="lb-expo"></span></div>
+        <div class="lb-item" id="lb-temp-wrap"><span class="lb-key">Température minimale</span><span class="lb-val" id="lb-temp"></span></div>
+        <div class="lb-item lb-full" id="lb-substrate-wrap"><span class="lb-key">Substrat</span><span class="lb-val" id="lb-substrate"></span></div>
+        <div class="lb-item lb-full" id="lb-origin-wrap"><span class="lb-key">Origine géographique</span><span class="lb-val" id="lb-origin"></span></div>
       </div>
     </div>
   </div>
@@ -841,340 +343,179 @@
 <script>
 (function () {
   'use strict';
-
-  const DB_NAME = 'plantouille-db';
-  const DB_VERSION = 4;
-  const STORE = 'plants';
-  const MAX_WIDTH = 1400;
-  const QUALITY = 0.85;
   const $ = (id) => document.getElementById(id);
 
-  const DEMO_PLANTS = [
-    { id: 'demo_1', name: 'Trichocereus pachanoi', category: 'Cactus', family: 'Cactaceae', substrate: 'Substrat 3 tiers (Terreau, sable, pouzzolane)', exposure: 'Plein soleil', minTemp: '-5', origin: 'Andes & Amérique du Sud Ouest', photo: 'https://images.unsplash.com/photo-1459156212016-c812468e2115?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 1000, isDemo: true },
-    { id: 'demo_2', name: 'Echinocactus grusonii', category: 'Cactus', family: 'Cactaceae', substrate: 'Mélange minéral pur (Ponce, pouzzolane, akadama)', exposure: 'Plein soleil', minTemp: '-8', origin: 'Mexique', photo: 'https://images.unsplash.com/photo-1509423350716-97f9360b4e09?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 2000, isDemo: true },
-    { id: 'demo_3', name: 'Lithops aucampiae', category: 'Mesembryanthemum', family: 'Aizoaceae', substrate: '100% Minéral (Sable grossier, pouzzolane, très peu de terre)', exposure: 'Plein soleil', minTemp: '5', origin: 'Afrique du Sud', photo: 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 3000, isDemo: true },
-    { id: 'demo_4', name: 'Haworthia fasciata', category: 'Succulentes', family: 'Asphodelaceae', substrate: 'Substrat 3 tiers (Terreau, sable, pouzzolane)', exposure: 'Mi-ombre', minTemp: '-2', origin: 'Afrique du Sud', photo: 'https://images.unsplash.com/photo-1545241047-6083a3684587?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 4000, isDemo: true },
-    { id: 'demo_5', name: 'Euphorbia obesa', category: 'Caudiciformes', family: 'Euphorbiaceae', substrate: 'Substrat hautement drainant (Ponce, terreau tamisé)', exposure: 'Plein soleil', minTemp: '2', origin: 'Afrique du Sud', photo: 'https://images.unsplash.com/photo-1567225557594-88d73e55f2cb?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 5000, isDemo: true },
-    { id: 'demo_6', name: 'Monstera deliciosa', category: 'Tropicales', family: 'Araceae', substrate: 'Terreau riche, perlite & écorces de pin (Léger et drainant)', exposure: 'Mi-ombre', minTemp: '10', origin: 'Amérique centrale & Caraïbes', photo: 'https://images.unsplash.com/photo-1614594975525-e45190c55d0b?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 6000, isDemo: true },
-    { id: 'demo_7', name: 'Mammillaria elongata', category: 'Cactus', family: 'Cactaceae', substrate: 'Substrat 3 tiers (Terreau, sable, pouzzolane)', exposure: 'Plein soleil', minTemp: '-4', origin: 'Mexique', photo: 'https://images.unsplash.com/photo-1519336555923-59661f41bb45?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 7000, isDemo: true },
-    { id: 'demo_8', name: 'Crassula ovata', category: 'Succulentes', family: 'Crassulaceae', substrate: 'Substrat 3 tiers (Terreau, sable, pouzzolane)', exposure: 'Plein soleil', minTemp: '-3', origin: 'Afrique du Sud', photo: 'https://images.unsplash.com/photo-1509937528035-ad76254b0356?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 8000, isDemo: true }
+  const FALLBACK_PLANTS = [
+    { id: 'demo_1', name: 'Trichocereus', category: 'Cactus', family: 'Cactaceae', substrate: 'Substrat 3 tiers (Terreau, sable, pouzzolane)', exposure: 'Plein soleil', minTemp: '-5', origin: 'Amérique du Sud — Pérou', photo: 'https://images.unsplash.com/photo-1459156212016-c812468e2115?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 1000 },
+    { id: 'demo_2', name: 'Echinocactus', category: 'Cactus', family: 'Cactaceae', substrate: 'Mélange minéral pur (Ponce, pouzzolane, akadama)', exposure: 'Plein soleil', minTemp: '-8', origin: 'Amérique du Nord — Mexique', photo: 'https://images.unsplash.com/photo-1509423350716-97f9360b4e09?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 2000 },
+    { id: 'demo_3', name: 'Lithops', category: 'Mesembryanthemum', family: 'Aizoaceae', substrate: '100% Minéral (Sable grossier, pouzzolane, très peu de terre)', exposure: 'Plein soleil', minTemp: '5', origin: 'Afrique australe — Afrique du Sud', photo: 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 3000 },
+    { id: 'demo_4', name: 'Haworthia', category: 'Succulentes', family: 'Asphodelaceae', substrate: 'Substrat 3 tiers (Terreau, sable, pouzzolane)', exposure: 'Mi-ombre', minTemp: '-2', origin: 'Afrique australe — Afrique du Sud', photo: 'https://images.unsplash.com/photo-1545241047-6083a3684587?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 4000 },
+    { id: 'demo_5', name: 'Euphorbia', category: 'Caudiciformes', family: 'Euphorbiaceae', substrate: 'Substrat hautement drainant (Ponce, terreau tamisé)', exposure: 'Plein soleil', minTemp: '2', origin: 'Afrique australe', photo: 'https://images.unsplash.com/photo-1567225557594-88d73e55f2cb?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 5000 },
+    { id: 'demo_6', name: 'Monstera', category: 'Tropicales', family: 'Araceae', substrate: 'Terreau riche, perlite & écorces de pin (Léger et drainant)', exposure: 'Mi-ombre', minTemp: '10', origin: 'Amérique centrale', photo: 'https://images.unsplash.com/photo-1614594975525-e45190c55d0b?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 6000 },
+    { id: 'demo_7', name: 'Mammillaria', category: 'Cactus', family: 'Cactaceae', substrate: 'Substrat 3 tiers (Terreau, sable, pouzzolane)', exposure: 'Plein soleil', minTemp: '-4', origin: 'Amérique du Nord — Mexique', photo: 'https://images.unsplash.com/photo-1519336555923-59661f41bb45?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 7000 },
+    { id: 'demo_8', name: 'Crassula', category: 'Succulentes', family: 'Crassulaceae', substrate: 'Substrat 3 tiers (Terreau, sable, pouzzolane)', exposure: 'Plein soleil', minTemp: '-3', origin: 'Afrique australe — Afrique du Sud', photo: 'https://images.unsplash.com/photo-1509937528035-ad76254b0356?w=1400&q=80&auto=format&fit=crop', date: Date.now() - 8000 }
   ];
 
-  const drawer = $('drawer');
-  const drawerBackdrop = $('drawer-backdrop');
-  const openDrawerBtn = $('open-drawer-btn');
-  const closeDrawerBtn = $('close-drawer-btn');
-  const form = $('plant-form');
-  const grid = $('plant-grid');
-  const toastContainer = $('toast-container');
-  const submitBtn = $('submit-btn');
+  const SPECIES = {
+    'Cactus': ['Acanthocereus','Acharagma','Ancistrocactus','Aporocactus','Ariocarpus','Armatocereus','Arrojadoa','Astrophytum','Austrocactus','Austrocephalocereus','Austrocylindropuntia','Aylostera','Aztekium','Bergerocactus','Blossfeldia','Borzicactus','Brachycereus','Brasilicactus','Brasilicereus','Browningia','Calymmanthium','Carnegiea','Cephalocereus','Cereus','Cintia','Cleistocactus','Coleocephalocereus','Consolea','Copiapoa','Corryocactus','Coryphantha','Cumulopuntia','Cylindropuntia','Denmoza','Discocactus','Echinocactus','Echinocereus','Echinomastus','Echinopsis','Epiphyllum','Eriosyce','Escobaria','Espostoa','Espostoopsis','Eulychnia','Facheiroa','Ferocactus','Frailea','Geohintonia','Gymnocalycium','Haageocereus','Hamatocactus','Harrisia','Hatiora','Hylocereus','Isolatocereus','Islaya','Jasminocereus','Lasiocereus','Leocereus','Lepismium','Leptocereus','Leuchtenbergia','Lobivia','Lophophora','Loxanthocereus','Mammillaria','Mammilloydia','Matucana','Melocactus','Micranthocereus','Mila','Monvillea','Morawetzia','Myrtillocactus','Neobuxbaumia','Neolloydia','Neoporteria','Neoraimondia','Neowerdermannia','Notocactus','Obregonia','Opuntia','Oreocereus','Oroya','Ortegocactus','Pachycereus','Parodia','Pediocactus','Pelecyphora','Peniocereus','Pereskia','Pilosocereus','Polaskia','Pterocactus','Pygmaeocereus','Rebutia','Rhipsalis','Schlumbergera','Selenicereus','Setiechinopsis','Stenocactus','Stenocereus','Stephanocereus','Stetsonia','Strombocactus','Sulcorebutia','Tacinga','Tephrocactus','Thelocactus','Trichocereus','Tunilla','Turbinicarpus','Uebelmannia','Weberbauerocereus','Weingartia','Wilcoxia','Yavia'],
+    'Succulentes': ['Adromischus','Aeonium','Agave','Aichryson','Albuca','Alluaudia','Alluaudiopsis','Aloe','Anacampseros','Astroloba','Avonia','Beaucarnea','Bowiea','Bulbine','Calibanus','Caralluma','Ceraria','Ceropegia','Cissus','Cotyledon','Crassula','Dasylirion','Decarya','Didierea','Dracaena','Dudleya','Duvalia','Echeveria','Edithcolea','Encephalartos','Euphorbia','Fockea','Frithia','Gasteria','Gonialoe','Graptopetalum','Graptoveria','Greenovia','Haworthia','Haworthiopsis','Huernia','Kalanchoe','Kleinia','Kumara','Lapidaria','Larryleachia','Lithops','Manfreda','Monadenium','Monanthes','Orostachys','Oscularia','Othonna','Pachyphytum','Pachyveria','Pachypodium','Pedilanthus','Pelargonium','Peperomia','Plectranthus','Polianthes','Portulacaria','Pseudolithos','Rhombophyllum','Rochea','Rosularia','Sansevieria','Sedeveria','Sedum','Senecio','Sempervivum','Sinocrassula','Stapelia','Synadenium','Tulista','Tylecodon','Umbilicus','Villadia','Xerosicyos','Yucca'],
+    'Mesembryanthemum': ['Acrodon','Aloinopsis','Amphibolia','Antimima','Apatesia','Aptenia','Argyroderma','Aspazoma','Bergeranthus','Berrisfordia','Bijlia','Braunsia','Brownanthus','Carpanthea','Carpobrotus','Carruanthus','Cephalophyllum','Cerochlamys','Chasmatophyllum','Cheiridopsis','Circandra','Cleretum','Conicosia','Conophytum','Corpuscularia','Cylindrophyllum','Dactylopsis','Delosperma','Dinteranthus','Diplosoma','Disphyma','Dorotheanthus','Dracophilus','Drosanthemum','Eberlanzia','Ebracteola','Ectotropis','Enarganthe','Erepsia','Esterhuysenia','Faucaria','Fenestraria','Frithia','Galenia','Gibbaeum','Glottiphyllum','Hallianthus','Hereroa','Herreanthus','Hydrodea','Imitaria','Jacobsenia','Jensenobotrya','Jordaaniella','Juttadinteria','Khadia','Lampranthus','Lapidaria','Leipoldtia','Lithops','Machairophyllum','Malephora','Maughania','Meyerophytum','Mitrophyllum','Monilaria','Mossia','Muiria','Namaquanthus','Namibia','Nananthus','Nelia','Neohenricia','Octopoma','Odontophorus','Oophytum','Ophthalmophyllum','Orthopterum','Oscularia','Ottosonderia','Peersia','Phyllobolus','Pleiospilos','Polymita','Prenia','Prepodesma','Psammophora','Pseudobrownanthus','Rabiea','Rhinephyllum','Rhombophyllum','Ruschia','Ruschianthus','Saphesia','Sceletium','Schwantesia','Scopelogena','Smicrostigma','Stayneria','Stoeberia','Stomatium','Tanquana','Titanopsis','Trichodiadema','Vanheerdea','Vanzijlia','Vlokia','Wooleya','Zeuktophyllum'],
+    'Tropicales': ['Acalypha','Aglaonema','Alocasia','Alpinia','Ananas','Anthurium','Araucaria','Ardisia','Aspidistra','Asplenium','Begonia','Billbergia','Bromelia','Caladium','Calathea','Canna','Chlorophytum','Cissus','Clivia','Codiaeum','Colocasia','Cordyline','Costus','Crinum','Croton','Cryptanthus','Ctenanthe','Curculigo','Curcuma','Cycas','Cyrtomium','Davallia','Dicksonia','Dieffenbachia','Dracaena','Epipremnum','Eucomis','Ficus','Fittonia','Freesia','Gardenia','Gloriosa','Guzmania','Haemanthus','Hedychium','Heliconia','Heptapleurum','Hippeastrum','Homalomena','Hoya','Hymenocallis','Impatiens','Jasminum','Maranta','Monstera','Musa','Neoregelia','Nepenthes','Nephrolepis','Nidularium','Pachira','Pandanus','Paphiopedilum','Pellionia','Peperomia','Philodendron','Phlebodium','Phoenix','Pilea','Piper','Platycerium','Plumeria','Polystichum','Pothos','Pteris','Rhapis','Sansevieria','Sarracenia','Scindapsus','Schefflera','Spathiphyllum','Strelitzia','Stromanthe','Syngonium','Thaumatophyllum','Tillandsia','Tradescantia','Vriesea','Yucca','Zamioculcas','Zingiber'],
+    'Caudiciformes': ['Adansonia','Adenia','Adenium','Albuca','Anacampseros','Avonia','Beaucarnea','Bombax','Brachystelma','Bursera','Ceraria','Ceropegia','Cibirhiza','Cissus','Commiphora','Cyphostemma','Dendrosicyos','Dioscorea','Dorstenia','Euphorbia','Ficus','Fockea','Gerrardanthus','Hydnophytum','Ibervillea','Ipomoea','Jatropha','Kedrostis','Kleinia','Lannea','Laportea','Massonia','Momordica','Monadenium','Myrmecodia','Nolina','Operculicarya','Othonna','Oxalis','Pachypodium','Pelargonium','Phyllanthus','Plumeria','Pseudobombax','Pterodiscus','Pyrenacantha','Raphionacme','Sarcocaulon','Senecio','Sesamothamnus','Sinningia','Sterculia','Synadenium','Talinum','Testudinaria','Tylecodon','Uncarina','Welwitschia','Cussonia']
+  };
 
+  const grid = $('plant-grid');
+  const searchInput = $('plant-search');
+  const clearSearchBtn = $('clear-search');
+  const demoBanner = $('demo-banner');
+  const pageBackdrop = $('page-backdrop');
   const lightbox = $('lightbox');
   const lightboxContent = $('lightbox-content');
   const lightboxImg = $('lightbox-img');
   const lightboxBack = $('lightbox-back');
-  const lbCat = $('lb-cat');
-  const lbName = $('lb-name');
-  const lbFamily = $('lb-family');
-  const lbExpoWrap = $('lb-expo-wrap');
-  const lbExpo = $('lb-expo');
-  const lbTempWrap = $('lb-temp-wrap');
-  const lbTemp = $('lb-temp');
-  const lbSubstrateWrap = $('lb-substrate-wrap');
-  const lbSubstrate = $('lb-substrate');
-  const lbOriginWrap = $('lb-origin-wrap');
-  const lbOrigin = $('lb-origin');
+  const lbCat = $('lb-cat'); const lbName = $('lb-name'); const lbFamily = $('lb-family');
+  const lbExpoWrap = $('lb-expo-wrap'); const lbExpo = $('lb-expo');
+  const lbTempWrap = $('lb-temp-wrap'); const lbTemp = $('lb-temp');
+  const lbSubstrateWrap = $('lb-substrate-wrap'); const lbSubstrate = $('lb-substrate');
+  const lbOriginWrap = $('lb-origin-wrap'); const lbOrigin = $('lb-origin');
 
-  const plantNameInput = $('plant-name');
-  const plantCategoryInput = $('plant-category');
-  const plantSubstrateInput = $('plant-substrate');
-  const plantFamilyInput = $('plant-family');
-  const plantExposureInput = $('plant-exposure');
-  const plantTempInput = $('plant-temp');
-  const tempDisplay = $('temp-display');
-  const plantOriginInput = $('plant-origin');
-  
-  const plantPhotoInput = $('plant-photo');
-  const fileDrop = $('file-drop');
-  const photoPreview = $('photo-preview');
-  const photoPreviewImg = $('photo-preview-img');
-  const clearPhotoBtn = $('clear-photo');
-
-  const categoryButtons = Array.from(document.querySelectorAll('.cat-option'));
-  const exposureButtons = Array.from(document.querySelectorAll('.exp-option'));
-  const chipButtons = Array.from(document.querySelectorAll('.chip'));
-
-  const searchInput = $('plant-search');
-  const clearSearchBtn = $('clear-search');
+  const filterChipsStep = $('filter-chips-step');
+  const filterSpeciesStep = $('filter-species-step');
+  const filterBackBtn = $('filter-back-btn');
+  const filterSpeciesWrapper = $('filter-species-wrapper');
+  const filterSpeciesTrigger = $('filter-species-trigger');
+  const filterSpeciesLabel = filterSpeciesTrigger.querySelector('.trigger-label');
+  const filterSpeciesDropdown = $('filter-species-dropdown');
+  const filterGenreCustomInput = $('filter-genre-custom-input');
+  const filterChipButtons = Array.from(document.querySelectorAll('#filter-chips-step .chip'));
 
   let plants = [];
-  let memFallback = false;
   let currentFilter = 'all';
 
-  function setupCustomSelect(wrapperId, defaultText) {
-    const wrapper = $(wrapperId);
-    if (!wrapper) return;
-    const trigger = wrapper.querySelector('.custom-select-trigger');
-    const labelSpan = trigger.querySelector('.trigger-label');
-    const hiddenInput = wrapper.querySelector('input[type="hidden"]');
-    const options = wrapper.querySelectorAll('.custom-option');
+  const escapeHtml = (str) => String(str ?? '').replace(/[&<>"']/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+  const normalize = (str) => String(str ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
-    trigger.addEventListener('click', (e) => {
-      e.stopPropagation();
-      document.querySelectorAll('.custom-select-wrapper').forEach(w => {
-        if (w !== wrapper) w.classList.remove('open');
-      });
-      wrapper.classList.toggle('open');
-    });
+  function updateBackdrop() { pageBackdrop.classList.toggle('visible', filterSpeciesWrapper.classList.contains('open')); }
+  pageBackdrop.addEventListener('click', () => { document.querySelectorAll('main .custom-select-wrapper.open').forEach(w => w.classList.remove('open')); updateBackdrop(); });
 
-    options.forEach(opt => {
-      opt.addEventListener('click', (e) => {
-        e.stopPropagation();
-        options.forEach(o => o.classList.remove('selected'));
-        opt.classList.add('selected');
-        const val = opt.getAttribute('data-value');
-        hiddenInput.value = val;
-        labelSpan.textContent = val;
-        trigger.classList.remove('placeholder');
-        wrapper.classList.remove('open');
-      });
-    });
-
-    return function resetSelect() {
-      hiddenInput.value = '';
-      labelSpan.textContent = defaultText;
-      trigger.classList.add('placeholder');
-      options.forEach(o => o.classList.remove('selected'));
-      wrapper.classList.remove('open');
-    };
+  function showChipsStep() {
+    filterSpeciesStep.classList.add('step-hidden');
+    filterChipsStep.classList.remove('step-hidden');
+    filterChipsStep.classList.remove('step-fade-in'); void filterChipsStep.offsetWidth;
+    filterChipsStep.classList.add('step-fade-in');
+    filterChipsStep.style.position = ''; filterSpeciesStep.style.position = 'absolute';
+    currentFilter = 'all';
+    filterChipButtons.forEach(b => b.classList.toggle('active', b.getAttribute('data-category') === 'all'));
+    filterSpeciesWrapper.classList.remove('open');
+    filterGenreCustomInput.value = '';
+    filterSpeciesLabel.textContent = 'Sélectionner un genre...';
+    filterSpeciesTrigger.classList.add('placeholder');
+    updateBackdrop();
   }
 
-  const resetSubstrateSelect = setupCustomSelect('substrate-select-wrapper', 'Sélectionner un substrat...');
-  const resetFamilySelect = setupCustomSelect('family-select-wrapper', 'Sélectionner une famille...');
-  const resetOriginSelect = setupCustomSelect('origin-select-wrapper', 'Sélectionner une origine...');
+  function showSpeciesStep(category) {
+    filterChipsStep.classList.add('step-hidden');
+    filterSpeciesStep.classList.remove('step-hidden');
+    filterSpeciesStep.classList.remove('step-fade-in'); void filterSpeciesStep.offsetWidth;
+    filterSpeciesStep.classList.add('step-fade-in');
+    filterSpeciesStep.style.position = ''; filterChipsStep.style.position = 'absolute';
+    currentFilter = category;
+    let html = `<div class="custom-option-group-label">${category}</div>`;
+    SPECIES[category].forEach(sp => { html += `<div class="custom-option" data-species="${escapeHtml(sp)}">${escapeHtml(sp)}</div>`; });
+    filterSpeciesDropdown.innerHTML = html;
+    filterSpeciesLabel.textContent = 'Sélectionner un genre...';
+    filterSpeciesTrigger.classList.add('placeholder');
+    filterSpeciesWrapper.classList.remove('open');
+    filterGenreCustomInput.value = '';
+    renderGrid();
+    updateBackdrop();
+  }
 
-  document.addEventListener('click', () => {
-    document.querySelectorAll('.custom-select-wrapper').forEach(w => w.classList.remove('open'));
+  filterChipButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cat = btn.getAttribute('data-category');
+      if (cat === 'all') {
+        filterChipButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = 'all'; renderGrid();
+      } else { showSpeciesStep(cat); }
+    });
   });
 
-  function escapeHtml(str) {
-    return String(str ?? '').replace(/[&<>"']/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
-  }
-  function normalize(str) {
-    return String(str ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-  }
+  filterBackBtn.addEventListener('click', showChipsStep);
 
-  function idbOpenRaw() {
-    return new Promise((resolve, reject) => {
-      if (!('indexedDB' in window)) return reject(new Error('IndexedDB indisponible'));
-      let req = indexedDB.open(DB_NAME, DB_VERSION);
-      req.onupgradeneeded = () => {
-        const db = req.result;
-        if (!db.objectStoreNames.contains(STORE)) db.createObjectStore(STORE, { keyPath: 'id' });
-      };
-      req.onsuccess = () => resolve(req.result);
-      req.onerror = () => reject(req.error);
-    });
-  }
-  async function getDB() {
-    if (memFallback) return null;
-    try { return await idbOpenRaw(); } catch (err) { memFallback = true; return null; }
-  }
-  async function dbGetAll() {
-    const db = await getDB();
-    if (!db) return plants.slice();
-    return new Promise((res) => {
-      try {
-        const tx = db.transaction(STORE, 'readonly');
-        const req = tx.objectStore(STORE).getAll();
-        req.onsuccess = () => res(req.result || []);
-        req.onerror = () => res(plants.slice());
-      } catch (e) { res(plants.slice()); }
-    });
-  }
-  async function dbPut(plant) {
-    const db = await getDB();
-    if (!db) return;
-    return new Promise((res) => {
-      try {
-        const tx = db.transaction(STORE, 'readwrite');
-        tx.objectStore(STORE).put(plant);
-        tx.oncomplete = () => res();
-      } catch (e) { res(); }
-    });
-  }
-  async function dbDelete(id) {
-    const db = await getDB();
-    if (!db) return;
-    return new Promise((res) => {
-      try {
-        const tx = db.transaction(STORE, 'readwrite');
-        tx.objectStore(STORE).delete(id);
-        tx.oncomplete = () => res();
-      } catch (e) { res(); }
-    });
-  }
+  filterSpeciesTrigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    document.querySelectorAll('.custom-select-wrapper.open').forEach(w => { if (w !== filterSpeciesWrapper) w.classList.remove('open'); });
+    filterSpeciesWrapper.classList.toggle('open');
+    updateBackdrop();
+  });
 
-  function showToast(message) {
-    const toast = document.createElement('div');
-    toast.className = 'pointer-events-auto px-4 py-2.5 bg-ink text-white text-xs font-normal rounded-full shadow-lg transition-all duration-200';
-    toast.textContent = message;
-    toastContainer.appendChild(toast);
-    setTimeout(() => toast.remove(), 3000);
-  }
+  filterSpeciesDropdown.addEventListener('click', (e) => {
+    const opt = e.target.closest('.custom-option');
+    if (!opt) return;
+    e.stopPropagation();
+    filterSpeciesLabel.textContent = opt.getAttribute('data-species');
+    filterSpeciesTrigger.classList.remove('placeholder');
+    filterSpeciesWrapper.classList.remove('open');
+    filterSpeciesDropdown.querySelectorAll('.custom-option').forEach(o => o.classList.remove('selected'));
+    opt.classList.add('selected');
+    filterGenreCustomInput.value = opt.getAttribute('data-species');
+    renderGrid();
+    updateBackdrop();
+  });
 
-  function resizeImage(file) {
-    return new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const img = new Image();
-        img.onload = () => {
-          let w = img.width, h = img.height;
-          if (w > MAX_WIDTH) { h = Math.round((h * MAX_WIDTH) / w); w = MAX_WIDTH; }
-          const canvas = document.createElement('canvas');
-          canvas.width = w; canvas.height = h;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, w, h);
-          resolve(canvas.toDataURL('image/jpeg', QUALITY));
-        };
-        img.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    });
-  }
+  filterGenreCustomInput.addEventListener('input', renderGrid);
 
-  function openDrawer() {
-    drawer.classList.add('open');
-    drawerBackdrop.classList.add('open');
-    document.body.style.overflow = 'hidden';
-    plantNameInput.focus();
-  }
-  function closeDrawer() {
-    drawer.classList.remove('open');
-    drawerBackdrop.classList.remove('open');
-    if (!lightbox.classList.contains('open')) document.body.style.overflow = '';
-  }
-  function clearPhotoSelection() {
-    plantPhotoInput.value = '';
-    photoPreviewImg.src = '';
-    photoPreview.classList.add('hidden');
-    fileDrop.classList.remove('hidden');
-  }
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.custom-select-wrapper')) {
+      document.querySelectorAll('.custom-select-wrapper.open').forEach(w => w.classList.remove('open'));
+      updateBackdrop();
+    }
+  });
 
-  function formatTemp(t) {
-    if (t === undefined || t === null || t === '') return null;
-    const n = Number(t);
-    return (n > 0 ? '+' + n : n) + ' °C';
-  }
+  function formatTemp(t) { if (t === undefined || t === null || t === '') return null; const n = Number(t); return (n > 0 ? '+' + n : n) + ' °C'; }
 
   function fillLightboxInfo(plant) {
-    lbCat.textContent = plant.category || '';
-    lbName.textContent = plant.name || '';
-    lbFamily.textContent = plant.family || '';
-    lbFamily.style.display = plant.family ? 'block' : 'none';
-
-    if (plant.exposure) { lbExpoWrap.style.display = 'flex'; lbExpo.textContent = plant.exposure; }
-    else { lbExpoWrap.style.display = 'none'; }
-
+    lbCat.textContent = plant.category || ''; lbName.textContent = plant.name || '';
+    lbFamily.textContent = plant.family || ''; lbFamily.style.display = plant.family ? 'block' : 'none';
+    if (plant.exposure) { lbExpoWrap.style.display = 'flex'; lbExpo.textContent = plant.exposure; } else { lbExpoWrap.style.display = 'none'; }
     const tempStr = formatTemp(plant.minTemp);
-    if (tempStr) { lbTempWrap.style.display = 'flex'; lbTemp.textContent = tempStr; }
-    else { lbTempWrap.style.display = 'none'; }
-
-    if (plant.substrate) { lbSubstrateWrap.style.display = 'flex'; lbSubstrate.textContent = plant.substrate; }
-    else { lbSubstrateWrap.style.display = 'none'; }
-
-    if (plant.origin) { lbOriginWrap.style.display = 'flex'; lbOrigin.textContent = plant.origin; }
-    else { lbOriginWrap.style.display = 'none'; }
-  }
-
-  function showLightbox() {
-    lightbox.classList.add('open');
-    lightbox.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-    lightbox.scrollTop = 0;
+    if (tempStr) { lbTempWrap.style.display = 'flex'; lbTemp.textContent = tempStr; } else { lbTempWrap.style.display = 'none'; }
+    if (plant.substrate) { lbSubstrateWrap.style.display = 'flex'; lbSubstrate.textContent = plant.substrate; } else { lbSubstrateWrap.style.display = 'none'; }
+    if (plant.origin) { lbOriginWrap.style.display = 'flex'; lbOrigin.textContent = plant.origin; } else { lbOriginWrap.style.display = 'none'; }
   }
 
   function openLightbox(plant) {
     lightboxContent.classList.remove('is-portrait', 'is-landscape');
     fillLightboxInfo(plant);
-
     lightboxImg.onload = function () {
-      const w = lightboxImg.naturalWidth || 0;
-      const h = lightboxImg.naturalHeight || 0;
-
+      const w = lightboxImg.naturalWidth || 0; const h = lightboxImg.naturalHeight || 0;
       lightboxContent.classList.remove('is-portrait', 'is-landscape');
-      if (h > 0 && w > 0 && h > w) {
-        lightboxContent.classList.add('is-portrait');
-      } else {
-        lightboxContent.classList.add('is-landscape');
-      }
-      showLightbox();
+      lightboxContent.classList.add(h > w ? 'is-portrait' : 'is-landscape');
+      lightbox.classList.add('open'); lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden'; lightbox.scrollTop = 0;
     };
-
     lightboxImg.onerror = function () {
       lightboxContent.classList.remove('is-portrait', 'is-landscape');
       lightboxContent.classList.add('is-landscape');
-      showLightbox();
+      lightbox.classList.add('open'); document.body.style.overflow = 'hidden';
     };
-
-    lightboxImg.alt = plant.name || '';
-    lightboxImg.src = plant.photo;
+    lightboxImg.alt = plant.name || ''; lightboxImg.src = plant.photo;
   }
-
-  function closeLightbox() {
-    lightbox.classList.remove('open');
-    lightbox.setAttribute('aria-hidden', 'true');
-    if (!drawer.classList.contains('open')) document.body.style.overflow = '';
-  }
-
+  function closeLightbox() { lightbox.classList.remove('open'); lightbox.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; }
   lightboxBack.addEventListener('click', (e) => { e.stopPropagation(); closeLightbox(); });
   lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
-  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox(); });
 
-  if (openDrawerBtn) openDrawerBtn.onclick = function(e) { if (e) e.preventDefault(); openDrawer(); };
-  if (closeDrawerBtn) closeDrawerBtn.onclick = function(e) { if (e) e.preventDefault(); closeDrawer(); };
-  if (drawerBackdrop) drawerBackdrop.onclick = function(e) { if (e) e.preventDefault(); closeDrawer(); };
-
-  categoryButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      categoryButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      plantCategoryInput.value = btn.getAttribute('data-category');
-    });
-  });
-
-  exposureButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      exposureButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      plantExposureInput.value = btn.getAttribute('data-exposure');
-    });
-  });
-
-  plantTempInput.addEventListener('input', (e) => {
-    const val = e.target.value;
-    tempDisplay.textContent = (val > 0 ? '+' + val : val) + ' °C';
-  });
-
-  chipButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      chipButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentFilter = btn.getAttribute('data-category');
-      renderGrid();
-    });
-  });
-
-  function updateSearchClear() {
-    clearSearchBtn.classList.toggle('hidden', searchInput.value.length === 0);
-  }
+  function updateSearchClear() { clearSearchBtn.classList.toggle('hidden', searchInput.value.length === 0); }
 
   function getFilteredPlants() {
     const term = normalize(searchInput.value.trim());
+    const genreTerm = normalize(filterGenreCustomInput.value.trim());
     return plants.filter(p => {
       if (currentFilter !== 'all' && p.category !== currentFilter) return false;
+      if (genreTerm && !normalize(p.name).includes(genreTerm)) return false;
       if (term) {
         const haystack = normalize(`${p.name} ${p.family || ''} ${p.substrate || ''} ${p.exposure || ''} ${p.origin || ''} ${p.category || ''}`);
         if (!haystack.includes(term)) return false;
@@ -1184,115 +525,22 @@
   }
 
   searchInput.addEventListener('input', () => { updateSearchClear(); renderGrid(); });
-  clearSearchBtn.addEventListener('click', () => {
-    searchInput.value = ''; updateSearchClear(); searchInput.focus(); renderGrid();
-  });
-
-  plantPhotoInput.addEventListener('change', async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    try {
-      const compressed = await resizeImage(file);
-      photoPreviewImg.src = compressed;
-      fileDrop.classList.add('hidden');
-      photoPreview.classList.remove('hidden');
-    } catch (err) { showToast("Erreur d'image"); }
-  });
-
-  clearPhotoBtn.addEventListener('click', clearPhotoSelection);
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const name = plantNameInput.value.trim();
-    const category = plantCategoryInput.value;
-    const substrate = plantSubstrateInput.value;
-    const family = plantFamilyInput.value;
-    const exposure = plantExposureInput.value;
-    const minTemp = plantTempInput.value;
-    const origin = plantOriginInput.value;
-    const photoSrc = photoPreviewImg.src;
-
-    if (!name || !category || !photoSrc) {
-      showToast("Veuillez remplir les champs obligatoires (nom, rubrique, photo)");
-      return;
-    }
-
-    submitBtn.disabled = true;
-    try {
-      const newPlant = {
-        id: 'p_' + Date.now(),
-        name, category, substrate, family, exposure, minTemp, origin,
-        photo: photoSrc, date: Date.now()
-      };
-      await dbPut(newPlant);
-
-      plants = plants.filter(p => !p.isDemo);
-      plants.unshift(newPlant);
-
-      searchInput.value = ''; updateSearchClear();
-      currentFilter = 'all';
-      chipButtons.forEach(b => b.classList.toggle('active', b.getAttribute('data-category') === 'all'));
-
-      renderGrid(); updateStats(); closeDrawer();
-      form.reset(); clearPhotoSelection();
-      if (resetSubstrateSelect) resetSubstrateSelect();
-      if (resetFamilySelect) resetFamilySelect();
-      if (resetOriginSelect) resetOriginSelect();
-      categoryButtons.forEach(btn => btn.classList.remove('active'));
-      exposureButtons.forEach(btn => btn.classList.remove('active'));
-      plantCategoryInput.value = '';
-      plantSubstrateInput.value = '';
-      plantExposureInput.value = '';
-      plantTempInput.value = '0';
-      tempDisplay.textContent = '0 °C';
-      showToast("Spécimen enregistré");
-    } catch (err) {
-      showToast("Erreur d'enregistrement");
-    } finally {
-      submitBtn.disabled = false;
-    }
-  });
-
-  function updateStats() { $('stat-total').textContent = plants.length; }
-
-  async function deletePlant(id) {
-    await dbDelete(id);
-    plants = plants.filter(p => p.id !== id);
-    renderGrid(); updateStats();
-    showToast("Spécimen retiré");
-  }
+  clearSearchBtn.addEventListener('click', () => { searchInput.value = ''; updateSearchClear(); searchInput.focus(); renderGrid(); });
 
   function renderGrid() {
     const filtered = getFilteredPlants();
     grid.innerHTML = '';
-
     if (filtered.length === 0) {
-      const message = plants.length === 0
-        ? "Aucun spécimen pour l'instant — ajoutez votre première plante."
-        : "Aucun spécimen ne correspond à votre recherche.";
-      grid.innerHTML = `
-        <div class="col-span-full flex flex-col items-center text-center py-20 gap-3">
-          <svg class="w-9 h-9 text-muted/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-            <path d="M12 21V11"/><path d="M12 13c-3.5 0-6-2.5-6-6 3.5 0 6 2.5 6 6z"/>
-          </svg>
-          <p class="text-sm text-muted font-light">${message}</p>
-        </div>`;
+      grid.innerHTML = `<div class="col-span-full flex flex-col items-center text-center py-20 gap-3"><svg class="w-9 h-9 text-muted/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 21V11"/><path d="M12 13c-3.5 0-6-2.5-6-6 3.5 0 6 2.5 6 6z"/></svg><p class="text-sm text-muted font-light">${plants.length === 0 ? "Aucun spécimen dans la collection." : "Aucun spécimen ne correspond à votre recherche."}</p></div>`;
       return;
     }
-
     filtered.forEach((plant) => {
       const card = document.createElement('article');
       card.className = 'card border border-border rounded-2xl overflow-hidden bg-white flex flex-col relative group shadow-sm';
-
       const tempFormatted = formatTemp(plant.minTemp);
-
       card.innerHTML = `
         <div class="relative aspect-[4/3] bg-[#fafafa] overflow-hidden border-b border-border">
           <img class="card-photo w-full h-full object-cover" src="${escapeHtml(plant.photo)}" alt="${escapeHtml(plant.name)}" loading="lazy">
-          <button type="button" class="card-delete" aria-label="Supprimer">
-            <svg class="icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"/></svg>
-            <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg>
-          </button>
         </div>
         <div class="p-5 flex flex-col flex-1 justify-between gap-3">
           <div>
@@ -1300,174 +548,108 @@
             <h3 class="font-serif text-xl font-normal text-ink leading-tight mt-0.5">${escapeHtml(plant.name)}</h3>
             ${plant.family ? `<p class="text-xs italic text-muted mt-0.5">${escapeHtml(plant.family)}</p>` : ''}
           </div>
-          
           <div class="grid grid-cols-2 gap-2 pt-2 border-t border-border/60 text-[11px] text-muted">
             ${plant.exposure ? `<div><span class="font-medium text-ink">Expo:</span> ${escapeHtml(plant.exposure)}</div>` : ''}
             ${tempFormatted ? `<div><span class="font-medium text-ink">Min:</span> ${escapeHtml(tempFormatted)}</div>` : ''}
             ${plant.substrate ? `<div class="col-span-2"><span class="font-medium text-ink">Substrat:</span> ${escapeHtml(plant.substrate)}</div>` : ''}
             ${plant.origin ? `<div class="col-span-2"><span class="font-medium text-ink">Origine:</span> ${escapeHtml(plant.origin)}</div>` : ''}
           </div>
-        </div>
-      `;
-
+        </div>`;
       const imgEl = card.querySelector('.card-photo');
       if (imgEl) imgEl.addEventListener('click', () => openLightbox(plant));
-
-      const delBtn = card.querySelector('.card-delete');
-      let confirmTimeout = null;
-      delBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (!delBtn.classList.contains('confirming')) {
-          delBtn.classList.add('confirming');
-          clearTimeout(confirmTimeout);
-          confirmTimeout = setTimeout(() => delBtn.classList.remove('confirming'), 2500);
-        } else {
-          deletePlant(plant.id);
-        }
-      });
-
       grid.appendChild(card);
       requestAnimationFrame(() => card.classList.add('revealed'));
     });
   }
 
-  async function init() {
+  async function loadCollection() {
     try {
-      plants = await dbGetAll();
-      plants.sort((a, b) => b.date - a.date);
-    } catch (e) { plants = []; }
+      const res = await fetch('./collection.json', { cache: 'no-cache' });
+      if (!res.ok) throw new Error('introuvable');
+      const data = await res.json();
+      let arr = null;
+      if (Array.isArray(data)) arr = data;
+      else if (data && Array.isArray(data.plants)) arr = data.plants;
+      if (!arr || arr.length === 0) throw new Error('vide');
+      return { plants: arr, isFallback: false };
+    } catch (err) { return { plants: FALLBACK_PLANTS.slice(), isFallback: true }; }
+  }
 
-    if (plants.length === 0) {
-      plants = DEMO_PLANTS.slice();
-    }
-
+  async function init() {
+    const result = await loadCollection();
+    plants = result.plants;
+    plants.sort((a, b) => (b.date || 0) - (a.date || 0));
+    if (result.isFallback) demoBanner.classList.add('visible');
+    document.getElementById('stat-total').textContent = plants.length;
     updateSearchClear();
+    showChipsStep();
     renderGrid();
-    updateStats();
   }
   init();
 })();
 </script>
 
 <script>
-/* ===== ANIMATIONS SAISONNIÈRES + NUAGE ===== */
 (function () {
   const container = document.getElementById('seasonal-bg');
   if (!container) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
   const rnd = (min, max) => Math.random() * (max - min) + min;
-
   const month = new Date().getMonth() + 1;
   let season;
-  if (month >= 3 && month <= 5)       season = 'spring';
-  else if (month >= 6 && month <= 8)  season = 'summer';
+  if (month >= 3 && month <= 5) season = 'spring';
+  else if (month >= 6 && month <= 8) season = 'summer';
   else if (month >= 9 && month <= 11) season = 'autumn';
-  else                                season = 'winter';
-
+  else season = 'winter';
   const forced = new URLSearchParams(window.location.search).get('season');
-  if (forced && ['spring', 'summer', 'autumn', 'winter'].includes(forced)) season = forced;
-
-  const CLOUD_SVG =
-    '<svg viewBox="0 0 60 22" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">' +
-      '<path d="M14,20 C7,20 3,16.5 3,12.5 C3,8.5 6,5.5 10,5.5 C11,3.5 14,1.5 18,1.5 C22,1.5 26,3.5 27,6.5 C28,5.5 30,4.5 33,4.5 C38,4.5 42,7.5 42,11.5 C43,11.5 44,11.5 45,11.5 C51,11.5 55,15.5 55,19 C55,19.5 54.5,20 54,20 L14,20 Z"/>' +
-    '</svg>';
-
-  function spawnCloud() {
-    const cloud = document.createElement('div');
-    const goingRight = Math.random() > 0.5;
-    cloud.className = 'season-cloud ' + (goingRight ? 'drift-right' : 'drift-left');
-    const width = rnd(70, 110);
-    cloud.style.width = width + 'px';
-    cloud.style.top = rnd(6, 18) + '%';
-    cloud.style.setProperty('--opacity', rnd(0.6, 0.85).toFixed(2));
-    const duration = rnd(40, 60);
-    cloud.style.animationDuration = duration + 's';
-    cloud.innerHTML = CLOUD_SVG;
-    container.appendChild(cloud);
-    setTimeout(() => {
-      cloud.remove();
-      setTimeout(spawnCloud, rnd(18000, 35000));
-    }, duration * 1000);
-  }
-
-  function initAutumn() {
-    const COLORS = ['#7a9e4b', '#8fae5d', '#6b8e3e', '#9bb874', '#8a8a52', '#a3a65c'];
-    const SHAPES = [
-      '<svg viewBox="0 0 20 30" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"><path d="M10 1 C 4.5 10, 4.5 21, 10 29 C 15.5 21, 15.5 10, 10 1 Z" fill="currentColor"/><path d="M10 4.5 L 10 25.5" stroke="rgba(255,255,255,0.28)" stroke-width="0.6" stroke-linecap="round"/></svg>',
-      '<svg viewBox="0 0 20 30" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"><path d="M10 1 C 2.5 8, 2.5 22, 10 29 C 17.5 22, 17.5 8, 10 1 Z" fill="currentColor"/><path d="M10 4 L 10 26" stroke="rgba(255,255,255,0.24)" stroke-width="0.6" stroke-linecap="round"/></svg>',
-      '<svg viewBox="0 0 20 30" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"><path d="M10 1 C 6 12, 6 18, 10 29 C 14 18, 14 12, 10 1 Z" fill="currentColor"/></svg>'
-    ];
-    const COUNT = 7;
-    const windAngle = rnd(-25, 25);
-    const windX = Math.sin(windAngle * Math.PI / 180);
-    const driftBase = windX * rnd(20, 40);
-    for (let i = 0; i < COUNT; i++) {
+  if (forced && ['spring','summer','autumn','winter'].includes(forced)) season = forced;
+  if (season === 'autumn') {
+    const COLORS = ['#7a9e4b','#8fae5d','#6b8e3e','#9bb874','#8a8a52'];
+    const SHAPE = '<svg viewBox="0 0 20 30" xmlns="http://www.w3.org/2000/svg"><path d="M10 1 C 4.5 10, 4.5 21, 10 29 C 15.5 21, 15.5 10, 10 1 Z" fill="currentColor"/></svg>';
+    for (let i = 0; i < 5; i++) {
       const leaf = document.createElement('div');
       leaf.className = 'season-leaf';
-      const size = rnd(8, 13);
+      const size = rnd(6, 10);
       leaf.style.left = rnd(-5, 105) + '%';
-      leaf.style.width = size + 'px';
-      leaf.style.height = (size * 1.4) + 'px';
+      leaf.style.width = size + 'px'; leaf.style.height = (size * 1.4) + 'px';
       leaf.style.color = COLORS[Math.floor(Math.random() * COLORS.length)];
-      leaf.style.setProperty('--drift', (driftBase + rnd(-6, 6)).toFixed(1) + 'vw');
-      leaf.style.setProperty('--lean', (windX * 12 + rnd(-4, 4)).toFixed(1) + 'deg');
-      leaf.style.setProperty('--opacity', rnd(0.30, 0.55).toFixed(2));
-      leaf.style.setProperty('--sway', rnd(3, 5).toFixed(2) + 's');
-      leaf.style.animationDuration = rnd(18, 28).toFixed(2) + 's';
-      leaf.style.animationDelay = '-' + rnd(0, 28).toFixed(2) + 's';
-      leaf.innerHTML = SHAPES[Math.floor(Math.random() * SHAPES.length)];
+      leaf.style.setProperty('--drift', rnd(-15, 25).toFixed(1) + 'vw');
+      leaf.style.setProperty('--opacity', rnd(0.20, 0.40).toFixed(2));
+      leaf.style.animationDuration = rnd(22, 32).toFixed(2) + 's';
+      leaf.style.animationDelay = '-' + rnd(0, 32).toFixed(2) + 's';
+      leaf.innerHTML = SHAPE;
       container.appendChild(leaf);
     }
-  }
-
-  function initWinter() {
-    const COUNT = 20;
-    for (let i = 0; i < COUNT; i++) {
+  } else if (season === 'winter') {
+    for (let i = 0; i < 14; i++) {
       const flake = document.createElement('div');
       flake.className = 'season-snow';
-      const size = rnd(1.5, 3);
+      const size = rnd(1.2, 2.2);
       flake.style.left = rnd(0, 100) + '%';
-      flake.style.width = size + 'px';
-      flake.style.height = size + 'px';
-      flake.style.setProperty('--drift', rnd(-15, 15).toFixed(1) + 'vw');
-      flake.style.setProperty('--opacity', rnd(0.30, 0.55).toFixed(2));
-      flake.style.animationDuration = rnd(16, 28).toFixed(2) + 's';
-      flake.style.animationDelay = '-' + rnd(0, 28).toFixed(2) + 's';
-      if (Math.random() < 0.3) flake.style.filter = 'blur(0.5px)';
+      flake.style.width = size + 'px'; flake.style.height = size + 'px';
+      flake.style.setProperty('--drift', rnd(-12, 12).toFixed(1) + 'vw');
+      flake.style.setProperty('--opacity', rnd(0.20, 0.40).toFixed(2));
+      flake.style.animationDuration = rnd(20, 30).toFixed(2) + 's';
+      flake.style.animationDelay = '-' + rnd(0, 30).toFixed(2) + 's';
       container.appendChild(flake);
     }
-  }
-
-  function initSpring() {
+  } else if (season === 'spring') {
     function burst() {
-      const count = 6 + Math.floor(Math.random() * 4);
-      for (let i = 0; i < count; i++) {
+      for (let i = 0; i < 4 + Math.floor(Math.random() * 3); i++) {
         setTimeout(() => {
           const drop = document.createElement('div');
           drop.className = 'season-rain';
           drop.style.left = rnd(0, 100) + '%';
-          drop.style.setProperty('--drift', rnd(-4, 4).toFixed(1) + 'vw');
-          drop.style.animationDuration = rnd(1.8, 3).toFixed(2) + 's';
+          drop.style.setProperty('--drift', rnd(-3, 3).toFixed(1) + 'vw');
+          drop.style.animationDuration = rnd(2.2, 3.5).toFixed(2) + 's';
           container.appendChild(drop);
-          setTimeout(() => drop.remove(), 3500);
-        }, Math.random() * 2800);
+          setTimeout(() => drop.remove(), 4000);
+        }, Math.random() * 3500);
       }
     }
-    setTimeout(burst, 1800);
-    (function scheduleNext() {
-      setTimeout(() => { burst(); scheduleNext(); }, 12000 + Math.random() * 6000);
-    })();
+    setTimeout(burst, 2200);
+    (function next() { setTimeout(() => { burst(); next(); }, 15000 + Math.random() * 8000); })();
   }
-
-  function initSummer() { /* seulement le nuage */ }
-
-  if (season === 'autumn') initAutumn();
-  else if (season === 'winter') initWinter();
-  else if (season === 'spring') initSpring();
-  else initSummer();
-
-  setTimeout(spawnCloud, rnd(2000, 5000));
 })();
 </script>
 

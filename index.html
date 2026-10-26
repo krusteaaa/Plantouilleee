@@ -6,7 +6,6 @@
 <meta name="theme-color" content="#ffffff">
 <title>Plantouille — Cabinet du Dr-Cactus</title>
 
-<!-- Favicon : Cactus blanc sur cercle vert -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23153424'/%3E%3Cpath d='M46 85 V35 a4 4 0 0 1 8 0 v50 M46 55 H34 a4 4 0 0 1 -4 -4 V40 a4 4 0 0 1 8 0 v7 h8 M54 65 H66 a4 4 0 0 0 4 -4 V45 a4 4 0 0 0 -8 0 v12 h-8' fill='none' stroke='%23ffffff' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,11 +27,11 @@ body {
 }
 
 /* =========================================
-   INVERSION DES COULEURS (MODE NUIT / SECRET)
+   INVERSION DES COULEURS (MODE SECRET)
    ========================================= */
 body.secret-mode { background: #153424; color: #ffffff; }
 body.secret-mode .site-header { background: rgba(21, 52, 36, 0.95); }
-body.secret-mode .site-header::after { background: linear-gradient(to right, transparent, rgba(255,255,255,.2) 50%, transparent); }
+body.secret-mode .site-header::after { background: linear-gradient(to right, transparent, rgba(255,255,255,.15) 50%, transparent); }
 body.secret-mode .brand-title { color: #ffffff; }
 body.secret-mode .brand-tagline { color: #aaaaaa; }
 body.secret-mode .stats strong { color: #ffffff; }
@@ -41,10 +40,6 @@ body.secret-mode .lock-btn-mobile { background: #1c4531; border-color: #2a5c41; 
 body.secret-mode main { color: #ffffff; }
 body.secret-mode .search input { color: #ffffff; }
 body.secret-mode .search svg { color: #aaaaaa; }
-body.secret-mode .chip:not(.secret) { background: #1c4531; color: #ffffff; border-color: transparent; }
-body.secret-mode .chip:not(.secret):hover { background: #2a5c41; }
-body.secret-mode .chip:not(.secret).active { background: #ffffff; color: #153424; }
-body.secret-mode .chip:not(.secret).active svg { color: #153424; }
 body.secret-mode .card { background: #153424; border-color: #1c4531; }
 body.secret-mode .card-name { color: #ffffff; }
 body.secret-mode .card-info b { color: #ffffff; }
@@ -76,10 +71,6 @@ body.secret-mode .temp-val { color: #ffffff; background: rgba(255,255,255,.15); 
 body.secret-mode .file-drop { background: #1c4531; border-color: #2a5c41; }
 body.secret-mode .file-drop span { color: #aaaaaa; }
 body.secret-mode .file-drop:hover { border-color: #ffffff; }
-body.secret-mode .admin-tag { background: rgba(255,255,255,.1); border-color: #2a5c41; color: #ffffff; }
-body.secret-mode .admin-tag::before { background: #ffffff; }
-body.secret-mode .btn.sec { background: transparent; color: #ffffff; border-color: #2a5c41; }
-body.secret-mode .btn.sec:hover { background: #1c4531; }
 body.secret-mode .back-btn:hover { color: #ffffff; background: #1c4531; }
 body.secret-mode .custom-field label { color: #aaaaaa; }
 body.secret-mode .custom-field input { background: #1c4531; color: #ffffff; }
@@ -87,6 +78,19 @@ body.secret-mode .modal-box { background: #153424; }
 body.secret-mode .modal-box h3 { color: #ffffff; }
 body.secret-mode .modal-acts .secondary { background: #1c4531; color: #ffffff; }
 body.secret-mode .toast { background: #ffffff; color: #153424; }
+body.secret-mode .card-cat { color: #ffffff; }
+
+/* Boutons de rubriques : Inversion classique */
+body.secret-mode .chip { background: #1c4531; color: #ffffff; border-color: transparent; }
+body.secret-mode .chip:hover { background: #2a5c41; }
+body.secret-mode .chip.active { background: #ffffff; color: #153424; border-color: #ffffff; }
+body.secret-mode .chip.active svg { color: #153424; }
+body.secret-mode .chip svg { color: #aaaaaa; }
+body.secret-mode .chip.active svg { color: #153424; }
+
+/* Badge Admin : Seul le cercle reste vert */
+body.secret-mode .admin-tag { background: #1c4531; border-color: #2a5c41; color: #ffffff; }
+body.secret-mode .admin-tag::before { background: #22c55e; }
 
 ::selection { background: #153424; color: #ffffff; }
 body.secret-mode ::selection { background: #ffffff; color: #153424; }
@@ -166,27 +170,28 @@ body.secret-mode ::selection { background: #ffffff; color: #153424; }
 }
 body.secret-mode .scene-line { background: rgba(255, 255, 255, 0.2); }
 
-/* Soleil / Lune */
+/* Soleil / Lune : Animation garantie */
 .scene-sun, .scene-moon {
   position: absolute;
-  left: 0;
   bottom: 0;
-  width: 12px; height: 12px;
-  margin-left: -6px;
+  left: 0;
+  width: 16px; height: 16px;
+  margin-left: -8px;
   z-index: 3;
-  transition: opacity 0.8s ease;
+  animation: astroPath 15s linear infinite;
 }
-.scene-sun { border-radius: 50%; background: #d4a548; animation: astroPath 20s linear infinite; opacity: 1; }
-.scene-moon { color: #ffffff; opacity: 0; animation: astroPath 20s linear infinite; }
-.scene-moon svg { width: 100%; height: 100%; fill: currentColor; display: block; }
 
-body.secret-mode .scene-sun { opacity: 0; }
-body.secret-mode .scene-moon { opacity: 1; }
+.scene-sun { border-radius: 50%; background: #d4a548; }
+.scene-moon { display: none; }
+.scene-moon svg { width: 100%; height: 100%; fill: #d4a548; display: block; }
+
+body.secret-mode .scene-sun { display: none; }
+body.secret-mode .scene-moon { display: block; }
 
 @keyframes astroPath {
-  0% { left: 0; bottom: -10px; opacity: 0; transform: scale(0.8); }
+  0% { left: 0%; bottom: -10px; opacity: 0; transform: scale(0.8); }
   10% { opacity: 1; transform: scale(1); }
-  50% { bottom: 55px; }
+  50% { bottom: 50px; }
   90% { opacity: 1; transform: scale(1); }
   100% { left: 100%; bottom: -10px; opacity: 0; transform: scale(0.8); }
 }
@@ -203,38 +208,36 @@ body.secret-mode .scene-moon { opacity: 1; }
 body.secret-mode .scene-normal { opacity: 0; }
 body.secret-mode .scene-secret { opacity: 1; }
 
-/* Plantes */
+/* Plantes : Pousse + Balancement continu */
 .scene-plant {
   position: absolute;
   bottom: 0;
   color: #153424;
   z-index: 2;
-  transition: color 0.8s ease;
   transform-origin: bottom center;
-  animation: growPlant 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  transition: color 0.8s ease;
+  animation: popUpPlant 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
+             swayPlant 3s ease-in-out 1s infinite alternate;
 }
 
-/* Animation de pousse et de balancement */
-@keyframes growPlant {
+@keyframes popUpPlant {
   0% { transform: scaleY(0); opacity: 0; }
   100% { transform: scaleY(1); opacity: 1; }
 }
+
+@keyframes swayPlant {
+  0% { transform: rotate(-6deg); }
+  100% { transform: rotate(6deg); }
+}
+
+body.secret-mode .scene-plant { color: #ffffff; }
 
 .scene-plant svg {
   display: block;
   width: 100%;
   height: 100%;
   overflow: visible;
-  transform-origin: bottom center;
-  animation: swayPlant 4s ease-in-out infinite alternate;
 }
-
-@keyframes swayPlant {
-  0% { transform: rotate(-3deg); }
-  100% { transform: rotate(3deg); }
-}
-
-body.secret-mode .scene-plant { color: #ffffff; }
 
 /* Positionnement (regroupé au centre) */
 .sp-col   { left: 38%; width: 16px; height: 24px; margin-left: -8px; }
@@ -252,19 +255,19 @@ body.secret-mode .scene-plant { color: #ffffff; }
 /* Oiseau / Sorcière */
 .scene-bird {
   position: absolute;
-  width: 18px;
-  height: 14px;
+  width: 24px;
+  height: 20px;
   color: #153424;
   z-index: 4;
   transition: color 0.8s ease;
   will-change: left, bottom;
-  animation: birdHover 3s ease-in-out infinite;
+  animation: flyBob 2.5s ease-in-out infinite;
 }
 body.secret-mode .scene-bird { color: #ffffff; }
 
-@keyframes birdHover {
+@keyframes flyBob {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+  50% { transform: translateY(-8px); }
 }
 
 .scene-bird svg { display: block; width: 100%; height: 100%; overflow: visible; transition: transform 0.3s ease; }
@@ -273,18 +276,16 @@ body.secret-mode .scene-bird { color: #ffffff; }
 body.secret-mode .bird-normal { display: none; }
 body.secret-mode .bird-witch { display: block; }
 
-/* Ailes */
 .bird-wing {
   transform-box: fill-box;
-  transform-origin: 100% 100%;
-  animation: wingFlap 0.5s ease-in-out infinite alternate;
+  transform-origin: center;
+  animation: flap 0.4s ease-in-out infinite alternate;
 }
-@keyframes wingFlap {
-  0% { transform: rotate(-15deg); }
-  100% { transform: rotate(35deg); }
+@keyframes flap {
+  0% { transform: rotate(-20deg); }
+  100% { transform: rotate(40deg); }
 }
 
-/* Flip direction */
 .scene-bird.flip svg { transform: scaleX(-1); }
 
 /* Cadenas */
@@ -394,7 +395,7 @@ main {
   content: '';
   width: 6px; height: 6px;
   border-radius: 50%;
-  background: #22c55e;
+  background: #22c55e; /* Vert permanent */
 }
 
 .btn {
@@ -423,51 +424,6 @@ main {
 body.secret-mode .btn.secret-add { background: #ffffff; color: #153424; border-color: #ffffff; }
 body.secret-mode .btn.secret-add svg { color: #153424; }
 
-.secret-banner {
-  display: none;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 10px 16px;
-  margin-bottom: 12px;
-  border-radius: 12px;
-  background: #1c4531;
-  border: 1px solid #2a5c41;
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: 500;
-  animation: bannerIn 0.4s ease;
-}
-.secret-banner.on { display: flex; }
-
-@keyframes bannerIn { 0% { opacity: 0; transform: translateY(-6px); } 100% { opacity: 1; transform: translateY(0); } }
-
-.secret-banner-label { display: flex; align-items: center; gap: 8px; }
-.secret-banner-label::before {
-  content: '';
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  background: #ffffff;
-  box-shadow: 0 0 8px rgba(255,255,255,.4);
-}
-
-.secret-banner button {
-  padding: 7px 14px;
-  border-radius: 999px;
-  background: #ffffff;
-  color: #153424;
-  border: none;
-  font-size: 11px;
-  font-weight: 600;
-  cursor: pointer;
-  font-family: inherit;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: opacity 0.2s ease;
-}
-.secret-banner button:hover { opacity: 0.8; }
-
 /* Search */
 .search {
   display: flex;
@@ -486,6 +442,26 @@ body.secret-mode .btn.secret-add svg { color: #153424; }
   color: #0f0f0f;
   transition: color 0.8s ease;
 }
+
+/* Retour mode normal */
+.exit-secret {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  margin-bottom: 16px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.1);
+  color: #ffffff;
+  border: 1px solid rgba(255,255,255,.2);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s ease;
+}
+.exit-secret:hover { background: rgba(255,255,255,.2); }
+body.secret-mode .exit-secret { display: inline-flex; }
 
 /* Chips */
 .chips-row {
@@ -518,16 +494,6 @@ body.secret-mode .btn.secret-add svg { color: #153424; }
 .chip:hover { background: #eef2f0; color: #153424; }
 .chip.active { background: #153424; color: #ffffff; border-color: #153424; }
 .chip.active svg { color: #ffffff; }
-
-.chip.secret {
-  background: transparent;
-  color: #d4a548;
-  border: 1px solid #d4a548;
-}
-.chip.secret svg { color: #d4a548; }
-.chip.secret:hover { background: rgba(212,165,72,.1); }
-.chip.secret.active { background: #d4a548; color: #000; border-color: #d4a548; }
-.chip.secret.active svg { color: #000; }
 
 /* Species Step */
 .species-step { display: none; }
@@ -736,7 +702,6 @@ body.secret-mode #drawer-dropdown-backdrop { background: rgba(21,52,36,.40); }
 }
 
 .card-cat { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: #153424; font-weight: 600; transition: color 0.8s ease; }
-body.secret-mode .card-cat { color: #d4a548; }
 
 .card-name { font-family: 'Bodoni Moda', Georgia, serif; font-size: 19px; color: #0f0f0f; line-height: 1.2; margin-top: 2px; font-weight: 400; transition: color 0.8s ease; }
 .card-fam { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 12px; color: #888888; margin-top: 2px; transition: color 0.8s ease; }
@@ -1008,11 +973,6 @@ body.secret-mode .modal-acts .primary { background: #ffffff; color: #153424; }
   90% { opacity: .45; }
   100% { transform: translate3d(var(--drift,20px),108vh,0); opacity: 0; }
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .season-bg { display: none !important; }
-  .scene-sun, .scene-moon, .bird-wing, .scene-plant, .scene-plant svg, .scene-bird { animation: none !important; }
-}
 </style>
 </head>
 <body>
@@ -1032,13 +992,13 @@ body.secret-mode .modal-acts .primary { background: #ffffff; color: #153424; }
     <div class="brand-scene" aria-hidden="true">
       <div class="scene-line"></div>
       
-      <!-- Soleil / Lune (Croissant) -->
+      <!-- Soleil / Lune -->
       <div class="scene-sun"></div>
       <div class="scene-moon">
         <svg viewBox="0 0 24 24"><path d="M 12 2 A 10 10 0 1 0 22 12 A 8 8 0 1 1 12 2 Z" /></svg>
       </div>
 
-      <!-- Scène Normale (Jour) -->
+      <!-- Scène Normale -->
       <div class="scene-normal">
         <div class="scene-plant sp-col">
           <svg viewBox="0 0 24 30" fill="currentColor">
@@ -1078,7 +1038,7 @@ body.secret-mode .modal-acts .primary { background: #ffffff; color: #153424; }
         </div>
       </div>
 
-      <!-- Scène Secrète (Nuit / Ombres chinoises) -->
+      <!-- Scène Secrète -->
       <div class="scene-secret">
         <div class="scene-plant sp-mush">
           <svg viewBox="0 0 40 40" fill="currentColor">
@@ -1125,14 +1085,20 @@ body.secret-mode .modal-acts .primary { background: #ffffff; color: #153424; }
       <div class="scene-bird" id="scene-bird">
         <!-- Oiseau normal -->
         <svg class="bird-normal" viewBox="0 0 24 16" fill="currentColor">
-          <path d="M2 8 C6 4 10 6 12 8 C14 6 18 4 22 8 C18 8 16 10 14 12 C12 10 10 10 8 12 C6 10 4 8 2 8 Z"/>
+          <g class="bird-wing">
+            <path d="M12 8 C10 4 6 2 2 4 C4 6 8 8 12 8 Z" />
+          </g>
+          <path d="M2 8 C6 8 8 10 10 12 C12 12 14 10 16 8 C18 10 20 10 22 8 C20 6 18 6 16 8 C14 6 12 4 10 4 C8 4 6 6 2 8 Z"/>
         </svg>
         <!-- Sorcière sur balai -->
         <svg class="bird-witch" viewBox="0 0 24 20" fill="currentColor">
-          <path d="M4 16 L20 16 L22 18 L4 18 Z"/>
-          <path d="M14 6 L18 2 L20 6 L16 10 Z"/>
-          <path d="M10 10 L14 8 L16 12 L12 14 Z"/>
-          <path d="M8 14 L14 12 L16 16 L8 16 Z"/>
+          <path d="M2 16 L18 16 L20 18 L2 18 Z"/>
+          <path d="M18 16 L22 14 M18 16 L22 18" stroke="currentColor" stroke-width="1"/>
+          <path d="M12 12 L16 6 L18 10 L14 14 Z"/>
+          <path d="M14 6 L16 2 L18 6 Z"/>
+          <g class="bird-wing">
+            <path d="M12 12 L8 8 L6 12 L10 14 Z" fill="currentColor"/>
+          </g>
         </svg>
       </div>
 
@@ -1182,13 +1148,11 @@ body.secret-mode .modal-acts .primary { background: #ffffff; color: #153424; }
     <input id="search-input" type="search" placeholder="Rechercher une plante, famille, origine…" autocomplete="off">
   </div>
 
-  <div id="secret-banner" class="secret-banner">
-    <span class="secret-banner-label">Rubriques secrètes visibles</span>
-    <button id="exit-secret-btn" type="button">
-      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      Mode normal
-    </button>
-  </div>
+  <!-- Bouton Retour au mode normal -->
+  <button id="exit-secret-btn" class="exit-secret">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Retour au jour
+  </button>
 
   <div id="chips-step">
     <div class="chips-row" id="chips-row">
@@ -1816,7 +1780,6 @@ body.secret-mode .modal-acts .primary { background: #ffffff; color: #153424; }
       }
     });
 
-    $('secret-banner').classList.toggle('on', secretMode);
     updateSecretAddBtn();
 
     filter = 'all';
@@ -1827,6 +1790,13 @@ body.secret-mode .modal-acts .primary { background: #ffffff; color: #153424; }
     });
     $('species-step').classList.remove('on');
     $('chips-step').style.display = '';
+
+    // Relance les animations des plantes
+    document.querySelectorAll('.scene-plant').forEach(p => {
+      p.style.animation = 'none';
+      void p.offsetWidth;
+      p.style.animation = null;
+    });
     
     render();
   };
@@ -2203,10 +2173,10 @@ body.secret-mode .modal-acts .primary { background: #ffffff; color: #153424; }
     let currentPos = 50;
     
     const move = () => {
-      const newPos = 20 + Math.random() * 60;
-      const newHeight = 15 + Math.random() * 30;
+      const newPos = 15 + Math.random() * 70;
+      const newHeight = 10 + Math.random() * 40;
       const dist = Math.abs(newPos - currentPos);
-      const duration = Math.max(2500, dist * 100);
+      const duration = Math.max(2500, dist * 80);
       
       if (newPos < currentPos) bird.classList.add('flip');
       else bird.classList.remove('flip');
@@ -2223,7 +2193,7 @@ body.secret-mode .modal-acts .primary { background: #ffffff; color: #153424; }
 
   const initSeasons = () => {
     const c = $('season-bg');
-    if (!c || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!c) return;
     const rnd = (a, b) => Math.random() * (b - a) + a;
     const m = new Date().getMonth() + 1;
     const s = m >= 3 && m <= 5 ? 'spring' : m >= 6 && m <= 8 ? 'summer' : m >= 9 && m <= 11 ? 'autumn' : 'winter';

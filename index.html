@@ -13,14 +13,14 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{background:#fff;color:#0f0f0f;font-family:'Jost',system-ui,sans-serif;min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
 ::selection{background:#153424;color:#fff}
-.site-header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.95);backdrop-filter:blur(12px)}
+.site-header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 .site-header::after{content:'';position:absolute;left:8%;right:8%;bottom:0;height:1px;background:linear-gradient(to right,transparent 0%,rgba(21,52,36,.10) 20%,rgba(21,52,36,.15) 50%,rgba(21,52,36,.10) 80%,transparent 100%);pointer-events:none}
 .header-inner{max-width:1100px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;position:relative}
 .brand{position:relative;z-index:2}
 .brand-title{font-family:'Bodoni Moda',Georgia,serif;font-weight:500;font-size:28px;color:#153424;line-height:.95}
 .brand-tagline{font-family:'Jost',sans-serif;font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.32em;color:#888;margin-top:4px}
 .brand-scene{position:absolute;left:8%;right:8%;bottom:-16px;height:100px;pointer-events:none;z-index:1}
-.scene-sun{position:absolute;left:0;bottom:2px;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#f0dca4,#d4a548 72%);box-shadow:0 0 8px rgba(212,165,72,.55),0 0 2px rgba(240,220,164,.9);animation:sunX 22s linear infinite,sunY 22s ease-in-out infinite;will-change:left,transform,opacity}
+.scene-sun{position:absolute;left:0;bottom:2px;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#f0dca4,#d4a548 72%);box-shadow:0 0 8px rgba(212,165,72,.55),0 0 2px rgba(240,220,164,.9);animation:sunX 22s linear infinite,sunY 22s ease-in-out infinite;will-change:left,transform,opacity;z-index:3}
 @keyframes sunX{0%{left:0;opacity:0}2%{opacity:1}98%{opacity:1}100%{left:100%;opacity:0}}
 @keyframes sunY{0%{transform:translateY(0)}50%{transform:translateY(-80px)}100%{transform:translateY(0)}}
 .scene-plant{position:absolute;bottom:0;color:#153424;opacity:.9;transform-origin:bottom center;z-index:2;will-change:transform}
@@ -70,6 +70,7 @@ main{max-width:1100px;margin:0 auto;padding:20px 24px 60px;flex:1;width:100%}
 .back-btn:hover{color:#153424;background:#f7f7f7}
 .back-btn svg{width:12px;height:12px}
 .sel-wrap{position:relative;width:100%}
+.sel-wrap.open{position:relative;z-index:55}
 .sel-trigger{width:100%;display:flex;align-items:center;justify-content:space-between;padding:10px 0;background:transparent;border:none;border-bottom:1px solid rgba(21,52,36,.15);color:#0f0f0f;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:17px;cursor:pointer;text-align:left;font-weight:500}
 .sel-trigger.placeholder{color:#888}
 .sel-trigger:hover{border-bottom-color:#153424;color:#153424}
@@ -84,6 +85,10 @@ main{max-width:1100px;margin:0 auto;padding:20px 24px 60px;flex:1;width:100%}
 .custom-field{margin-top:10px}
 .custom-field label{font-size:10px;color:#888;font-weight:500;display:block;margin-bottom:4px}
 .custom-field input{width:100%;padding:10px 14px;background:#f7f7f7;border:none;border-radius:10px;font-family:inherit;font-size:13px;color:#0f0f0f;outline:none}
+#page-backdrop{position:fixed;inset:0;background:rgba(255,255,255,.10);backdrop-filter:blur(3px) saturate(0.95);-webkit-backdrop-filter:blur(3px) saturate(0.95);z-index:45;opacity:0;pointer-events:none;transition:opacity .25s ease}
+#page-backdrop.visible{opacity:1;pointer-events:auto}
+#drawer-dropdown-backdrop{position:absolute;inset:0;background:rgba(255,255,255,.30);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);z-index:40;opacity:0;pointer-events:none;transition:opacity .25s ease}
+#drawer-dropdown-backdrop.visible{opacity:1;pointer-events:auto}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px}
 .card{border:1px solid #f0f0f0;border-radius:16px;overflow:hidden;background:#fff;display:flex;flex-direction:column;position:relative;box-shadow:0 1px 3px rgba(0,0,0,.04)}
 .card-img-wrap{position:relative;aspect-ratio:4/3;background:#fafafa;overflow:hidden;border-bottom:1px solid #f0f0f0}
@@ -104,7 +109,7 @@ main{max-width:1100px;margin:0 auto;padding:20px 24px 60px;flex:1;width:100%}
 .card-info .full{grid-column:1/-1}
 .empty{padding:80px 20px;text-align:center;color:#888;font-size:14px;grid-column:1/-1}
 .empty svg{width:36px;height:36px;color:#ccc;display:block;margin:0 auto 12px}
-.drawer-bg{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.25);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .3s}
+.drawer-bg{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.25);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .3s}
 .drawer-bg.open{opacity:1;pointer-events:auto}
 .drawer{position:fixed;top:0;right:0;height:100vh;width:100%;max-width:440px;background:#fff;z-index:100;transform:translateX(100%);transition:transform .35s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;box-shadow:-10px 0 30px rgba(0,0,0,.05)}
 .drawer.open{transform:translateX(0)}
@@ -143,7 +148,7 @@ main{max-width:1100px;margin:0 auto;padding:20px 24px 60px;flex:1;width:100%}
 .photo-prev{position:relative;width:100%;aspect-ratio:4/3;border-radius:12px;overflow:hidden;display:none}
 .photo-prev img{width:100%;height:100%;object-fit:cover}
 .photo-prev button{position:absolute;top:10px;right:10px;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,.7);color:#fff;border:none;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center}
-.modal{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s}
+.modal{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s}
 .modal.on{opacity:1;pointer-events:auto}
 .modal-box{background:#fff;border-radius:18px;padding:26px 22px;width:100%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,.2)}
 .modal-box h3{font-family:'Bodoni Moda',Georgia,serif;font-size:22px;color:#153424;margin-bottom:6px;font-weight:500}
@@ -156,7 +161,7 @@ main{max-width:1100px;margin:0 auto;padding:20px 24px 60px;flex:1;width:100%}
 .modal-acts .primary:hover{background:#1c4531}
 .modal-acts .secondary{background:#f7f7f7;color:#153424}
 .modal-acts .secondary:hover{background:#eef2f0}
-.lightbox{position:fixed;inset:0;z-index:200;background:rgba(8,8,8,.96);backdrop-filter:blur(10px);display:flex;opacity:0;pointer-events:none;transition:opacity .3s;overflow-y:auto;padding:24px 20px}
+.lightbox{position:fixed;inset:0;z-index:200;background:rgba(8,8,8,.96);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;opacity:0;pointer-events:none;transition:opacity .3s;overflow-y:auto;padding:24px 20px}
 .lightbox.open{opacity:1;pointer-events:auto}
 .lb-close{position:fixed;top:16px;left:16px;width:44px;height:44px;background:transparent;border:none;color:rgba(255,255,255,.72);cursor:pointer;z-index:210;display:flex;align-items:center;justify-content:center}
 .lb-close:hover{color:#fff}
@@ -183,6 +188,7 @@ main{max-width:1100px;margin:0 auto;padding:20px 24px 60px;flex:1;width:100%}
 </head>
 <body>
 
+<div id="page-backdrop"></div>
 <div id="season-bg" class="season-bg" aria-hidden="true"></div>
 
 <header class="site-header">
@@ -250,6 +256,7 @@ main{max-width:1100px;margin:0 auto;padding:20px 24px 60px;flex:1;width:100%}
 
 <div id="drawer-bg" class="drawer-bg"></div>
 <aside id="drawer" class="drawer">
+  <div id="drawer-dropdown-backdrop"></div>
   <div class="drawer-head">
     <h2>Nouveau spécimen</h2>
     <button id="close-drawer" class="close-x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
@@ -443,8 +450,7 @@ main{max-width:1100px;margin:0 auto;padding:20px 24px 60px;flex:1;width:100%}
   </div>
 </div>
 
-<div id="toast-wrap" class="toast-wrap"></div>
-<script>
+<div id="toast-wrap" class="toast-wrap"></div><script>
 (function(){
 'use strict';
 var $ = function(id){return document.getElementById(id)};
@@ -473,6 +479,15 @@ function norm(s){return String(s==null?'':s).normalize('NFD').replace(/[\u0300-\
 function fmtTemp(t){if(t===undefined||t===null||t==='')return null;var n=Number(t);return(n>0?'+'+n:n)+' °C'}
 
 function toast(msg,ms){var t=document.createElement('div');t.className='toast';t.textContent=msg;$('toast-wrap').appendChild(t);setTimeout(function(){t.remove()},ms||3000)}
+
+function syncBackdrops(){
+  var mainOpen = !!document.querySelector('main .sel-wrap.open');
+  var drawerOpen = !!document.querySelector('#drawer .sel-wrap.open');
+  var pb = $('page-backdrop');
+  var ddb = $('drawer-dropdown-backdrop');
+  if(pb) pb.classList.toggle('visible', mainOpen);
+  if(ddb) ddb.classList.toggle('visible', drawerOpen);
+}
 
 function loadPlants(){try{var raw=localStorage.getItem(STORE_KEY);if(!raw)return[];var arr=JSON.parse(raw);return Array.isArray(arr)?arr:[]}catch(e){return[]}}
 function savePlants(){try{localStorage.setItem(STORE_KEY,JSON.stringify(plants));return true}catch(e){toast('Stockage plein');return false}}
@@ -549,7 +564,12 @@ function lock(){
 
 function setupSelect(wrapId,btnId,ddId,hiddenId,defaultText,onSelect){
   var wrap=$(wrapId),btn=$(btnId),dd=$(ddId),hidden=$(hiddenId);
-  btn.addEventListener('click',function(e){e.stopPropagation();document.querySelectorAll('.sel-wrap.open').forEach(function(w){if(w!==wrap)w.classList.remove('open')});wrap.classList.toggle('open')});
+  btn.addEventListener('click',function(e){
+    e.stopPropagation();
+    document.querySelectorAll('.sel-wrap.open').forEach(function(w){if(w!==wrap)w.classList.remove('open')});
+    wrap.classList.toggle('open');
+    syncBackdrops();
+  });
   dd.querySelectorAll('.opt').forEach(function(opt){
     opt.addEventListener('click',function(e){
       e.stopPropagation();
@@ -560,6 +580,7 @@ function setupSelect(wrapId,btnId,ddId,hiddenId,defaultText,onSelect){
       btn.querySelector('.lbl').textContent=val;
       btn.classList.remove('placeholder');
       wrap.classList.remove('open');
+      syncBackdrops();
       if(onSelect)onSelect(val);
     });
   });
@@ -578,7 +599,12 @@ var resetOrigin=setupSelect('origin-wrap','origin-btn','origin-dd','p-origin','S
   if(!v||v==='Horticole / Hybride')$('p-origin-country').value='';
 });
 
-document.addEventListener('click',function(e){if(!e.target.closest('.sel-wrap')){document.querySelectorAll('.sel-wrap.open').forEach(function(w){w.classList.remove('open')})}});
+document.addEventListener('click',function(e){
+  if(!e.target.closest('.sel-wrap')){
+    document.querySelectorAll('.sel-wrap.open').forEach(function(w){w.classList.remove('open')});
+    syncBackdrops();
+  }
+});
 
 document.querySelectorAll('#exp-picker .exp-opt').forEach(function(b){
   b.addEventListener('click',function(){
@@ -620,6 +646,7 @@ document.querySelectorAll('#chips-step .chip').forEach(function(b){
           $('filter-species-wrap').classList.remove('open');
           $('filter-genre-custom').value=v;
           currentGenreFilter=v;
+          syncBackdrops();
           render();
         });
       });
@@ -636,6 +663,7 @@ $('filter-species-btn').addEventListener('click',function(e){
   e.stopPropagation();
   document.querySelectorAll('.sel-wrap.open').forEach(function(w){if(w!==$('filter-species-wrap'))w.classList.remove('open')});
   $('filter-species-wrap').classList.toggle('open');
+  syncBackdrops();
 });
 
 $('filter-genre-custom').addEventListener('input',function(e){currentGenreFilter=e.target.value.trim();render()});
@@ -668,6 +696,7 @@ document.querySelectorAll('#cat-picker .cat-opt').forEach(function(b){
         $('drawer-species-wrap').classList.remove('open');
         $('p-genre-custom').value=v;
         if(!$('p-name').value.trim())$('p-name').value=v;
+        syncBackdrops();
       });
     });
     $('drawer-species-btn').querySelector('.lbl').textContent='Sélectionner un genre…';
@@ -682,6 +711,7 @@ $('drawer-species-btn').addEventListener('click',function(e){
   e.stopPropagation();
   document.querySelectorAll('.sel-wrap.open').forEach(function(w){if(w!==$('drawer-species-wrap'))w.classList.remove('open')});
   $('drawer-species-wrap').classList.toggle('open');
+  syncBackdrops();
 });
 
 function resizeImage(file){
@@ -758,7 +788,12 @@ function openDrawer(){
   document.body.style.overflow='hidden';
   setTimeout(function(){$('p-name').focus()},200);
 }
-function closeDrawer(){$('drawer').classList.remove('open');$('drawer-bg').classList.remove('open');document.body.style.overflow=''}
+function closeDrawer(){
+  $('drawer').classList.remove('open');$('drawer-bg').classList.remove('open');
+  document.querySelectorAll('#drawer .sel-wrap.open').forEach(function(w){w.classList.remove('open')});
+  syncBackdrops();
+  document.body.style.overflow='';
+}
 
 $('lock-btn').addEventListener('click',function(){
   if(isUnlocked){lock();return}

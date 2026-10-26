@@ -1,1 +1,950 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>Plantouille — Cabinet du Dr-Cactus</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23153424' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 21V7M12 7l-4-4M12 7l4-4'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,600&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+* { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+html { scroll-behavior: smooth; height: 100%; }
+body { background: #ffffff; color: #0f0f0f; overflow-x: hidden; -webkit-font-smoothing: antialiased; min-height: 100%; display: flex; flex-direction: column; font-family: 'Jost', system-ui, sans-serif; opacity: 0; animation: fadeIn 0.8s ease forwards; }
+@keyframes fadeIn { to { opacity: 1; } }
+::selection { background: #153424; color: #ffffff; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: #e0e0e0; border-radius: 4px; }
+.site-header { position: sticky; top: 0; z-index: 40; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.site-header::after { content: ''; position: absolute; left: 8%; right: 8%; bottom: 0; height: 1px; background: linear-gradient(to right, transparent 0%, rgba(21,52,36,0.10) 20%, rgba(21,52,36,0.15) 50%, rgba(21,52,36,0.10) 80%, transparent 100%); pointer-events: none; }
+.brand-title { font-family: 'Bodoni Moda', Georgia, serif; font-weight: 500; font-size: 33px; letter-spacing: -0.014em; color: #153424; line-height: 0.92; }
+.brand-tagline { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.34em; color: #888888; }
+.header-scene-wrap { min-height: 44px; }
+.brand-scene { position: absolute; left: 0; right: 0; bottom: -16px; height: 110px; pointer-events: none; z-index: 1; }
+.brand-scene-sun { position: absolute; left: 0; bottom: 2px; width: 7px; height: 7px; margin-left: -3.5px; border-radius: 50%; background: #d4a548; animation: sunX 20s linear infinite, sunY 20s infinite; z-index: 3; }
+@keyframes sunX { 0% { left: 0%; opacity: 0; } 4% { opacity: 1; } 96% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
+@keyframes sunY { 0% { transform: translateY(0); animation-timing-function: ease-out; } 50% { transform: translateY(-55px); animation-timing-function: ease-in; } 100% { transform: translateY(0); } }
+.brand-scene-plant { position: absolute; bottom: 0; color: #153424; opacity: 0.85; transform-origin: bottom center; z-index: 2; }
+.brand-scene-plant svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.plant-globular { left: 12%; width: 22px; height: 22px; margin-left: -11px; animation: pGlob 20s ease-in-out infinite; }
+.plant-columnar { left: 27%; width: 18px; height: 26px; margin-left: -9px; animation: pCol 20s ease-in-out infinite; }
+.plant-aloe { left: 42%; width: 22px; height: 20px; margin-left: -11px; animation: pAloe 20s ease-in-out infinite; }
+.plant-echeveria { left: 57%; width: 22px; height: 16px; margin-left: -11px; animation: pEch 20s ease-in-out infinite; }
+.plant-yucca { left: 72%; width: 18px; height: 26px; margin-left: -9px; animation: pYuc 20s ease-in-out infinite; }
+.plant-beaucarnea { left: 87%; width: 18px; height: 26px; margin-left: -9px; animation: pBea 20s ease-in-out infinite; }
+@keyframes pGlob { 0%,5%{transform:scaleY(0);} 12%,14%{transform:scaleY(1);} 19%,100%{transform:scaleY(0);} }
+@keyframes pCol { 0%,20%{transform:scaleY(0);} 27%,29%{transform:scaleY(1);} 34%,100%{transform:scaleY(0);} }
+@keyframes pAloe { 0%,35%{transform:scaleY(0);} 42%,44%{transform:scaleY(1);} 49%,100%{transform:scaleY(0);} }
+@keyframes pEch { 0%,50%{transform:scaleY(0);} 57%,59%{transform:scaleY(1);} 64%,100%{transform:scaleY(0);} }
+@keyframes pYuc { 0%,65%{transform:scaleY(0);} 72%,74%{transform:scaleY(1);} 79%,100%{transform:scaleY(0);} }
+@keyframes pBea { 0%,80%{transform:scaleY(0);} 87%,89%{transform:scaleY(1);} 94%,100%{transform:scaleY(0);} }
+@media (max-width: 640px) { .header-scene-wrap { display: none; } }
+@media (prefers-reduced-motion: reduce) { .brand-scene-sun, .brand-scene-plant { animation: none !important; } }
+.lock-btn { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 9999px; background: #f7f7f7; color: #153424; border: 1px solid #f0f0f0; cursor: pointer; flex-shrink: 0; }
+.lock-btn:hover { background: #eef2f0; }
+.lock-btn.unlocked { background: #153424; color: #ffffff; border-color: #153424; }
+.lock-btn svg { width: 16px; height: 16px; }
+.chip { display: inline-flex; align-items: center; gap: 8px; padding: 8px 18px; border: none; border-radius: 9999px; background: #f7f7f7; color: #555555; font-family: 'Jost', sans-serif; font-weight: 500; font-size: 13px; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+.chip svg { width: 16px; height: 16px; color: #888888; flex-shrink: 0; }
+.chip:hover { color: #153424; background: #eef2f0; }
+.chip:hover svg { color: #153424; }
+.chip.active { background: #153424; color: #ffffff; }
+.chip.active svg { color: #ffffff; }
+.step-panel { opacity: 1; transition: opacity 0.3s ease, transform 0.3s ease; }
+.step-panel.step-hidden { opacity: 0; pointer-events: none; position: absolute; left: 0; right: 0; visibility: hidden; transform: translateY(-4px); }
+.step-panel.step-fade-in { animation: stepFadeIn 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+@keyframes stepFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.custom-select-wrapper { position: relative; width: 100%; }
+.custom-select-wrapper.open { position: relative; z-index: 55; }
+.custom-select-trigger { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 10px 0; background: transparent; border: none; border-bottom: 1px solid rgba(21,52,36,0.15); color: #0f0f0f; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 18px; font-weight: 500; cursor: pointer; text-align: left; }
+.custom-select-trigger:hover, .custom-select-wrapper.open .custom-select-trigger { border-bottom-color: #153424; color: #153424; }
+.custom-select-trigger.placeholder { color: #888888; }
+.custom-select-arrow { width: 6px; height: 6px; border-right: 1.5px solid #153424; border-bottom: 1.5px solid #153424; transform: rotate(45deg); transition: transform 0.25s ease; opacity: 0.7; flex-shrink: 0; margin-left: 10px; }
+.custom-select-wrapper.open .custom-select-arrow { transform: rotate(-135deg); }
+.custom-select-dropdown { position: absolute; top: 100%; left: 0; right: 0; max-height: 340px; overflow-y: auto; background: #ffffff; z-index: 60; margin-top: 6px; padding: 8px 0; box-shadow: 0 15px 35px rgba(0,0,0,0.10), 0 0 0 1px rgba(21,52,36,0.06); border-radius: 12px; opacity: 0; visibility: hidden; transform: translateY(-6px) scale(0.99); transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease; }
+.custom-select-wrapper.open .custom-select-dropdown { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+.custom-option-group-label { padding: 10px 18px 4px 18px; font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: #153424; opacity: 0.6; }
+.custom-option { padding: 8px 18px; font-family: 'Jost', sans-serif; font-size: 13.5px; color: #0f0f0f; cursor: pointer; }
+.custom-option:hover { background-color: #f4f6f5; color: #153424; }
+.custom-option.selected { background-color: #153424; color: #ffffff; font-weight: 500; }
+.genre-custom-field { margin-top: 12px; }
+.genre-custom-field .field-label { font-size: 10px; color: #888888; font-weight: 500; }
+.genre-custom-field .field-input { font-size: 13px; padding: 10px 14px; background: #f7f7f7; }
+#page-backdrop { position: fixed; inset: 0; background: rgba(255,255,255,0.10); backdrop-filter: blur(3px) saturate(0.95); -webkit-backdrop-filter: blur(3px) saturate(0.95); z-index: 45; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
+#page-backdrop.visible { opacity: 1; pointer-events: auto; }
+#drawer-dropdown-backdrop { position: absolute; inset: 0; background: rgba(255,255,255,0.30); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); z-index: 40; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
+#drawer-dropdown-backdrop.visible { opacity: 1; pointer-events: auto; }
+.back-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px 6px 8px; background: transparent; border: none; color: #888888; font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; border-radius: 9999px; white-space: nowrap; }
+.back-btn:hover { color: #153424; background: rgba(21,52,36,0.05); }
+.back-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+.cat-option { display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 10px 14px; border: none; border-radius: 12px; background: #f7f7f7; color: #0f0f0f; font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; width: 100%; }
+.cat-option svg { width: 18px; height: 18px; color: #888888; flex-shrink: 0; }
+.cat-option span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cat-option:hover { background: #eef2f0; color: #153424; }
+.cat-option.active { background: #153424; color: #ffffff; }
+.cat-option.active svg { color: #ffffff; }
+.exp-option { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px 8px; border: none; border-radius: 12px; background: #f7f7f7; color: #555555; font-size: 11px; font-weight: 500; cursor: pointer; text-align: center; gap: 6px; }
+.exp-option svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.exp-option:hover { background: #eef2f0; color: #153424; }
+.exp-option.active { background: #153424; color: #ffffff; }
+.card { opacity: 0; transform: translateY(12px); transition: opacity 0.4s ease, transform 0.4s ease; }
+.card.revealed { opacity: 1; transform: translateY(0); }
+.card-photo { transition: transform 0.5s cubic-bezier(0.22,1,0.36,1); cursor: zoom-in; }
+.group:hover .card-photo { transform: scale(1.03); }
+.card-delete { position: absolute; top: 12px; right: 12px; width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.95); color: #0f0f0f; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; z-index: 10; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+.card-delete:hover { color: #153424; }
+.card-delete.confirming { background: #e11d48 !important; color: #ffffff !important; }
+.card-delete .icon-x, .card-delete .icon-check { position: absolute; width: 14px; height: 14px; }
+.card-delete .icon-check { opacity: 0; }
+.card-delete.confirming .icon-x { opacity: 0; }
+.card-delete.confirming .icon-check { opacity: 1; }
+.field-label { display: block; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #0f0f0f; margin-bottom: 6px; }
+.field-input { width: 100%; padding: 12px 16px; background: #f7f7f7; border: none; border-radius: 12px; color: #0f0f0f; font-size: 14px; font-family: 'Jost', sans-serif; }
+.field-input:focus { outline: none; background: #eef2f0; }
+.temp-slider-container { position: relative; padding: 12px 0; }
+input[type="range"].custom-range { -webkit-appearance: none; appearance: none; width: 100%; height: 4px; background: #eef2f0; border-radius: 9999px; outline: none; margin: 6px 0; }
+input[type="range"].custom-range::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #153424; cursor: pointer; border: 2px solid #ffffff; }
+.search-minimal { display: flex; align-items: center; gap: 12px; padding: 12px 0; min-width: 0; }
+.search-minimal > svg { color: #888888; flex-shrink: 0; }
+.search-minimal:focus-within > svg { color: #153424; }
+.search-minimal input { flex: 1 1 auto; min-width: 0; background: transparent; border: none; outline: none; font-family: 'Jost', sans-serif; font-size: 15px; color: #0f0f0f; padding: 0; }
+.search-clear { width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: #888888; background: transparent; border: none; cursor: pointer; }
+.drawer-backdrop { position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,0.25); backdrop-filter: blur(2px); opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+.drawer-backdrop.open { opacity: 1; pointer-events: auto; }
+.drawer { position: fixed; top: 0; right: 0; height: 100%; width: 100%; max-width: 440px; z-index: 100; background: #ffffff; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); display: flex; flex-direction: column; box-shadow: -10px 0 30px rgba(0,0,0,0.05); }
+.drawer.open { transform: translateX(0); }
+.file-drop { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px; border: 1px dashed #dcdcdc; border-radius: 12px; background: #ffffff; cursor: pointer; text-align: center; position: relative; }
+.file-drop:hover { border-color: #153424; }
+.file-drop input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.photo-preview { position: relative; width: 100%; aspect-ratio: 4/3; border-radius: 12px; overflow: hidden; }
+.photo-preview img { width: 100%; height: 100%; object-fit: cover; }
+.photo-preview-clear { position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(0,0,0,0.7); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer; border: none; }
+.modal { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.55); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
+.modal.open { opacity: 1; pointer-events: auto; }
+.modal-content { background: #ffffff; border-radius: 18px; padding: 28px 24px; width: 100%; max-width: 420px; box-shadow: 0 20px 60px rgba(0,0,0,0.20); max-height: 90vh; overflow-y: auto; }
+.modal-title { font-family: 'Bodoni Moda', Georgia, serif; font-weight: 500; font-size: 22px; color: #153424; margin: 0 0 6px; }
+.modal-subtitle { font-family: 'Jost', sans-serif; font-size: 13px; color: #888888; margin: 0 0 20px; line-height: 1.5; }
+.modal-actions { display: flex; gap: 10px; margin-top: 20px; }
+.modal-actions button { flex: 1; padding: 12px; border-radius: 10px; font-family: 'Jost', sans-serif; font-weight: 500; font-size: 14px; cursor: pointer; border: none; }
+.btn-primary { background: #153424; color: #ffffff; }
+.btn-primary:hover { background: #1c4531; }
+.btn-primary:disabled { opacity: 0.5; cursor: wait; }
+.btn-secondary { background: #f7f7f7; color: #153424; }
+.btn-secondary:hover { background: #eef2f0; }
+.modal-help { font-family: 'Jost', sans-serif; font-size: 11.5px; color: #666; line-height: 1.6; background: #f7f7f7; padding: 12px 14px; border-radius: 10px; margin-top: 16px; }
+.code-input { width: 100%; padding: 16px; font-family: monospace; font-size: 24px; text-align: center; letter-spacing: 12px; background: #f7f7f7; border: 2px solid transparent; border-radius: 12px; color: #153424; outline: none; }
+.code-input:focus { border-color: #153424; background: #ffffff; }
+.lightbox { position: fixed; inset: 0; z-index: 200; background: rgba(8,8,8,0.96); backdrop-filter: blur(10px); display: flex; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; overflow-y: auto; padding: 24px 20px; }
+.lightbox.open { opacity: 1; pointer-events: auto; }
+.lightbox-content { margin: auto; display: flex; flex-direction: column; align-items: center; gap: 26px; transform: scale(0.96); opacity: 0; transition: transform 0.45s cubic-bezier(0.16,1,0.3,1), opacity 0.35s ease; width: 100%; }
+.lightbox.open .lightbox-content { transform: scale(1); opacity: 1; }
+.lightbox-content img { display: block; max-width: 90vw; max-height: 55vh; width: auto; height: auto; object-fit: contain; border-radius: 4px; box-shadow: 0 20px 50px rgba(0,0,0,0.55); flex-shrink: 0; }
+.lightbox-content.is-portrait { flex-direction: row-reverse; justify-content: center; gap: 56px; max-width: 94vw; }
+.lightbox-content.is-portrait img { max-width: 52vw; max-height: 86vh; }
+.lightbox-info { display: flex; flex-direction: column; gap: 4px; width: 100%; max-width: 640px; padding: 0 12px; color: #ffffff; text-align: center; align-items: center; }
+.lightbox-content.is-portrait .lightbox-info { max-width: 380px; text-align: left; align-items: flex-start; padding: 0; flex-shrink: 0; }
+.lb-cat { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.18em; color: rgba(255,255,255,0.62); }
+.lb-name { font-family: 'Bodoni Moda', Georgia, serif; font-weight: 500; font-size: 26px; color: #ffffff; margin: 2px 0 0; }
+.lb-family { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 15.5px; color: rgba(255,255,255,0.62); margin: 0; }
+.lb-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px 44px; padding-top: 18px; margin-top: 16px; border-top: 1px solid rgba(255,255,255,0.12); width: 100%; }
+.lb-item { display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 110px; }
+.lb-key { font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.16em; color: rgba(255,255,255,0.42); }
+.lb-val { font-family: 'Jost', sans-serif; font-size: 13.5px; font-weight: 500; color: #ffffff; }
+.lightbox-back { position: fixed; top: 20px; left: 20px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: transparent; border: none; color: rgba(255,255,255,0.72); cursor: pointer; z-index: 210; }
+.lightbox-back svg { width: 26px; height: 26px; }
+@media (max-width: 860px) {
+  .lightbox-content.is-portrait { flex-direction: column; gap: 20px; }
+  .lightbox-content.is-portrait img { max-width: 94vw; max-height: 52vh; }
+  .lightbox-content.is-portrait .lightbox-info { max-width: 100%; text-align: center; align-items: center; }
+  .lb-name { font-size: 21px; }
+}
+.toast-container { position: fixed; bottom: 24px; left: 16px; right: 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 400; pointer-events: none; }
+.toast { pointer-events: auto; padding: 12px 18px; background: #0f0f0f; color: #ffffff; font-size: 12px; border-radius: 9999px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); max-width: 440px; text-align: center; font-family: 'Jost', sans-serif; line-height: 1.5; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+main { position: relative; }
+#seasonal-bg { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+.season-leaf { position: absolute; top: 0; animation: leafFall linear infinite; }
+@keyframes leafFall { 0% { transform: translate3d(0,-15vh,0); opacity: 0; } 10% { opacity: var(--opacity, .4); } 90% { opacity: var(--opacity, .4); } 100% { transform: translate3d(var(--drift,40px),115vh,0); opacity: 0; } }
+.season-snow { position: absolute; top: 0; border-radius: 50%; background: rgba(120,150,130,0.35); animation: snowFall linear infinite; }
+@keyframes snowFall { 0% { transform: translate3d(0,-8vh,0); opacity: 0; } 10% { opacity: var(--opacity, .45); } 90% { opacity: var(--opacity, .45); } 100% { transform: translate3d(var(--drift,20px),108vh,0); opacity: 0; } }
+.season-rain { position: absolute; top: -20px; width: 1px; height: 8px; background: linear-gradient(to bottom, rgba(90,120,100,0), rgba(90,120,100,0.35)); animation: rainFall linear forwards; }
+@keyframes rainFall { 0% { transform: translate3d(0,-20px,0); opacity: 0; } 10% { opacity: 0.55; } 90% { opacity: 0.55; } 100% { transform: translate3d(var(--drift,10px),105vh,0); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { #seasonal-bg { display: none !important; } }
+</style>
+</head>
+<body>
+
+<div id="page-backdrop"></div>
+<div id="seasonal-bg" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div style="display:flex;flex-direction:column;gap:6px;padding:2px 0;">
+      <span class="brand-title">Plantouille</span>
+      <span class="brand-tagline">Cabinet du Dr-Cactus</span>
+    </div>
+    <div class="header-scene-wrap flex-1 self-stretch relative mx-4" aria-hidden="true">
+      <div class="brand-scene">
+        <div class="brand-scene-sun"></div>
+        <div class="brand-scene-plant plant-globular"><svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M2 21 Q2 3 11 3 Q20 3 20 21 Z"/><path d="M11 3 V21"/><path d="M6 4 Q5 12 6 21"/><path d="M16 4 Q17 12 16 21"/></svg></div>
+        <div class="brand-scene-plant plant-columnar"><svg viewBox="0 0 18 26" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M9 25 V3"/><path d="M9 12 H5 Q3 12 3 10 V6"/><path d="M9 15 H13 Q15 15 15 13 V9"/></svg></div>
+        <div class="brand-scene-plant plant-aloe"><svg viewBox="0 0 22 20" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M11 19 L2 9"/><path d="M11 19 L5 4"/><path d="M11 19 L9 1"/><path d="M11 19 L11 0.5"/><path d="M11 19 L13 1"/><path d="M11 19 L17 4"/><path d="M11 19 L20 9"/></svg></div>
+        <div class="brand-scene-plant plant-echeveria"><svg viewBox="0 0 22 16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M11 15 Q3 13 1.5 7 Q6 10 11 15"/><path d="M11 15 Q6 9 5 3 Q8 8 11 15"/><path d="M11 15 L10.5 2 Q11 1 11.5 2 L11 15"/><path d="M11 15 Q16 9 17 3 Q14 8 11 15"/><path d="M11 15 Q19 13 20.5 7 Q16 10 11 15"/></svg></div>
+        <div class="brand-scene-plant plant-yucca"><svg viewBox="0 0 18 26" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M9 25 V10"/><path d="M9 10 L2 5"/><path d="M9 10 L4 2"/><path d="M9 10 L7 1"/><path d="M9 10 L9 0.5"/><path d="M9 10 L11 1"/><path d="M9 10 L14 2"/><path d="M9 10 L16 5"/></svg></div>
+        <div class="brand-scene-plant plant-beaucarnea"><svg viewBox="0 0 18 26" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4 25 Q2 25 2 21 Q2 16 5 15.5 L13 15.5 Q16 16 16 21 Q16 25 14 25 Z"/><path d="M9 15.5 V5"/><path d="M9 5 Q5.5 4 3 1"/><path d="M9 5 Q6.5 3 6 0.5"/><path d="M9 5 L9 0.5"/><path d="M9 5 Q11.5 3 12 0.5"/><path d="M9 5 Q12.5 4 15 1"/></svg></div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;flex-shrink:0;">
+      <div style="text-align:right;">
+        <div style="display:flex;align-items:baseline;gap:8px;justify-content:flex-end;color:#888888;">
+          <span id="stat-total" style="font-family:'Bodoni Moda',Georgia,serif;font-size:24px;color:#153424;font-weight:500;">0</span>
+          <span style="font-size:11px;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;">spécimens</span>
+        </div>
+      </div>
+      <button id="lock-btn" type="button" class="lock-btn" title="Accès administrateur">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-6 w-full flex-1 pb-16">
+  <section style="padding-top:20px;padding-bottom:4px;">
+    <div id="admin-bar" style="display:none;align-items:center;gap:12px;flex-wrap:wrap;">
+      <span style="display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:9999px;background:#f0f7f2;border:1px solid #d8e8dd;font-size:11px;font-weight:600;color:#153424;font-family:'Jost',sans-serif;">
+        <span style="width:6px;height:6px;border-radius:50%;background:#22c55e;"></span>Mode admin
+      </span>
+      <button id="admin-add-btn" type="button" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:#153424;color:#fff;font-size:12px;font-weight:500;cursor:pointer;border:none;font-family:'Jost',sans-serif;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>Ajouter
+      </button>
+      <button id="admin-lock-btn" type="button" style="padding:8px 16px;border-radius:9999px;background:#fff;color:#153424;border:1px solid #d8e8dd;font-size:12px;font-weight:500;cursor:pointer;font-family:'Jost',sans-serif;">Verrouiller</button>
+    </div>
+  </section>
+  <section class="pb-4">
+    <div class="search-minimal">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="plant-search" type="search" placeholder="Rechercher une plante, famille, origine…" autocomplete="off">
+      <button type="button" id="clear-search" class="search-clear" style="display:none;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+  </section>
+  <section class="pb-6" style="position:relative;">
+    <div id="filter-chips-step" class="step-panel overflow-x-auto no-scrollbar" style="margin-left:-24px;margin-right:-24px;padding-left:24px;padding-right:24px;">
+      <div id="filter-chips" style="display:flex;flex-wrap:nowrap;align-items:center;gap:10px;padding:4px 0;min-width:max-content;">
+        <button type="button" data-category="all" class="chip active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg><span>Toutes</span></button>
+        <button type="button" data-category="Cactus" class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22V2"/><path d="M12 10H9a2 2 0 0 1-2-2V6"/><path d="M12 14h3a2 2 0 0 0 2-2v-2"/></svg><span>Cactus</span></button>
+        <button type="button" data-category="Succulentes" class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z"/><path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(-30 12 21)"/><path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(30 12 21)"/></svg><span>Succulentes</span></button>
+        <button type="button" data-category="Mesembryanthemum" class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="14" rx="6" ry="5"/><path d="M12 9V6M9 6c1-1 5-1 6 0"/></svg><span>Mesembryanthemum</span></button>
+        <button type="button" data-category="Tropicales" class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 19c0-7 6-13 14-14-1 8-7 14-14 14zM5 19l8-8"/></svg><span>Tropicales</span></button>
+        <button type="button" data-category="Caudiciformes" class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="16" rx="7" ry="4"/><path d="M12 12V6M9 8h6M10 5l2-2 2 2"/></svg><span>Caudiciformes</span></button>
+      </div>
+    </div>
+    <div id="filter-species-step" class="step-panel step-hidden">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+        <button type="button" id="filter-back-btn" class="back-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span>Rubriques</span></button>
+      </div>
+      <div class="custom-select-wrapper" id="filter-species-wrapper">
+        <button type="button" class="custom-select-trigger placeholder" id="filter-species-trigger"><span class="trigger-label">Sélectionner un genre...</span><span class="custom-select-arrow"></span></button>
+        <div class="custom-select-dropdown" id="filter-species-dropdown"></div>
+      </div>
+      <div class="genre-custom-field">
+        <label class="field-label" for="filter-genre-custom">Nom du genre (si absent de la liste)</label>
+        <input type="text" id="filter-genre-custom" class="field-input" placeholder="ex: un genre rare…" autocomplete="off">
+      </div>
+    </div>
+  </section>
+  <section class="pb-12">
+    <div id="plant-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+  </section>
+</main>
+
+<footer class="max-w-6xl mx-auto px-6 w-full pb-8 pt-4" style="border-top:1px solid #f0f0f0;">
+  <p style="font-size:11px;color:#888888;text-align:center;font-weight:300;letter-spacing:0.03em;">Cabinet du Dr-Cactus</p>
+</footer>
+<div id="drawer-backdrop" class="drawer-backdrop"></div>
+<aside id="drawer" class="drawer">
+  <div id="drawer-dropdown-backdrop"></div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:24px 32px;border-bottom:1px solid #f0f0f0;">
+    <h2 style="font-family:'Bodoni Moda',Georgia,serif;font-size:24px;color:#153424;font-weight:500;margin:0;">Nouveau Spécimen</h2>
+    <button id="close-drawer-btn" type="button" style="color:#888;padding:8px;cursor:pointer;background:transparent;border:none;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+  </div>
+  <form id="plant-form" style="flex:1;display:flex;flex-direction:column;overflow:hidden;">
+    <div style="flex:1;overflow-y:auto;padding:24px 32px;">
+      <div style="margin-bottom:20px;"><label class="field-label">Nom de la plante</label><input type="text" id="p-name" placeholder="ex: Trichocereus" class="field-input"></div>
+      <div style="margin-bottom:20px;">
+        <label class="field-label">Rubrique</label>
+        <div id="drawer-cats-step" class="step-panel">
+          <div id="category-picker" style="display:grid;grid-template-columns:1fr;gap:8px;">
+            <button type="button" class="cat-option" data-category="Cactus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22V2"/><path d="M12 10H9a2 2 0 0 1-2-2V6"/><path d="M12 14h3a2 2 0 0 0 2-2v-2"/></svg><span>Cactus</span></button>
+            <button type="button" class="cat-option" data-category="Succulentes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z"/><path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(-30 12 21)"/><path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(30 12 21)"/></svg><span>Succulentes</span></button>
+            <button type="button" class="cat-option" data-category="Mesembryanthemum"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="14" rx="6" ry="5"/><path d="M12 9V6M9 6c1-1 5-1 6 0"/></svg><span>Mesembryanthemum</span></button>
+            <button type="button" class="cat-option" data-category="Tropicales"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 19c0-7 6-13 14-14-1 8-7 14-14 14z"/></svg><span>Tropicales</span></button>
+            <button type="button" class="cat-option" data-category="Caudiciformes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="16" rx="7" ry="4"/><path d="M12 12V6M9 8h6M10 5l2-2 2 2"/></svg><span>Caudiciformes</span></button>
+          </div>
+        </div>
+        <div id="drawer-species-step" class="step-panel step-hidden">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+            <span id="drawer-species-label" style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:#153424;"></span>
+            <button type="button" id="drawer-back-to-cats" class="back-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span>Changer</span></button>
+          </div>
+          <div class="custom-select-wrapper" id="drawer-species-wrapper">
+            <button type="button" class="custom-select-trigger placeholder" id="drawer-species-trigger"><span class="trigger-label">Sélectionner un genre...</span><span class="custom-select-arrow"></span></button>
+            <div class="custom-select-dropdown" id="drawer-species-dropdown"></div>
+          </div>
+          <div class="genre-custom-field">
+            <label class="field-label" for="p-genre-custom">Nom du genre (si absent de la liste)</label>
+            <input type="text" id="p-genre-custom" class="field-input" placeholder="ex: un genre rare…" autocomplete="off">
+          </div>
+        </div>
+        <input type="hidden" id="p-category" value="">
+      </div>
+      <div style="margin-bottom:20px;">
+        <label class="field-label">Substrat</label>
+        <div class="custom-select-wrapper" id="substrate-select-wrapper">
+          <button type="button" class="custom-select-trigger placeholder" id="substrate-select-trigger"><span class="trigger-label">Sélectionner un substrat...</span><span class="custom-select-arrow"></span></button>
+          <div class="custom-select-dropdown" id="substrate-select-dropdown">
+            <div class="custom-option-group-label">Cactus & Succulentes</div>
+            <div class="custom-option" data-value="Substrat 3 tiers (Terreau, sable, pouzzolane)">Substrat 3 tiers</div>
+            <div class="custom-option" data-value="Mélange minéral pur (Ponce, pouzzolane, akadama)">Mélange minéral pur</div>
+            <div class="custom-option-group-label">Mesembryanthemum</div>
+            <div class="custom-option" data-value="100% Minéral (Sable grossier, pouzzolane)">100% Minéral</div>
+            <div class="custom-option-group-label">Tropicales</div>
+            <div class="custom-option" data-value="Terreau riche, perlite & écorces de pin">Terreau riche, perlite</div>
+            <div class="custom-option" data-value="Mélange type Jungle (Terreau, tourbe, coco, perlite)">Mélange type Jungle</div>
+            <div class="custom-option-group-label">Caudiciformes</div>
+            <div class="custom-option" data-value="Substrat hautement drainant (Ponce, terreau tamisé)">Substrat hautement drainant</div>
+            <div class="custom-option-group-label">Universel</div>
+            <div class="custom-option" data-value="Terreau horticole standard avec drainage">Terreau horticole standard</div>
+          </div>
+          <input type="hidden" id="p-substrate" value="">
+        </div>
+      </div>
+      <div style="margin-bottom:20px;">
+        <label class="field-label">Famille botanique</label>
+        <div class="custom-select-wrapper" id="family-select-wrapper">
+          <button type="button" class="custom-select-trigger placeholder" id="family-select-trigger"><span class="trigger-label">Sélectionner une famille...</span><span class="custom-select-arrow"></span></button>
+          <div class="custom-select-dropdown" id="family-select-dropdown">
+            <div class="custom-option" data-value="Acanthaceae">Acanthaceae</div>
+            <div class="custom-option" data-value="Aizoaceae">Aizoaceae</div>
+            <div class="custom-option" data-value="Amaryllidaceae">Amaryllidaceae</div>
+            <div class="custom-option" data-value="Anacardiaceae">Anacardiaceae</div>
+            <div class="custom-option" data-value="Apocynaceae">Apocynaceae</div>
+            <div class="custom-option" data-value="Araceae">Araceae</div>
+            <div class="custom-option" data-value="Arecaceae">Arecaceae</div>
+            <div class="custom-option" data-value="Asparagaceae">Asparagaceae</div>
+            <div class="custom-option" data-value="Asphodelaceae">Asphodelaceae</div>
+            <div class="custom-option" data-value="Begoniaceae">Begoniaceae</div>
+            <div class="custom-option" data-value="Bromeliaceae">Bromeliaceae</div>
+            <div class="custom-option" data-value="Burseraceae">Burseraceae</div>
+            <div class="custom-option" data-value="Cactaceae">Cactaceae</div>
+            <div class="custom-option" data-value="Crassulaceae">Crassulaceae</div>
+            <div class="custom-option" data-value="Euphorbiaceae">Euphorbiaceae</div>
+            <div class="custom-option" data-value="Moraceae">Moraceae</div>
+            <div class="custom-option" data-value="Orchidaceae">Orchidaceae</div>
+            <div class="custom-option" data-value="Portulacaceae">Portulacaceae</div>
+            <div class="custom-option" data-value="Rubiaceae">Rubiaceae</div>
+            <div class="custom-option" data-value="Zamiaceae">Zamiaceae</div>
+            <div class="custom-option" data-value="Zingiberaceae">Zingiberaceae</div>
+          </div>
+          <input type="hidden" id="p-family" value="">
+        </div>
+        <div class="genre-custom-field"><label class="field-label" for="p-family-custom">Nom de la famille (si absente)</label><input type="text" id="p-family-custom" class="field-input" placeholder="ex: une famille rare…" autocomplete="off"></div>
+      </div>
+      <div style="margin-bottom:20px;">
+        <label class="field-label">Exposition</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;" id="exposure-picker">
+          <button type="button" class="exp-option" data-exposure="Plein soleil"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg>Plein soleil</button>
+          <button type="button" class="exp-option" data-exposure="Mi-ombre"><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3.5"/><path d="M8 2.5v1.5M2.5 8H4M4.2 4.2l1 1M11.8 4.2l-1 1M4.2 11.8l1-1"/><path d="M18 19h-5a2.5 2.5 0 0 1 0-5 4 4 0 0 1 7.5-1A2.5 2.5 0 0 1 18 19z"/></svg>Mi-ombre</button>
+          <button type="button" class="exp-option" data-exposure="Ombre"><svg viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>Ombre</button>
+        </div>
+        <input type="hidden" id="p-exposure" value="">
+      </div>
+      <div style="margin-bottom:20px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <label class="field-label" style="margin:0;">Température minimale</label>
+          <span id="temp-display" style="font-size:12px;font-weight:600;color:#153424;background:rgba(21,52,36,0.08);padding:2px 10px;border-radius:9999px;">0 °C</span>
+        </div>
+        <div class="temp-slider-container"><input type="range" id="p-temp" min="-20" max="15" step="1" value="0" class="custom-range"></div>
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:#888;margin-top:4px;"><span>-20°C</span><span>0°C</span><span>+15°C</span></div>
+      </div>
+      <div style="margin-bottom:20px;">
+        <label class="field-label">Origine géographique</label>
+        <div class="custom-select-wrapper" id="origin-select-wrapper">
+          <button type="button" class="custom-select-trigger placeholder" id="origin-select-trigger"><span class="trigger-label">Sélectionner une région...</span><span class="custom-select-arrow"></span></button>
+          <div class="custom-select-dropdown" id="origin-select-dropdown">
+            <div class="custom-option-group-label">Afrique</div>
+            <div class="custom-option" data-value="Afrique du Nord">Afrique du Nord</div>
+            <div class="custom-option" data-value="Afrique de l'Ouest">Afrique de l'Ouest</div>
+            <div class="custom-option" data-value="Afrique centrale">Afrique centrale</div>
+            <div class="custom-option" data-value="Afrique de l'Est">Afrique de l'Est</div>
+            <div class="custom-option" data-value="Afrique australe">Afrique australe</div>
+            <div class="custom-option-group-label">Amériques</div>
+            <div class="custom-option" data-value="Amérique du Nord">Amérique du Nord</div>
+            <div class="custom-option" data-value="Amérique centrale">Amérique centrale</div>
+            <div class="custom-option" data-value="Amérique du Sud">Amérique du Sud</div>
+            <div class="custom-option" data-value="Caraïbes">Caraïbes</div>
+            <div class="custom-option-group-label">Asie</div>
+            <div class="custom-option" data-value="Moyen-Orient">Moyen-Orient</div>
+            <div class="custom-option" data-value="Asie du Sud">Asie du Sud</div>
+            <div class="custom-option" data-value="Asie du Sud-Est">Asie du Sud-Est</div>
+            <div class="custom-option" data-value="Asie de l'Est">Asie de l'Est</div>
+            <div class="custom-option-group-label">Europe</div>
+            <div class="custom-option" data-value="Europe du Nord">Europe du Nord</div>
+            <div class="custom-option" data-value="Europe de l'Ouest">Europe de l'Ouest</div>
+            <div class="custom-option" data-value="Europe du Sud">Europe du Sud</div>
+            <div class="custom-option" data-value="Europe de l'Est">Europe de l'Est</div>
+            <div class="custom-option-group-label">Océanie</div>
+            <div class="custom-option" data-value="Australie & Nouvelle-Zélande">Australie & Nouvelle-Zélande</div>
+            <div class="custom-option" data-value="Pacifique">Pacifique</div>
+            <div class="custom-option-group-label">Culture</div>
+            <div class="custom-option" data-value="Horticole / Hybride">Horticole / Hybride</div>
+          </div>
+          <input type="hidden" id="p-origin" value="">
+        </div>
+        <div id="origin-country-fields" style="display:none;margin-top:14px;padding:14px 16px;background:#f7f7f7;border-radius:12px;">
+          <label class="field-label">Pays d'origine (optionnel)</label>
+          <input type="text" id="p-origin-country" class="field-input" placeholder="ex: Brésil, Mexique…" autocomplete="off" style="background:#ffffff;font-size:13px;padding:10px 14px;">
+        </div>
+      </div>
+      <div style="margin-bottom:20px;">
+        <label class="field-label">Photographie *</label>
+        <div id="file-drop" class="file-drop">
+          <svg width="24" height="24" style="margin-bottom:8px;color:#888;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 16V4M6 10l6-6 6 6M4 20h16"/></svg>
+          <span style="font-size:12px;color:#0f0f0f;font-weight:500;">Prendre ou choisir une photo</span>
+          <input type="file" id="p-photo" accept="image/*" capture="environment">
+        </div>
+        <div id="photo-preview" class="photo-preview" style="display:none;">
+          <img id="photo-preview-img" alt="">
+          <button type="button" id="clear-photo" class="photo-preview-clear">×</button>
+        </div>
+      </div>
+    </div>
+    <div style="padding:24px 32px;border-top:1px solid #f0f0f0;background:#fff;">
+      <button type="submit" id="submit-btn" style="width:100%;padding:14px;border-radius:9999px;background:#153424;color:#fff;font-family:'Jost',sans-serif;font-weight:500;font-size:14px;cursor:pointer;border:none;">Publier le spécimen</button>
+    </div>
+  </form>
+</aside>
+
+<div id="code-modal" class="modal">
+  <div class="modal-content">
+    <h3 class="modal-title">Accès administrateur</h3>
+    <p class="modal-subtitle">Entrez votre code pour déverrouiller la modification.</p>
+    <input type="text" id="code-input" class="code-input" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="••••" autocomplete="off">
+    <div class="modal-actions"><button type="button" id="code-cancel" class="btn-secondary">Annuler</button><button type="button" id="code-validate" class="btn-primary">Valider</button></div>
+  </div>
+</div>
+
+<div id="config-modal" class="modal">
+  <div class="modal-content">
+    <h3 class="modal-title">Configuration GitHub</h3>
+    <p class="modal-subtitle">Une seule fois. Stockée sur cet appareil.</p>
+    <div style="margin-bottom:14px;"><label class="field-label">Pseudo GitHub</label><input type="text" id="cfg-user" class="field-input" placeholder="ex: dupont" autocomplete="off"></div>
+    <div style="margin-bottom:14px;"><label class="field-label">Nom du dépôt</label><input type="text" id="cfg-repo" class="field-input" value="plantouilleee" autocomplete="off"></div>
+    <div style="margin-bottom:14px;"><label class="field-label">Branche (optionnel)</label><input type="text" id="cfg-branch" class="field-input" placeholder="laisser vide = auto" autocomplete="off"></div>
+    <div style="margin-bottom:14px;"><label class="field-label">Token GitHub</label><input type="password" id="cfg-token" class="field-input" placeholder="github_pat_..." autocomplete="off"></div>
+    <div class="modal-help"><strong>Créer le token :</strong><br>github.com/settings/tokens<br>→ Fine-grained → Generate<br>→ Repo : <em>plantouilleee</em><br>→ Permissions → Contents : <strong>Read and write</strong></div>
+    <div class="modal-actions"><button type="button" id="config-cancel" class="btn-secondary">Annuler</button><button type="button" id="config-save" class="btn-primary">Enregistrer</button></div>
+  </div>
+</div>
+
+<div id="lightbox" class="lightbox" aria-hidden="true">
+  <button id="lightbox-back" class="lightbox-back" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+  <div class="lightbox-content" id="lightbox-content">
+    <img id="lightbox-img" alt="">
+    <div class="lightbox-info">
+      <span class="lb-cat" id="lb-cat"></span>
+      <h2 class="lb-name" id="lb-name"></h2>
+      <p class="lb-family" id="lb-family"></p>
+      <div class="lb-grid">
+        <div class="lb-item" id="lb-expo-wrap"><span class="lb-key">Exposition</span><span class="lb-val" id="lb-expo"></span></div>
+        <div class="lb-item" id="lb-temp-wrap"><span class="lb-key">Température minimale</span><span class="lb-val" id="lb-temp"></span></div>
+        <div class="lb-item" id="lb-substrate-wrap"><span class="lb-key">Substrat</span><span class="lb-val" id="lb-substrate"></span></div>
+        <div class="lb-item" id="lb-origin-wrap"><span class="lb-key">Origine</span><span class="lb-val" id="lb-origin"></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container" class="toast-container"></div>
+<script>
+(function () {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const ADMIN_CODE = '2404';
+  const CONFIG_KEY = 'plantouille_cfg2';
+  const FILE = 'collection.json';
+  const MAX_W = 900;
+  const QUALITY = 0.72;
+
+  const SPECIES = {
+    'Cactus': ['Acanthocereus','Acharagma','Ancistrocactus','Aporocactus','Ariocarpus','Armatocereus','Arrojadoa','Astrophytum','Austrocactus','Aztekium','Bergerocactus','Blossfeldia','Borzicactus','Brasilicactus','Browningia','Carnegiea','Cephalocereus','Cereus','Cintia','Cleistocactus','Consolea','Copiapoa','Corryocactus','Coryphantha','Cumulopuntia','Cylindropuntia','Denmoza','Discocactus','Echinocactus','Echinocereus','Echinomastus','Echinopsis','Epiphyllum','Eriosyce','Escobaria','Espostoa','Eulychnia','Ferocactus','Frailea','Geohintonia','Gymnocalycium','Haageocereus','Harrisia','Hatiora','Hylocereus','Isolatocereus','Leuchtenbergia','Lobivia','Lophophora','Mammillaria','Matucana','Melocactus','Mila','Myrtillocactus','Neobuxbaumia','Neolloydia','Neoporteria','Neoraimondia','Notocactus','Obregonia','Opuntia','Oreocereus','Oroya','Pachycereus','Parodia','Pediocactus','Pelecyphora','Pereskia','Pilosocereus','Polaskia','Pterocactus','Rebutia','Rhipsalis','Schlumbergera','Selenicereus','Stenocactus','Stenocereus','Stetsonia','Strombocactus','Sulcorebutia','Tephrocactus','Thelocactus','Trichocereus','Turbinicarpus','Uebelmannia','Weingartia','Yavia'],
+    'Succulentes': ['Adromischus','Aeonium','Agave','Aichryson','Albuca','Alluaudia','Aloe','Anacampseros','Astroloba','Avonia','Beaucarnea','Bowiea','Bulbine','Caralluma','Ceropegia','Cissus','Cotyledon','Crassula','Dasylirion','Dracaena','Dudleya','Duvalia','Echeveria','Encephalartos','Euphorbia','Fockea','Frithia','Gasteria','Graptopetalum','Graptoveria','Haworthia','Haworthiopsis','Huernia','Kalanchoe','Kleinia','Lithops','Monadenium','Monanthes','Orostachys','Oscularia','Othonna','Pachyphytum','Pachyveria','Pachypodium','Pelargonium','Peperomia','Portulacaria','Rhombophyllum','Sansevieria','Sedum','Senecio','Sempervivum','Stapelia','Tulista','Tylecodon','Yucca'],
+    'Mesembryanthemum': ['Acrodon','Aloinopsis','Amphibolia','Antimima','Apatesia','Argyroderma','Bergeranthus','Bijlia','Braunsia','Carpanthea','Carpobrotus','Carruanthus','Cephalophyllum','Cheiridopsis','Conicosia','Conophytum','Corpuscularia','Delosperma','Dinteranthus','Disphyma','Dracophilus','Drosanthemum','Ebracteola','Erepsia','Faucaria','Fenestraria','Frithia','Gibbaeum','Glottiphyllum','Hereroa','Jacobsenia','Jordaaniella','Juttadinteria','Lampranthus','Lapidaria','Leipoldtia','Lithops','Malephora','Mitrophyllum','Monilaria','Muiria','Nananthus','Nelia','Octopoma','Oophytum','Ophthalmophyllum','Oscularia','Pleiospilos','Polymita','Prenia','Rabiea','Rhinephyllum','Rhombophyllum','Ruschia','Sceletium','Schwantesia','Stomatium','Tanquana','Titanopsis','Trichodiadema','Vanzijlia'],
+    'Tropicales': ['Acalypha','Aglaonema','Alocasia','Alpinia','Ananas','Anthurium','Araucaria','Ardisia','Aspidistra','Asplenium','Begonia','Billbergia','Bromelia','Caladium','Calathea','Canna','Chlorophytum','Cissus','Clivia','Codiaeum','Colocasia','Cordyline','Costus','Crinum','Croton','Cryptanthus','Ctenanthe','Curcuma','Cycas','Davallia','Dieffenbachia','Dracaena','Epipremnum','Ficus','Fittonia','Gardenia','Guzmania','Heliconia','Hoya','Impatiens','Maranta','Monstera','Musa','Neoregelia','Nephrolepis','Pachira','Pandanus','Peperomia','Philodendron','Phoenix','Pilea','Piper','Platycerium','Plumeria','Pothos','Rhapis','Sansevieria','Scindapsus','Schefflera','Spathiphyllum','Strelitzia','Syngonium','Tillandsia','Tradescantia','Vriesea','Yucca','Zamioculcas','Zingiber'],
+    'Caudiciformes': ['Adansonia','Adenia','Adenium','Albuca','Anacampseros','Avonia','Beaucarnea','Bombax','Bursera','Ceraria','Ceropegia','Cissus','Commiphora','Cyphostemma','Dendrosicyos','Dioscorea','Dorstenia','Euphorbia','Ficus','Fockea','Gerrardanthus','Ipomoea','Jatropha','Kleinia','Lannea','Massonia','Momordica','Monadenium','Myrmecodia','Nolina','Operculicarya','Othonna','Oxalis','Pachypodium','Pelargonium','Phyllanthus','Plumeria','Pseudobombax','Pterodiscus','Raphionacme','Sarcocaulon','Senecio','Sesamothamnus','Sinningia','Sterculia','Talinum','Testudinaria','Tylecodon','Uncarina','Welwitschia','Cussonia']
+  };
+
+  let plants = [];
+  let currentFilter = 'all';
+  let currentGenreFilter = '';
+  let isUnlocked = false;
+  let config = null;
+  let photoData = '';
+  let selectedSubstrate = '';
+  let selectedFamily = '';
+  let selectedExposure = '';
+  let selectedOrigin = '';
+
+  const grid = $('plant-grid');
+  const searchInput = $('plant-search');
+  const clearSearchBtn = $('clear-search');
+  const lockBtn = $('lock-btn');
+  const adminBar = $('admin-bar');
+  const adminAddBtn = $('admin-add-btn');
+  const adminLockBtn = $('admin-lock-btn');
+  const drawer = $('drawer');
+  const drawerBackdrop = $('drawer-backdrop');
+  const drawerDropdownBackdrop = $('drawer-dropdown-backdrop');
+  const closeDrawerBtn = $('close-drawer-btn');
+  const form = $('plant-form');
+  const submitBtn = $('submit-btn');
+  const toastContainer = $('toast-container');
+  const pageBackdrop = $('page-backdrop');
+
+  function escapeHtml(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  function normalize(s) { return String(s ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); }
+  function toast(msg, ms) { const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; toastContainer.appendChild(t); setTimeout(() => t.remove(), ms || 3500); }
+  function formatTemp(t) { if (t === undefined || t === null || t === '') return null; const n = Number(t); return (n > 0 ? '+' + n : n) + ' °C'; }
+
+  function loadConfig() { try { const r = localStorage.getItem(CONFIG_KEY); if (!r) return null; const c = JSON.parse(r); return (c && c.user && c.repo && c.token) ? c : null; } catch(e) { return null; } }
+  function saveConfig(c) { localStorage.setItem(CONFIG_KEY, JSON.stringify(c)); config = c; }
+
+  function b64enc(str) { const bytes = new TextEncoder().encode(str); let bin = ''; for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]); return btoa(bin); }
+  function b64dec(b64) { const bin = atob(b64.replace(/\n/g, '')); const bytes = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i); return new TextDecoder().decode(bytes); }
+
+  async function tryFetch(url, branch) {
+    const fullUrl = url + '?ref=' + branch + '&t=' + Date.now();
+    return await fetch(fullUrl, { headers: { 'Authorization': 'Bearer ' + config.token, 'Accept': 'application/vnd.github.v3+json' } });
+  }
+
+  async function fetchRemote() {
+    if (!config) throw new Error('Configuration manquante');
+    const url = 'https://api.github.com/repos/' + config.user + '/' + config.repo + '/contents/' + FILE;
+    const branches = config.branch ? [config.branch] : ['main', 'master'];
+    let lastStatus = 0;
+    for (const br of branches) {
+      const res = await tryFetch(url, br);
+      if (res.status === 401) throw new Error('Token invalide ou expiré');
+      if (res.ok) {
+        const j = await res.json();
+        if (!config.branch) { config.branch = br; saveConfig(config); }
+        return { exists: true, sha: j.sha, data: JSON.parse(b64dec(j.content || '')), branch: br };
+      }
+      if (res.status === 403) throw new Error('Permission Contents manquante sur le token');
+      lastStatus = res.status;
+    }
+    if (lastStatus === 404) {
+      const repoRes = await fetch('https://api.github.com/repos/' + config.user + '/' + config.repo, { headers: { 'Authorization': 'Bearer ' + config.token, 'Accept': 'application/vnd.github.v3+json' } });
+      if (repoRes.status === 404) throw new Error('Repo introuvable : vérifie pseudo et nom du dépôt');
+      if (repoRes.ok) {
+        const repoData = await repoRes.json();
+        const realBranch = repoData.default_branch || 'main';
+        config.branch = realBranch; saveConfig(config);
+        return { exists: false, sha: null, data: null, branch: realBranch };
+      }
+    }
+    throw new Error('GitHub ' + lastStatus);
+  }
+
+  async function saveRemote(data, sha, msg) {
+    if (!config) throw new Error('Configuration manquante');
+    const url = 'https://api.github.com/repos/' + config.user + '/' + config.repo + '/contents/' + FILE;
+    const body = { message: msg, content: b64enc(JSON.stringify(data, null, 2)), branch: config.branch || 'main' };
+    if (sha) body.sha = sha;
+    const res = await fetch(url, { method: 'PUT', headers: { 'Authorization': 'Bearer ' + config.token, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+    if (!res.ok) { const t = await res.text(); let d = ''; try { d = JSON.parse(t).message || t; } catch(e) { d = t; } throw new Error('GitHub ' + res.status + ' : ' + d); }
+    return await res.json();
+  }
+
+  async function loadCollection() {
+    try { const res = await fetch('./' + FILE + '?t=' + Date.now(), { cache: 'no-store' }); if (!res.ok) throw 0; const d = await res.json(); const arr = Array.isArray(d) ? d : (d && Array.isArray(d.plants) ? d.plants : null); if (!arr) throw 0; return arr; } catch(e) { return []; }
+  }
+
+  function updateBackdrop() {
+    pageBackdrop.classList.toggle('visible', $('filter-species-wrapper').classList.contains('open'));
+    drawerDropdownBackdrop.classList.toggle('visible', document.querySelectorAll('#drawer .custom-select-wrapper.open').length > 0);
+  }
+  pageBackdrop.addEventListener('click', () => { document.querySelectorAll('main .custom-select-wrapper.open').forEach(w => w.classList.remove('open')); updateBackdrop(); });
+  drawerDropdownBackdrop.addEventListener('click', (e) => { e.stopPropagation(); document.querySelectorAll('#drawer .custom-select-wrapper.open').forEach(w => w.classList.remove('open')); updateBackdrop(); });
+
+  function showChipsStep() {
+    $('filter-species-step').classList.add('step-hidden');
+    $('filter-chips-step').classList.remove('step-hidden');
+    $('filter-chips-step').classList.remove('step-fade-in'); void $('filter-chips-step').offsetWidth; $('filter-chips-step').classList.add('step-fade-in');
+    $('filter-chips-step').style.position = '';
+    $('filter-species-step').style.position = 'absolute';
+    currentFilter = 'all'; currentGenreFilter = '';
+    document.querySelectorAll('#filter-chips .chip').forEach(b => b.classList.toggle('active', b.getAttribute('data-category') === 'all'));
+    $('filter-species-wrapper').classList.remove('open');
+    $('filter-genre-custom').value = '';
+    $('filter-species-trigger').querySelector('.trigger-label').textContent = 'Sélectionner un genre...';
+    $('filter-species-trigger').classList.add('placeholder');
+    render(); updateBackdrop();
+  }
+  function showSpeciesStep(cat) {
+    $('filter-chips-step').classList.add('step-hidden');
+    $('filter-species-step').classList.remove('step-hidden');
+    $('filter-species-step').classList.remove('step-fade-in'); void $('filter-species-step').offsetWidth; $('filter-species-step').classList.add('step-fade-in');
+    $('filter-species-step').style.position = '';
+    $('filter-chips-step').style.position = 'absolute';
+    currentFilter = cat; currentGenreFilter = '';
+    let html = '<div class="custom-option-group-label">' + cat + '</div>';
+    SPECIES[cat].forEach(sp => { html += '<div class="custom-option" data-species="' + escapeHtml(sp) + '">' + escapeHtml(sp) + '</div>'; });
+    $('filter-species-dropdown').innerHTML = html;
+    $('filter-species-trigger').querySelector('.trigger-label').textContent = 'Sélectionner un genre...';
+    $('filter-species-trigger').classList.add('placeholder');
+    $('filter-species-wrapper').classList.remove('open');
+    $('filter-genre-custom').value = '';
+    render(); updateBackdrop();
+  }
+  document.querySelectorAll('#filter-chips .chip').forEach(b => {
+    b.addEventListener('click', () => {
+      const cat = b.getAttribute('data-category');
+      if (cat === 'all') { document.querySelectorAll('#filter-chips .chip').forEach(x => x.classList.remove('active')); b.classList.add('active'); currentFilter = 'all'; currentGenreFilter = ''; render(); }
+      else showSpeciesStep(cat);
+    });
+  });
+  $('filter-back-btn').addEventListener('click', showChipsStep);
+  $('filter-species-trigger').addEventListener('click', (e) => { e.stopPropagation(); document.querySelectorAll('.custom-select-wrapper.open').forEach(w => { if (w !== $('filter-species-wrapper')) w.classList.remove('open'); }); $('filter-species-wrapper').classList.toggle('open'); updateBackdrop(); });
+  $('filter-species-dropdown').addEventListener('click', (e) => {
+    const opt = e.target.closest('.custom-option'); if (!opt) return; e.stopPropagation();
+    const sp = opt.getAttribute('data-species');
+    $('filter-species-trigger').querySelector('.trigger-label').textContent = sp;
+    $('filter-species-trigger').classList.remove('placeholder');
+    $('filter-species-wrapper').classList.remove('open');
+    $('filter-species-dropdown').querySelectorAll('.custom-option').forEach(o => o.classList.remove('selected'));
+    opt.classList.add('selected');
+    $('filter-genre-custom').value = sp; currentGenreFilter = sp;
+    render(); updateBackdrop();
+  });
+  $('filter-genre-custom').addEventListener('input', (e) => { currentGenreFilter = e.target.value.trim(); render(); });
+
+  function showDrawerCatsStep() {
+    $('drawer-species-step').classList.add('step-hidden');
+    $('drawer-cats-step').classList.remove('step-hidden');
+    $('drawer-cats-step').classList.remove('step-fade-in'); void $('drawer-cats-step').offsetWidth; $('drawer-cats-step').classList.add('step-fade-in');
+    $('drawer-cats-step').style.position = '';
+    $('drawer-species-step').style.position = 'absolute';
+    $('p-category').value = '';
+    document.querySelectorAll('#category-picker .cat-option').forEach(b => b.classList.remove('active'));
+    $('drawer-species-wrapper').classList.remove('open');
+    $('p-genre-custom').value = '';
+    $('drawer-species-trigger').querySelector('.trigger-label').textContent = 'Sélectionner un genre...';
+    $('drawer-species-trigger').classList.add('placeholder');
+    updateBackdrop();
+  }
+  function showDrawerSpeciesStep(cat) {
+    $('drawer-cats-step').classList.add('step-hidden');
+    $('drawer-species-step').classList.remove('step-hidden');
+    $('drawer-species-step').classList.remove('step-fade-in'); void $('drawer-species-step').offsetWidth; $('drawer-species-step').classList.add('step-fade-in');
+    $('drawer-species-step').style.position = '';
+    $('drawer-cats-step').style.position = 'absolute';
+    $('p-category').value = cat;
+    $('drawer-species-label').textContent = cat;
+    $('drawer-species-trigger').querySelector('.trigger-label').textContent = 'Sélectionner un genre...';
+    $('drawer-species-trigger').classList.add('placeholder');
+    $('p-genre-custom').value = '';
+    let html = '<div class="custom-option-group-label">' + cat + '</div>';
+    SPECIES[cat].forEach(sp => { html += '<div class="custom-option" data-species="' + escapeHtml(sp) + '">' + escapeHtml(sp) + '</div>'; });
+    $('drawer-species-dropdown').innerHTML = html;
+    $('drawer-species-wrapper').classList.remove('open');
+    updateBackdrop();
+  }
+  document.querySelectorAll('#category-picker .cat-option').forEach(b => {
+    b.addEventListener('click', () => { document.querySelectorAll('#category-picker .cat-option').forEach(x => x.classList.remove('active')); b.classList.add('active'); showDrawerSpeciesStep(b.getAttribute('data-category')); });
+  });
+  $('drawer-back-to-cats').addEventListener('click', showDrawerCatsStep);
+  $('drawer-species-trigger').addEventListener('click', (e) => { e.stopPropagation(); document.querySelectorAll('.custom-select-wrapper.open').forEach(w => { if (w !== $('drawer-species-wrapper')) w.classList.remove('open'); }); $('drawer-species-wrapper').classList.toggle('open'); updateBackdrop(); });
+  $('drawer-species-dropdown').addEventListener('click', (e) => {
+    const opt = e.target.closest('.custom-option'); if (!opt) return; e.stopPropagation();
+    const sp = opt.getAttribute('data-species');
+    $('drawer-species-trigger').querySelector('.trigger-label').textContent = sp;
+    $('drawer-species-trigger').classList.remove('placeholder');
+    $('drawer-species-wrapper').classList.remove('open');
+    $('drawer-species-dropdown').querySelectorAll('.custom-option').forEach(o => o.classList.remove('selected'));
+    opt.classList.add('selected');
+    $('p-genre-custom').value = sp;
+    if (!$('p-name').value.trim()) $('p-name').value = sp;
+    updateBackdrop();
+  });
+
+  function setupSelect(wrapperId, defaultText, onSelect) {
+    const wrapper = $(wrapperId); if (!wrapper) return () => {};
+    const trigger = wrapper.querySelector('.custom-select-trigger');
+    const labelSpan = trigger.querySelector('.trigger-label');
+    const hidden = wrapper.querySelector('input[type="hidden"]');
+    const options = wrapper.querySelectorAll('.custom-option');
+    trigger.addEventListener('click', (e) => { e.stopPropagation(); document.querySelectorAll('.custom-select-wrapper.open').forEach(w => { if (w !== wrapper) w.classList.remove('open'); }); wrapper.classList.toggle('open'); updateBackdrop(); });
+    options.forEach(opt => opt.addEventListener('click', (e) => {
+      e.stopPropagation();
+      options.forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      const val = opt.getAttribute('data-value');
+      hidden.value = val; labelSpan.textContent = val; trigger.classList.remove('placeholder');
+      wrapper.classList.remove('open'); updateBackdrop();
+      if (onSelect) onSelect(val);
+    }));
+    return function reset() {
+      hidden.value = ''; labelSpan.textContent = defaultText; trigger.classList.add('placeholder');
+      options.forEach(o => o.classList.remove('selected')); wrapper.classList.remove('open');
+      if (onSelect) onSelect('');
+    };
+  }
+  const resetSubstrate = setupSelect('substrate-select-wrapper', 'Sélectionner un substrat...', v => selectedSubstrate = v);
+  const resetFamily = setupSelect('family-select-wrapper', 'Sélectionner une famille...', v => selectedFamily = v);
+  const resetOrigin = setupSelect('origin-select-wrapper', 'Sélectionner une région...', v => {
+    selectedOrigin = v;
+    if (v && v !== 'Horticole / Hybride') $('origin-country-fields').style.display = 'block';
+    else { $('origin-country-fields').style.display = 'none'; $('p-origin-country').value = ''; }
+  });
+  document.addEventListener('click', (e) => { if (!e.target.closest('.custom-select-wrapper')) { document.querySelectorAll('.custom-select-wrapper.open').forEach(w => w.classList.remove('open')); updateBackdrop(); } });
+
+  document.querySelectorAll('.exp-option').forEach(b => {
+    b.addEventListener('click', () => { document.querySelectorAll('.exp-option').forEach(x => x.classList.remove('active')); b.classList.add('active'); $('p-exposure').value = b.getAttribute('data-exposure'); selectedExposure = b.getAttribute('data-exposure'); });
+  });
+  $('p-temp').addEventListener('input', e => { const v = e.target.value; $('temp-display').textContent = (v > 0 ? '+' + v : v) + ' °C'; });
+
+  function resizeImage(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          let w = img.width, h = img.height;
+          if (w > MAX_W) { h = Math.round(h * MAX_W / w); w = MAX_W; }
+          const c = document.createElement('canvas'); c.width = w; c.height = h;
+          c.getContext('2d').drawImage(img, 0, 0, w, h);
+          resolve(c.toDataURL('image/jpeg', QUALITY));
+        };
+        img.onerror = () => reject(new Error('Image invalide'));
+        img.src = e.target.result;
+      };
+      reader.onerror = () => reject(new Error('Lecture échouée'));
+      reader.readAsDataURL(file);
+    });
+  }
+  $('p-photo').addEventListener('change', async e => {
+    const f = e.target.files[0]; if (!f) return;
+    try { photoData = await resizeImage(f); $('photo-preview-img').src = photoData; $('file-drop').style.display = 'none'; $('photo-preview').style.display = 'block'; }
+    catch(err) { toast('Erreur image'); }
+  });
+  $('clear-photo').addEventListener('click', () => { photoData = ''; $('p-photo').value = ''; $('photo-preview').style.display = 'none'; $('file-drop').style.display = ''; });
+
+  function getFiltered() {
+    const term = normalize(searchInput.value.trim());
+    const genreTerm = normalize(currentGenreFilter);
+    return plants.filter(p => {
+      if (currentFilter !== 'all' && p.category !== currentFilter) return false;
+      if (genreTerm && !normalize(p.name).includes(genreTerm)) return false;
+      if (term) {
+        const hay = normalize((p.name||'') + ' ' + (p.family||'') + ' ' + (p.substrate||'') + ' ' + (p.exposure||'') + ' ' + (p.origin||'') + ' ' + (p.category||''));
+        if (!hay.includes(term)) return false;
+      }
+      return true;
+    });
+  }
+
+  function render() {
+    const list = getFiltered();
+    grid.innerHTML = '';
+    if (list.length === 0) {
+      grid.innerHTML = '<div style="grid-column:1/-1;display:flex;flex-direction:column;align-items:center;text-align:center;padding:80px 0;gap:12px;"><svg width="36" height="36" style="color:#ccc;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 21V11"/><path d="M12 13c-3.5 0-6-2.5-6-6 3.5 0 6 2.5 6 6z"/></svg><p style="font-size:14px;color:#888;font-weight:300;">' + (plants.length === 0 ? "Aucun spécimen pour l'instant." : "Aucun spécimen ne correspond.") + '</p></div>';
+      return;
+    }
+    list.forEach(p => {
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.style.cssText = 'border:1px solid #f0f0f0;border-radius:16px;overflow:hidden;background:#fff;display:flex;flex-direction:column;position:relative;box-shadow:0 1px 3px rgba(0,0,0,0.04);';
+      const tempF = formatTemp(p.minTemp);
+      let info = '';
+      if (p.exposure) info += '<div><span style="font-weight:500;color:#0f0f0f;">Expo:</span> ' + escapeHtml(p.exposure) + '</div>';
+      if (tempF) info += '<div><span style="font-weight:500;color:#0f0f0f;">Min:</span> ' + escapeHtml(tempF) + '</div>';
+      if (p.substrate) info += '<div style="grid-column:span 2;"><span style="font-weight:500;color:#0f0f0f;">Substrat:</span> ' + escapeHtml(p.substrate) + '</div>';
+      if (p.origin) info += '<div style="grid-column:span 2;"><span style="font-weight:500;color:#0f0f0f;">Origine:</span> ' + escapeHtml(p.origin) + '</div>';
+      const delBtn = isUnlocked ? '<button type="button" class="card-delete" aria-label="Supprimer"><svg class="icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg></button>' : '';
+      card.innerHTML =
+        '<div style="position:relative;aspect-ratio:4/3;background:#fafafa;overflow:hidden;border-bottom:1px solid #f0f0f0;">' +
+          '<img class="card-photo" src="' + escapeHtml(p.photo) + '" alt="' + escapeHtml(p.name) + '" loading="lazy" style="width:100%;height:100%;object-fit:cover;">' + delBtn +
+        '</div>' +
+        '<div style="padding:20px;display:flex;flex-direction:column;flex:1;justify-content:space-between;gap:12px;">' +
+          '<div>' +
+            '<span style="font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:#153424;font-weight:600;">' + escapeHtml(p.category) + '</span>' +
+            '<h3 style="font-family:\'Bodoni Moda\',Georgia,serif;font-size:20px;color:#0f0f0f;line-height:1.2;margin-top:2px;font-weight:400;">' + escapeHtml(p.name) + '</h3>' +
+            (p.family ? '<p style="font-size:12px;font-style:italic;color:#888;margin-top:2px;">' + escapeHtml(p.family) + '</p>' : '') +
+          '</div>' +
+          '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-top:8px;border-top:1px solid #f0f0f0;font-size:11px;color:#888;">' + info + '</div>' +
+        '</div>';
+      card.querySelector('.card-photo').addEventListener('click', () => openLightbox(p));
+      const del = card.querySelector('.card-delete');
+      if (del) { let to = null; del.addEventListener('click', (e) => { e.stopPropagation(); if (!del.classList.contains('confirming')) { del.classList.add('confirming'); clearTimeout(to); to = setTimeout(() => del.classList.remove('confirming'), 2500); } else deletePlant(p); }); }
+      grid.appendChild(card);
+      requestAnimationFrame(() => card.classList.add('revealed'));
+    });
+  }
+
+  function updateStats() { $('stat-total').textContent = plants.length; }
+
+  async function addPlant(newP) {
+    if (!config) { toast('Configuration manquante'); return false; }
+    toast('Publication en cours…', 20000);
+    try {
+      const remote = await fetchRemote();
+      let list = remote.exists && remote.data ? (Array.isArray(remote.data) ? remote.data : remote.data.plants || []) : [];
+      list.unshift(newP);
+      await saveRemote({ exportedAt: new Date().toISOString(), count: list.length, plants: list }, remote.sha, 'Ajout: ' + newP.name);
+      plants.unshift(newP); updateStats(); render();
+      toast('Publié ✓ · Visible partout d\'ici 1-2 min', 5000);
+      return true;
+    } catch(e) { console.error(e); toast('Erreur : ' + e.message, 8000); return false; }
+  }
+  async function deletePlant(p) {
+    if (!config) { toast('Configuration manquante'); return; }
+    toast('Suppression en cours…', 20000);
+    try {
+      const remote = await fetchRemote();
+      let list = remote.exists && remote.data ? (Array.isArray(remote.data) ? remote.data : remote.data.plants || []) : [];
+      list = list.filter(x => x.id !== p.id);
+      await saveRemote({ exportedAt: new Date().toISOString(), count: list.length, plants: list }, remote.sha, 'Suppression: ' + p.name);
+      plants = plants.filter(x => x.id !== p.id); updateStats(); render();
+      toast('Supprimé ✓ · Visible partout d\'ici 1-2 min', 5000);
+    } catch(e) { console.error(e); toast('Erreur : ' + e.message, 8000); }
+  }
+
+  function openLightbox(p) {
+    const lb = $('lightbox'), lbImg = $('lightbox-img'), lbContent = $('lightbox-content');
+    lbContent.classList.remove('is-portrait');
+    $('lb-cat').textContent = p.category || ''; $('lb-name').textContent = p.name || '';
+    $('lb-family').textContent = p.family || ''; $('lb-family').style.display = p.family ? 'block' : 'none';
+    const eW = $('lb-expo-wrap'), tW = $('lb-temp-wrap'), sW = $('lb-substrate-wrap'), oW = $('lb-origin-wrap');
+    if (p.exposure) { eW.style.display = 'flex'; $('lb-expo').textContent = p.exposure; } else eW.style.display = 'none';
+    const tf = formatTemp(p.minTemp);
+    if (tf) { tW.style.display = 'flex'; $('lb-temp').textContent = tf; } else tW.style.display = 'none';
+    if (p.substrate) { sW.style.display = 'flex'; $('lb-substrate').textContent = p.substrate; } else sW.style.display = 'none';
+    if (p.origin) { oW.style.display = 'flex'; $('lb-origin').textContent = p.origin; } else oW.style.display = 'none';
+    lbImg.onload = () => { if (lbImg.naturalHeight > lbImg.naturalWidth) lbContent.classList.add('is-portrait'); lb.classList.add('open'); document.body.style.overflow = 'hidden'; };
+    lbImg.alt = p.name || ''; lbImg.src = p.photo;
+  }
+  function closeLightbox() { $('lightbox').classList.remove('open'); if (!drawer.classList.contains('open')) document.body.style.overflow = ''; }
+
+  function openModal(id) { $(id).classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeModal(id) { $(id).classList.remove('open'); if (!drawer.classList.contains('open') && !$('lightbox').classList.contains('open')) document.body.style.overflow = ''; }
+
+  function unlockAdmin() {
+    isUnlocked = true; lockBtn.classList.add('unlocked');
+    lockBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>';
+    adminBar.style.display = 'flex'; render(); toast('Mode admin activé', 2000);
+  }
+  function lockAdmin() {
+    isUnlocked = false; lockBtn.classList.remove('unlocked');
+    lockBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
+    adminBar.style.display = 'none'; render();
+  }
+
+  lockBtn.addEventListener('click', () => {
+    if (isUnlocked) { lockAdmin(); return; }
+    $('code-input').value = ''; openModal('code-modal'); setTimeout(() => $('code-input').focus(), 200);
+  });
+  $('code-cancel').addEventListener('click', () => closeModal('code-modal'));
+  $('code-validate').addEventListener('click', () => {
+    if ($('code-input').value.trim() === ADMIN_CODE) {
+      closeModal('code-modal'); config = loadConfig();
+      if (!config) { $('cfg-user').value = ''; $('cfg-repo').value = 'plantouilleee'; $('cfg-branch').value = ''; $('cfg-token').value = ''; openModal('config-modal'); }
+      else unlockAdmin();
+    } else { $('code-input').value = ''; $('code-input').style.borderColor = '#e11d48'; setTimeout(() => $('code-input').style.borderColor = '', 600); toast('Code incorrect', 2000); }
+  });
+  $('code-input').addEventListener('keydown', e => { if (e.key === 'Enter') $('code-validate').click(); });
+  $('config-cancel').addEventListener('click', () => closeModal('config-modal'));
+  $('config-save').addEventListener('click', () => {
+    const u = $('cfg-user').value.trim(), r = $('cfg-repo').value.trim(), b = $('cfg-branch').value.trim(), t = $('cfg-token').value.trim();
+    if (!u || !r || !t) { toast('Pseudo, repo et token sont requis'); return; }
+    saveConfig({ user: u, repo: r, branch: b || null, token: t });
+    closeModal('config-modal'); unlockAdmin();
+  });
+
+  adminAddBtn.addEventListener('click', () => {
+    if (!isUnlocked) return;
+    if (!config) { toast('Configuration manquante'); return; }
+    form.reset(); photoData = '';
+    $('photo-preview').style.display = 'none'; $('file-drop').style.display = '';
+    $('p-category').value = ''; $('p-exposure').value = ''; $('p-genre-custom').value = '';
+    $('p-family-custom').value = ''; $('p-origin-country').value = '';
+    $('temp-display').textContent = '0 °C'; $('origin-country-fields').style.display = 'none';
+    document.querySelectorAll('.exp-option').forEach(b => b.classList.remove('active'));
+    resetSubstrate(); resetFamily(); resetOrigin();
+    showDrawerCatsStep();
+    drawer.classList.add('open'); drawerBackdrop.classList.add('open'); document.body.style.overflow = 'hidden';
+    $('p-name').focus();
+  });
+  adminLockBtn.addEventListener('click', lockAdmin);
+  closeDrawerBtn.addEventListener('click', () => { drawer.classList.remove('open'); drawerBackdrop.classList.remove('open'); if (!$('lightbox').classList.contains('open')) document.body.style.overflow = ''; });
+  drawerBackdrop.addEventListener('click', () => { drawer.classList.remove('open'); drawerBackdrop.classList.remove('open'); document.body.style.overflow = ''; });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const nameInput = $('p-name').value.trim();
+    const cat = $('p-category').value;
+    const genreCustom = $('p-genre-custom').value.trim();
+    const familyCustom = $('p-family-custom').value.trim();
+    const originCountry = $('p-origin-country').value.trim();
+    const finalName = genreCustom || nameInput;
+    const finalFamily = familyCustom || selectedFamily;
+    let finalOrigin = selectedOrigin;
+    if (originCountry && selectedOrigin && selectedOrigin !== 'Horticole / Hybride') finalOrigin = selectedOrigin + ' — ' + originCountry;
+    if (!finalName || !cat || !photoData) { toast('Nom, rubrique et photo obligatoires'); return; }
+    submitBtn.disabled = true; submitBtn.textContent = 'Publication…';
+    const newP = { id: 'p_' + Date.now(), name: finalName, category: cat, family: finalFamily, substrate: selectedSubstrate, exposure: selectedExposure, minTemp: $('p-temp').value, origin: finalOrigin, photo: photoData, date: Date.now() };
+    const ok = await addPlant(newP);
+    submitBtn.disabled = false; submitBtn.textContent = 'Publier le spécimen';
+    if (ok) { drawer.classList.remove('open'); drawerBackdrop.classList.remove('open'); document.body.style.overflow = ''; }
+  });
+
+  searchInput.addEventListener('input', () => { clearSearchBtn.style.display = searchInput.value ? 'flex' : 'none'; render(); });
+  clearSearchBtn.addEventListener('click', () => { searchInput.value = ''; clearSearchBtn.style.display = 'none'; searchInput.focus(); render(); });
+  $('lightbox-back').addEventListener('click', e => { e.stopPropagation(); closeLightbox(); });
+  $('lightbox').addEventListener('click', e => { if (e.target === $('lightbox')) closeLightbox(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('lightbox').classList.contains('open')) closeLightbox(); });
+
+  async function init() {
+    plants = await loadCollection();
+    plants.sort((a, b) => (b.date || 0) - (a.date || 0));
+    updateStats(); showChipsStep(); render(); showDrawerCatsStep();
+    config = loadConfig();
+  }
+  init();
+
+  (function () {
+    const c = $('seasonal-bg'); if (!c || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const rnd = (a, b) => Math.random() * (b - a) + a;
+    const m = new Date().getMonth() + 1;
+    const forced = new URLSearchParams(location.search).get('season');
+    let s = m >= 3 && m <= 5 ? 'spring' : m >= 6 && m <= 8 ? 'summer' : m >= 9 && m <= 11 ? 'autumn' : 'winter';
+    if (forced && ['spring','summer','autumn','winter'].includes(forced)) s = forced;
+    if (s === 'autumn') {
+      const C = ['#7a9e4b','#8fae5d','#6b8e3e','#9bb874','#8a8a52'];
+      const SH = '<svg viewBox="0 0 20 30" xmlns="http://www.w3.org/2000/svg"><path d="M10 1 C 4.5 10, 4.5 21, 10 29 C 15.5 21, 15.5 10, 10 1 Z" fill="currentColor"/></svg>';
+      for (let i = 0; i < 5; i++) { const d = document.createElement('div'); d.className = 'season-leaf'; const z = rnd(6, 10); d.style.left = rnd(-5, 105) + '%'; d.style.width = z + 'px'; d.style.height = (z * 1.4) + 'px'; d.style.color = C[Math.floor(Math.random() * C.length)]; d.style.setProperty('--drift', rnd(-15, 25).toFixed(1) + 'vw'); d.style.setProperty('--opacity', rnd(0.2, 0.4).toFixed(2)); d.style.animationDuration = rnd(22, 32).toFixed(2) + 's'; d.style.animationDelay = '-' + rnd(0, 32).toFixed(2) + 's'; d.innerHTML = SH; c.appendChild(d); }
+    } else if (s === 'winter') {
+      for (let i = 0; i < 14; i++) { const d = document.createElement('div'); d.className = 'season-snow'; const z = rnd(1.2, 2.2); d.style.left = rnd(0, 100) + '%'; d.style.width = z + 'px'; d.style.height = z + 'px'; d.style.setProperty('--drift', rnd(-12, 12).toFixed(1) + 'vw'); d.style.setProperty('--opacity', rnd(0.2, 0.4).toFixed(2)); d.style.animationDuration = rnd(20, 30).toFixed(2) + 's'; d.style.animationDelay = '-' + rnd(0, 30).toFixed(2) + 's'; c.appendChild(d); }
+    } else if (s === 'spring') {
+      (function burst() { for (let i = 0; i < 4 + Math.floor(Math.random() * 3); i++) setTimeout(() => { const d = document.createElement('div'); d.className = 'season-rain'; d.style.left = rnd(0, 100) + '%'; d.style.setProperty('--drift', rnd(-3, 3).toFixed(1) + 'vw'); d.style.animationDuration = rnd(2.2, 3.5).toFixed(2) + 's'; c.appendChild(d); setTimeout(() => d.remove(), 4000); }, Math.random() * 3500); setTimeout(burst, 15000 + Math.random() * 8000); })();
+    }
+  })();
+})();
+</script>
+
+</body>
+</html>
 

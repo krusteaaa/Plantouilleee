@@ -165,7 +165,7 @@ body.secret-mode ::selection { background: #ffffff; color: #153424; }
 }
 body.secret-mode .scene-line { background: rgba(255, 255, 255, 0.2); }
 
-/* Soleil / Lune (Croissant) */
+/* Soleil / Lune */
 .scene-sun, .scene-moon {
   position: absolute;
   bottom: 0;
@@ -204,14 +204,22 @@ body.secret-mode .scene-secret { opacity: 1; }
   color: #153424;
   z-index: 2;
   transition: color 0.6s ease;
+  transform-origin: bottom center;
 }
 body.secret-mode .scene-plant { color: #ffffff; }
 
+/* ANIMATION DE POUSSE DES PLANTES */
 .scene-plant svg {
   display: block;
   width: 100%;
   height: 100%;
   overflow: visible;
+  animation: growPlant 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes growPlant {
+  0% { transform: scaleY(0); opacity: 0; }
+  100% { transform: scaleY(1); opacity: 1; }
 }
 
 /* Positionnement (regroupé au centre) */
@@ -227,7 +235,7 @@ body.secret-mode .scene-plant { color: #ffffff; }
 .sp-trich { left: 56%; width: 14px; height: 22px; margin-left: -7px; }
 .sp-peyot { left: 63%; width: 18px; height: 12px; margin-left: -9px; }
 
-/* Oiseau (Ombre chinoise) */
+/* Oiseau / Sorcière (Ombre chinoise) */
 .scene-bird {
   position: absolute;
   width: 18px;
@@ -236,8 +244,14 @@ body.secret-mode .scene-plant { color: #ffffff; }
   z-index: 4;
   transition: color 0.6s ease, left 3s linear, bottom 3s ease-in-out;
   will-change: left, bottom;
+  animation: birdHover 3s ease-in-out infinite; /* ANIMATION DE FLOTTEMENT */
 }
 body.secret-mode .scene-bird { color: #ffffff; }
+
+@keyframes birdHover {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
 
 .scene-bird svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .bird-normal { display: block; }
@@ -248,7 +262,7 @@ body.secret-mode .bird-witch { display: block; }
 .bird-wing {
   transform-box: fill-box;
   transform-origin: 100% 100%;
-  animation: wingFlap 0.4s ease-in-out infinite alternate;
+  animation: wingFlap 0.6s ease-in-out infinite alternate;
 }
 @keyframes wingFlap {
   from { transform: rotate(-10deg); }
@@ -982,7 +996,7 @@ body.secret-mode .toast { background: #ffffff; color: #153424; }
 
 @media (prefers-reduced-motion: reduce) {
   .season-bg { display: none !important; }
-  .scene-sun, .scene-moon, .bird-wing { animation: none !important; }
+  .scene-sun, .scene-moon, .bird-wing, .scene-plant svg, .scene-bird { animation: none !important; }
 }
 </style>
 </head>
@@ -1051,21 +1065,18 @@ body.secret-mode .toast { background: #ffffff; color: #153424; }
 
       <!-- Scène Secrète (Ombres chinoises) -->
       <div class="scene-secret">
-        <!-- Champignon -->
         <div class="scene-plant sp-mush">
           <svg viewBox="0 0 40 40" fill="currentColor">
             <path d="M18 38 C18 30 20 26 22 22 C24 26 26 30 26 38 Z"/>
             <path d="M5 22 C5 10 35 10 35 22 C35 26 5 26 5 22 Z"/>
           </svg>
         </div>
-        <!-- Cannabis -->
         <div class="scene-plant sp-cann">
           <svg viewBox="0 0 40 40" fill="currentColor">
             <path d="M20 38 V16 M20 24 L10 14 L4 16 L6 8 L2 6 L10 4 L8 0 L14 4 L16 0 L18 4 L24 0 L26 4 L32 0 L30 4 L38 6 L34 8 L36 16 L30 14 Z"/>
             <path d="M20 30 L12 26 L14 20 Z M20 30 L28 26 L26 20 Z"/>
           </svg>
         </div>
-        <!-- Pavot -->
         <div class="scene-plant sp-popp">
           <svg viewBox="0 0 40 40" fill="currentColor">
             <path d="M20 38 Q15 25 20 16"/>
@@ -1075,7 +1086,6 @@ body.secret-mode .toast { background: #ffffff; color: #153424; }
             <path d="M24 14 C32 10 36 18 32 22 C28 24 24 20 24 16 Z"/>
           </svg>
         </div>
-        <!-- Trichocereus -->
         <div class="scene-plant sp-trich">
           <svg viewBox="0 0 40 40" fill="currentColor">
             <rect x="14" y="6" width="12" height="34" rx="6"/>
@@ -1083,7 +1093,6 @@ body.secret-mode .toast { background: #ffffff; color: #153424; }
             <path d="M14 12 L11 10 M14 18 L11 16 M14 24 L11 22 M14 30 L11 28 M26 12 L29 10 M26 18 L29 16 M26 24 L29 22 M26 30 L29 28" stroke="#153424" stroke-width="2"/>
           </svg>
         </div>
-        <!-- Peyotl -->
         <div class="scene-plant sp-peyot">
           <svg viewBox="0 0 40 40" fill="currentColor">
             <path d="M12 38 Q20 34 28 38"/>
@@ -1097,7 +1106,7 @@ body.secret-mode .toast { background: #ffffff; color: #153424; }
         </div>
       </div>
 
-      <!-- Oiseau (Ombre chinoise) -->
+      <!-- Oiseau / Sorcière -->
       <div class="scene-bird" id="scene-bird">
         <!-- Oiseau normal -->
         <svg class="bird-normal" viewBox="0 0 24 16" fill="currentColor">

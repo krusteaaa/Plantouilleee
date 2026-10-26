@@ -13,29 +13,30 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{background:#fff;color:#0f0f0f;font-family:'Jost',system-ui,sans-serif;min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
 ::selection{background:#153424;color:#fff}
-.site-header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid #f0f0f0}
+.site-header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.95);backdrop-filter:blur(12px)}
+.site-header::after{content:'';position:absolute;left:8%;right:8%;bottom:0;height:1px;background:linear-gradient(to right,transparent 0%,rgba(21,52,36,.10) 20%,rgba(21,52,36,.15) 50%,rgba(21,52,36,.10) 80%,transparent 100%);pointer-events:none}
 .header-inner{max-width:1100px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;position:relative}
 .brand-title{font-family:'Bodoni Moda',Georgia,serif;font-weight:500;font-size:28px;color:#153424;line-height:.95}
 .brand-tagline{font-family:'Jost',sans-serif;font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.32em;color:#888;margin-top:4px}
-.scene-wrap{flex:1;height:50px;position:relative;overflow:hidden;margin:0 10px}
+.scene-wrap{flex:1;height:56px;position:relative;margin:0 8px}
 @media(max-width:700px){.scene-wrap{display:none}}
-.scene-sun{position:absolute;left:0;bottom:8px;width:7px;height:7px;border-radius:50%;background:#d4a548;animation:sunX 20s linear infinite,sunY 20s infinite;z-index:3}
-@keyframes sunX{0%{left:0;opacity:0}4%{opacity:1}96%{opacity:1}100%{left:100%;opacity:0}}
-@keyframes sunY{0%{transform:translateY(0)}50%{transform:translateY(-30px)}100%{transform:translateY(0)}}
-.scene-plant{position:absolute;bottom:0;color:#153424;opacity:.85;transform-origin:bottom center;z-index:2}
-.scene-plant svg{display:block;width:100%;height:100%}
-.sp-glob{left:15%;width:20px;height:20px;animation:pg 20s ease-in-out infinite}
-.sp-col{left:30%;width:16px;height:24px;animation:pc 20s ease-in-out infinite}
-.sp-aloe{left:45%;width:20px;height:18px;animation:pa 20s ease-in-out infinite}
-.sp-ech{left:60%;width:20px;height:14px;animation:pe 20s ease-in-out infinite}
-.sp-yuc{left:75%;width:16px;height:24px;animation:py 20s ease-in-out infinite}
-.sp-bea{left:90%;width:16px;height:24px;animation:pb 20s ease-in-out infinite}
-@keyframes pg{0%,5%{transform:scaleY(0)}12%,14%{transform:scaleY(1)}19%,100%{transform:scaleY(0)}}
-@keyframes pc{0%,20%{transform:scaleY(0)}27%,29%{transform:scaleY(1)}34%,100%{transform:scaleY(0)}}
-@keyframes pa{0%,35%{transform:scaleY(0)}42%,44%{transform:scaleY(1)}49%,100%{transform:scaleY(0)}}
-@keyframes pe{0%,50%{transform:scaleY(0)}57%,59%{transform:scaleY(1)}64%,100%{transform:scaleY(0)}}
-@keyframes py{0%,65%{transform:scaleY(0)}72%,74%{transform:scaleY(1)}79%,100%{transform:scaleY(0)}}
-@keyframes pb{0%,80%{transform:scaleY(0)}87%,89%{transform:scaleY(1)}94%,100%{transform:scaleY(0)}}
+.scene-sun{position:absolute;left:0;bottom:8px;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:#d4a548;animation:sunX 22s linear infinite,sunY 22s ease-in-out infinite;z-index:3}
+@keyframes sunX{0%{left:0;opacity:0}3%{opacity:1}97%{opacity:1}100%{left:100%;opacity:0}}
+@keyframes sunY{0%{transform:translateY(0);animation-timing-function:ease-out}50%{transform:translateY(-50px);animation-timing-function:ease-in}100%{transform:translateY(0)}}
+.scene-plant{position:absolute;bottom:8px;color:#153424;opacity:.9;transform-origin:bottom center;z-index:2}
+.scene-plant svg{display:block;width:100%;height:100%;overflow:visible}
+.sp-glob{left:15%;width:22px;height:22px;margin-left:-11px;animation:pg 22s ease-in-out infinite}
+.sp-col{left:30%;width:18px;height:26px;margin-left:-9px;animation:pc 22s ease-in-out infinite}
+.sp-aloe{left:45%;width:22px;height:20px;margin-left:-11px;animation:pa 22s ease-in-out infinite}
+.sp-ech{left:60%;width:24px;height:14px;margin-left:-12px;animation:pe 22s ease-in-out infinite}
+.sp-yuc{left:75%;width:18px;height:26px;margin-left:-9px;animation:py 22s ease-in-out infinite}
+.sp-bea{left:89%;width:18px;height:26px;margin-left:-9px;animation:pb 22s ease-in-out infinite}
+@keyframes pg{0%,8%{transform:scaleY(0)}15%{transform:scaleY(1)}22%,100%{transform:scaleY(0)}}
+@keyframes pc{0%,23%{transform:scaleY(0)}30%{transform:scaleY(1)}37%,100%{transform:scaleY(0)}}
+@keyframes pa{0%,38%{transform:scaleY(0)}45%{transform:scaleY(1)}52%,100%{transform:scaleY(0)}}
+@keyframes pe{0%,53%{transform:scaleY(0)}60%{transform:scaleY(1)}67%,100%{transform:scaleY(0)}}
+@keyframes py{0%,68%{transform:scaleY(0)}75%{transform:scaleY(1)}82%,100%{transform:scaleY(0)}}
+@keyframes pb{0%,83%{transform:scaleY(0)}90%{transform:scaleY(1)}97%,100%{transform:scaleY(0)}}
 .lock-btn{width:40px;height:40px;border-radius:50%;background:#f7f7f7;color:#153424;border:1px solid #f0f0f0;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .lock-btn.unlocked{background:#153424;color:#fff;border-color:#153424}
 .lock-btn svg{width:16px;height:16px}
@@ -190,12 +191,12 @@ main{max-width:1100px;margin:0 auto;padding:20px 24px 60px;flex:1;width:100%}
     </div>
     <div class="scene-wrap" aria-hidden="true">
       <div class="scene-sun"></div>
-      <div class="scene-plant sp-glob"><svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M2 21 Q2 3 11 3 Q20 3 20 21 Z"/><path d="M11 3 V21"/><path d="M6 4 Q5 12 6 21"/><path d="M16 4 Q17 12 16 21"/></svg></div>
-      <div class="scene-plant sp-col"><svg viewBox="0 0 18 26" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M9 25 V3"/><path d="M9 12 H5 Q3 12 3 10 V6"/><path d="M9 15 H13 Q15 15 15 13 V9"/></svg></div>
-      <div class="scene-plant sp-aloe"><svg viewBox="0 0 22 20" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M11 19 L2 9"/><path d="M11 19 L5 4"/><path d="M11 19 L9 1"/><path d="M11 19 L11 0.5"/><path d="M11 19 L13 1"/><path d="M11 19 L17 4"/><path d="M11 19 L20 9"/></svg></div>
-      <div class="scene-plant sp-ech"><svg viewBox="0 0 22 16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M11 15 Q3 13 1.5 7 Q6 10 11 15"/><path d="M11 15 Q6 9 5 3 Q8 8 11 15"/><path d="M11 15 L10.5 2 Q11 1 11.5 2 L11 15"/><path d="M11 15 Q16 9 17 3 Q14 8 11 15"/><path d="M11 15 Q19 13 20.5 7 Q16 10 11 15"/></svg></div>
-      <div class="scene-plant sp-yuc"><svg viewBox="0 0 18 26" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M9 25 V10"/><path d="M9 10 L2 5"/><path d="M9 10 L4 2"/><path d="M9 10 L7 1"/><path d="M9 10 L9 0.5"/><path d="M9 10 L11 1"/><path d="M9 10 L14 2"/><path d="M9 10 L16 5"/></svg></div>
-      <div class="scene-plant sp-bea"><svg viewBox="0 0 18 26" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4 25 Q2 25 2 21 Q2 16 5 15.5 L13 15.5 Q16 16 16 21 Q16 25 14 25 Z"/><path d="M9 15.5 V5"/><path d="M9 5 Q5.5 4 3 1"/><path d="M9 5 Q6.5 3 6 0.5"/><path d="M9 5 L9 0.5"/><path d="M9 5 Q11.5 3 12 0.5"/><path d="M9 5 Q12.5 4 15 1"/></svg></div>
+      <div class="scene-plant sp-glob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M3 24 Q3 7 12 3 Q21 7 21 24"/><path d="M12 4 V24"/><path d="M7 5 Q6 13 7 24"/><path d="M17 5 Q18 13 17 24"/></svg></div>
+      <div class="scene-plant sp-col"><svg viewBox="0 0 20 28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 28 V4"/><path d="M10 15 H7 Q5.5 15 5.5 13.5 V8"/><path d="M10 18 H13 Q14.5 18 14.5 16.5 V11"/></svg></div>
+      <div class="scene-plant sp-aloe"><svg viewBox="0 0 24 22" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M12 22 Q6 17 2 11"/><path d="M12 22 Q8 13 6 5"/><path d="M12 22 Q10 10 10 1.5"/><path d="M12 22 V0.5"/><path d="M12 22 Q14 10 14 1.5"/><path d="M12 22 Q16 13 18 5"/><path d="M12 22 Q18 17 22 11"/></svg></div>
+      <div class="scene-plant sp-ech"><svg viewBox="0 0 24 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M12 14 Q4 12 1 7"/><path d="M12 14 Q6 10 5 4"/><path d="M12 14 Q10 7 10 2"/><path d="M12 14 V0.5"/><path d="M12 14 Q14 7 14 2"/><path d="M12 14 Q18 10 19 4"/><path d="M12 14 Q20 12 23 7"/></svg></div>
+      <div class="scene-plant sp-yuc"><svg viewBox="0 0 20 28" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M10 28 V13"/><path d="M10 13 Q6 11 2 7"/><path d="M10 13 Q6 8 5 2"/><path d="M10 13 Q9 6 9 1"/><path d="M10 13 V0.5"/><path d="M10 13 Q11 6 11 1"/><path d="M10 13 Q14 8 15 2"/><path d="M10 13 Q14 11 18 7"/></svg></div>
+      <div class="scene-plant sp-bea"><svg viewBox="0 0 20 28" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 28 Q2 28 1.5 24 Q1 20 4 18 L16 18 Q19 20 18.5 24 Q18 28 15 28 Z"/><path d="M10 18 V6"/><path d="M10 6 Q6.5 4.5 3 1"/><path d="M10 6 Q7.5 3.5 7 0.5"/><path d="M10 6 V0.5"/><path d="M10 6 Q12.5 3.5 13 0.5"/><path d="M10 6 Q13.5 4.5 17 1"/></svg></div>
     </div>
     <div style="display:flex;align-items:center;gap:12px;flex-shrink:0">
       <div class="stats"><strong id="stat-total">0</strong>spécimens</div>
@@ -205,7 +206,6 @@ main{max-width:1100px;margin:0 auto;padding:20px 24px 60px;flex:1;width:100%}
     </div>
   </div>
 </header>
-
 <main>
   <div id="admin-bar" class="admin-bar">
     <span class="admin-tag">Mode admin</span>
@@ -451,7 +451,6 @@ main{max-width:1100px;margin:0 auto;padding:20px 24px 60px;flex:1;width:100%}
 </div>
 
 <div id="toast-wrap" class="toast-wrap"></div>
-
 <script>
 (function(){
 'use strict';
@@ -462,11 +461,11 @@ var MAX_W = 900;
 var QUALITY = 0.72;
 
 var SPECIES = {
-  'Cactus': ['Acanthocereus','Acharagma','Ancistrocactus','Aporocactus','Ariocarpus','Astrophytum','Austrocactus','Aztekium','Bergerocactus','Blossfeldia','Carnegiea','Cephalocereus','Cereus','Cleistocactus','Copiapoa','Coryphantha','Cylindropuntia','Discocactus','Echinocactus','Echinocereus','Echinopsis','Epiphyllum','Eriosyce','Escobaria','Espostoa','Ferocactus','Frailea','Gymnocalycium','Haageocereus','Harrisia','Hylocereus','Leuchtenbergia','Lobivia','Lophophora','Mammillaria','Matucana','Melocactus','Myrtillocactus','Neobuxbaumia','Notocactus','Opuntia','Oreocereus','Pachycereus','Parodia','Pelecyphora','Pereskia','Pilosocereus','Rebutia','Rhipsalis','Schlumbergera','Selenicereus','Stenocactus','Stenocereus','Stetsonia','Sulcorebutia','Tephrocactus','Thelocactus','Trichocereus','Turbinicarpus','Uebelmannia','Weingartia','Yavia'],
-  'Succulentes': ['Adromischus','Aeonium','Agave','Aichryson','Aloe','Anacampseros','Beaucarnea','Bulbine','Ceropegia','Cotyledon','Crassula','Dasylirion','Dracaena','Dudleya','Echeveria','Euphorbia','Fockea','Gasteria','Graptopetalum','Haworthia','Huernia','Kalanchoe','Kleinia','Lithops','Monanthes','Pachyphytum','Pachypodium','Pelargonium','Peperomia','Portulacaria','Sansevieria','Sedum','Senecio','Sempervivum','Stapelia','Tylecodon','Yucca'],
-  'Mesembryanthemum': ['Aloinopsis','Argyroderma','Carpobrotus','Cephalophyllum','Cheiridopsis','Conophytum','Delosperma','Dinteranthus','Faucaria','Fenestraria','Frithia','Gibbaeum','Glottiphyllum','Hereroa','Lampranthus','Lapidaria','Lithops','Nananthus','Oscularia','Pleiospilos','Rhombophyllum','Ruschia','Titanopsis','Trichodiadema'],
-  'Tropicales': ['Aglaonema','Alocasia','Anthurium','Asplenium','Begonia','Caladium','Calathea','Chlorophytum','Codiaeum','Colocasia','Cordyline','Dieffenbachia','Dracaena','Epipremnum','Ficus','Fittonia','Guzmania','Heliconia','Hoya','Maranta','Monstera','Musa','Nephrolepis','Pachira','Pandanus','Peperomia','Philodendron','Pilea','Platycerium','Pothos','Sansevieria','Scindapsus','Schefflera','Spathiphyllum','Strelitzia','Syngonium','Tillandsia','Tradescantia','Vriesea','Zamioculcas','Zingiber'],
-  'Caudiciformes': ['Adansonia','Adenia','Adenium','Avonia','Bombax','Bursera','Commiphora','Cyphostemma','Dioscorea','Dorstenia','Euphorbia','Ficus','Fockea','Ipomoea','Jatropha','Operculicarya','Pachypodium','Pelargonium','Sarcocaulon','Senecio','Tylecodon','Uncarina','Welwitschia']
+  'Cactus': ['Acanthocereus','Acharagma','Ancistrocactus','Aporocactus','Ariocarpus','Armatocereus','Arrojadoa','Astrophytum','Austrocactus','Austrocephalocereus','Austrocylindropuntia','Aylostera','Aztekium','Bergerocactus','Blossfeldia','Borzicactus','Brachycereus','Brasilicactus','Brasilicereus','Browningia','Calymmanthium','Carnegiea','Cephalocereus','Cereus','Cintia','Cleistocactus','Coleocephalocereus','Consolea','Copiapoa','Corryocactus','Coryphantha','Cumulopuntia','Cylindropuntia','Denmoza','Discocactus','Echinocactus','Echinocereus','Echinomastus','Echinopsis','Epiphyllum','Eriosyce','Escobaria','Espostoa','Espostoopsis','Eulychnia','Facheiroa','Ferocactus','Frailea','Geohintonia','Gymnocalycium','Haageocereus','Hamatocactus','Harrisia','Hatiora','Hylocereus','Isolatocereus','Islaya','Jasminocereus','Lasiocereus','Leocereus','Lepismium','Leptocereus','Leuchtenbergia','Lobivia','Lophophora','Loxanthocereus','Mammillaria','Mammilloydia','Matucana','Melocactus','Micranthocereus','Mila','Monvillea','Morawetzia','Myrtillocactus','Neobuxbaumia','Neolloydia','Neoporteria','Neoraimondia','Neowerdermannia','Notocactus','Obregonia','Opuntia','Oreocereus','Oroya','Ortegocactus','Pachycereus','Parodia','Pediocactus','Pelecyphora','Peniocereus','Pereskia','Pilosocereus','Polaskia','Pterocactus','Pygmaeocereus','Rebutia','Rhipsalis','Schlumbergera','Selenicereus','Setiechinopsis','Stenocactus','Stenocereus','Stephanocereus','Stetsonia','Strombocactus','Sulcorebutia','Tacinga','Tephrocactus','Thelocactus','Trichocereus','Tunilla','Turbinicarpus','Uebelmannia','Weberbauerocereus','Weingartia','Wilcoxia','Yavia'],
+  'Succulentes': ['Adromischus','Aeonium','Agave','Aichryson','Albuca','Alluaudia','Alluaudiopsis','Aloe','Anacampseros','Astroloba','Avonia','Beaucarnea','Bowiea','Bulbine','Calibanus','Caralluma','Ceraria','Ceropegia','Cissus','Cotyledon','Crassula','Dasylirion','Decarya','Didierea','Dracaena','Dudleya','Duvalia','Echeveria','Edithcolea','Encephalartos','Euphorbia','Fockea','Frithia','Gasteria','Gonialoe','Graptopetalum','Graptoveria','Greenovia','Haworthia','Haworthiopsis','Huernia','Kalanchoe','Kleinia','Kumara','Lapidaria','Larryleachia','Lithops','Manfreda','Monadenium','Monanthes','Orostachys','Oscularia','Othonna','Pachyphytum','Pachyveria','Pachypodium','Pedilanthus','Pelargonium','Peperomia','Plectranthus','Polianthes','Portulacaria','Pseudolithos','Rhombophyllum','Rochea','Rosularia','Sansevieria','Sedeveria','Sedum','Senecio','Sempervivum','Sinocrassula','Stapelia','Synadenium','Tulista','Tylecodon','Umbilicus','Villadia','Xerosicyos','Yucca'],
+  'Mesembryanthemum': ['Acrodon','Aloinopsis','Amphibolia','Antimima','Apatesia','Aptenia','Argyroderma','Aspazoma','Bergeranthus','Berrisfordia','Bijlia','Braunsia','Brownanthus','Carpanthea','Carpobrotus','Carruanthus','Cephalophyllum','Cerochlamys','Chasmatophyllum','Cheiridopsis','Circandra','Cleretum','Conicosia','Conophytum','Corpuscularia','Cylindrophyllum','Dactylopsis','Delosperma','Dinteranthus','Diplosoma','Disphyma','Dorotheanthus','Dracophilus','Drosanthemum','Eberlanzia','Ebracteola','Ectotropis','Enarganthe','Erepsia','Esterhuysenia','Faucaria','Fenestraria','Frithia','Galenia','Gibbaeum','Glottiphyllum','Hallianthus','Hereroa','Herreanthus','Hydrodea','Imitaria','Jacobsenia','Jensenobotrya','Jordaaniella','Juttadinteria','Khadia','Lampranthus','Lapidaria','Leipoldtia','Lithops','Machairophyllum','Malephora','Maughania','Meyerophytum','Mitrophyllum','Monilaria','Mossia','Muiria','Namaquanthus','Namibia','Nananthus','Nelia','Neohenricia','Octopoma','Odontophorus','Oophytum','Ophthalmophyllum','Orthopterum','Oscularia','Ottosonderia','Peersia','Phyllobolus','Pleiospilos','Polymita','Prenia','Prepodesma','Psammophora','Pseudobrownanthus','Rabiea','Rhinephyllum','Rhombophyllum','Ruschia','Ruschianthus','Saphesia','Sceletium','Schwantesia','Scopelogena','Smicrostigma','Stayneria','Stoeberia','Stomatium','Tanquana','Titanopsis','Trichodiadema','Vanheerdea','Vanzijlia','Vlokia','Wooleya','Zeuktophyllum'],
+  'Tropicales': ['Acalypha','Aglaonema','Alocasia','Alpinia','Ananas','Anthurium','Araucaria','Ardisia','Aspidistra','Asplenium','Begonia','Billbergia','Bromelia','Caladium','Calathea','Canna','Chlorophytum','Cissus','Clivia','Codiaeum','Colocasia','Cordyline','Costus','Crinum','Croton','Cryptanthus','Ctenanthe','Curculigo','Curcuma','Cycas','Cyrtomium','Davallia','Dicksonia','Dieffenbachia','Dracaena','Epipremnum','Eucomis','Ficus','Fittonia','Freesia','Gardenia','Gloriosa','Guzmania','Haemanthus','Hedychium','Heliconia','Heptapleurum','Hippeastrum','Homalomena','Hoya','Hymenocallis','Impatiens','Jasminum','Maranta','Monstera','Musa','Neoregelia','Nepenthes','Nephrolepis','Nidularium','Pachira','Pandanus','Paphiopedilum','Pellionia','Peperomia','Philodendron','Phlebodium','Phoenix','Pilea','Piper','Platycerium','Plumeria','Polystichum','Pothos','Pteris','Rhapis','Sansevieria','Sarracenia','Scindapsus','Schefflera','Spathiphyllum','Strelitzia','Stromanthe','Syngonium','Thaumatophyllum','Tillandsia','Tradescantia','Vriesea','Yucca','Zamioculcas','Zingiber'],
+  'Caudiciformes': ['Adansonia','Adenia','Adenium','Albuca','Anacampseros','Avonia','Beaucarnea','Bombax','Brachystelma','Bursera','Ceraria','Ceropegia','Cibirhiza','Cissus','Commiphora','Cyphostemma','Dendrosicyos','Dioscorea','Dorstenia','Euphorbia','Ficus','Fockea','Gerrardanthus','Hydnophytum','Ibervillea','Ipomoea','Jatropha','Kedrostis','Kleinia','Lannea','Laportea','Massonia','Momordica','Monadenium','Myrmecodia','Nolina','Operculicarya','Othonna','Oxalis','Pachypodium','Pelargonium','Phyllanthus','Plumeria','Pseudobombax','Pterodiscus','Pyrenacantha','Raphionacme','Sarcocaulon','Senecio','Sesamothamnus','Sinningia','Sterculia','Synadenium','Talinum','Testudinaria','Tylecodon','Uncarina','Welwitschia','Cussonia']
 };
 
 var plants = [];
@@ -474,7 +473,7 @@ var isUnlocked = false;
 var photoData = '';
 var currentFilter = 'all';
 var currentGenreFilter = '';
-var selSubstrate = '', selFamily = '', selExposure = '', selOrigin = '', selDrawerGenre = '';
+var selSubstrate = '', selFamily = '', selExposure = '', selOrigin = '';
 
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]})}
 function norm(s){return String(s==null?'':s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()}
@@ -628,7 +627,6 @@ function lock(){
   render();
 }
 
-/* ===== CUSTOM SELECTS ===== */
 function setupSelect(wrapId, btnId, ddId, hiddenId, defaultText, onSelect){
   var wrap = $(wrapId), btn = $(btnId), dd = $(ddId), hidden = $(hiddenId);
   btn.addEventListener('click', function(e){
@@ -673,7 +671,6 @@ document.addEventListener('click', function(e){
   }
 });
 
-/* ===== EXPOSITION ===== */
 document.querySelectorAll('#exp-picker .exp-opt').forEach(function(b){
   b.addEventListener('click', function(){
     document.querySelectorAll('#exp-picker .exp-opt').forEach(function(x){x.classList.remove('active')});
@@ -683,13 +680,11 @@ document.querySelectorAll('#exp-picker .exp-opt').forEach(function(b){
   });
 });
 
-/* ===== TEMPERATURE ===== */
 $('p-temp').addEventListener('input', function(e){
   var v = e.target.value;
   $('temp-val').textContent = (v>0?'+'+v:v)+' °C';
 });
 
-/* ===== CHIPS (FILTRE) ===== */
 document.querySelectorAll('#chips-step .chip').forEach(function(b){
   b.addEventListener('click', function(){
     var cat = b.getAttribute('data-cat');
@@ -708,7 +703,6 @@ document.querySelectorAll('#chips-step .chip').forEach(function(b){
       currentGenreFilter = '';
       $('chips-step').style.display = 'none';
       $('species-step').classList.add('on');
-      // remplir dropdown espèces
       var dd = $('filter-species-dd');
       var html = '<div class="opt-group">'+cat+'</div>';
       SPECIES[cat].forEach(function(sp){
@@ -758,14 +752,12 @@ $('back-to-chips').addEventListener('click', function(){
   render();
 });
 
-/* ===== DRAWER RUBRIQUE ===== */
 document.querySelectorAll('#cat-picker .cat-opt').forEach(function(b){
   b.addEventListener('click', function(){
     document.querySelectorAll('#cat-picker .cat-opt').forEach(function(x){x.classList.remove('active')});
     b.classList.add('active');
     var cat = b.getAttribute('data-cat');
     $('p-cat').value = cat;
-    // remplir dropdown espèces
     var dd = $('drawer-species-dd');
     var html = '<div class="opt-group">'+cat+'</div>';
     SPECIES[cat].forEach(function(sp){
@@ -782,7 +774,6 @@ document.querySelectorAll('#cat-picker .cat-opt').forEach(function(b){
         $('drawer-species-btn').classList.remove('placeholder');
         $('drawer-species-wrap').classList.remove('open');
         $('p-genre-custom').value = v;
-        selDrawerGenre = v;
         if(!$('p-name').value.trim()) $('p-name').value = v;
       });
     });
@@ -790,7 +781,6 @@ document.querySelectorAll('#cat-picker .cat-opt').forEach(function(b){
     $('drawer-species-btn').classList.add('placeholder');
     $('drawer-species-wrap').classList.remove('open');
     $('p-genre-custom').value = '';
-    selDrawerGenre = '';
     $('drawer-species-step').style.display = 'block';
   });
 });
@@ -801,7 +791,6 @@ $('drawer-species-btn').addEventListener('click', function(e){
   $('drawer-species-wrap').classList.toggle('open');
 });
 
-/* ===== PHOTO ===== */
 function resizeImage(file){
   return new Promise(function(resolve, reject){
     var reader = new FileReader();
@@ -841,7 +830,6 @@ $('clear-photo').addEventListener('click', function(){
   $('file-drop').style.display = 'flex';
 });
 
-/* ===== FORM SUBMIT ===== */
 $('plant-form').addEventListener('submit', function(e){
   e.preventDefault();
   var nameInput = $('p-name').value.trim();
@@ -897,7 +885,7 @@ function resetForm(){
   $('origin-country-wrap').style.display = 'none';
   $('drawer-species-step').style.display = 'none';
   $('temp-val').textContent = '0 °C';
-  selSubstrate = ''; selFamily = ''; selExposure = ''; selOrigin = ''; selDrawerGenre = '';
+  selSubstrate = ''; selFamily = ''; selExposure = ''; selOrigin = '';
   document.querySelectorAll('#cat-picker .cat-opt').forEach(function(x){x.classList.remove('active')});
   document.querySelectorAll('#exp-picker .exp-opt').forEach(function(x){x.classList.remove('active')});
   resetSubstrate();
@@ -920,7 +908,6 @@ function closeDrawer(){
   document.body.style.overflow = '';
 }
 
-/* ===== EVENT LISTENERS ===== */
 $('lock-btn').addEventListener('click', function(){
   if(isUnlocked){lock(); return}
   $('code-input').value = '';
@@ -958,7 +945,6 @@ document.addEventListener('keydown', function(e){
   }
 });
 
-/* ===== SAISONS ===== */
 (function(){
   var c = $('season-bg');
   if(!c || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -998,7 +984,6 @@ document.addEventListener('keydown', function(e){
   }
 })();
 
-/* ===== INIT ===== */
 plants = loadPlants();
 plants.sort(function(a,b){return (b.date||0)-(a.date||0)});
 updateStats();

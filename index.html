@@ -6,7 +6,8 @@
 <meta name="theme-color" content="#ffffff">
 <title>Plantouille — Cabinet du Dr-Cactus</title>
 
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='10' y='3' width='4' height='18' rx='2' fill='%23153424'/%3E%3Crect x='4' y='8' width='3' height='6' rx='1.5' fill='%23153424'/%3E%3Crect x='4' y='11' width='6' height='3' rx='1.5' fill='%23153424'/%3E%3Crect x='17' y='9' width='3' height='5' rx='1.5' fill='%23153424'/%3E%3Crect x='14' y='11' width='6' height='3' rx='1.5' fill='%23153424'/%3E%3C/svg%3E">
+<!-- Favicon simplifié inspiré de l'image -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='none' stroke='%23153424' stroke-width='4'/%3E%3Cpath d='M50 90 V40 a4 4 0 0 1 8 0 v50' fill='none' stroke='%23153424' stroke-width='4'/%3E%3Cpath d='M50 60 h-10 a4 4 0 0 1 -4 -4 v-10 a4 4 0 0 1 8 0 v6 h6' fill='none' stroke='%23153424' stroke-width='4'/%3E%3Cpath d='M58 70 h10 a4 4 0 0 0 4 -4 v-10 a4 4 0 0 0 -8 0 v6 h-6' fill='none' stroke='%23153424' stroke-width='4'/%3E%3Ccircle cx='50' cy='20' r='8' fill='none' stroke='%23153424' stroke-width='4'/%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -62,7 +63,15 @@ body {
   position: relative;
 }
 
-.brand { position: relative; z-index: 2; }
+.brand-wrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  z-index: 2;
+}
+
+.brand { position: relative; }
 
 .brand-title {
   font-family: 'Bodoni Moda', Georgia, serif;
@@ -90,6 +99,13 @@ body {
 }
 .dr-secret:hover { color: #d4a548; }
 
+.brand-logo {
+  width: 55px;
+  height: 55px;
+  flex-shrink: 0;
+}
+.brand-logo svg { width: 100%; height: 100%; display: block; }
+
 /* ============ SCÈNE ANIMÉE ============ */
 .brand-scene {
   position: absolute;
@@ -98,6 +114,16 @@ body {
   pointer-events: none;
   z-index: 1;
 }
+
+.scene-normal, .scene-secret {
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.8s ease;
+  pointer-events: none;
+}
+.scene-secret { opacity: 0; }
+body.secret-mode .scene-normal { opacity: 0; }
+body.secret-mode .scene-secret { opacity: 1; }
 
 .scene-sun {
   position: absolute;
@@ -111,13 +137,26 @@ body {
   z-index: 3;
 }
 
+.scene-moon {
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 8px; height: 8px;
+  margin-left: -4px;
+  border-radius: 50%;
+  background: transparent;
+  color: #d4a548;
+  animation: sunX 30s linear infinite, sunY 30s ease-in-out infinite;
+  will-change: left, transform, opacity;
+  z-index: 3;
+}
+.scene-moon svg { width: 100%; height: 100%; fill: currentColor; }
+
 @keyframes sunX {
   0% { left: 0; opacity: 0; }
   2% { opacity: 1; }
   98% { opacity: 1; }
   100% { left: 100%; opacity: 0; }
 }
-
 @keyframes sunY {
   0% { transform: translateY(0); }
   50% { transform: translateY(-62px); }
@@ -131,6 +170,7 @@ body {
   transform-origin: bottom center;
   z-index: 2;
 }
+body.secret-mode .scene-plant { color: #d4a548; }
 
 .scene-plant svg {
   display: block;
@@ -139,11 +179,16 @@ body {
   overflow: visible;
 }
 
-.sp-col   { left: 15%; width: 13px; height: 20px; margin-left: -6.5px; animation: pc 30s ease-in-out infinite; }
-.sp-aloe  { left: 32%; width: 20px; height: 10px; margin-left: -10px; animation: pa 30s ease-in-out infinite; }
-.sp-ech   { left: 50%; width: 19px; height: 8px; margin-left: -9.5px; animation: pe 30s ease-in-out infinite; }
-.sp-yuc   { left: 68%; width: 13px; height: 16px; margin-left: -6.5px; animation: py 30s ease-in-out infinite; }
-.sp-bea   { left: 85%; width: 14px; height: 17px; margin-left: -7px; animation: pb 30s ease-in-out infinite; }
+.sp-col   { left: 15%; width: 14px; height: 24px; margin-left: -7px; animation: pc 30s ease-in-out infinite; }
+.sp-aloe  { left: 32%; width: 22px; height: 12px; margin-left: -11px; animation: pa 30s ease-in-out infinite; }
+.sp-ech   { left: 50%; width: 18px; height: 9px; margin-left: -9px; animation: pe 30s ease-in-out infinite; }
+.sp-yuc   { left: 68%; width: 14px; height: 20px; margin-left: -7px; animation: py 30s ease-in-out infinite; }
+.sp-bea   { left: 85%; width: 16px; height: 18px; margin-left: -8px; animation: pb 30s ease-in-out infinite; }
+
+.sp-mush  { left: 25%; width: 14px; height: 16px; margin-left: -7px; animation: pa 30s ease-in-out infinite; }
+.sp-cann  { left: 45%; width: 16px; height: 14px; margin-left: -8px; animation: pe 30s ease-in-out infinite; }
+.sp-popp  { left: 65%; width: 14px; height: 20px; margin-left: -7px; animation: py 30s ease-in-out infinite; }
+.sp-trich { left: 80%; width: 15px; height: 22px; margin-left: -7.5px; animation: pb 30s ease-in-out infinite; }
 
 @keyframes pc {
   0%, 10% { transform: scaleY(0); }
@@ -179,20 +224,19 @@ body {
 /* ============ OISEAU QUI VOLE ============ */
 .scene-bird {
   position: absolute;
-  bottom: 30px;
   left: 50%;
   width: 18px;
   height: 12px;
   color: #153424;
   z-index: 4;
-  transition: left 4s linear;
-  will-change: left;
-  animation: birdHover 3.2s ease-in-out infinite;
+  will-change: left, bottom;
+  animation: birdHover 4s ease-in-out infinite;
 }
+body.secret-mode .scene-bird { color: #d4a548; }
 
 @keyframes birdHover {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+  50% { transform: translateY(-4px); }
 }
 
 .scene-bird svg {
@@ -210,15 +254,15 @@ body {
 .bird-wing {
   transform-box: fill-box;
   transform-origin: 100% 100%;
-  animation: wingFlap 0.26s ease-in-out infinite alternate;
+  animation: wingFlap 0.6s ease-in-out infinite alternate;
 }
 
 @keyframes wingFlap {
   from { transform: rotate(-15deg); }
-  to { transform: rotate(40deg); }
+  to { transform: rotate(35deg); }
 }
 
-/* ============ VERROU ADMIN DANS LE DÉCOR ============ */
+/* ============ VERROU ADMIN ============ */
 .scene-lock {
   position: absolute;
   right: 1%;
@@ -235,6 +279,7 @@ body {
   pointer-events: auto;
   transition: opacity 0.2s ease, color 0.2s ease;
 }
+body.secret-mode .scene-lock { color: #d4a548; }
 
 .scene-lock:hover { opacity: 0.95; color: #d4a548; }
 .scene-lock svg { width: 100%; height: 100%; }
@@ -286,6 +331,7 @@ body {
 @media (max-width: 700px) {
   .brand-scene { display: none; }
   .lock-btn-mobile { display: flex; }
+  .brand-logo { display: none; }
 }
 
 /* ============ MAIN ============ */
@@ -343,14 +389,15 @@ main {
 .btn.sec { background: #ffffff; color: #153424; border: 1px solid #d8e8dd; }
 
 .btn.secret-add {
-  background: linear-gradient(135deg, #153424, #24503a);
+  background: #153424;
   color: #ecdfb8;
-  border: 1px solid rgba(212,165,72,.35);
+  border: 1px solid #d4a548;
+  box-shadow: none;
 }
 .btn.secret-add:hover {
-  border-color: rgba(212,165,72,.65);
+  border-color: #b8903d;
   color: #f4ead0;
-  background: linear-gradient(135deg, #1c4531, #2a5c41);
+  background: #1c4531;
 }
 .btn.secret-add svg { color: #d4a548; }
 
@@ -363,12 +410,12 @@ main {
   padding: 10px 16px;
   margin-bottom: 12px;
   border-radius: 12px;
-  background: linear-gradient(135deg, rgba(21,52,36,.06), rgba(212,165,72,.10));
-  border: 1px solid rgba(212,165,72,.30);
+  background: #ffffff;
+  border: 1px solid #d4a548;
   color: #153424;
   font-size: 12px;
   font-weight: 500;
-  animation: bannerIn 0.4s cubic-bezier(.22,.9,.3,1);
+  animation: bannerIn 0.4s ease;
 }
 
 @keyframes bannerIn {
@@ -386,7 +433,6 @@ main {
   width: 7px; height: 7px;
   border-radius: 50%;
   background: #d4a548;
-  box-shadow: 0 0 10px rgba(212,165,72,.7);
 }
 
 .secret-banner button {
@@ -394,7 +440,7 @@ main {
   border-radius: 999px;
   background: #153424;
   color: #ecdfb8;
-  border: 1px solid rgba(212,165,72,.35);
+  border: 1px solid #d4a548;
   font-size: 11px;
   font-weight: 500;
   cursor: pointer;
@@ -402,12 +448,9 @@ main {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  transition: background 0.18s ease, border-color 0.18s ease;
+  transition: background 0.18s ease;
 }
-.secret-banner button:hover {
-  background: #1d4833;
-  border-color: rgba(212,165,72,.65);
-}
+.secret-banner button:hover { background: #1c4531; }
 
 /* ============ SEARCH ============ */
 .search {
@@ -452,58 +495,30 @@ main {
   white-space: nowrap;
   flex-shrink: 0;
   font-family: inherit;
-  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.2s ease;
 }
 .chip svg { width: 14px; height: 14px; color: #888888; }
 .chip:hover { background: #eef2f0; color: #153424; }
 .chip.active { background: #153424; color: #ffffff; }
 .chip.active svg { color: #ffffff; }
 
-/* ============ CHIPS SECRETS — CABINET NOCTURNE ============ */
+/* ============ CHIPS SECRETS (SANS OMBRE) ============ */
 .chip.secret {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, #153424 0%, #1e4a34 60%, #26573d 100%);
-  color: #ecdfb8;
+  background: transparent;
+  color: #153424;
   font-weight: 500;
-  border: 1px solid rgba(212,165,72,.35);
-  box-shadow: 0 2px 10px rgba(21,52,36,.16);
-  animation: chipReveal .8s cubic-bezier(.22,.9,.3,1) backwards;
+  border: 1px solid #d4a548;
 }
-
 .chip.secret svg { color: #d4a548; }
-
-.chip.secret::before {
-  content: '';
-  position: absolute;
-  top: -40%; bottom: -40%;
-  left: 0;
-  width: 42%;
-  background: linear-gradient(100deg, transparent 0%, rgba(255,240,200,.26) 50%, transparent 100%);
-  transform: translateX(-160%) skewX(-16deg);
-  animation: chipShimmer 6.5s ease-in-out infinite;
-  pointer-events: none;
-}
-
-@keyframes chipShimmer {
-  0%, 62% { transform: translateX(-160%) skewX(-16deg); }
-  88%, 100% { transform: translateX(420%) skewX(-16deg); }
-}
-
-.chip.secret:hover { color: #f4ead0; border-color: rgba(212,165,72,.6); }
-
+.chip.secret:hover { background: #f4f6f5; color: #153424; border-color: #b8903d; }
 .chip.secret.active {
-  background: linear-gradient(135deg, #1d4833 0%, #2a5c41 100%);
-  color: #f6ecca;
-  border-color: rgba(212,165,72,.75);
-  box-shadow: 0 0 0 1px rgba(212,165,72,.35), 0 4px 16px rgba(21,52,36,.25);
+  background: #153424;
+  color: #ecdfb8;
+  border-color: #153424;
 }
-.chip.secret.active svg { color: #e9c77a; }
-
-@keyframes chipReveal {
-  0% { opacity: 0; transform: translateY(12px) scale(.9); filter: blur(3px); }
-  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
-}
+.chip.secret.active svg { color: #d4a548; }
 
 /* ============ SPECIES STEP ============ */
 .species-step { display: none; }
@@ -649,11 +664,14 @@ main {
 }
 #drawer-dropdown-backdrop.visible { opacity: 1; pointer-events: auto; }
 
-/* ============ GRID + CARDS ============ */
+/* ============ GRID + CARDS (REGROUPÉES) ============ */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 300px));
+  gap: 16px;
+  justify-content: center;
+  max-width: 950px;
+  margin: 0 auto;
 }
 
 .card {
@@ -665,6 +683,12 @@ main {
   flex-direction: column;
   position: relative;
   box-shadow: 0 1px 3px rgba(0,0,0,.04);
+  animation: cardFadeIn 0.5s ease forwards;
+}
+
+@keyframes cardFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .card-img-wrap {
@@ -892,18 +916,18 @@ main {
 .cat-opt.active svg { color: #ffffff; }
 
 .cat-opt[data-mode="secret"] {
-  background: linear-gradient(135deg, #153424, #24503a);
-  color: #ecdfb8;
-  border: 1px solid rgba(212,165,72,.3);
+  background: transparent;
+  color: #153424;
+  border: 1px solid #d4a548;
 }
 .cat-opt[data-mode="secret"] svg { color: #d4a548; }
-.cat-opt[data-mode="secret"]:hover { border-color: rgba(212,165,72,.6); color: #f4ead0; }
+.cat-opt[data-mode="secret"]:hover { border-color: #b8903d; background: #f4f6f5; }
 .cat-opt[data-mode="secret"].active {
-  border-color: rgba(212,165,72,.7);
-  box-shadow: 0 0 0 1px rgba(212,165,72,.3);
-  filter: brightness(1.1);
+  background: #153424;
+  color: #ecdfb8;
+  border-color: #153424;
 }
-.cat-opt[data-mode="secret"].active svg { color: #e9c77a; }
+.cat-opt[data-mode="secret"].active svg { color: #d4a548; }
 
 .exp-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
 .exp-opt {
@@ -1274,7 +1298,7 @@ main {
 
 @media (prefers-reduced-motion: reduce) {
   .season-bg { display: none !important; }
-  .scene-sun, .scene-plant, .scene-bird, .bird-wing { animation: none !important; }
+  .scene-sun, .scene-moon, .scene-plant, .scene-bird, .bird-wing { animation: none !important; }
 }
 </style>
 </head>
@@ -1285,115 +1309,133 @@ main {
 
 <header class="site-header">
   <div class="header-inner">
-    <div class="brand">
-      <div class="brand-title">Plantouille</div>
-      <div class="brand-tagline">Cabinet du <span class="dr-secret">Dr</span>-Cactus</div>
+    <div class="brand-wrap">
+      <div class="brand">
+        <div class="brand-title">Plantouille</div>
+        <div class="brand-tagline">Cabinet du <span class="dr-secret">Dr</span>-Cactus</div>
+      </div>
+      <div class="brand-logo">
+        <svg viewBox="0 0 160 100" fill="none" stroke="#153424" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Soleil -->
+          <circle cx="80" cy="15" r="5" />
+          <path d="M80 5 v-3 M80 25 v3 M70 15 h-3 M90 15 h3 M73 8 l-2 -2 M87 22 l2 2 M87 8 l2 -2 M73 22 l-2 2" />
+          <!-- Cercle -->
+          <path d="M 35 65 A 45 45 0 0 1 125 65" />
+          <!-- Cactus principal -->
+          <path d="M80 90 V35 a3 3 0 0 1 6 0 v55" />
+          <path d="M80 60 h-10 a3 3 0 0 1 -3 -3 V45 a3 3 0 0 1 6 0 v10 h7" />
+          <path d="M86 70 h10 a3 3 0 0 0 3 -3 V50 a3 3 0 0 0 -6 0 v15 h-7" />
+          <!-- Agave -->
+          <path d="M115 85 l-10 -20 l3 3 l5 -10 l2 5 l5 -8 l-2 8 l6 -3 l-4 10 l6 2 l-10 7" />
+          <!-- Echeveria -->
+          <circle cx="50" cy="85" r="6" />
+          <path d="M50 79 l-4 -6 M50 79 l4 -6 M44 85 l-6 -4 M56 85 l6 -4 M45 91 l-4 4 M55 91 l4 4" />
+          <!-- Peyotl -->
+          <circle cx="95" cy="90" r="4" />
+          <path d="M95 86 v8 M91 88 v4 M99 88 v4" />
+          <!-- Rochers -->
+          <ellipse cx="80" cy="93" rx="25" ry="4" />
+          <ellipse cx="60" cy="91" rx="6" ry="3" />
+          <ellipse cx="100" cy="91" rx="8" ry="4" />
+        </svg>
+      </div>
     </div>
 
     <div class="brand-scene" aria-hidden="true">
-      <div class="scene-sun"></div>
+      <!-- Scène Normale -->
+      <div class="scene-normal">
+        <div class="scene-sun"></div>
+        
+        <!-- Cactus (Saguaro fin) -->
+        <div class="scene-plant sp-col">
+          <svg viewBox="0 0 24 30" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M12 28 V4 a2 2 0 0 1 4 0 v24" />
+            <path d="M12 16 h-6 a2 2 0 0 1 -2 -2 V8 a2 2 0 0 1 4 0 v4 h4" />
+            <path d="M16 20 h6 a2 2 0 0 0 2 -2 V10 a2 2 0 0 0 -4 0 v6 h-4" />
+          </svg>
+        </div>
 
-      <!-- Cactus colonnaire avec épines -->
-      <div class="scene-plant sp-col">
-        <svg viewBox="0 0 18 26" fill="currentColor">
-          <g stroke="currentColor" stroke-width="0.55" stroke-linecap="round" fill="none">
-            <line x1="7" y1="5.5" x2="5.9" y2="5.2"/>
-            <line x1="7" y1="9" x2="5.9" y2="8.7"/>
-            <line x1="7" y1="12" x2="5.9" y2="11.7"/>
-            <line x1="7" y1="18" x2="5.9" y2="17.7"/>
-            <line x1="7" y1="21" x2="5.9" y2="20.7"/>
-            <line x1="7" y1="23.5" x2="5.9" y2="23.2"/>
-            <line x1="11" y1="6.5" x2="12.1" y2="6.2"/>
-            <line x1="11" y1="10" x2="12.1" y2="9.7"/>
-            <line x1="11" y1="18.5" x2="12.1" y2="18.2"/>
-            <line x1="11" y1="21.5" x2="12.1" y2="21.2"/>
-            <line x1="11" y1="24" x2="12.1" y2="23.7"/>
-            <line x1="3.5" y1="9" x2="3.5" y2="7.6"/>
-            <line x1="14.5" y1="11" x2="14.5" y2="9.6"/>
-          </g>
-          <rect x="7" y="2" width="4" height="24" rx="2"/>
-          <rect x="2" y="9" width="3" height="6" rx="1.5"/>
-          <rect x="2" y="13" width="5" height="3" rx="1"/>
-          <rect x="13" y="11" width="3" height="5" rx="1.5"/>
-          <rect x="11" y="14" width="5" height="3" rx="1"/>
-        </svg>
+        <!-- Agave fin -->
+        <div class="scene-plant sp-aloe">
+          <svg viewBox="0 0 24 16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+            <path d="M12 16 L12 2 M12 16 L6 4 M12 16 L18 4 M12 16 L2 8 M12 16 L22 8 M12 16 L4 12 M12 16 L20 12" />
+          </svg>
+        </div>
+
+        <!-- Echeveria fine -->
+        <div class="scene-plant sp-ech">
+          <svg viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+            <path d="M12 12 L12 2 M12 12 L6 4 M12 12 L18 4 M12 12 L2 6 M12 12 L22 6 M12 12 L4 10 M12 12 L20 10" />
+          </svg>
+        </div>
+
+        <!-- Yucca fine -->
+        <div class="scene-plant sp-yuc">
+          <svg viewBox="0 0 24 30" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 28 V14" />
+            <path d="M12 14 L8 2 M12 14 L16 2 M12 14 L2 6 M12 14 L22 6 M12 14 L4 12 M12 14 L20 12" />
+          </svg>
+        </div>
+
+        <!-- Beaucarnea fin -->
+        <div class="scene-plant sp-bea">
+          <svg viewBox="0 0 24 30" fill="none" stroke="currentColor" stroke-width="1.5">
+            <ellipse cx="12" cy="28" rx="8" ry="2" />
+            <path d="M12 26 V10" />
+            <path d="M12 10 L8 2 M12 10 L16 2 M12 10 L2 4 M12 10 L22 4 M12 10 L6 8 M12 10 L18 8" />
+          </svg>
+        </div>
       </div>
 
-      <!-- Agave -->
-      <div class="scene-plant sp-aloe">
-        <svg viewBox="0 0 26 13" fill="currentColor">
-          <g transform="rotate(-55 13 13)"><rect x="11.8" y="2.5" width="2.4" height="10.5" rx="1.2"/></g>
-          <g transform="rotate(-38 13 13)"><rect x="11.8" y="0.8" width="2.4" height="12.2" rx="1.2"/></g>
-          <g transform="rotate(-20 13 13)"><rect x="11.8" y="0" width="2.4" height="13" rx="1.2"/></g>
-          <rect x="11.8" y="0" width="2.4" height="13" rx="1.2"/>
-          <g transform="rotate(20 13 13)"><rect x="11.8" y="0" width="2.4" height="13" rx="1.2"/></g>
-          <g transform="rotate(38 13 13)"><rect x="11.8" y="0.8" width="2.4" height="12.2" rx="1.2"/></g>
-          <g transform="rotate(55 13 13)"><rect x="11.8" y="2.5" width="2.4" height="10.5" rx="1.2"/></g>
-        </svg>
+      <!-- Scène Secrète -->
+      <div class="scene-secret">
+        <div class="scene-moon">
+          <svg viewBox="0 0 24 24"><path d="M12 2 A 10 10 0 1 0 12 22 A 8 8 0 1 1 12 2 Z" /></svg>
+        </div>
+        
+        <!-- Champignon -->
+        <div class="scene-plant sp-mush">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M12 22 V12 M5 12 Q12 2 19 12 Z" />
+          </svg>
+        </div>
+
+        <!-- Cannabis -->
+        <div class="scene-plant sp-cann">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+            <path d="M12 22 V12 M12 16 L6 10 M12 16 L18 10 M12 12 L8 4 M12 12 L16 4" />
+          </svg>
+        </div>
+
+        <!-- Pavot -->
+        <div class="scene-plant sp-popp">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M12 22 V10 M12 10 C 5 10, 5 2, 12 4 C 19 2, 19 10, 12 10" />
+          </svg>
+        </div>
+
+        <!-- Trichocereus -->
+        <div class="scene-plant sp-trich">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M9 22 V2 M15 22 V2 M9 6 h6 M9 12 h6 M9 18 h6" />
+          </svg>
+        </div>
       </div>
 
-      <!-- Echeveria -->
-      <div class="scene-plant sp-ech">
-        <svg viewBox="0 0 22 9" fill="currentColor">
-          <g transform="rotate(-78 11 9)"><rect x="9.4" y="2.6" width="3.2" height="6.4" rx="1.6"/></g>
-          <g transform="rotate(-58 11 9)"><rect x="9.4" y="1.8" width="3.2" height="7.2" rx="1.6"/></g>
-          <g transform="rotate(-38 11 9)"><rect x="9.4" y="1" width="3.2" height="8" rx="1.6"/></g>
-          <g transform="rotate(-18 11 9)"><rect x="9.4" y="0.4" width="3.2" height="8.6" rx="1.6"/></g>
-          <rect x="9.4" y="0" width="3.2" height="9" rx="1.6"/>
-          <g transform="rotate(18 11 9)"><rect x="9.4" y="0.4" width="3.2" height="8.6" rx="1.6"/></g>
-          <g transform="rotate(38 11 9)"><rect x="9.4" y="1" width="3.2" height="8" rx="1.6"/></g>
-          <g transform="rotate(58 11 9)"><rect x="9.4" y="1.8" width="3.2" height="7.2" rx="1.6"/></g>
-          <g transform="rotate(78 11 9)"><rect x="9.4" y="2.6" width="3.2" height="6.4" rx="1.6"/></g>
-        </svg>
-      </div>
-
-      <!-- Yucca -->
-      <div class="scene-plant sp-yuc">
-        <svg viewBox="0 0 20 24" fill="currentColor">
-          <rect x="9" y="10" width="2" height="14" rx="1"/>
-          <g transform="rotate(-120 10 12)"><rect x="9.1" y="4" width="1.8" height="8" rx="0.9"/></g>
-          <g transform="rotate(-90 10 12)"><rect x="9.1" y="4" width="1.8" height="8" rx="0.9"/></g>
-          <g transform="rotate(-60 10 12)"><rect x="9.1" y="4" width="1.8" height="8" rx="0.9"/></g>
-          <g transform="rotate(-30 10 12)"><rect x="9.1" y="4" width="1.8" height="8" rx="0.9"/></g>
-          <rect x="9.1" y="4" width="1.8" height="8" rx="0.9"/>
-          <g transform="rotate(30 10 12)"><rect x="9.1" y="4" width="1.8" height="8" rx="0.9"/></g>
-          <g transform="rotate(60 10 12)"><rect x="9.1" y="4" width="1.8" height="8" rx="0.9"/></g>
-          <g transform="rotate(90 10 12)"><rect x="9.1" y="4" width="1.8" height="8" rx="0.9"/></g>
-          <g transform="rotate(120 10 12)"><rect x="9.1" y="4" width="1.8" height="8" rx="0.9"/></g>
-        </svg>
-      </div>
-
-      <!-- Beaucarnea -->
-      <div class="scene-plant sp-bea">
-        <svg viewBox="0 0 22 26" fill="currentColor">
-          <ellipse cx="11" cy="23.5" rx="7.5" ry="2.5"/>
-          <rect x="10.1" y="7" width="1.8" height="16.5" rx="0.9"/>
-          <g transform="rotate(-115 11 8)"><rect x="10.25" y="0" width="1.5" height="8" rx="0.75"/></g>
-          <g transform="rotate(-85 11 8)"><rect x="10.25" y="0" width="1.5" height="8" rx="0.75"/></g>
-          <g transform="rotate(-55 11 8)"><rect x="10.25" y="0" width="1.5" height="8" rx="0.75"/></g>
-          <g transform="rotate(-28 11 8)"><rect x="10.25" y="0" width="1.5" height="8" rx="0.75"/></g>
-          <rect x="10.25" y="0" width="1.5" height="8" rx="0.75"/>
-          <g transform="rotate(28 11 8)"><rect x="10.25" y="0" width="1.5" height="8" rx="0.75"/></g>
-          <g transform="rotate(55 11 8)"><rect x="10.25" y="0" width="1.5" height="8" rx="0.75"/></g>
-          <g transform="rotate(85 11 8)"><rect x="10.25" y="0" width="1.5" height="8" rx="0.75"/></g>
-          <g transform="rotate(115 11 8)"><rect x="10.25" y="0" width="1.5" height="8" rx="0.75"/></g>
-        </svg>
-      </div>
-
-      <!-- Oiseau volant (battement d'ailes, au-dessus des plantes) -->
+      <!-- Oiseau volant -->
       <div class="scene-bird" id="scene-bird">
-        <svg viewBox="0 0 22 16" fill="currentColor">
+        <svg viewBox="0 0 22 16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
           <g class="bird-wing">
-            <path d="M8 6 C6 2, 2 1, 0 3 C2 4, 5 5, 8 6 Z"/>
+            <path d="M8 6 C6 2, 2 1, 0 3 C2 4, 5 5, 8 6 Z" fill="currentColor"/>
           </g>
-          <ellipse cx="10" cy="7" rx="5" ry="2.8"/>
-          <circle cx="15.2" cy="5.8" r="2.3"/>
-          <circle cx="15.9" cy="5.3" r="0.5" fill="#fff"/>
-          <path d="M17.2 5.6 L19.8 6.2 L17.4 6.7 Z"/>
-          <path d="M5.5 7 L2 5.8 L2.5 8.2 Z"/>
+          <ellipse cx="10" cy="7" rx="5" ry="2.8" />
+          <circle cx="15.2" cy="5.8" r="2.3" />
+          <path d="M17.2 5.6 L20 6.2 L17.4 6.7 Z" fill="currentColor"/>
+          <path d="M5.5 7 L2 5.8 L2.5 8.2 Z" fill="currentColor"/>
         </svg>
       </div>
 
+      <!-- Verrou admin -->
       <button class="scene-lock" id="scene-lock-btn" type="button" aria-label="Accès admin">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="11" width="18" height="11" rx="2"/>
@@ -1452,7 +1494,7 @@ main {
 
   <div id="chips-step">
     <div class="chips-row" id="chips-row">
-      <button class="chip active" data-cat="all">
+      <button class="chip active" data-cat="all" data-mode="normal">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <circle cx="6" cy="6" r="2"/>
           <circle cx="18" cy="6" r="2"/>
@@ -1461,7 +1503,7 @@ main {
         </svg>
         Toutes
       </button>
-      <button class="chip" data-cat="Cactus">
+      <button class="chip" data-cat="Cactus" data-mode="normal">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M12 22V2"/>
           <path d="M12 10H9a2 2 0 0 1-2-2V6"/>
@@ -1469,7 +1511,7 @@ main {
         </svg>
         Cactus
       </button>
-      <button class="chip" data-cat="Succulentes">
+      <button class="chip" data-cat="Succulentes" data-mode="normal">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
           <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z"/>
           <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(-30 12 21)"/>
@@ -1477,25 +1519,54 @@ main {
         </svg>
         Succulentes
       </button>
-      <button class="chip" data-cat="Mesembryanthemum">
+      <button class="chip" data-cat="Mesembryanthemum" data-mode="normal">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <ellipse cx="12" cy="14" rx="6" ry="5"/>
           <path d="M12 9V6M9 6c1-1 5-1 6 0"/>
         </svg>
         Mesembryanthemum
       </button>
-      <button class="chip" data-cat="Tropicales">
+      <button class="chip" data-cat="Tropicales" data-mode="normal">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M5 19c0-7 6-13 14-14-1 8-7 14-14 14zM5 19l8-8"/>
         </svg>
         Tropicales
       </button>
-      <button class="chip" data-cat="Caudiciformes">
+      <button class="chip" data-cat="Caudiciformes" data-mode="normal">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <ellipse cx="12" cy="16" rx="7" ry="4"/>
           <path d="M12 12V6M9 8h6M10 5l2-2 2 2"/>
         </svg>
         Caudiciformes
+      </button>
+
+      <!-- Rubriques secrètes -->
+      <button class="chip secret" data-cat="Sorcières" data-mode="secret" style="display:none">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        Sorcières
+      </button>
+      <button class="chip secret" data-cat="Chamanique" data-mode="secret" style="display:none">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="14" r="7" />
+          <path d="M12 7 v14 M8 8.5 v11 M16 8.5 v11 M6 12 h12" />
+          <path d="M10 7 Q12 3 14 7" />
+        </svg>
+        Chamanique
+      </button>
+      <button class="chip secret" data-cat="Cannabis" data-mode="secret" style="display:none">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22 V12 M12 16 L6 10 M12 16 L18 10 M12 12 L8 4 M12 12 L16 4" />
+        </svg>
+        Cannabis
+      </button>
+      <button class="chip secret" data-cat="Champignons" data-mode="secret" style="display:none">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 13c0-4.4 3.6-8 8-8s8 3.6 8 8z"/>
+          <path d="M9.5 13v4a2.5 2.5 0 0 0 5 0v-4"/>
+        </svg>
+        Champignons
       </button>
     </div>
   </div>
@@ -1550,62 +1621,41 @@ main {
       <div class="field">
         <label>Rubrique *</label>
         <div class="cat-grid" id="cat-picker">
-          <!-- Rubriques normales -->
           <button type="button" class="cat-opt" data-cat="Cactus" data-mode="normal">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M12 22V2"/>
-              <path d="M12 10H9a2 2 0 0 1-2-2V6"/>
-              <path d="M12 14h3a2 2 0 0 0 2-2v-2"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22V2"/><path d="M12 10H9a2 2 0 0 1-2-2V6"/><path d="M12 14h3a2 2 0 0 0 2-2v-2"/></svg>
             Cactus
           </button>
           <button type="button" class="cat-opt" data-cat="Succulentes" data-mode="normal">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
-              <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z"/>
-              <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(-30 12 21)"/>
-              <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(30 12 21)"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z"/><path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(-30 12 21)"/><path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(30 12 21)"/></svg>
             Succulentes
           </button>
           <button type="button" class="cat-opt" data-cat="Mesembryanthemum" data-mode="normal">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <ellipse cx="12" cy="14" rx="6" ry="5"/>
-              <path d="M12 9V6M9 6c1-1 5-1 6 0"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="14" rx="6" ry="5"/><path d="M12 9V6M9 6c1-1 5-1 6 0"/></svg>
             Mesembryanthemum
           </button>
           <button type="button" class="cat-opt" data-cat="Tropicales" data-mode="normal">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M5 19c0-7 6-13 14-14-1 8-7 14-14 14z"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 19c0-7 6-13 14-14-1 8-7 14-14 14z"/></svg>
             Tropicales
           </button>
           <button type="button" class="cat-opt" data-cat="Caudiciformes" data-mode="normal">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <ellipse cx="12" cy="16" rx="7" ry="4"/>
-              <path d="M12 12V6M9 8h6M10 5l2-2 2 2"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="16" rx="7" ry="4"/><path d="M12 12V6M9 8h6M10 5l2-2 2 2"/></svg>
             Caudiciformes
           </button>
 
-          <!-- Rubriques secrètes -->
           <button type="button" class="cat-opt" data-cat="Sorcières" data-mode="secret">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
             Sorcières
           </button>
           <button type="button" class="cat-opt" data-cat="Chamanique" data-mode="secret">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 19c0-7 6-13 14-14-1 8-7 14-14 14z"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="14" r="7" /><path d="M12 7 v14 M8 8.5 v11 M16 8.5 v11 M6 12 h12" /><path d="M10 7 Q12 3 14 7" /></svg>
             Chamanique
           </button>
+          <button type="button" class="cat-opt" data-cat="Cannabis" data-mode="secret">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 V12 M12 16 L6 10 M12 16 L18 10 M12 12 L8 4 M12 12 L16 4" /></svg>
+            Cannabis
+          </button>
           <button type="button" class="cat-opt" data-cat="Champignons" data-mode="secret">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 13c0-4.4 3.6-8 8-8s8 3.6 8 8z"/>
-              <path d="M9.5 13v4a2.5 2.5 0 0 0 5 0v-4"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13c0-4.4 3.6-8 8-8s8 3.6 8 8z"/><path d="M9.5 13v4a2.5 2.5 0 0 0 5 0v-4"/></svg>
             Champignons
           </button>
         </div>
@@ -1657,6 +1707,8 @@ main {
             <div class="opt" data-val="Sable & terre de bruyère" data-mode="secret">Sable & terre de bruyère</div>
             <div class="opt" data-val="Prairies herbeuses" data-mode="secret">Prairies herbeuses</div>
             <div class="opt" data-val="Sol tropical humide" data-mode="secret">Sol tropical humide</div>
+            <div class="opt" data-val="Terreau riche & perlite" data-mode="secret">Terreau riche & perlite</div>
+            <div class="opt" data-val="Mélange aéré (coco, perlite, lombricompost)" data-mode="secret">Mélange aéré</div>
           </div>
           <input type="hidden" id="p-substrate" value="">
         </div>
@@ -1809,831 +1861,4 @@ main {
           <input type="hidden" id="p-origin" value="">
         </div>
         <div id="origin-country-wrap" style="display:none;margin-top:10px">
-          <label style="font-size:10px;color:#888;font-weight:500;display:block;margin-bottom:4px">Pays (optionnel)</label>
-          <input type="text" id="p-origin-country" placeholder="ex: Mexique" style="width:100%;padding:10px 14px;background:#f7f7f7;border:none;border-radius:10px;font-family:inherit;font-size:13px;outline:none">
-        </div>
-      </div>
-
-      <div class="field">
-        <label>Photo *</label>
-        <div id="file-drop" class="file-drop">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-            <path d="M12 16V4M6 10l6-6 6 6M4 20h16"/>
-          </svg>
-          <span>Prendre ou choisir une photo</span>
-          <input type="file" id="p-photo" accept="image/*" capture="environment">
-        </div>
-        <div id="photo-prev" class="photo-prev">
-          <img id="photo-prev-img" alt="">
-          <button type="button" id="clear-photo">×</button>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="drawer-foot">
-      <button type="submit" id="submit-btn" class="btn" style="width:100%;justify-content:center;padding:13px">
-        Enregistrer
-      </button>
-    </div>
-  </form>
-</aside>
-
-<div id="code-modal" class="modal">
-  <div class="modal-box">
-    <h3>Accès administrateur</h3>
-    <p>Entrez votre code pour déverrouiller la modification.</p>
-    <input type="text" id="code-input" class="code-inp" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="••••" autocomplete="off">
-    <div class="modal-acts">
-      <button type="button" id="code-cancel" class="secondary">Annuler</button>
-      <button type="button" id="code-ok" class="primary">Valider</button>
-    </div>
-  </div>
-</div>
-
-<div id="lightbox" class="lightbox" aria-hidden="true">
-  <button id="lb-close" class="lb-close">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <path d="M19 12H5M12 19l-7-7 7-7"/>
-    </svg>
-  </button>
-  <div class="lb-content">
-    <img id="lb-img" alt="">
-    <div class="lb-info">
-      <div class="lb-cat" id="lb-cat"></div>
-      <div class="lb-name" id="lb-name"></div>
-      <div class="lb-fam" id="lb-fam"></div>
-      <div class="lb-grid">
-        <div class="lb-item" id="lb-expo-w" style="display:none">
-          <div class="lb-key">Exposition</div>
-          <div class="lb-val" id="lb-expo"></div>
-        </div>
-        <div class="lb-item" id="lb-temp-w" style="display:none">
-          <div class="lb-key">Température min</div>
-          <div class="lb-val" id="lb-temp"></div>
-        </div>
-        <div class="lb-item" id="lb-sub-w" style="display:none">
-          <div class="lb-key">Substrat</div>
-          <div class="lb-val" id="lb-sub"></div>
-        </div>
-        <div class="lb-item" id="lb-ori-w" style="display:none">
-          <div class="lb-key">Origine</div>
-          <div class="lb-val" id="lb-ori"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="toast-wrap" class="toast-wrap"></div>
-  <script>
-(function () {
-  'use strict';
-
-  var $ = function (id) { return document.getElementById(id); };
-  var ADMIN = '2404';
-  var KEY = 'plantouille_v6';
-  var SECRET_KEY = 'plantouille_secret_unlocked';
-  var SEED_KEY = 'plantouille_secret_seeded';
-  var MAXW = 900;
-  var Q = 0.72;
-
-  var SPECIES = {
-    'Cactus': ['Acanthocereus','Acharagma','Ancistrocactus','Aporocactus','Ariocarpus','Armatocereus','Arrojadoa','Astrophytum','Austrocactus','Austrocephalocereus','Austrocylindropuntia','Aylostera','Aztekium','Bergerocactus','Blossfeldia','Borzicactus','Brachycereus','Brasilicactus','Brasilicereus','Browningia','Calymmanthium','Carnegiea','Cephalocereus','Cereus','Cintia','Cleistocactus','Coleocephalocereus','Consolea','Copiapoa','Corryocactus','Coryphantha','Cumulopuntia','Cylindropuntia','Denmoza','Discocactus','Echinocactus','Echinocereus','Echinomastus','Echinopsis','Epiphyllum','Eriosyce','Escobaria','Espostoa','Espostoopsis','Eulychnia','Facheiroa','Ferocactus','Frailea','Geohintonia','Gymnocalycium','Haageocereus','Hamatocactus','Harrisia','Hatiora','Hylocereus','Isolatocereus','Islaya','Jasminocereus','Lasiocereus','Leocereus','Lepismium','Leptocereus','Leuchtenbergia','Lobivia','Lophophora','Loxanthocereus','Mammillaria','Mammilloydia','Matucana','Melocactus','Micranthocereus','Mila','Monvillea','Morawetzia','Myrtillocactus','Neobuxbaumia','Neolloydia','Neoporteria','Neoraimondia','Neowerdermannia','Notocactus','Obregonia','Opuntia','Oreocereus','Oroya','Ortegocactus','Pachycereus','Parodia','Pediocactus','Pelecyphora','Peniocereus','Pereskia','Pilosocereus','Polaskia','Pterocactus','Pygmaeocereus','Rebutia','Rhipsalis','Schlumbergera','Selenicereus','Setiechinopsis','Stenocactus','Stenocereus','Stephanocereus','Stetsonia','Strombocactus','Sulcorebutia','Tacinga','Tephrocactus','Thelocactus','Trichocereus','Tunilla','Turbinicarpus','Uebelmannia','Weberbauerocereus','Weingartia','Wilcoxia','Yavia'],
-    'Succulentes': ['Adromischus','Adenia','Aeonium','Agave','Aichryson','Albuca','Alluaudia','Alluaudiopsis','Aloe','Anacampseros','Aptenia','Apteranthes','Astroloba','Avonia','Beaucarnea','Bowiea','Brachystelma','Bulbine','Calibanus','Caralluma','Ceraria','Ceropegia','Cissus','Cotyledon','Crassula','Dasylirion','Decarya','Didierea','Dracaena','Dudleya','Duvalia','Echeveria','Echidnopsis','Edithcolea','Encephalartos','Euphorbia','Fockea','Frithia','Gasteria','Gonialoe','Graptopetalum','Graptophytum','Graptosedum','Graptoveria','Greenovia','Haworthia','Haworthiopsis','Hoodia','Huernia','Hylotelephium','Jovibarba','Kalanchoe','Kleinia','Kumara','Lapidaria','Larryleachia','Lavrania','Lenophyllum','Lithops','Manfreda','Monadenium','Monanthes','Orbea','Orostachys','Oscularia','Othonna','Pachyphytum','Pachyveria','Pachypodium','Pedilanthus','Pelargonium','Peperomia','Petrosedum','Phedimus','Piaranthus','Plectranthus','Polianthes','Portulacaria','Pseudolithos','Quaqua','Rhodiola','Rhombophyllum','Rochea','Rosularia','Sansevieria','Sarcostemma','Sedeveria','Sedum','Senecio','Sempervivum','Sinocrassula','Stapelia','Stapelianthus','Synadenium','Tacitus','Tavaresia','Trichocaulon','Tulista','Tylecodon','Umbilicus','Villadia','Xerosicyos','Yucca'],
-    'Mesembryanthemum': ['Acrodon','Aloinopsis','Amphibolia','Antimima','Apatesia','Aptenia','Argyroderma','Aspazoma','Bergeranthus','Berrisfordia','Bijlia','Braunsia','Brownanthus','Carpanthea','Carpobrotus','Carruanthus','Cephalophyllum','Cerochlamys','Chasmatophyllum','Cheiridopsis','Circandra','Cleretum','Conicosia','Conophytum','Corpuscularia','Cylindrophyllum','Dactylopsis','Delosperma','Dinteranthus','Diplosoma','Disphyma','Dorotheanthus','Dracophilus','Drosanthemum','Eberlanzia','Ebracteola','Ectotropis','Enarganthe','Erepsia','Esterhuysenia','Faucaria','Fenestraria','Frithia','Galenia','Gibbaeum','Glottiphyllum','Hallianthus','Hereroa','Herreanthus','Hydrodea','Imitaria','Jacobsenia','Jensenobotrya','Jordaaniella','Juttadinteria','Khadia','Lampranthus','Lapidaria','Leipoldtia','Lithops','Machairophyllum','Malephora','Maughania','Meyerophytum','Mitrophyllum','Monilaria','Mossia','Muiria','Namaquanthus','Namibia','Nananthus','Nelia','Neohenricia','Octopoma','Odontophorus','Oophytum','Ophthalmophyllum','Orthopterum','Oscularia','Ottosonderia','Peersia','Phyllobolus','Pleiospilos','Polymita','Prenia','Prepodesma','Psammophora','Pseudobrownanthus','Rabiea','Rhinephyllum','Rhombophyllum','Ruschia','Ruschianthus','Saphesia','Sceletium','Schwantesia','Scopelogena','Smicrostigma','Stayneria','Stoeberia','Stomatium','Tanquana','Titanopsis','Trichodiadema','Vanheerdea','Vanzijlia','Vlokia','Wooleya','Zeuktophyllum'],
-    'Tropicales': ['Acalypha','Aglaonema','Alocasia','Alpinia','Ananas','Anthurium','Araucaria','Ardisia','Aspidistra','Asplenium','Begonia','Billbergia','Bromelia','Brugmansia','Caladium','Calathea','Canna','Chlorophytum','Cissus','Clivia','Coccoloba','Codiaeum','Colocasia','Cordyline','Costus','Crinum','Croton','Cryptanthus','Ctenanthe','Curculigo','Curcuma','Cycas','Cyrtomium','Davallia','Dicksonia','Dieffenbachia','Dracaena','Epipremnum','Eranthemum','Eucomis','Ficus','Fittonia','Freesia','Gardenia','Gloriosa','Guzmania','Haemanthus','Hedychium','Heliconia','Hemigraphis','Heptapleurum','Hippeastrum','Homalomena','Hoya','Hymenocallis','Impatiens','Ixora','Jasminum','Justicia','Kaempferia','Leea','Maranta','Monstera','Musa','Neoregelia','Nepenthes','Nephrolepis','Nidularium','Pachira','Pandanus','Paphiopedilum','Passiflora','Pellionia','Peperomia','Pentas','Philodendron','Phlebodium','Phoenix','Pilea','Piper','Platycerium','Plumeria','Polystichum','Pothos','Pseuderanthemum','Pteris','Rhapis','Ruellia','Sanchezia','Sansevieria','Sarracenia','Scindapsus','Schefflera','Spathiphyllum','Strelitzia','Stromanthe','Syngonium','Thaumatophyllum','Thunbergia','Tillandsia','Tradescantia','Vriesea','Yucca','Zamioculcas','Zingiber'],
-    'Caudiciformes': ['Adansonia','Adenia','Adenium','Albuca','Alectra','Anacampseros','Avonia','Barleria','Beaucarnea','Bombax','Bowiea','Brachystelma','Bulbine','Bursera','Calibanus','Caralluma','Ceraria','Ceropegia','Cibirhiza','Cissus','Commiphora','Conophytum','Cotyledon','Crassula','Cussonia','Cynanchum','Cyphostemma','Decabelone','Decarya','Delonix','Dendrosicyos','Didierea','Dioscorea','Dorstenia','Drimia','Duvalia','Echidnopsis','Encephalartos','Euphorbia','Ficus','Fockea','Fouquieria','Gerrardanthus','Hoodia','Huernia','Hydnophytum','Ibervillea','Idria','Ipomoea','Jatropha','Kedrostis','Kleinia','Kokia','Lannea','Laportea','Larryleachia','Lavrania','Lithops','Massonia','Melocactus','Monadenium','Momordica','Monsonia','Moringa','Myrmecodia','Nolina','Operculicarya','Orbea','Ornithogalum','Othonna','Oxalis','Pachypodium','Pelargonium','Phyllanthus','Piaranthus','Plumeria','Pseudobombax','Pseudolithos','Pterodiscus','Pyrenacantha','Quaqua','Raphionacme','Sarcocaulon','Sarcostemma','Sceletium','Senecio','Sesamothamnus','Sinningia','Stapelia','Stapelianthus','Sterculia','Synadenium','Talinum','Tavaresia','Testudinaria','Trichocaulon','Trichodiadema','Tylecodon','Uncarina','Welwitschia','Whitesloanea','Xerosicyos'],
-    'Sorcières': ['Aconitum','Actaea','Aethusa','Amanita','Artemisia','Atropa','Brugmansia','Colchicum','Conium','Datura','Delphinium','Digitalis','Helleborus','Hyoscyamus','Mandragora','Nerium','Nicotiana','Papaver','Ricinus','Sambucus','Solanum','Strychnos','Taxus','Verbena','Vinca','Withania'],
-    'Chamanique': ['Acorus','Anadenanthera','Banisteriopsis','Brugmansia','Calea','Cannabis','Duboisia','Echinopsis','Erythroxylum','Heimia','Lophophora','Mimosa','Myristica','Nicotiana','Peganum','Psychotria','Salvia','Sceletium','Tabernanthe','Trichocereus','Virola','Voacanga'],
-    'Champignons': ['Agaricus','Amanita','Armillaria','Auricularia','Boletus','Cantharellus','Claviceps','Conocybe','Copelandia','Coprinus','Cordyceps','Flammulina','Fomes','Ganoderma','Grifola','Gymnopilus','Hericium','Hydnellum','Inocybe','Laetiporus','Lactarius','Lentinula','Lycoperdon','Morchella','Panaeolus','Phallus','Phellinus','Pleurotus','Pluteus','Psilocybe','Russula','Scleroderma','Trametes','Tremella','Tricholoma','Tuber']
-  };
-
-  var SECRETS = ['Sorcières', 'Chamanique', 'Champignons'];
-
-  var SECRET_EXAMPLES = [
-    { name: 'Amanita muscaria', category: 'Champignons', family: 'Amanitaceae', substrate: 'Sol forestier humide', exposure: 'Mi-ombre', minTemp: '-5', origin: 'Europe & Asie', c1: '#d32f2f', c2: '#ffd4d4', letter: 'A' },
-    { name: 'Psilocybe cubensis', category: 'Champignons', family: 'Hymenogastraceae', substrate: 'Fumier & sol riche', exposure: 'Ombre', minTemp: '15', origin: 'Amérique centrale', c1: '#8b5a2b', c2: '#f5deb3', letter: 'P' },
-    { name: 'Psilocybe semilanceata', category: 'Champignons', family: 'Hymenogastraceae', substrate: 'Prairies herbeuses', exposure: 'Mi-ombre', minTemp: '5', origin: 'Europe du Nord', c1: '#6d4c2a', c2: '#d4b896', letter: 'P' },
-    { name: 'Datura stramonium', category: 'Sorcières', family: 'Solanaceae', substrate: 'Terreau drainant', exposure: 'Plein soleil', minTemp: '-5', origin: 'Amérique du Nord', c1: '#6a1b9a', c2: '#e1bee7', letter: 'D' },
-    { name: 'Atropa belladonna', category: 'Sorcières', family: 'Solanaceae', substrate: 'Sol calcaire', exposure: 'Mi-ombre', minTemp: '-10', origin: 'Europe', c1: '#4a148c', c2: '#ce93d8', letter: 'A' },
-    { name: 'Hyoscyamus niger', category: 'Sorcières', family: 'Solanaceae', substrate: 'Terreau sablonneux', exposure: 'Plein soleil', minTemp: '-15', origin: 'Bassin Méditerranéen', c1: '#311b92', c2: '#b39ddb', letter: 'H' },
-    { name: 'Salvia divinorum', category: 'Chamanique', family: 'Lamiaceae', substrate: 'Sol humide & ombragé', exposure: 'Ombre', minTemp: '10', origin: 'Mexique', c1: '#2e7d32', c2: '#a5d6a7', letter: 'S' },
-    { name: 'Banisteriopsis caapi', category: 'Chamanique', family: 'Malpighiaceae', substrate: 'Sol tropical humide', exposure: 'Mi-ombre', minTemp: '15', origin: 'Brésil & Bassin Amazonien', c1: '#00695c', c2: '#80cbc4', letter: 'B' },
-    { name: 'Trichocereus pachanoi', category: 'Chamanique', family: 'Cactaceae', substrate: 'Substrat 3 tiers', exposure: 'Plein soleil', minTemp: '-5', origin: 'Andes & Amérique du Sud Ouest', c1: '#1b5e20', c2: '#c8e6c9', letter: 'T' },
-    { name: 'Psychotria viridis', category: 'Chamanique', family: 'Rubiaceae', substrate: 'Terreau riche', exposure: 'Ombre', minTemp: '18', origin: 'Brésil & Bassin Amazonien', c1: '#33691e', c2: '#dcedc8', letter: 'P' }
-  ];
-
-  var plants = [];
-  var unlocked = false;
-  var secretRevealed = false;
-  var secretMode = false;
-  var drawerMode = 'normal';
-  var photo = '';
-  var filter = 'all';
-  var genreFilter = '';
-  var selSub = '', selFam = '', selExp = '', selOri = '';
-
-  function esc(s) {
-    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
-      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
-    });
-  }
-  function norm(s) {
-    return String(s == null ? '' : s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-  }
-  function fmtT(t) {
-    if (t == null || t === '') return null;
-    var n = Number(t);
-    return (n > 0 ? '+' + n : n) + ' °C';
-  }
-  function toast(m, ms) {
-    var t = document.createElement('div');
-    t.className = 'toast';
-    t.textContent = m;
-    $('toast-wrap').appendChild(t);
-    setTimeout(function () { t.remove(); }, ms || 3000);
-  }
-
-  function isSecret(cat) {
-    return SECRETS.indexOf(cat) !== -1;
-  }
-
-  function loadP() {
-    try {
-      var r = localStorage.getItem(KEY);
-      if (!r) return [];
-      var a = JSON.parse(r);
-      return Array.isArray(a) ? a : [];
-    } catch (e) { return []; }
-  }
-  function saveP() {
-    try {
-      localStorage.setItem(KEY, JSON.stringify(plants));
-      return true;
-    } catch (e) {
-      toast('Stockage plein');
-      return false;
-    }
-  }
-  function stats() {
-    $('stat-total').textContent = plants.length;
-  }
-
-  function syncBack() {
-    var m = document.querySelector('main .sel-wrap.open');
-    var d = document.querySelector('#drawer .sel-wrap.open');
-    var pb = $('page-backdrop');
-    var dd = $('drawer-dropdown-backdrop');
-    if (pb) pb.classList.toggle('visible', !!m);
-    if (dd) dd.classList.toggle('visible', !!d);
-  }
-
-  function filterList() {
-    var term = norm($('search-input').value.trim());
-    var gt = norm(genreFilter);
-    return plants.filter(function (p) {
-      if (!secretMode && isSecret(p.category)) return false;
-      if (filter !== 'all' && p.category !== filter) return false;
-      if (gt && norm(p.name).indexOf(gt) === -1) return false;
-      if (term) {
-        var h = norm((p.name||'') + ' ' + (p.family||'') + ' ' + (p.substrate||'') + ' ' + (p.exposure||'') + ' ' + (p.origin||'') + ' ' + (p.category||''));
-        if (h.indexOf(term) === -1) return false;
-      }
-      return true;
-    });
-  }
-
-  function render() {
-    var list = filterList();
-    var g = $('grid');
-    g.innerHTML = '';
-    if (list.length === 0) {
-      g.innerHTML = '<div class="empty">' +
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 21V11"/><path d="M12 13c-3.5 0-6-2.5-6-6 3.5 0 6 2.5 6 6z"/></svg>' +
-        (plants.length === 0 ? "Aucun spécimen pour l'instant." : "Aucun spécimen ne correspond.") +
-        '</div>';
-      return;
-    }
-    list.forEach(function (p) {
-      var c = document.createElement('article');
-      c.className = 'card' + (isSecret(p.category) ? ' secret-cat' : '');
-      var tf = fmtT(p.minTemp);
-      var info = '';
-      if (p.exposure) info += '<div><b>Expo:</b> ' + esc(p.exposure) + '</div>';
-      if (tf) info += '<div><b>Min:</b> ' + esc(tf) + '</div>';
-      if (p.substrate) info += '<div class="full"><b>Substrat:</b> ' + esc(p.substrate) + '</div>';
-      if (p.origin) info += '<div class="full"><b>Origine:</b> ' + esc(p.origin) + '</div>';
-      var db = unlocked
-        ? '<button type="button" class="card-del"><svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"/></svg><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg></button>'
-        : '';
-      c.innerHTML =
-        '<div class="card-img-wrap"><img src="' + esc(p.photo) + '" alt="' + esc(p.name) + '" loading="lazy">' + db + '</div>' +
-        '<div class="card-body">' +
-          '<div>' +
-            '<div class="card-cat">' + esc(p.category) + '</div>' +
-            '<div class="card-name">' + esc(p.name) + '</div>' +
-            (p.family ? '<div class="card-fam">' + esc(p.family) + '</div>' : '') +
-          '</div>' +
-          '<div class="card-info">' + info + '</div>' +
-        '</div>';
-      c.querySelector('.card-img-wrap img').addEventListener('click', function () { openLB(p); });
-      var d = c.querySelector('.card-del');
-      if (d) {
-        var to = null;
-        d.addEventListener('click', function (e) {
-          e.stopPropagation();
-          if (!d.classList.contains('confirming')) {
-            d.classList.add('confirming');
-            clearTimeout(to);
-            to = setTimeout(function () { d.classList.remove('confirming'); }, 2500);
-          } else { delP(p); }
-        });
-      }
-      g.appendChild(c);
-    });
-  }
-
-  function delP(p) {
-    plants = plants.filter(function (x) { return x.id !== p.id; });
-    if (saveP()) { stats(); render(); toast('Spécimen retiré'); }
-  }
-
-  function openLB(p) {
-    $('lb-img').src = p.photo;
-    $('lb-img').alt = p.name || '';
-    $('lb-cat').textContent = p.category || '';
-    $('lb-name').textContent = p.name || '';
-    $('lb-fam').textContent = p.family || '';
-    $('lb-fam').style.display = p.family ? 'block' : 'none';
-    var tf = fmtT(p.minTemp);
-    if (p.exposure) { $('lb-expo-w').style.display = 'flex'; $('lb-expo').textContent = p.exposure; }
-    else { $('lb-expo-w').style.display = 'none'; }
-    if (tf) { $('lb-temp-w').style.display = 'flex'; $('lb-temp').textContent = tf; }
-    else { $('lb-temp-w').style.display = 'none'; }
-    if (p.substrate) { $('lb-sub-w').style.display = 'flex'; $('lb-sub').textContent = p.substrate; }
-    else { $('lb-sub-w').style.display = 'none'; }
-    if (p.origin) { $('lb-ori-w').style.display = 'flex'; $('lb-ori').textContent = p.origin; }
-    else { $('lb-ori-w').style.display = 'none'; }
-    $('lightbox').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeLB() {
-    $('lightbox').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  function openModal(id) {
-    $(id).classList.add('on');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeModal(id) {
-    $(id).classList.remove('on');
-    if (!$('drawer').classList.contains('open')) document.body.style.overflow = '';
-  }
-
-  function updateSecretAddBtn() {
-    $('add-secret-btn').style.display = (secretMode && unlocked) ? 'inline-flex' : 'none';
-  }
-
-  function unlock() {
-    unlocked = true;
-    $('admin-bar').classList.add('on');
-    updateSecretAddBtn();
-    render();
-    toast('Mode admin activé', 2000);
-  }
-  function lock() {
-    unlocked = false;
-    $('admin-bar').classList.remove('on');
-    updateSecretAddBtn();
-    render();
-  }
-
-  function setSecretMode(mode) {
-    secretMode = !!mode;
-
-    document.querySelectorAll('#chips-row .chip.secret').forEach(function (c) {
-      c.style.display = secretMode ? '' : 'none';
-    });
-
-    $('secret-banner').style.display = secretMode ? 'flex' : 'none';
-    updateSecretAddBtn();
-
-    if (!secretMode && SECRETS.indexOf(filter) !== -1) {
-      filter = 'all';
-      genreFilter = '';
-      document.querySelectorAll('#chips-row .chip').forEach(function (x) {
-        x.classList.toggle('active', x.getAttribute('data-cat') === 'all');
-      });
-      $('species-step').classList.remove('on');
-      $('chips-step').style.display = '';
-    }
-
-    render();
-  }
-
-  function setupSel(wrapId, btnId, ddId, hiddenId, defaultText, cb) {
-    var w = $(wrapId), b = $(btnId), dd = $(ddId), h = $(hiddenId);
-    b.addEventListener('click', function (e) {
-      e.stopPropagation();
-      document.querySelectorAll('.sel-wrap.open').forEach(function (x) {
-        if (x !== w) x.classList.remove('open');
-      });
-      w.classList.toggle('open');
-      syncBack();
-    });
-    dd.querySelectorAll('.opt').forEach(function (o) {
-      o.addEventListener('click', function (e) {
-        e.stopPropagation();
-        if (o.style.display === 'none') return;
-        dd.querySelectorAll('.opt').forEach(function (x) { x.classList.remove('sel'); });
-        o.classList.add('sel');
-        var v = o.getAttribute('data-val');
-        h.value = v;
-        b.querySelector('.lbl').textContent = v;
-        b.classList.remove('placeholder');
-        w.classList.remove('open');
-        syncBack();
-        if (cb) cb(v);
-      });
-    });
-    return function reset() {
-      h.value = '';
-      b.querySelector('.lbl').textContent = defaultText;
-      b.classList.add('placeholder');
-      dd.querySelectorAll('.opt').forEach(function (x) { x.classList.remove('sel'); });
-      w.classList.remove('open');
-      if (cb) cb('');
-    };
-  }
-
-  var resetSub = setupSel('substrate-wrap', 'substrate-btn', 'substrate-dd', 'p-substrate', 'Sélectionner un substrat…', function (v) { selSub = v; });
-  var resetFam = setupSel('family-wrap', 'family-btn', 'family-dd', 'p-family', 'Sélectionner une famille…', function (v) { selFam = v; });
-  var resetOri = setupSel('origin-wrap', 'origin-btn', 'origin-dd', 'p-origin', 'Sélectionner une région…', function (v) {
-    selOri = v;
-    $('origin-country-wrap').style.display = (v && v !== 'Horticole / Hybride') ? 'block' : 'none';
-    if (!v || v === 'Horticole / Hybride') $('p-origin-country').value = '';
-  });
-
-  document.addEventListener('click', function (e) {
-    if (!e.target.closest('.sel-wrap')) {
-      document.querySelectorAll('.sel-wrap.open').forEach(function (w) { w.classList.remove('open'); });
-      syncBack();
-    }
-  });
-
-  document.querySelectorAll('#exp-picker .exp-opt').forEach(function (b) {
-    b.addEventListener('click', function () {
-      document.querySelectorAll('#exp-picker .exp-opt').forEach(function (x) { x.classList.remove('active'); });
-      b.classList.add('active');
-      selExp = b.getAttribute('data-exp');
-      $('p-exp').value = selExp;
-    });
-  });
-
-  $('p-temp').addEventListener('input', function (e) {
-    var v = e.target.value;
-    $('temp-val').textContent = (v > 0 ? '+' + v : v) + ' °C';
-  });
-
-  function selectCategory(cat, btnEl) {
-    document.querySelectorAll('#chips-row .chip').forEach(function (x) { x.classList.remove('active'); });
-    btnEl.classList.add('active');
-    filter = cat;
-    genreFilter = '';
-    if (cat === 'all') {
-      $('species-step').classList.remove('on');
-      $('chips-step').style.display = '';
-      render();
-      return;
-    }
-    $('chips-step').style.display = 'none';
-    $('species-step').classList.add('on');
-    var dd = $('filter-species-dd');
-    var html = '<div class="opt-group">' + cat + '</div>';
-    (SPECIES[cat] || []).forEach(function (s) {
-      html += '<div class="opt" data-val="' + esc(s) + '">' + esc(s) + '</div>';
-    });
-    dd.innerHTML = html;
-    dd.querySelectorAll('.opt').forEach(function (o) {
-      o.addEventListener('click', function (e) {
-        e.stopPropagation();
-        dd.querySelectorAll('.opt').forEach(function (x) { x.classList.remove('sel'); });
-        o.classList.add('sel');
-        var v = o.getAttribute('data-val');
-        $('filter-species-btn').querySelector('.lbl').textContent = v;
-        $('filter-species-btn').classList.remove('placeholder');
-        $('filter-species-wrap').classList.remove('open');
-        $('filter-genre-custom').value = v;
-        genreFilter = v;
-        syncBack();
-        render();
-      });
-    });
-    $('filter-species-btn').querySelector('.lbl').textContent = 'Sélectionner un genre…';
-    $('filter-species-btn').classList.add('placeholder');
-    $('filter-species-wrap').classList.remove('open');
-    $('filter-genre-custom').value = '';
-    render();
-  }
-
-  function bindChip(b) {
-    b.addEventListener('click', function () { selectCategory(b.getAttribute('data-cat'), b); });
-  }
-  document.querySelectorAll('#chips-row .chip').forEach(bindChip);
-
-  $('filter-species-btn').addEventListener('click', function (e) {
-    e.stopPropagation();
-    document.querySelectorAll('.sel-wrap.open').forEach(function (w) {
-      if (w !== $('filter-species-wrap')) w.classList.remove('open');
-    });
-    $('filter-species-wrap').classList.toggle('open');
-    syncBack();
-  });
-
-  $('filter-genre-custom').addEventListener('input', function (e) {
-    genreFilter = e.target.value.trim();
-    render();
-  });
-
-  $('back-to-chips').addEventListener('click', function () {
-    filter = 'all';
-    genreFilter = '';
-    $('species-step').classList.remove('on');
-    $('chips-step').style.display = '';
-    document.querySelectorAll('#chips-row .chip').forEach(function (x) {
-      x.classList.toggle('active', x.getAttribute('data-cat') === 'all');
-    });
-    render();
-  });
-
-  // ============ RUBRIQUE DRAWER ============
-  document.querySelectorAll('#cat-picker .cat-opt').forEach(function (b) {
-    b.addEventListener('click', function () {
-      document.querySelectorAll('#cat-picker .cat-opt').forEach(function (x) { x.classList.remove('active'); });
-      b.classList.add('active');
-      var cat = b.getAttribute('data-cat');
-      $('p-cat').value = cat;
-      var dd = $('drawer-species-dd');
-      var html = '<div class="opt-group">' + cat + '</div>';
-      (SPECIES[cat] || []).forEach(function (s) {
-        html += '<div class="opt" data-val="' + esc(s) + '">' + esc(s) + '</div>';
-      });
-      dd.innerHTML = html;
-      dd.querySelectorAll('.opt').forEach(function (o) {
-        o.addEventListener('click', function (e) {
-          e.stopPropagation();
-          dd.querySelectorAll('.opt').forEach(function (x) { x.classList.remove('sel'); });
-          o.classList.add('sel');
-          var v = o.getAttribute('data-val');
-          $('drawer-species-btn').querySelector('.lbl').textContent = v;
-          $('drawer-species-btn').classList.remove('placeholder');
-          $('drawer-species-wrap').classList.remove('open');
-          $('p-genre-custom').value = v;
-          if (!$('p-name').value.trim()) $('p-name').value = v;
-          syncBack();
-        });
-      });
-      $('drawer-species-btn').querySelector('.lbl').textContent = 'Sélectionner un genre…';
-      $('drawer-species-btn').classList.add('placeholder');
-      $('drawer-species-wrap').classList.remove('open');
-      $('p-genre-custom').value = '';
-      $('drawer-species-step').style.display = 'block';
-    });
-  });
-
-  $('drawer-species-btn').addEventListener('click', function (e) {
-    e.stopPropagation();
-    document.querySelectorAll('.sel-wrap.open').forEach(function (w) {
-      if (w !== $('drawer-species-wrap')) w.classList.remove('open');
-    });
-    $('drawer-species-wrap').classList.toggle('open');
-    syncBack();
-  });
-
-  // ============ PHOTO ============
-  function resizeImg(f) {
-    return new Promise(function (res, rej) {
-      var r = new FileReader();
-      r.onload = function (e) {
-        var i = new Image();
-        i.onload = function () {
-          var w = i.width, h = i.height;
-          if (w > MAXW) { h = Math.round(h * MAXW / w); w = MAXW; }
-          var c = document.createElement('canvas');
-          c.width = w; c.height = h;
-          c.getContext('2d').drawImage(i, 0, 0, w, h);
-          res(c.toDataURL('image/jpeg', Q));
-        };
-        i.onerror = function () { rej(new Error('Img')); };
-        i.src = e.target.result;
-      };
-      r.onerror = function () { rej(new Error('Read')); };
-      r.readAsDataURL(f);
-    });
-  }
-
-  $('p-photo').addEventListener('change', function (e) {
-    var f = e.target.files[0];
-    if (!f) return;
-    resizeImg(f).then(function (d) {
-      photo = d;
-      $('photo-prev-img').src = d;
-      $('file-drop').style.display = 'none';
-      $('photo-prev').style.display = 'block';
-    }).catch(function () { toast('Erreur image'); });
-  });
-
-  $('clear-photo').addEventListener('click', function () {
-    photo = '';
-    $('p-photo').value = '';
-    $('photo-prev').style.display = 'none';
-    $('file-drop').style.display = 'flex';
-  });
-
-  // ============ FORM SUBMIT ============
-  $('plant-form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    var nameIn = $('p-name').value.trim();
-    var gC = $('p-genre-custom').value.trim();
-    var cat = $('p-cat').value;
-    var fC = $('p-family-custom').value.trim();
-    var oC = $('p-origin-country').value.trim();
-    var fName = gC || nameIn;
-    var fFam = fC || selFam;
-    var fOri = selOri;
-    if (oC && selOri && selOri !== 'Horticole / Hybride') fOri = selOri + ' — ' + oC;
-    if (!fName || !cat || !photo) { toast('Nom, rubrique et photo obligatoires'); return; }
-    var nP = { id: 'p_' + Date.now(), name: fName, category: cat, family: fFam, substrate: selSub, exposure: selExp, minTemp: $('p-temp').value, origin: fOri, photo: photo, date: Date.now() };
-    var backup = plants.slice();
-    plants.unshift(nP);
-    if (saveP()) { stats(); render(); resetForm(); closeDrawer(); toast('Spécimen enregistré ✓'); }
-    else { plants = backup; }
-  });
-
-  function resetForm() {
-    $('plant-form').reset();
-    photo = '';
-    $('photo-prev').style.display = 'none';
-    $('file-drop').style.display = 'flex';
-    $('p-cat').value = '';
-    $('p-exp').value = '';
-    $('p-genre-custom').value = '';
-    $('p-family-custom').value = '';
-    $('p-origin-country').value = '';
-    $('origin-country-wrap').style.display = 'none';
-    $('drawer-species-step').style.display = 'none';
-    $('temp-val').textContent = '0 °C';
-    selSub = ''; selFam = ''; selExp = ''; selOri = '';
-    document.querySelectorAll('#cat-picker .cat-opt').forEach(function (x) { x.classList.remove('active'); });
-    document.querySelectorAll('#exp-picker .exp-opt').forEach(function (x) { x.classList.remove('active'); });
-    resetSub(); resetFam(); resetOri();
-  }
-
-  function filterDrawerOpts(ddId, mode) {
-    var dd = $(ddId);
-    if (!dd) return;
-    dd.querySelectorAll('.opt, .opt-group').forEach(function (el) {
-      var m = el.getAttribute('data-mode') || 'normal';
-      el.style.display = (m === mode) ? '' : 'none';
-    });
-  }
-
-  function openDrawer(mode) {
-    if (!unlocked) return;
-    drawerMode = mode || 'normal';
-    resetForm();
-
-    document.querySelectorAll('#cat-picker .cat-opt').forEach(function (b) {
-      var m = b.getAttribute('data-mode') || 'normal';
-      b.style.display = (m === drawerMode) ? '' : 'none';
-    });
-    filterDrawerOpts('substrate-dd', drawerMode);
-    filterDrawerOpts('family-dd', drawerMode);
-
-    $('drawer-title').textContent = drawerMode === 'secret' ? 'Nouveau spécimen secret' : 'Nouveau spécimen';
-
-    $('drawer').classList.add('open');
-    $('drawer-bg').classList.add('open');
-    document.body.style.overflow = 'hidden';
-    setTimeout(function () { $('p-name').focus(); }, 200);
-  }
-  function closeDrawer() {
-    $('drawer').classList.remove('open');
-    $('drawer-bg').classList.remove('open');
-    document.querySelectorAll('#drawer .sel-wrap.open').forEach(function (w) { w.classList.remove('open'); });
-    syncBack();
-    document.body.style.overflow = '';
-  }
-
-  // ============ LOCK ============
-  function triggerLock() {
-    if (unlocked) { lock(); return; }
-    $('code-input').value = '';
-    openModal('code-modal');
-    setTimeout(function () { $('code-input').focus(); }, 200);
-  }
-  $('scene-lock-btn').addEventListener('click', triggerLock);
-  $('lock-btn-mobile').addEventListener('click', triggerLock);
-
-  $('code-cancel').addEventListener('click', function () { closeModal('code-modal'); });
-  $('code-ok').addEventListener('click', function () {
-    if ($('code-input').value.trim() === ADMIN) {
-      closeModal('code-modal');
-      unlock();
-    } else {
-      $('code-input').value = '';
-      $('code-input').style.borderColor = '#e11d48';
-      setTimeout(function () { $('code-input').style.borderColor = ''; }, 600);
-      toast('Code incorrect');
-    }
-  });
-  $('code-input').addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') $('code-ok').click();
-  });
-
-  $('add-btn').addEventListener('click', function () { openDrawer('normal'); });
-  $('add-secret-btn').addEventListener('click', function () { openDrawer('secret'); });
-  $('lock-again').addEventListener('click', lock);
-  $('close-drawer').addEventListener('click', closeDrawer);
-  $('drawer-bg').addEventListener('click', closeDrawer);
-  $('search-input').addEventListener('input', render);
-  $('lb-close').addEventListener('click', function (e) { e.stopPropagation(); closeLB(); });
-  $('lightbox').addEventListener('click', function (e) { if (e.target === $('lightbox')) closeLB(); });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') {
-      if ($('lightbox').classList.contains('open')) closeLB();
-      else if ($('code-modal').classList.contains('on')) closeModal('code-modal');
-      else if ($('drawer').classList.contains('open')) closeDrawer();
-    }
-  });
-
-  // ============ SECRET "Dr" ============
-  function makePlaceholder(c1, c2, letter) {
-    var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">' +
-      '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">' +
-      '<stop offset="0%" stop-color="' + c1 + '"/>' +
-      '<stop offset="100%" stop-color="' + c2 + '"/>' +
-      '</linearGradient></defs>' +
-      '<rect width="400" height="300" fill="url(#g)"/>' +
-      '<text x="200" y="185" font-family="Bodoni Moda,Georgia,serif" font-size="140" font-weight="500" fill="rgba(255,255,255,0.88)" text-anchor="middle">' + letter + '</text>' +
-      '</svg>';
-    return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
-  }
-
-  function seedSecretPlants() {
-    if (localStorage.getItem(SEED_KEY) === '1') return;
-    SECRET_EXAMPLES.forEach(function (ex, i) {
-      plants.push({
-        id: 'secret_' + i + '_' + Date.now(),
-        name: ex.name,
-        category: ex.category,
-        family: ex.family,
-        substrate: ex.substrate,
-        exposure: ex.exposure,
-        minTemp: ex.minTemp,
-        origin: ex.origin,
-        photo: makePlaceholder(ex.c1, ex.c2, ex.letter),
-        date: Date.now() - (100 + i * 10)
-      });
-    });
-    saveP();
-    localStorage.setItem(SEED_KEY, '1');
-  }
-
-  function getSecretIcon(type) {
-    if (type === 'moon') {
-      return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
-    }
-    if (type === 'leaf') {
-      return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-7 6-13 14-14-1 8-7 14-14 14z"/></svg>';
-    }
-    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13c0-4.4 3.6-8 8-8s8 3.6 8 8z"/><path d="M9.5 13v4a2.5 2.5 0 0 0 5 0v-4"/></svg>';
-  }
-
-  function addSecretChipsIfNeeded() {
-    if (document.querySelector('#chips-row .chip.secret')) return;
-    var row = $('chips-row');
-    var icons = { 'Sorcières': 'moon', 'Chamanique': 'leaf', 'Champignons': 'shroom' };
-    SECRETS.forEach(function (cat, i) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'chip secret';
-      btn.setAttribute('data-cat', cat);
-      btn.style.display = 'none';
-      btn.style.animationDelay = (i * 140) + 'ms';
-      btn.innerHTML = getSecretIcon(icons[cat]) + '<span>' + cat + '</span>';
-      bindChip(btn);
-      row.appendChild(btn);
-    });
-  }
-
-  function revealSecretCategories() {
-    if (secretRevealed) return;
-    secretRevealed = true;
-    localStorage.setItem(SECRET_KEY, '1');
-    addSecretChipsIfNeeded();
-    toast('Le cabinet secret s\'ouvre…', 4000);
-  }
-
-  document.querySelector('.dr-secret').addEventListener('click', function (e) {
-    e.preventDefault();
-    e.stopPropagation();
-    if (!secretRevealed) {
-      revealSecretCategories();
-      setSecretMode(true);
-    } else {
-      setSecretMode(!secretMode);
-    }
-  });
-
-  $('exit-secret-btn').addEventListener('click', function () {
-    setSecretMode(false);
-  });
-
-  // ============ OISEAU QUI VOLE ============
-  (function birdLoop() {
-    var bird = $('scene-bird');
-    if (!bird) return;
-    var current = 50;
-    function step() {
-      var newPos = 10 + Math.random() * 80;
-      var dist = Math.abs(newPos - current);
-      var duration = Math.max(2500, dist * 60);
-      if (newPos < current) bird.classList.add('flip');
-      else bird.classList.remove('flip');
-      bird.style.transition = 'left ' + duration + 'ms linear';
-      bird.style.left = newPos + '%';
-      current = newPos;
-      setTimeout(step, duration + 800 + Math.random() * 1500);
-    }
-    setTimeout(step, 1500);
-  })();
-
-  // ============ SAISONS ============
-  (function seasons() {
-    var c = $('season-bg');
-    if (!c || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    var rnd = function (a, b) { return Math.random() * (b - a) + a; };
-    var m = new Date().getMonth() + 1;
-    var s = m >= 3 && m <= 5 ? 'spring' : m >= 6 && m <= 8 ? 'summer' : m >= 9 && m <= 11 ? 'autumn' : 'winter';
-    if (s === 'autumn') {
-      var CO = ['#7a9e4b', '#8fae5d', '#6b8e3e', '#9bb874', '#8a8a52'];
-      var SH = '<svg viewBox="0 0 20 30" xmlns="http://www.w3.org/2000/svg"><path d="M10 1 C 4.5 10, 4.5 21, 10 29 C 15.5 21, 15.5 10, 10 1 Z" fill="currentColor"/></svg>';
-      for (var i = 0; i < 5; i++) {
-        var d = document.createElement('div');
-        d.className = 'season-leaf';
-        var z = rnd(6, 10);
-        d.style.left = rnd(-5, 105) + '%';
-        d.style.width = z + 'px';
-        d.style.height = (z * 1.4) + 'px';
-        d.style.color = CO[Math.floor(Math.random() * CO.length)];
-        d.style.setProperty('--drift', rnd(-15, 25).toFixed(1) + 'vw');
-        d.style.animationDuration = rnd(22, 32).toFixed(2) + 's';
-        d.style.animationDelay = '-' + rnd(0, 32).toFixed(2) + 's';
-        d.innerHTML = SH;
-        c.appendChild(d);
-      }
-    } else if (s === 'winter') {
-      for (var j = 0; j < 14; j++) {
-        var f = document.createElement('div');
-        f.className = 'season-snow';
-        var sz = rnd(1.2, 2.2);
-        f.style.left = rnd(0, 100) + '%';
-        f.style.width = sz + 'px';
-        f.style.height = sz + 'px';
-        f.style.setProperty('--drift', rnd(-12, 12).toFixed(1) + 'vw');
-        f.style.animationDuration = rnd(20, 30).toFixed(2) + 's';
-        f.style.animationDelay = '-' + rnd(0, 30).toFixed(2) + 's';
-        c.appendChild(f);
-      }
-    }
-  })();
-
-  // ============ INIT ============
-  plants = loadP();
-
-  // Seed secret plants once (they stay hidden until secretMode is on)
-  if (localStorage.getItem(SEED_KEY) !== '1') {
-    seedSecretPlants();
-  }
-
-  plants.sort(function (a, b) { return (b.date || 0) - (a.date || 0); });
-
-  // If previously revealed, add secret chips (but keep them hidden in normal mode)
-  if (localStorage.getItem(SECRET_KEY) === '1') {
-    secretRevealed = true;
-    addSecretChipsIfNeeded();
-    // Keep secretMode = false by default
-  }
-
-  stats();
-  setSecretMode(false);
-  render();
-
-})();
-</script>
-
-</body>
-</html>
+          <label style="font-size:10px;color:#888;font-weight:500;display

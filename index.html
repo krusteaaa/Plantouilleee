@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#ffffff">
 <title>Plantouille — Cabinet du Dr-Cactus</title>
 
-<!-- Favicon simplifié inspiré de l'image -->
+<!-- Favicon simplifié -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='none' stroke='%23153424' stroke-width='4'/%3E%3Cpath d='M50 90 V40 a4 4 0 0 1 8 0 v50' fill='none' stroke='%23153424' stroke-width='4'/%3E%3Cpath d='M50 60 h-10 a4 4 0 0 1 -4 -4 v-10 a4 4 0 0 1 8 0 v6 h6' fill='none' stroke='%23153424' stroke-width='4'/%3E%3Cpath d='M58 70 h10 a4 4 0 0 0 4 -4 v-10 a4 4 0 0 0 -8 0 v6 h-6' fill='none' stroke='%23153424' stroke-width='4'/%3E%3Ccircle cx='50' cy='20' r='8' fill='none' stroke='%23153424' stroke-width='4'/%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,9 +24,49 @@ body {
   display: flex;
   flex-direction: column;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.6s ease;
 }
 
+/* Mode Nuit (Secret) */
+body.secret-mode { background: #0a0a0a; color: #e0e0e0; }
+body.secret-mode .site-header { background: rgba(10, 10, 10, 0.95); }
+body.secret-mode .site-header::after { background: linear-gradient(to right, transparent, rgba(212,165,72,.2) 50%, transparent); }
+body.secret-mode .brand-title { color: #d4a548; }
+body.secret-mode .brand-tagline { color: #888888; }
+body.secret-mode .stats strong { color: #d4a548; }
+body.secret-mode .lock-btn-mobile { background: #1a1a1a; border-color: #333; color: #d4a548; }
+body.secret-mode main { color: #e0e0e0; }
+body.secret-mode .search input { color: #e0e0e0; }
+body.secret-mode .chip:not(.secret) { background: #1a1a1a; color: #aaa; }
+body.secret-mode .chip:not(.secret):hover { background: #2a2a2a; }
+body.secret-mode .card { background: #111; border-color: #222; }
+body.secret-mode .card-name { color: #e0e0e0; }
+body.secret-mode .card-info b { color: #e0e0e0; }
+body.secret-mode .card-info { border-top-color: #222; }
+body.secret-mode .empty { color: #666; }
+body.secret-mode .drawer { background: #111; }
+body.secret-mode .drawer-head { border-bottom-color: #222; }
+body.secret-mode .drawer-head h2 { color: #d4a548; }
+body.secret-mode .drawer-foot { background: #111; border-top-color: #222; }
+body.secret-mode .field label { color: #aaa; }
+body.secret-mode .field input[type="text"] { background: #222; color: #fff; }
+body.secret-mode .sel-trigger { color: #e0e0e0; border-bottom-color: #333; }
+body.secret-mode .sel-trigger:hover { border-bottom-color: #d4a548; color: #d4a548; }
+body.secret-mode .sel-dd { background: #1a1a1a; }
+body.secret-mode .opt-group { color: #d4a548; }
+body.secret-mode .opt { color: #ccc; }
+body.secret-mode .opt:hover { background: #2a2a2a; color: #fff; }
+body.secret-mode .exp-opt { background: #222; color: #aaa; }
+body.secret-mode .exp-opt:hover { background: #333; }
+body.secret-mode .exp-opt.active { background: #d4a548; color: #000; }
+body.secret-mode .slider-wrap input[type="range"] { background: #333; }
+body.secret-mode .slider-wrap input[type="range"]::-webkit-slider-thumb { background: #d4a548; }
+body.secret-mode .temp-val { color: #d4a548; background: rgba(212,165,72,.15); }
+body.secret-mode .file-drop { background: #1a1a1a; border-color: #333; }
+body.secret-mode .file-drop span { color: #aaa; }
+
 ::selection { background: #153424; color: #ffffff; }
+body.secret-mode ::selection { background: #d4a548; color: #000; }
 
 /* ============ HEADER ============ */
 .site-header {
@@ -36,6 +76,7 @@ body {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  transition: background-color 0.6s ease;
 }
 
 .site-header::after {
@@ -43,13 +84,9 @@ body {
   position: absolute;
   left: 8%; right: 8%; bottom: 0;
   height: 1px;
-  background: linear-gradient(to right,
-    transparent 0%,
-    rgba(21,52,36,.10) 20%,
-    rgba(21,52,36,.15) 50%,
-    rgba(21,52,36,.10) 80%,
-    transparent 100%);
+  background: linear-gradient(to right, transparent 0%, rgba(21,52,36,.10) 20%, rgba(21,52,36,.15) 50%, rgba(21,52,36,.10) 80%, transparent 100%);
   pointer-events: none;
+  transition: background 0.6s ease;
 }
 
 .header-inner {
@@ -66,12 +103,9 @@ body {
 .brand-wrap {
   display: flex;
   align-items: center;
-  gap: 16px;
   position: relative;
   z-index: 2;
 }
-
-.brand { position: relative; }
 
 .brand-title {
   font-family: 'Bodoni Moda', Georgia, serif;
@@ -79,6 +113,7 @@ body {
   font-size: 28px;
   color: #153424;
   line-height: 0.95;
+  transition: color 0.6s ease;
 }
 
 .brand-tagline {
@@ -89,6 +124,7 @@ body {
   letter-spacing: 0.32em;
   color: #888888;
   margin-top: 4px;
+  transition: color 0.6s ease;
 }
 
 .dr-secret {
@@ -99,69 +135,56 @@ body {
 }
 .dr-secret:hover { color: #d4a548; }
 
-.brand-logo {
-  width: 55px;
-  height: 55px;
-  flex-shrink: 0;
-}
-.brand-logo svg { width: 100%; height: 100%; display: block; }
-
 /* ============ SCÈNE ANIMÉE ============ */
 .brand-scene {
   position: absolute;
-  left: 8%; right: 8%; bottom: 0;
+  left: 8%; right: 8%; bottom: -1px;
   height: 70px;
   pointer-events: none;
   z-index: 1;
 }
 
+.scene-line {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background: rgba(21, 52, 36, 0.2);
+  transition: background-color 0.6s ease;
+}
+body.secret-mode .scene-line { background: rgba(212, 165, 72, 0.3); }
+
+/* Soleil / Lune */
+.scene-sun, .scene-moon {
+  position: absolute;
+  bottom: 0;
+  width: 10px; height: 10px;
+  margin-left: -5px;
+  z-index: 3;
+  transition: opacity 0.6s ease;
+}
+.scene-sun { border-radius: 50%; background: #d4a548; animation: sunX 30s linear infinite, sunY 30s ease-in-out infinite; opacity: 1; }
+.scene-moon { color: #d4a548; opacity: 0; animation: moonX 30s linear infinite, moonY 30s ease-in-out infinite; }
+.scene-moon svg { width: 100%; height: 100%; fill: currentColor; display: block; }
+
+body.secret-mode .scene-sun { opacity: 0; }
+body.secret-mode .scene-moon { opacity: 1; }
+
+@keyframes sunX { 0% { left: 0; opacity: 0; } 2% { opacity: 1; } 98% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
+@keyframes sunY { 0% { transform: translateY(0); } 50% { transform: translateY(-60px); } 100% { transform: translateY(0); } }
+@keyframes moonX { 0% { left: 0; opacity: 0; } 2% { opacity: 1; } 98% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
+@keyframes moonY { 0% { transform: translateY(0); } 50% { transform: translateY(-55px); } 100% { transform: translateY(0); } }
+
+/* Plantes Normales */
 .scene-normal, .scene-secret {
   position: absolute;
   inset: 0;
   transition: opacity 0.8s ease;
   pointer-events: none;
 }
+.scene-normal { opacity: 1; }
 .scene-secret { opacity: 0; }
 body.secret-mode .scene-normal { opacity: 0; }
 body.secret-mode .scene-secret { opacity: 1; }
-
-.scene-sun {
-  position: absolute;
-  left: 0; bottom: 0;
-  width: 8px; height: 8px;
-  margin-left: -4px;
-  border-radius: 50%;
-  background: #d4a548;
-  animation: sunX 30s linear infinite, sunY 30s ease-in-out infinite;
-  will-change: left, transform, opacity;
-  z-index: 3;
-}
-
-.scene-moon {
-  position: absolute;
-  left: 0; bottom: 0;
-  width: 8px; height: 8px;
-  margin-left: -4px;
-  border-radius: 50%;
-  background: transparent;
-  color: #d4a548;
-  animation: sunX 30s linear infinite, sunY 30s ease-in-out infinite;
-  will-change: left, transform, opacity;
-  z-index: 3;
-}
-.scene-moon svg { width: 100%; height: 100%; fill: currentColor; }
-
-@keyframes sunX {
-  0% { left: 0; opacity: 0; }
-  2% { opacity: 1; }
-  98% { opacity: 1; }
-  100% { left: 100%; opacity: 0; }
-}
-@keyframes sunY {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-62px); }
-  100% { transform: translateY(0); }
-}
 
 .scene-plant {
   position: absolute;
@@ -172,103 +195,71 @@ body.secret-mode .scene-secret { opacity: 1; }
 }
 body.secret-mode .scene-plant { color: #d4a548; }
 
+/* Animation de pousse douce */
+@keyframes growPlant {
+  0% { transform: scaleY(0); opacity: 0; }
+  100% { transform: scaleY(1); opacity: 1; }
+}
+
 .scene-plant svg {
   display: block;
   width: 100%;
   height: 100%;
   overflow: visible;
+  animation: growPlant 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
-.sp-col   { left: 15%; width: 14px; height: 24px; margin-left: -7px; animation: pc 30s ease-in-out infinite; }
-.sp-aloe  { left: 32%; width: 22px; height: 12px; margin-left: -11px; animation: pa 30s ease-in-out infinite; }
-.sp-ech   { left: 50%; width: 18px; height: 9px; margin-left: -9px; animation: pe 30s ease-in-out infinite; }
-.sp-yuc   { left: 68%; width: 14px; height: 20px; margin-left: -7px; animation: py 30s ease-in-out infinite; }
-.sp-bea   { left: 85%; width: 16px; height: 18px; margin-left: -8px; animation: pb 30s ease-in-out infinite; }
+/* Positionnement regroupé au centre (30% à 70%) */
+.sp-col   { left: 38%; width: 13px; height: 22px; margin-left: -6.5px; }
+.sp-aloe  { left: 44%; width: 22px; height: 12px; margin-left: -11px; }
+.sp-ech   { left: 50%; width: 18px; height: 9px; margin-left: -9px; }
+.sp-yuc   { left: 56%; width: 14px; height: 20px; margin-left: -7px; }
+.sp-bea   { left: 62%; width: 16px; height: 18px; margin-left: -8px; }
 
-.sp-mush  { left: 25%; width: 14px; height: 16px; margin-left: -7px; animation: pa 30s ease-in-out infinite; }
-.sp-cann  { left: 45%; width: 16px; height: 14px; margin-left: -8px; animation: pe 30s ease-in-out infinite; }
-.sp-popp  { left: 65%; width: 14px; height: 20px; margin-left: -7px; animation: py 30s ease-in-out infinite; }
-.sp-trich { left: 80%; width: 15px; height: 22px; margin-left: -7.5px; animation: pb 30s ease-in-out infinite; }
+.sp-mush  { left: 38%; width: 14px; height: 16px; margin-left: -7px; }
+.sp-cann  { left: 44%; width: 16px; height: 14px; margin-left: -8px; }
+.sp-popp  { left: 50%; width: 14px; height: 20px; margin-left: -7px; }
+.sp-trich { left: 56%; width: 15px; height: 22px; margin-left: -7.5px; }
+.sp-peyot { left: 62%; width: 15px; height: 10px; margin-left: -7.5px; }
 
-@keyframes pc {
-  0%, 10% { transform: scaleY(0); }
-  15% { transform: scaleY(1.06); }
-  18%, 45% { transform: scaleY(1); }
-  52%, 100% { transform: scaleY(0); }
-}
-@keyframes pa {
-  0%, 28% { transform: scaleY(0); }
-  33% { transform: scaleY(1.06); }
-  36%, 60% { transform: scaleY(1); }
-  67%, 100% { transform: scaleY(0); }
-}
-@keyframes pe {
-  0%, 45% { transform: scaleY(0); }
-  50% { transform: scaleY(1.06); }
-  53%, 75% { transform: scaleY(1); }
-  82%, 100% { transform: scaleY(0); }
-}
-@keyframes py {
-  0%, 60% { transform: scaleY(0); }
-  65% { transform: scaleY(1.06); }
-  68%, 90% { transform: scaleY(1); }
-  95%, 100% { transform: scaleY(0); }
-}
-@keyframes pb {
-  0%, 75% { transform: scaleY(0); }
-  80% { transform: scaleY(1.06); }
-  83%, 94% { transform: scaleY(1); }
-  98%, 100% { transform: scaleY(0); }
-}
-
-/* ============ OISEAU QUI VOLE ============ */
+/* Oiseau */
 .scene-bird {
   position: absolute;
-  left: 50%;
-  width: 18px;
-  height: 12px;
+  width: 12px;
+  height: 8px;
   color: #153424;
   z-index: 4;
+  transition: color 0.6s ease, left 3s linear, bottom 3s ease-in-out;
   will-change: left, bottom;
-  animation: birdHover 4s ease-in-out infinite;
 }
 body.secret-mode .scene-bird { color: #d4a548; }
-
-@keyframes birdHover {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
-}
 
 .scene-bird svg {
   display: block;
   width: 100%;
   height: 100%;
   overflow: visible;
-  transition: transform 0.5s ease;
+  transition: transform 0.4s ease;
 }
-
-.scene-bird.flip svg {
-  transform: scaleX(-1);
-}
+.scene-bird.flip svg { transform: scaleX(-1); }
 
 .bird-wing {
   transform-box: fill-box;
   transform-origin: 100% 100%;
-  animation: wingFlap 0.6s ease-in-out infinite alternate;
+  animation: wingFlap 0.4s ease-in-out infinite alternate;
 }
-
 @keyframes wingFlap {
-  from { transform: rotate(-15deg); }
-  to { transform: rotate(35deg); }
+  from { transform: rotate(-10deg); }
+  to { transform: rotate(30deg); }
 }
 
-/* ============ VERROU ADMIN ============ */
+/* Cadenas */
 .scene-lock {
   position: absolute;
-  right: 1%;
-  bottom: 1px;
-  width: 13px;
-  height: 13px;
+  right: 2%;
+  bottom: 45px; /* Remonté au dessus de la ligne */
+  width: 14px;
+  height: 14px;
   background: transparent;
   border: none;
   color: #153424;
@@ -279,8 +270,7 @@ body.secret-mode .scene-bird { color: #d4a548; }
   pointer-events: auto;
   transition: opacity 0.2s ease, color 0.2s ease;
 }
-body.secret-mode .scene-lock { color: #d4a548; }
-
+body.secret-mode .scene-lock { color: #d4a548; opacity: 0.4; }
 .scene-lock:hover { opacity: 0.95; color: #d4a548; }
 .scene-lock svg { width: 100%; height: 100%; }
 
@@ -310,6 +300,7 @@ body.secret-mode .scene-lock { color: #d4a548; }
   font-weight: 500;
   display: block;
   margin-bottom: 4px;
+  transition: color 0.6s ease;
 }
 
 .lock-btn-mobile {
@@ -324,14 +315,13 @@ body.secret-mode .scene-lock { color: #d4a548; }
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  transition: all 0.3s ease;
 }
-
 .lock-btn-mobile svg { width: 16px; height: 16px; }
 
 @media (max-width: 700px) {
   .brand-scene { display: none; }
   .lock-btn-mobile { display: flex; }
-  .brand-logo { display: none; }
 }
 
 /* ============ MAIN ============ */
@@ -364,6 +354,7 @@ main {
   font-weight: 600;
   color: #153424;
 }
+body.secret-mode .admin-tag { background: rgba(212,165,72,.1); border-color: #d4a548; color: #d4a548; }
 .admin-tag::before {
   content: '';
   width: 6px; height: 6px;
@@ -384,75 +375,70 @@ main {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  transition: all 0.2s ease;
 }
 .btn:hover { background: #1c4531; }
 .btn.sec { background: #ffffff; color: #153424; border: 1px solid #d8e8dd; }
+body.secret-mode .btn.sec { background: transparent; color: #d4a548; border-color: #333; }
 
 .btn.secret-add {
   background: #153424;
   color: #ecdfb8;
   border: 1px solid #d4a548;
-  box-shadow: none;
 }
-.btn.secret-add:hover {
-  border-color: #b8903d;
-  color: #f4ead0;
-  background: #1c4531;
-}
+.btn.secret-add:hover { background: #1c4531; border-color: #b8903d; color: #fff; }
 .btn.secret-add svg { color: #d4a548; }
 
-/* ============ BANNIÈRE MODE SECRET ============ */
+/* Bannière Mode Secret */
 .secret-banner {
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
   padding: 10px 16px;
   margin-bottom: 12px;
   border-radius: 12px;
-  background: #ffffff;
-  border: 1px solid #d4a548;
-  color: #153424;
+  background: #111;
+  border: 1px solid #333;
+  color: #d4a548;
   font-size: 12px;
   font-weight: 500;
   animation: bannerIn 0.4s ease;
 }
+.secret-banner.on { display: flex; }
 
 @keyframes bannerIn {
   0% { opacity: 0; transform: translateY(-6px); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
-.secret-banner-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+.secret-banner-label { display: flex; align-items: center; gap: 8px; }
 .secret-banner-label::before {
   content: '';
   width: 7px; height: 7px;
   border-radius: 50%;
   background: #d4a548;
+  box-shadow: 0 0 8px rgba(212,165,72,.6);
 }
 
 .secret-banner button {
   padding: 7px 14px;
   border-radius: 999px;
-  background: #153424;
-  color: #ecdfb8;
-  border: 1px solid #d4a548;
+  background: #d4a548;
+  color: #000;
+  border: none;
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   font-family: inherit;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  transition: background 0.18s ease;
+  transition: opacity 0.2s ease;
 }
-.secret-banner button:hover { background: #1c4531; }
+.secret-banner button:hover { opacity: 0.8; }
 
-/* ============ SEARCH ============ */
+/* Search */
 .search {
   display: flex;
   align-items: center;
@@ -468,9 +454,10 @@ main {
   font-size: 15px;
   background: transparent;
   color: #0f0f0f;
+  transition: color 0.6s ease;
 }
 
-/* ============ CHIPS ============ */
+/* Chips */
 .chips-row {
   display: flex;
   gap: 10px;
@@ -490,46 +477,33 @@ main {
   color: #555555;
   font-size: 13px;
   font-weight: 500;
-  border: none;
+  border: 1px solid transparent;
   cursor: pointer;
   white-space: nowrap;
   flex-shrink: 0;
   font-family: inherit;
-  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.2s ease;
+  transition: all 0.2s ease;
 }
 .chip svg { width: 14px; height: 14px; color: #888888; }
 .chip:hover { background: #eef2f0; color: #153424; }
-.chip.active { background: #153424; color: #ffffff; }
+.chip.active { background: #153424; color: #ffffff; border-color: #153424; }
 .chip.active svg { color: #ffffff; }
 
-/* ============ CHIPS SECRETS (SANS OMBRE) ============ */
 .chip.secret {
-  position: relative;
-  overflow: hidden;
   background: transparent;
-  color: #153424;
-  font-weight: 500;
+  color: #d4a548;
   border: 1px solid #d4a548;
 }
 .chip.secret svg { color: #d4a548; }
-.chip.secret:hover { background: #f4f6f5; color: #153424; border-color: #b8903d; }
-.chip.secret.active {
-  background: #153424;
-  color: #ecdfb8;
-  border-color: #153424;
-}
-.chip.secret.active svg { color: #d4a548; }
+.chip.secret:hover { background: rgba(212,165,72,.1); }
+.chip.secret.active { background: #d4a548; color: #000; }
+.chip.secret.active svg { color: #000; }
 
-/* ============ SPECIES STEP ============ */
+/* Species Step */
 .species-step { display: none; }
 .species-step.on { display: block; margin-bottom: 16px; }
 
-.species-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
-}
+.species-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
 
 .back-btn {
   display: inline-flex;
@@ -546,13 +520,11 @@ main {
   font-family: inherit;
 }
 .back-btn:hover { color: #153424; background: #f7f7f7; }
+body.secret-mode .back-btn:hover { color: #d4a548; background: #222; }
 .back-btn svg { width: 12px; height: 12px; }
 
-/* ============ SELECT CUSTOM ============ */
-.sel-wrap {
-  position: relative;
-  width: 100%;
-}
+/* Select Custom */
+.sel-wrap { position: relative; width: 100%; }
 .sel-wrap.open { z-index: 55; }
 
 .sel-trigger {
@@ -582,6 +554,7 @@ main {
   transform: rotate(45deg);
   flex-shrink: 0;
   margin-left: 10px;
+  transition: transform 0.2s ease;
 }
 .sel-wrap.open .sel-arrow { transform: rotate(-135deg); }
 
@@ -620,13 +593,7 @@ main {
 .opt.sel { background: #153424; color: #ffffff; }
 
 .custom-field { margin-top: 10px; }
-.custom-field label {
-  font-size: 10px;
-  color: #888888;
-  font-weight: 500;
-  display: block;
-  margin-bottom: 4px;
-}
+.custom-field label { font-size: 10px; color: #888888; font-weight: 500; display: block; margin-bottom: 4px; }
 .custom-field input {
   width: 100%;
   padding: 10px 14px;
@@ -639,7 +606,7 @@ main {
   outline: none;
 }
 
-/* ============ BACKDROPS FLOUS ============ */
+/* Backdrops */
 #page-backdrop {
   position: fixed; inset: 0;
   background: rgba(255,255,255,.30);
@@ -664,14 +631,12 @@ main {
 }
 #drawer-dropdown-backdrop.visible { opacity: 1; pointer-events: auto; }
 
-/* ============ GRID + CARDS (REGROUPÉES) ============ */
+/* Grid */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 300px));
-  gap: 16px;
+  gap: 20px;
   justify-content: center;
-  max-width: 950px;
-  margin: 0 auto;
 }
 
 .card {
@@ -685,6 +650,7 @@ main {
   box-shadow: 0 1px 3px rgba(0,0,0,.04);
   animation: cardFadeIn 0.5s ease forwards;
 }
+body.secret-mode .card { background: #111; border-color: #222; }
 
 @keyframes cardFadeIn {
   from { opacity: 0; transform: translateY(10px); }
@@ -698,6 +664,7 @@ main {
   overflow: hidden;
   border-bottom: 1px solid #f0f0f0;
 }
+body.secret-mode .card-img-wrap { background: #1a1a1a; border-bottom-color: #222; }
 
 .card-img-wrap img {
   width: 100%; height: 100%;
@@ -735,41 +702,13 @@ main {
   justify-content: space-between;
 }
 
-.card-cat {
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: #153424;
-  font-weight: 600;
-}
+.card-cat { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: #153424; font-weight: 600; }
+body.secret-mode .card-cat { color: #d4a548; }
 
-.card.secret-cat .card-cat {
-  color: #8a6d2f;
-  letter-spacing: .12em;
-  font-weight: 600;
-}
+.card-name { font-family: 'Bodoni Moda', Georgia, serif; font-size: 19px; color: #0f0f0f; line-height: 1.2; margin-top: 2px; font-weight: 400; }
+body.secret-mode .card-name { color: #e0e0e0; }
 
-.card.secret-cat {
-  border-color: rgba(212,165,72,.22);
-  box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 0 0 1px rgba(212,165,72,.08);
-}
-
-.card-name {
-  font-family: 'Bodoni Moda', Georgia, serif;
-  font-size: 19px;
-  color: #0f0f0f;
-  line-height: 1.2;
-  margin-top: 2px;
-  font-weight: 400;
-}
-
-.card-fam {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-style: italic;
-  font-size: 12px;
-  color: #888888;
-  margin-top: 2px;
-}
+.card-fam { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 12px; color: #888888; margin-top: 2px; }
 
 .card-info {
   display: grid;
@@ -780,24 +719,15 @@ main {
   font-size: 11px;
   color: #888888;
 }
+body.secret-mode .card-info { border-top-color: #222; }
 .card-info b { font-weight: 500; color: #0f0f0f; }
+body.secret-mode .card-info b { color: #e0e0e0; }
 .card-info .full { grid-column: 1/-1; }
 
-.empty {
-  padding: 80px 20px;
-  text-align: center;
-  color: #888888;
-  font-size: 14px;
-  grid-column: 1/-1;
-}
-.empty svg {
-  width: 36px; height: 36px;
-  color: #cccccc;
-  display: block;
-  margin: 0 auto 12px;
-}
+.empty { padding: 80px 20px; text-align: center; color: #888888; font-size: 14px; grid-column: 1/-1; }
+.empty svg { width: 36px; height: 36px; color: #cccccc; display: block; margin: 0 auto 12px; }
 
-/* ============ DRAWER ============ */
+/* Drawer */
 .drawer-bg {
   position: fixed; inset: 0;
   z-index: 100;
@@ -819,7 +749,7 @@ main {
   background: #ffffff;
   z-index: 100;
   transform: translateX(100%);
-  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), background-color 0.6s ease;
   display: flex;
   flex-direction: column;
   box-shadow: -10px 0 30px rgba(0,0,0,.05);
@@ -834,52 +764,22 @@ main {
   justify-content: space-between;
   position: relative;
   z-index: 50;
-  background: #ffffff;
+  background: inherit;
 }
 
-.drawer-head h2 {
-  font-family: 'Bodoni Moda', Georgia, serif;
-  font-size: 22px;
-  color: #153424;
-  font-weight: 500;
-}
+.drawer-head h2 { font-family: 'Bodoni Moda', Georgia, serif; font-size: 22px; color: #153424; font-weight: 500; }
+body.secret-mode .drawer-head h2 { color: #d4a548; }
 
-.close-x {
-  background: transparent;
-  border: none;
-  color: #888888;
-  cursor: pointer;
-  padding: 6px;
-}
+.close-x { background: transparent; border: none; color: #888888; cursor: pointer; padding: 6px; }
 .close-x svg { width: 22px; height: 22px; display: block; }
 
-.drawer-body {
-  flex: 1;
-  overflow-y: auto;
-  padding: 20px 24px;
-  position: relative;
-  z-index: 50;
-}
+.drawer-body { flex: 1; overflow-y: auto; padding: 20px 24px; position: relative; z-index: 50; }
 
-.drawer-foot {
-  padding: 16px 24px;
-  border-top: 1px solid #f0f0f0;
-  background: #ffffff;
-  position: relative;
-  z-index: 50;
-}
+.drawer-foot { padding: 16px 24px; border-top: 1px solid #f0f0f0; background: inherit; position: relative; z-index: 50; }
 
-/* ============ FORM ============ */
+/* Form */
 .field { margin-bottom: 18px; }
-.field label {
-  display: block;
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: #0f0f0f;
-  margin-bottom: 6px;
-}
+.field label { display: block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #0f0f0f; margin-bottom: 6px; }
 .field input[type="text"] {
   width: 100%;
   padding: 11px 14px;
@@ -909,6 +809,7 @@ main {
   font-family: inherit;
   text-align: left;
   width: 100%;
+  transition: background 0.2s ease;
 }
 .cat-opt svg { width: 16px; height: 16px; color: #888888; flex-shrink: 0; }
 .cat-opt:hover { background: #eef2f0; color: #153424; }
@@ -922,11 +823,7 @@ main {
 }
 .cat-opt[data-mode="secret"] svg { color: #d4a548; }
 .cat-opt[data-mode="secret"]:hover { border-color: #b8903d; background: #f4f6f5; }
-.cat-opt[data-mode="secret"].active {
-  background: #153424;
-  color: #ecdfb8;
-  border-color: #153424;
-}
+.cat-opt[data-mode="secret"].active { background: #153424; color: #ecdfb8; border-color: #153424; }
 .cat-opt[data-mode="secret"].active svg { color: #d4a548; }
 
 .exp-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
@@ -946,15 +843,9 @@ main {
   font-family: inherit;
   gap: 4px;
   text-align: center;
+  transition: background 0.2s ease;
 }
-.exp-opt svg {
-  width: 20px; height: 20px;
-  stroke: currentColor;
-  fill: none;
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
+.exp-opt svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .exp-opt:hover { background: #eef2f0; color: #153424; }
 .exp-opt.active { background: #153424; color: #ffffff; }
 
@@ -976,29 +867,9 @@ main {
   border: 2px solid #ffffff;
 }
 
-.temp-val {
-  font-size: 12px;
-  font-weight: 600;
-  color: #153424;
-  background: rgba(21,52,36,.08);
-  padding: 2px 10px;
-  border-radius: 999px;
-}
-
-.temp-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 6px;
-}
-
-.temp-legend {
-  display: flex;
-  justify-content: space-between;
-  font-size: 10px;
-  color: #888888;
-  margin-top: 4px;
-}
+.temp-val { font-size: 12px; font-weight: 600; color: #153424; background: rgba(21,52,36,.08); padding: 2px 10px; border-radius: 999px; }
+.temp-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.temp-legend { display: flex; justify-content: space-between; font-size: 10px; color: #888888; margin-top: 4px; }
 
 .file-drop {
   display: flex;
@@ -1018,14 +889,7 @@ main {
 .file-drop span { font-size: 12px; color: #0f0f0f; font-weight: 500; }
 .file-drop input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
 
-.photo-prev {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 4/3;
-  border-radius: 12px;
-  overflow: hidden;
-  display: none;
-}
+.photo-prev { position: relative; width: 100%; aspect-ratio: 4/3; border-radius: 12px; overflow: hidden; display: none; }
 .photo-prev img { width: 100%; height: 100%; object-fit: cover; }
 .photo-prev button {
   position: absolute;
@@ -1042,253 +906,58 @@ main {
   justify-content: center;
 }
 
-/* ============ MODALES ============ */
+/* Modales */
 .modal {
-  position: fixed;
-  inset: 0;
-  z-index: 300;
-  background: rgba(0,0,0,.55);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s;
+  position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,.55);
+  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s;
 }
 .modal.on { opacity: 1; pointer-events: auto; }
-
-.modal-box {
-  background: #ffffff;
-  border-radius: 18px;
-  padding: 26px 22px;
-  width: 100%;
-  max-width: 380px;
-  box-shadow: 0 20px 60px rgba(0,0,0,.2);
-}
-
-.modal-box h3 {
-  font-family: 'Bodoni Moda', Georgia, serif;
-  font-size: 22px;
-  color: #153424;
-  margin-bottom: 6px;
-  font-weight: 500;
-}
-
-.modal-box p {
-  font-size: 13px;
-  color: #888888;
-  margin-bottom: 20px;
-  line-height: 1.5;
-}
-
-.code-inp {
-  width: 100%;
-  padding: 16px;
-  font-family: monospace;
-  font-size: 22px;
-  text-align: center;
-  letter-spacing: 10px;
-  background: #f7f7f7;
-  border: 2px solid transparent;
-  border-radius: 10px;
-  color: #153424;
-  outline: none;
-}
-.code-inp:focus {
-  border-color: #153424;
-  background: #ffffff;
-}
-
-.modal-acts {
-  display: flex;
-  gap: 10px;
-  margin-top: 16px;
-}
-.modal-acts button {
-  flex: 1;
-  padding: 11px;
-  border-radius: 10px;
-  font-family: inherit;
-  font-weight: 500;
-  font-size: 14px;
-  border: none;
-  cursor: pointer;
-}
+.modal-box { background: #ffffff; border-radius: 18px; padding: 26px 22px; width: 100%; max-width: 380px; box-shadow: 0 20px 60px rgba(0,0,0,.2); }
+.modal-box h3 { font-family: 'Bodoni Moda', Georgia, serif; font-size: 22px; color: #153424; margin-bottom: 6px; font-weight: 500; }
+.modal-box p { font-size: 13px; color: #888888; margin-bottom: 20px; line-height: 1.5; }
+.code-inp { width: 100%; padding: 16px; font-family: monospace; font-size: 22px; text-align: center; letter-spacing: 10px; background: #f7f7f7; border: 2px solid transparent; border-radius: 10px; color: #153424; outline: none; }
+.code-inp:focus { border-color: #153424; background: #ffffff; }
+.modal-acts { display: flex; gap: 10px; margin-top: 16px; }
+.modal-acts button { flex: 1; padding: 11px; border-radius: 10px; font-family: inherit; font-weight: 500; font-size: 14px; border: none; cursor: pointer; }
 .modal-acts .primary { background: #153424; color: #ffffff; }
 .modal-acts .secondary { background: #f7f7f7; color: #153424; }
 
-/* ============ LIGHTBOX ============ */
+/* Lightbox */
 .lightbox {
-  position: fixed;
-  inset: 0;
-  z-index: 200;
-  background: rgba(8,8,8,.96);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  display: flex;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s;
-  overflow-y: auto;
-  padding: 24px 20px;
+  position: fixed; inset: 0; z-index: 200; background: rgba(8,8,8,.96);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  display: flex; opacity: 0; pointer-events: none; transition: opacity 0.3s; overflow-y: auto; padding: 24px 20px;
 }
 .lightbox.open { opacity: 1; pointer-events: auto; }
-
-.lb-close {
-  position: fixed;
-  top: 16px; left: 16px;
-  width: 44px; height: 44px;
-  background: transparent;
-  border: none;
-  color: rgba(255,255,255,.72);
-  cursor: pointer;
-  z-index: 210;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+.lb-close { position: fixed; top: 16px; left: 16px; width: 44px; height: 44px; background: transparent; border: none; color: rgba(255,255,255,.72); cursor: pointer; z-index: 210; display: flex; align-items: center; justify-content: center; }
 .lb-close svg { width: 26px; height: 26px; }
+.lb-content { margin: auto; display: flex; flex-direction: column; align-items: center; gap: 24px; width: 100%; max-width: 900px; }
+.lb-content img { display: block; max-width: 90vw; max-height: 60vh; width: auto; height: auto; object-fit: contain; border-radius: 4px; box-shadow: 0 20px 50px rgba(0,0,0,.55); }
+.lb-info { color: #ffffff; text-align: center; max-width: 640px; padding: 0 12px; }
+.lb-cat { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.18em; color: rgba(255,255,255,.62); }
+.lb-name { font-family: 'Bodoni Moda', Georgia, serif; font-weight: 500; font-size: 26px; margin: 4px 0 0; }
+.lb-fam { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 15px; color: rgba(255,255,255,.62); margin: 2px 0 0; }
+.lb-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px 40px; padding-top: 16px; margin-top: 16px; border-top: 1px solid rgba(255,255,255,.12); }
+.lb-item { display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 110px; }
+.lb-key { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.16em; color: rgba(255,255,255,.42); }
+.lb-val { font-size: 13.5px; font-weight: 500; color: #ffffff; }
 
-.lb-content {
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  width: 100%;
-  max-width: 900px;
-}
+/* Toasts */
+.toast-wrap { position: fixed; bottom: 24px; left: 16px; right: 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 400; pointer-events: none; }
+.toast { padding: 12px 18px; background: #0f0f0f; color: #ffffff; font-size: 12px; border-radius: 999px; box-shadow: 0 10px 30px rgba(0,0,0,.2); max-width: 440px; text-align: center; font-family: inherit; pointer-events: auto; line-height: 1.4; }
 
-.lb-content img {
-  display: block;
-  max-width: 90vw;
-  max-height: 60vh;
-  width: auto; height: auto;
-  object-fit: contain;
-  border-radius: 4px;
-  box-shadow: 0 20px 50px rgba(0,0,0,.55);
-}
-
-.lb-info {
-  color: #ffffff;
-  text-align: center;
-  max-width: 640px;
-  padding: 0 12px;
-}
-
-.lb-cat {
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: rgba(255,255,255,.62);
-}
-
-.lb-name {
-  font-family: 'Bodoni Moda', Georgia, serif;
-  font-weight: 500;
-  font-size: 26px;
-  margin: 4px 0 0;
-}
-
-.lb-fam {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-style: italic;
-  font-size: 15px;
-  color: rgba(255,255,255,.62);
-  margin: 2px 0 0;
-}
-
-.lb-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 16px 40px;
-  padding-top: 16px;
-  margin-top: 16px;
-  border-top: 1px solid rgba(255,255,255,.12);
-}
-
-.lb-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  min-width: 110px;
-}
-
-.lb-key {
-  font-size: 9px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: rgba(255,255,255,.42);
-}
-
-.lb-val {
-  font-size: 13.5px;
-  font-weight: 500;
-  color: #ffffff;
-}
-
-/* ============ TOASTS ============ */
-.toast-wrap {
-  position: fixed;
-  bottom: 24px;
-  left: 16px; right: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  z-index: 400;
-  pointer-events: none;
-}
-
-.toast {
-  padding: 12px 18px;
-  background: #0f0f0f;
-  color: #ffffff;
-  font-size: 12px;
-  border-radius: 999px;
-  box-shadow: 0 10px 30px rgba(0,0,0,.2);
-  max-width: 440px;
-  text-align: center;
-  font-family: inherit;
-  pointer-events: auto;
-  line-height: 1.4;
-}
-
-/* ============ SAISONS ============ */
-.season-bg {
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.season-leaf {
-  position: absolute;
-  top: 0;
-  animation: leafFall linear infinite;
-}
+/* Saisons */
+.season-bg { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+.season-leaf { position: absolute; top: 0; animation: leafFall linear infinite; }
 @keyframes leafFall {
   0% { transform: translate3d(0,-15vh,0); opacity: 0; }
   10% { opacity: .4; }
   90% { opacity: .4; }
   100% { transform: translate3d(var(--drift,40px),115vh,0); opacity: 0; }
 }
-
-.season-snow {
-  position: absolute;
-  top: 0;
-  border-radius: 50%;
-  background: rgba(120,150,130,.35);
-  animation: snowFall linear infinite;
-}
+.season-snow { position: absolute; top: 0; border-radius: 50%; background: rgba(120,150,130,.35); animation: snowFall linear infinite; }
 @keyframes snowFall {
   0% { transform: translate3d(0,-8vh,0); opacity: 0; }
   10% { opacity: .45; }
@@ -1298,7 +967,7 @@ main {
 
 @media (prefers-reduced-motion: reduce) {
   .season-bg { display: none !important; }
-  .scene-sun, .scene-moon, .scene-plant, .scene-bird, .bird-wing { animation: none !important; }
+  .scene-sun, .scene-moon, .scene-plant svg, .bird-wing { animation: none !important; }
 }
 </style>
 </head>
@@ -1312,72 +981,45 @@ main {
     <div class="brand-wrap">
       <div class="brand">
         <div class="brand-title">Plantouille</div>
-        <div class="brand-tagline">Cabinet du <span class="dr-secret">Dr</span>-Cactus</div>
-      </div>
-      <div class="brand-logo">
-        <svg viewBox="0 0 160 100" fill="none" stroke="#153424" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <!-- Soleil -->
-          <circle cx="80" cy="15" r="5" />
-          <path d="M80 5 v-3 M80 25 v3 M70 15 h-3 M90 15 h3 M73 8 l-2 -2 M87 22 l2 2 M87 8 l2 -2 M73 22 l-2 2" />
-          <!-- Cercle -->
-          <path d="M 35 65 A 45 45 0 0 1 125 65" />
-          <!-- Cactus principal -->
-          <path d="M80 90 V35 a3 3 0 0 1 6 0 v55" />
-          <path d="M80 60 h-10 a3 3 0 0 1 -3 -3 V45 a3 3 0 0 1 6 0 v10 h7" />
-          <path d="M86 70 h10 a3 3 0 0 0 3 -3 V50 a3 3 0 0 0 -6 0 v15 h-7" />
-          <!-- Agave -->
-          <path d="M115 85 l-10 -20 l3 3 l5 -10 l2 5 l5 -8 l-2 8 l6 -3 l-4 10 l6 2 l-10 7" />
-          <!-- Echeveria -->
-          <circle cx="50" cy="85" r="6" />
-          <path d="M50 79 l-4 -6 M50 79 l4 -6 M44 85 l-6 -4 M56 85 l6 -4 M45 91 l-4 4 M55 91 l4 4" />
-          <!-- Peyotl -->
-          <circle cx="95" cy="90" r="4" />
-          <path d="M95 86 v8 M91 88 v4 M99 88 v4" />
-          <!-- Rochers -->
-          <ellipse cx="80" cy="93" rx="25" ry="4" />
-          <ellipse cx="60" cy="91" rx="6" ry="3" />
-          <ellipse cx="100" cy="91" rx="8" ry="4" />
-        </svg>
+        <div class="brand-tagline">Cabinet du <span class="dr-secret" id="dr-btn">Dr</span>-Cactus</div>
       </div>
     </div>
 
     <div class="brand-scene" aria-hidden="true">
+      <div class="scene-line"></div>
+      
+      <!-- Soleil / Lune -->
+      <div class="scene-sun"></div>
+      <div class="scene-moon">
+        <svg viewBox="0 0 24 24"><path d="M12 2 A 10 10 0 1 0 12 22 A 8 8 0 1 1 12 2 Z" /></svg>
+      </div>
+
       <!-- Scène Normale -->
       <div class="scene-normal">
-        <div class="scene-sun"></div>
-        
-        <!-- Cactus (Saguaro fin) -->
         <div class="scene-plant sp-col">
           <svg viewBox="0 0 24 30" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-            <path d="M12 28 V4 a2 2 0 0 1 4 0 v24" />
+            <path d="M12 30 V4 a2 2 0 0 1 4 0 v26" />
             <path d="M12 16 h-6 a2 2 0 0 1 -2 -2 V8 a2 2 0 0 1 4 0 v4 h4" />
             <path d="M16 20 h6 a2 2 0 0 0 2 -2 V10 a2 2 0 0 0 -4 0 v6 h-4" />
+            <path d="M11 8 h-1 M11 12 h-1 M11 20 h-1 M17 10 h1 M17 14 h1" stroke-width="1" />
           </svg>
         </div>
-
-        <!-- Agave fin -->
         <div class="scene-plant sp-aloe">
           <svg viewBox="0 0 24 16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
             <path d="M12 16 L12 2 M12 16 L6 4 M12 16 L18 4 M12 16 L2 8 M12 16 L22 8 M12 16 L4 12 M12 16 L20 12" />
           </svg>
         </div>
-
-        <!-- Echeveria fine -->
         <div class="scene-plant sp-ech">
           <svg viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
             <path d="M12 12 L12 2 M12 12 L6 4 M12 12 L18 4 M12 12 L2 6 M12 12 L22 6 M12 12 L4 10 M12 12 L20 10" />
           </svg>
         </div>
-
-        <!-- Yucca fine -->
         <div class="scene-plant sp-yuc">
           <svg viewBox="0 0 24 30" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M12 28 V14" />
+            <path d="M12 30 V14" />
             <path d="M12 14 L8 2 M12 14 L16 2 M12 14 L2 6 M12 14 L22 6 M12 14 L4 12 M12 14 L20 12" />
           </svg>
         </div>
-
-        <!-- Beaucarnea fin -->
         <div class="scene-plant sp-bea">
           <svg viewBox="0 0 24 30" fill="none" stroke="currentColor" stroke-width="1.5">
             <ellipse cx="12" cy="28" rx="8" ry="2" />
@@ -1389,53 +1031,47 @@ main {
 
       <!-- Scène Secrète -->
       <div class="scene-secret">
-        <div class="scene-moon">
-          <svg viewBox="0 0 24 24"><path d="M12 2 A 10 10 0 1 0 12 22 A 8 8 0 1 1 12 2 Z" /></svg>
-        </div>
-        
-        <!-- Champignon -->
         <div class="scene-plant sp-mush">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-            <path d="M12 22 V12 M5 12 Q12 2 19 12 Z" />
+            <path d="M12 24 V12 M5 12 Q12 2 19 12 Z" />
           </svg>
         </div>
-
-        <!-- Cannabis -->
         <div class="scene-plant sp-cann">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
-            <path d="M12 22 V12 M12 16 L6 10 M12 16 L18 10 M12 12 L8 4 M12 12 L16 4" />
+            <path d="M12 24 V12 M12 16 L6 10 M12 16 L18 10 M12 12 L8 4 M12 12 L16 4" />
           </svg>
         </div>
-
-        <!-- Pavot -->
         <div class="scene-plant sp-popp">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-            <path d="M12 22 V10 M12 10 C 5 10, 5 2, 12 4 C 19 2, 19 10, 12 10" />
+            <path d="M12 24 V10 M12 10 C 5 10, 5 2, 12 4 C 19 2, 19 10, 12 10" />
           </svg>
         </div>
-
-        <!-- Trichocereus -->
         <div class="scene-plant sp-trich">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-            <path d="M9 22 V2 M15 22 V2 M9 6 h6 M9 12 h6 M9 18 h6" />
+            <path d="M9 24 V2 M15 24 V2 M9 6 h6 M9 12 h6 M9 18 h6" />
+          </svg>
+        </div>
+        <div class="scene-plant sp-peyot">
+          <svg viewBox="0 0 24 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 8 V4 M9 10 V6 M15 10 V6 M7 12 H2 M17 12 H22" />
           </svg>
         </div>
       </div>
 
       <!-- Oiseau volant -->
       <div class="scene-bird" id="scene-bird">
-        <svg viewBox="0 0 22 16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+        <svg viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
           <g class="bird-wing">
-            <path d="M8 6 C6 2, 2 1, 0 3 C2 4, 5 5, 8 6 Z" fill="currentColor"/>
+            <path d="M7 6 C5 2, 2 1, 0 3 C2 4, 4.5 5, 7 6 Z" fill="currentColor"/>
           </g>
-          <ellipse cx="10" cy="7" rx="5" ry="2.8" />
-          <circle cx="15.2" cy="5.8" r="2.3" />
-          <path d="M17.2 5.6 L20 6.2 L17.4 6.7 Z" fill="currentColor"/>
-          <path d="M5.5 7 L2 5.8 L2.5 8.2 Z" fill="currentColor"/>
+          <ellipse cx="9" cy="7" rx="4" ry="2.5" />
+          <circle cx="13.5" cy="5.5" r="2" />
+          <path d="M15 5 L18 5.5 L15.5 6" fill="currentColor"/>
         </svg>
       </div>
 
-      <!-- Verrou admin -->
+      <!-- Cadenas -->
       <button class="scene-lock" id="scene-lock-btn" type="button" aria-label="Accès admin">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="11" width="18" height="11" rx="2"/>
@@ -1458,19 +1094,16 @@ main {
     </div>
   </div>
 </header>
+
 <main>
   <div id="admin-bar" class="admin-bar">
     <span class="admin-tag">Mode admin</span>
     <button id="add-btn" class="btn">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-        <path d="M12 5v14M5 12h14"/>
-      </svg>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
       Ajouter
     </button>
     <button id="add-secret-btn" class="btn secret-add" style="display:none" type="button">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-        <path d="M12 5v14M5 12h14"/>
-      </svg>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
       Ajouter (secret)
     </button>
     <button id="lock-again" class="btn sec">Verrouiller</button>
@@ -1484,7 +1117,7 @@ main {
     <input id="search-input" type="search" placeholder="Rechercher une plante, famille, origine…" autocomplete="off">
   </div>
 
-  <div id="secret-banner" class="secret-banner" style="display:none">
+  <div id="secret-banner" class="secret-banner">
     <span class="secret-banner-label">Rubriques secrètes visibles</span>
     <button id="exit-secret-btn" type="button">
       <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
@@ -1494,78 +1127,51 @@ main {
 
   <div id="chips-step">
     <div class="chips-row" id="chips-row">
+      <!-- Normal Chips -->
       <button class="chip active" data-cat="all" data-mode="normal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <circle cx="6" cy="6" r="2"/>
-          <circle cx="18" cy="6" r="2"/>
-          <circle cx="6" cy="18" r="2"/>
-          <circle cx="18" cy="18" r="2"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
         Toutes
       </button>
       <button class="chip" data-cat="Cactus" data-mode="normal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M12 22V2"/>
-          <path d="M12 10H9a2 2 0 0 1-2-2V6"/>
-          <path d="M12 14h3a2 2 0 0 0 2-2v-2"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22V2"/><path d="M12 10H9a2 2 0 0 1-2-2V6"/><path d="M12 14h3a2 2 0 0 0 2-2v-2"/></svg>
         Cactus
       </button>
       <button class="chip" data-cat="Succulentes" data-mode="normal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
-          <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z"/>
-          <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(-30 12 21)"/>
-          <path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(30 12 21)"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z"/><path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(-30 12 21)"/><path d="M12 21 C 10.5 16 10.5 9 12 4 C 13.5 9 13.5 16 12 21 Z" transform="rotate(30 12 21)"/></svg>
         Succulentes
       </button>
       <button class="chip" data-cat="Mesembryanthemum" data-mode="normal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <ellipse cx="12" cy="14" rx="6" ry="5"/>
-          <path d="M12 9V6M9 6c1-1 5-1 6 0"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="14" rx="6" ry="5"/><path d="M12 9V6M9 6c1-1 5-1 6 0"/></svg>
         Mesembryanthemum
       </button>
       <button class="chip" data-cat="Tropicales" data-mode="normal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M5 19c0-7 6-13 14-14-1 8-7 14-14 14zM5 19l8-8"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 19c0-7 6-13 14-14-1 8-7 14-14 14zM5 19l8-8"/></svg>
         Tropicales
       </button>
       <button class="chip" data-cat="Caudiciformes" data-mode="normal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <ellipse cx="12" cy="16" rx="7" ry="4"/>
-          <path d="M12 12V6M9 8h6M10 5l2-2 2 2"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="16" rx="7" ry="4"/><path d="M12 12V6M9 8h6M10 5l2-2 2 2"/></svg>
         Caudiciformes
       </button>
 
-      <!-- Rubriques secrètes -->
+      <!-- Secret Chips -->
+      <button class="chip secret active" data-cat="all" data-mode="secret" style="display:none">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+        Toutes
+      </button>
       <button class="chip secret" data-cat="Sorcières" data-mode="secret" style="display:none">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         Sorcières
       </button>
       <button class="chip secret" data-cat="Chamanique" data-mode="secret" style="display:none">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="14" r="7" />
-          <path d="M12 7 v14 M8 8.5 v11 M16 8.5 v11 M6 12 h12" />
-          <path d="M10 7 Q12 3 14 7" />
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="14" r="7" /><path d="M12 7 v14 M8 8.5 v11 M16 8.5 v11 M6 12 h12" /><path d="M10 7 Q12 3 14 7" /></svg>
         Chamanique
       </button>
       <button class="chip secret" data-cat="Cannabis" data-mode="secret" style="display:none">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 22 V12 M12 16 L6 10 M12 16 L18 10 M12 12 L8 4 M12 12 L16 4" />
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 V12 M12 16 L6 10 M12 16 L18 10 M12 12 L8 4 M12 12 L16 4" /></svg>
         Cannabis
       </button>
       <button class="chip secret" data-cat="Champignons" data-mode="secret" style="display:none">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 13c0-4.4 3.6-8 8-8s8 3.6 8 8z"/>
-          <path d="M9.5 13v4a2.5 2.5 0 0 0 5 0v-4"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13c0-4.4 3.6-8 8-8s8 3.6 8 8z"/><path d="M9.5 13v4a2.5 2.5 0 0 0 5 0v-4"/></svg>
         Champignons
       </button>
     </div>
@@ -1574,9 +1180,7 @@ main {
   <div id="species-step" class="species-step">
     <div class="species-row">
       <button id="back-to-chips" class="back-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M19 12H5M12 19l-7-7 7-7"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         Rubriques
       </button>
     </div>
@@ -1604,15 +1208,12 @@ main {
   <div class="drawer-head">
     <h2 id="drawer-title">Nouveau spécimen</h2>
     <button id="close-drawer" class="close-x">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path d="M18 6L6 18M6 6l12 12"/>
-      </svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
     </button>
   </div>
 
   <form id="plant-form" style="flex:1;display:flex;flex-direction:column;overflow:hidden">
     <div class="drawer-body">
-
       <div class="field">
         <label>Nom de la plante *</label>
         <input type="text" id="p-name" placeholder="ex: Trichocereus pachanoi">
@@ -1673,7 +1274,6 @@ main {
             <input type="text" id="p-genre-custom" placeholder="ex: un genre rare…">
           </div>
         </div>
-
         <input type="hidden" id="p-cat" value="">
       </div>
 
@@ -1783,24 +1383,15 @@ main {
         <label>Exposition</label>
         <div class="exp-grid" id="exp-picker">
           <button type="button" class="exp-opt" data-exp="Plein soleil">
-            <svg viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="4"/>
-              <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/>
-            </svg>
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg>
             Soleil
           </button>
           <button type="button" class="exp-opt" data-exp="Mi-ombre">
-            <svg viewBox="0 0 24 24">
-              <circle cx="8" cy="8" r="3.5"/>
-              <path d="M8 2.5v1.5M2.5 8H4M4.2 4.2l1 1M11.8 4.2l-1 1M4.2 11.8l1-1"/>
-              <path d="M18 19h-5a2.5 2.5 0 0 1 0-5 4 4 0 0 1 7.5-1A2.5 2.5 0 0 1 18 19z"/>
-            </svg>
+            <svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3.5"/><path d="M8 2.5v1.5M2.5 8H4M4.2 4.2l1 1M11.8 4.2l-1 1M4.2 11.8l1-1"/><path d="M18 19h-5a2.5 2.5 0 0 1 0-5 4 4 0 0 1 7.5-1A2.5 2.5 0 0 1 18 19z"/></svg>
             Mi-ombre
           </button>
           <button type="button" class="exp-opt" data-exp="Ombre">
-            <svg viewBox="0 0 24 24">
-              <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
-            </svg>
+            <svg viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
             Ombre
           </button>
         </div>
@@ -1816,9 +1407,7 @@ main {
           <input type="range" id="p-temp" min="-20" max="15" step="1" value="0">
         </div>
         <div class="temp-legend">
-          <span>-20°C</span>
-          <span>0°C</span>
-          <span>+15°C</span>
+          <span>-20°C</span><span>0°C</span><span>+15°C</span>
         </div>
       </div>
 
@@ -1869,9 +1458,7 @@ main {
       <div class="field">
         <label>Photo *</label>
         <div id="file-drop" class="file-drop">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-            <path d="M12 16V4M6 10l6-6 6 6M4 20h16"/>
-          </svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 16V4M6 10l6-6 6 6M4 20h16"/></svg>
           <span>Prendre ou choisir une photo</span>
           <input type="file" id="p-photo" accept="image/*" capture="environment">
         </div>
@@ -1880,7 +1467,6 @@ main {
           <button type="button" id="clear-photo">×</button>
         </div>
       </div>
-
     </div>
 
     <div class="drawer-foot">
@@ -1905,9 +1491,7 @@ main {
 
 <div id="lightbox" class="lightbox" aria-hidden="true">
   <button id="lb-close" class="lb-close">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <path d="M19 12H5M12 19l-7-7 7-7"/>
-    </svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
   </button>
   <div class="lb-content">
     <img id="lb-img" alt="">
@@ -1938,19 +1522,21 @@ main {
 </div>
 
 <div id="toast-wrap" class="toast-wrap"></div>
-  <script>
+
+<script>
 (function () {
   'use strict';
 
-  var $ = function (id) { return document.getElementById(id); };
-  var ADMIN = '2404';
-  var KEY = 'plantouille_v6';
-  var SECRET_KEY = 'plantouille_secret_unlocked';
-  var SEED_KEY = 'plantouille_secret_seeded';
-  var MAXW = 900;
-  var Q = 0.72;
+  const $ = id => document.getElementById(id);
+  const ADMIN = '2404';
+  const KEY = 'plantouille_v6';
+  const SECRET_KEY = 'plantouille_secret_unlocked';
+  const SEED_KEY = 'plantouille_secret_seeded';
+  const MAXW = 900;
+  const Q = 0.72;
 
-  var SPECIES = {
+  // Listes complètes
+  const SPECIES = {
     'Cactus': ['Acanthocereus','Acharagma','Ancistrocactus','Aporocactus','Ariocarpus','Armatocereus','Arrojadoa','Astrophytum','Austrocactus','Austrocephalocereus','Austrocylindropuntia','Aylostera','Aztekium','Bergerocactus','Blossfeldia','Borzicactus','Brachycereus','Brasilicactus','Brasilicereus','Browningia','Calymmanthium','Carnegiea','Cephalocereus','Cereus','Cintia','Cleistocactus','Coleocephalocereus','Consolea','Copiapoa','Corryocactus','Coryphantha','Cumulopuntia','Cylindropuntia','Denmoza','Discocactus','Echinocactus','Echinocereus','Echinomastus','Echinopsis','Epiphyllum','Eriosyce','Escobaria','Espostoa','Espostoopsis','Eulychnia','Facheiroa','Ferocactus','Frailea','Geohintonia','Gymnocalycium','Haageocereus','Hamatocactus','Harrisia','Hatiora','Hylocereus','Isolatocereus','Islaya','Jasminocereus','Lasiocereus','Leocereus','Lepismium','Leptocereus','Leuchtenbergia','Lobivia','Lophophora','Loxanthocereus','Mammillaria','Mammilloydia','Matucana','Melocactus','Micranthocereus','Mila','Monvillea','Morawetzia','Myrtillocactus','Neobuxbaumia','Neolloydia','Neoporteria','Neoraimondia','Neowerdermannia','Notocactus','Obregonia','Opuntia','Oreocereus','Oroya','Ortegocactus','Pachycereus','Parodia','Pediocactus','Pelecyphora','Peniocereus','Pereskia','Pilosocereus','Polaskia','Pterocactus','Pygmaeocereus','Rebutia','Rhipsalis','Schlumbergera','Selenicereus','Setiechinopsis','Stenocactus','Stenocereus','Stephanocereus','Stetsonia','Strombocactus','Sulcorebutia','Tacinga','Tephrocactus','Thelocactus','Trichocereus','Tunilla','Turbinicarpus','Uebelmannia','Weberbauerocereus','Weingartia','Wilcoxia','Yavia'],
     'Succulentes': ['Adromischus','Adenia','Aeonium','Agave','Aichryson','Albuca','Alluaudia','Alluaudiopsis','Aloe','Anacampseros','Aptenia','Apteranthes','Astroloba','Avonia','Beaucarnea','Bowiea','Brachystelma','Bulbine','Calibanus','Caralluma','Ceraria','Ceropegia','Cissus','Cotyledon','Crassula','Dasylirion','Decarya','Didierea','Dracaena','Dudleya','Duvalia','Echeveria','Echidnopsis','Edithcolea','Encephalartos','Euphorbia','Fockea','Frithia','Gasteria','Gonialoe','Graptopetalum','Graptophytum','Graptosedum','Graptoveria','Greenovia','Haworthia','Haworthiopsis','Hoodia','Huernia','Hylotelephium','Jovibarba','Kalanchoe','Kleinia','Kumara','Lapidaria','Larryleachia','Lavrania','Lenophyllum','Lithops','Manfreda','Monadenium','Monanthes','Orbea','Orostachys','Oscularia','Othonna','Pachyphytum','Pachyveria','Pachypodium','Pedilanthus','Pelargonium','Peperomia','Petrosedum','Phedimus','Piaranthus','Plectranthus','Polianthes','Portulacaria','Pseudolithos','Quaqua','Rhodiola','Rhombophyllum','Rochea','Rosularia','Sansevieria','Sarcostemma','Sedeveria','Sedum','Senecio','Sempervivum','Sinocrassula','Stapelia','Stapelianthus','Synadenium','Tacitus','Tavaresia','Trichocaulon','Tulista','Tylecodon','Umbilicus','Villadia','Xerosicyos','Yucca'],
     'Mesembryanthemum': ['Acrodon','Aloinopsis','Amphibolia','Antimima','Apatesia','Aptenia','Argyroderma','Aspazoma','Bergeranthus','Berrisfordia','Bijlia','Braunsia','Brownanthus','Carpanthea','Carpobrotus','Carruanthus','Cephalophyllum','Cerochlamys','Chasmatophyllum','Cheiridopsis','Circandra','Cleretum','Conicosia','Conophytum','Corpuscularia','Cylindrophyllum','Dactylopsis','Delosperma','Dinteranthus','Diplosoma','Disphyma','Dorotheanthus','Dracophilus','Drosanthemum','Eberlanzia','Ebracteola','Ectotropis','Enarganthe','Erepsia','Esterhuysenia','Faucaria','Fenestraria','Frithia','Galenia','Gibbaeum','Glottiphyllum','Hallianthus','Hereroa','Herreanthus','Hydrodea','Imitaria','Jacobsenia','Jensenobotrya','Jordaaniella','Juttadinteria','Khadia','Lampranthus','Lapidaria','Leipoldtia','Lithops','Machairophyllum','Malephora','Maughania','Meyerophytum','Mitrophyllum','Monilaria','Mossia','Muiria','Namaquanthus','Namibia','Nananthus','Nelia','Neohenricia','Octopoma','Odontophorus','Oophytum','Ophthalmophyllum','Orthopterum','Oscularia','Ottosonderia','Peersia','Phyllobolus','Pleiospilos','Polymita','Prenia','Prepodesma','Psammophora','Pseudobrownanthus','Rabiea','Rhinephyllum','Rhombophyllum','Ruschia','Ruschianthus','Saphesia','Sceletium','Schwantesia','Scopelogena','Smicrostigma','Stayneria','Stoeberia','Stomatium','Tanquana','Titanopsis','Trichodiadema','Vanheerdea','Vanzijlia','Vlokia','Wooleya','Zeuktophyllum'],
@@ -1962,9 +1548,9 @@ main {
     'Champignons': ['Agaricus','Amanita','Armillaria','Auricularia','Boletus','Cantharellus','Claviceps','Conocybe','Copelandia','Coprinus','Cordyceps','Flammulina','Fomes','Ganoderma','Grifola','Gymnopilus','Hericium','Hydnellum','Inocybe','Laetiporus','Lactarius','Lentinula','Lycoperdon','Morchella','Panaeolus','Phallus','Phellinus','Pleurotus','Pluteus','Psilocybe','Russula','Scleroderma','Trametes','Tremella','Tricholoma','Tuber']
   };
 
-  var SECRETS = ['Sorcières', 'Chamanique', 'Cannabis', 'Champignons'];
+  const SECRETS = ['Sorcières', 'Chamanique', 'Cannabis', 'Champignons'];
 
-  var SECRET_EXAMPLES = [
+  const SECRET_EXAMPLES = [
     { name: 'Amanita muscaria', category: 'Champignons', family: 'Amanitaceae', substrate: 'Sol forestier humide', exposure: 'Mi-ombre', minTemp: '-5', origin: 'Europe & Asie', c1: '#d32f2f', c2: '#ffd4d4', letter: 'A' },
     { name: 'Psilocybe cubensis', category: 'Champignons', family: 'Hymenogastraceae', substrate: 'Fumier & sol riche', exposure: 'Ombre', minTemp: '15', origin: 'Amérique centrale', c1: '#8b5a2b', c2: '#f5deb3', letter: 'P' },
     { name: 'Psilocybe semilanceata', category: 'Champignons', family: 'Hymenogastraceae', substrate: 'Prairies herbeuses', exposure: 'Mi-ombre', minTemp: '5', origin: 'Europe du Nord', c1: '#6d4c2a', c2: '#d4b896', letter: 'P' },
@@ -1978,50 +1564,44 @@ main {
     { name: 'Cannabis sativa', category: 'Cannabis', family: 'Cannabaceae', substrate: 'Terreau riche & perlite', exposure: 'Plein soleil', minTemp: '10', origin: 'Asie centrale', c1: '#2e7d32', c2: '#a5d6a7', letter: 'C' }
   ];
 
-  var plants = [];
-  var unlocked = false;
-  var secretRevealed = false;
-  var secretMode = false;
-  var drawerMode = 'normal';
-  var photo = '';
-  var filter = 'all';
-  var genreFilter = '';
-  var selSub = '', selFam = '', selExp = '', selOri = '';
+  let plants = [];
+  let unlocked = false;
+  let secretRevealed = false;
+  let secretMode = false;
+  let drawerMode = 'normal';
+  let photo = '';
+  let filter = 'all';
+  let genreFilter = '';
+  let selSub = '', selFam = '', selExp = '', selOri = '';
 
-  function esc(s) {
-    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
-      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
-    });
-  }
-  function norm(s) {
-    return String(s == null ? '' : s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-  }
-  function fmtT(t) {
+  // Fonctions utilitaires
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const norm = s => String(s == null ? '' : s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  const fmtT = t => {
     if (t == null || t === '') return null;
-    var n = Number(t);
+    const n = Number(t);
     return (n > 0 ? '+' + n : n) + ' °C';
-  }
-  function toast(m, ms) {
-    var t = document.createElement('div');
+  };
+  const toast = (m, ms = 3000) => {
+    const t = document.createElement('div');
     t.className = 'toast';
     t.textContent = m;
     $('toast-wrap').appendChild(t);
-    setTimeout(function () { t.remove(); }, ms || 3000);
-  }
+    setTimeout(() => t.remove(), ms);
+  };
 
-  function isSecret(cat) {
-    return SECRETS.indexOf(cat) !== -1;
-  }
+  const isSecret = cat => SECRETS.includes(cat);
 
-  function loadP() {
+  // Stockage
+  const loadP = () => {
     try {
-      var r = localStorage.getItem(KEY);
+      const r = localStorage.getItem(KEY);
       if (!r) return [];
-      var a = JSON.parse(r);
+      const a = JSON.parse(r);
       return Array.isArray(a) ? a : [];
     } catch (e) { return []; }
-  }
-  function saveP() {
+  };
+  const saveP = () => {
     try {
       localStorage.setItem(KEY, JSON.stringify(plants));
       return true;
@@ -2029,196 +1609,193 @@ main {
       toast('Stockage plein');
       return false;
     }
-  }
-  function stats() {
+  };
+  const stats = () => {
     $('stat-total').textContent = plants.length;
-  }
+  };
 
-  function syncBack() {
-    var m = document.querySelector('main .sel-wrap.open');
-    var d = document.querySelector('#drawer .sel-wrap.open');
-    var pb = $('page-backdrop');
-    var dd = $('drawer-dropdown-backdrop');
+  // Synchronisation des backdrops
+  const syncBack = () => {
+    const m = document.querySelector('main .sel-wrap.open');
+    const d = document.querySelector('#drawer .sel-wrap.open');
+    const pb = $('page-backdrop');
+    const dd = $('drawer-dropdown-backdrop');
     if (pb) pb.classList.toggle('visible', !!m);
     if (dd) dd.classList.toggle('visible', !!d);
-  }
+  };
 
-  function filterList() {
-    var term = norm($('search-input').value.trim());
-    var gt = norm(genreFilter);
-    return plants.filter(function (p) {
+  // Filtrage et rendu
+  const filterList = () => {
+    const term = norm($('search-input').value.trim());
+    const gt = norm(genreFilter);
+    return plants.filter(p => {
       if (!secretMode && isSecret(p.category)) return false;
       if (secretMode && !isSecret(p.category)) return false;
       if (filter !== 'all' && p.category !== filter) return false;
       if (gt && norm(p.name).indexOf(gt) === -1) return false;
       if (term) {
-        var h = norm((p.name||'') + ' ' + (p.family||'') + ' ' + (p.substrate||'') + ' ' + (p.exposure||'') + ' ' + (p.origin||'') + ' ' + (p.category||''));
+        const h = norm((p.name||'') + ' ' + (p.family||'') + ' ' + (p.substrate||'') + ' ' + (p.exposure||'') + ' ' + (p.origin||'') + ' ' + (p.category||''));
         if (h.indexOf(term) === -1) return false;
       }
       return true;
     });
-  }
+  };
 
-  function render() {
-    var list = filterList();
-    var g = $('grid');
+  const render = () => {
+    const list = filterList();
+    const g = $('grid');
     g.innerHTML = '';
     if (list.length === 0) {
-      g.innerHTML = '<div class="empty">' +
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 21V11"/><path d="M12 13c-3.5 0-6-2.5-6-6 3.5 0 6 2.5 6 6z"/></svg>' +
-        (plants.length === 0 ? "Aucun spécimen pour l'instant." : "Aucun spécimen ne correspond.") +
-        '</div>';
+      g.innerHTML = `<div class="empty">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 21V11"/><path d="M12 13c-3.5 0-6-2.5-6-6 3.5 0 6 2.5 6 6z"/></svg>
+        ${plants.length === 0 ? "Aucun spécimen pour l'instant." : "Aucun spécimen ne correspond."}
+      </div>`;
       return;
     }
-    list.forEach(function (p) {
-      var c = document.createElement('article');
+    list.forEach(p => {
+      const c = document.createElement('article');
       c.className = 'card' + (isSecret(p.category) ? ' secret-cat' : '');
-      var tf = fmtT(p.minTemp);
-      var info = '';
-      if (p.exposure) info += '<div><b>Expo:</b> ' + esc(p.exposure) + '</div>';
-      if (tf) info += '<div><b>Min:</b> ' + esc(tf) + '</div>';
-      if (p.substrate) info += '<div class="full"><b>Substrat:</b> ' + esc(p.substrate) + '</div>';
-      if (p.origin) info += '<div class="full"><b>Origine:</b> ' + esc(p.origin) + '</div>';
-      var db = unlocked
-        ? '<button type="button" class="card-del"><svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"/></svg><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg></button>'
-        : '';
-      c.innerHTML =
-        '<div class="card-img-wrap"><img src="' + esc(p.photo) + '" alt="' + esc(p.name) + '" loading="lazy">' + db + '</div>' +
-        '<div class="card-body">' +
-          '<div>' +
-            '<div class="card-cat">' + esc(p.category) + '</div>' +
-            '<div class="card-name">' + esc(p.name) + '</div>' +
-            (p.family ? '<div class="card-fam">' + esc(p.family) + '</div>' : '') +
-          '</div>' +
-          '<div class="card-info">' + info + '</div>' +
-        '</div>';
-      c.querySelector('.card-img-wrap img').addEventListener('click', function () { openLB(p); });
-      var d = c.querySelector('.card-del');
+      const tf = fmtT(p.minTemp);
+      let info = '';
+      if (p.exposure) info += `<div><b>Expo:</b> ${esc(p.exposure)}</div>`;
+      if (tf) info += `<div><b>Min:</b> ${esc(tf)}</div>`;
+      if (p.substrate) info += `<div class="full"><b>Substrat:</b> ${esc(p.substrate)}</div>`;
+      if (p.origin) info += `<div class="full"><b>Origine:</b> ${esc(p.origin)}</div>`;
+      
+      const db = unlocked ? `<button type="button" class="card-del">
+        <svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        <svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg>
+      </button>` : '';
+
+      c.innerHTML = `
+        <div class="card-img-wrap"><img src="${esc(p.photo)}" alt="${esc(p.name)}" loading="lazy">${db}</div>
+        <div class="card-body">
+          <div>
+            <div class="card-cat">${esc(p.category)}</div>
+            <div class="card-name">${esc(p.name)}</div>
+            ${p.family ? `<div class="card-fam">${esc(p.family)}</div>` : ''}
+          </div>
+          <div class="card-info">${info}</div>
+        </div>`;
+
+      c.querySelector('.card-img-wrap img').addEventListener('click', () => openLB(p));
+      
+      const d = c.querySelector('.card-del');
       if (d) {
-        var to = null;
-        d.addEventListener('click', function (e) {
+        let to = null;
+        d.addEventListener('click', e => {
           e.stopPropagation();
           if (!d.classList.contains('confirming')) {
             d.classList.add('confirming');
             clearTimeout(to);
-            to = setTimeout(function () { d.classList.remove('confirming'); }, 2500);
-          } else { delP(p); }
+            to = setTimeout(() => d.classList.remove('confirming'), 2500);
+          } else {
+            delP(p);
+          }
         });
       }
       g.appendChild(c);
     });
-  }
+  };
 
-  function delP(p) {
-    plants = plants.filter(function (x) { return x.id !== p.id; });
+  const delP = p => {
+    plants = plants.filter(x => x.id !== p.id);
     if (saveP()) { stats(); render(); toast('Spécimen retiré'); }
-  }
+  };
 
-  function openLB(p) {
+  const openLB = p => {
     $('lb-img').src = p.photo;
     $('lb-img').alt = p.name || '';
     $('lb-cat').textContent = p.category || '';
     $('lb-name').textContent = p.name || '';
     $('lb-fam').textContent = p.family || '';
     $('lb-fam').style.display = p.family ? 'block' : 'none';
-    var tf = fmtT(p.minTemp);
-    if (p.exposure) { $('lb-expo-w').style.display = 'flex'; $('lb-expo').textContent = p.exposure; }
-    else { $('lb-expo-w').style.display = 'none'; }
-    if (tf) { $('lb-temp-w').style.display = 'flex'; $('lb-temp').textContent = tf; }
-    else { $('lb-temp-w').style.display = 'none'; }
-    if (p.substrate) { $('lb-sub-w').style.display = 'flex'; $('lb-sub').textContent = p.substrate; }
-    else { $('lb-sub-w').style.display = 'none'; }
-    if (p.origin) { $('lb-ori-w').style.display = 'flex'; $('lb-ori').textContent = p.origin; }
-    else { $('lb-ori-w').style.display = 'none'; }
+    const tf = fmtT(p.minTemp);
+    $('lb-expo-w').style.display = p.exposure ? 'flex' : 'none';
+    if (p.exposure) $('lb-expo').textContent = p.exposure;
+    $('lb-temp-w').style.display = tf ? 'flex' : 'none';
+    if (tf) $('lb-temp').textContent = tf;
+    $('lb-sub-w').style.display = p.substrate ? 'flex' : 'none';
+    if (p.substrate) $('lb-sub').textContent = p.substrate;
+    $('lb-ori-w').style.display = p.origin ? 'flex' : 'none';
+    if (p.origin) $('lb-ori').textContent = p.origin;
     $('lightbox').classList.add('open');
     document.body.style.overflow = 'hidden';
-  }
-  function closeLB() {
+  };
+  const closeLB = () => {
     $('lightbox').classList.remove('open');
     document.body.style.overflow = '';
-  }
+  };
 
-  function openModal(id) {
-    $(id).classList.add('on');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeModal(id) {
+  const openModal = id => { $(id).classList.add('on'); document.body.style.overflow = 'hidden'; };
+  const closeModal = id => {
     $(id).classList.remove('on');
     if (!$('drawer').classList.contains('open')) document.body.style.overflow = '';
-  }
+  };
 
-  function updateSecretAddBtn() {
+  const updateSecretAddBtn = () => {
     $('add-secret-btn').style.display = (secretMode && unlocked) ? 'inline-flex' : 'none';
-  }
+  };
 
-  function unlock() {
+  const unlock = () => {
     unlocked = true;
     $('admin-bar').classList.add('on');
     updateSecretAddBtn();
     render();
     toast('Mode admin activé', 2000);
-  }
-  function lock() {
+  };
+  const lock = () => {
     unlocked = false;
     $('admin-bar').classList.remove('on');
     updateSecretAddBtn();
     render();
-  }
+  };
 
-  function setSecretMode(mode) {
+  const setSecretMode = mode => {
     secretMode = !!mode;
     document.body.classList.toggle('secret-mode', secretMode);
     
-    document.querySelectorAll('#chips-row .chip').forEach(function(c) {
-      var m = c.getAttribute('data-mode') || 'normal';
+    // Gestion de l'affichage des chips
+    document.querySelectorAll('#chips-row .chip').forEach(c => {
+      const m = c.getAttribute('data-mode') || 'normal';
       if (secretMode) {
-        c.style.display = (m === 'secret' || c.getAttribute('data-cat') === 'all') ? 'inline-flex' : 'none';
+        c.style.display = (m === 'secret') ? 'inline-flex' : 'none';
       } else {
         c.style.display = (m === 'normal') ? 'inline-flex' : 'none';
       }
     });
 
-    $('secret-banner').style.display = secretMode ? 'flex' : 'none';
+    $('secret-banner').classList.toggle('on', secretMode);
     updateSecretAddBtn();
 
-    if (!secretMode && (SECRETS.indexOf(filter) !== -1 || filter === 'all')) {
-       filter = 'all';
-       genreFilter = '';
-       document.querySelectorAll('#chips-row .chip').forEach(function(x) {
-         x.classList.toggle('active', x.getAttribute('data-cat') === 'all');
-       });
-       $('species-step').classList.remove('on');
-       $('chips-step').style.display = '';
-    } else if (secretMode) {
-       filter = 'all';
-       genreFilter = '';
-       document.querySelectorAll('#chips-row .chip').forEach(function(x) {
-         x.classList.toggle('active', x.getAttribute('data-cat') === 'all');
-       });
-       $('species-step').classList.remove('on');
-       $('chips-step').style.display = '';
-    }
+    // Reset des filtres à chaque changement de mode
+    filter = 'all';
+    genreFilter = '';
+    $('filter-genre-custom').value = '';
+    document.querySelectorAll('#chips-row .chip').forEach(x => {
+      x.classList.toggle('active', x.getAttribute('data-cat') === 'all' && (x.getAttribute('data-mode') === (secretMode ? 'secret' : 'normal')));
+    });
+    $('species-step').classList.remove('on');
+    $('chips-step').style.display = '';
     
     render();
-  }
+  };
 
-  function setupSel(wrapId, btnId, ddId, hiddenId, defaultText, cb) {
-    var w = $(wrapId), b = $(btnId), dd = $(ddId), h = $(hiddenId);
-    b.addEventListener('click', function (e) {
+  const setupSel = (wrapId, btnId, ddId, hiddenId, defaultText, cb) => {
+    const w = $(wrapId), b = $(btnId), dd = $(ddId), h = $(hiddenId);
+    b.addEventListener('click', e => {
       e.stopPropagation();
-      document.querySelectorAll('.sel-wrap.open').forEach(function (x) {
-        if (x !== w) x.classList.remove('open');
-      });
+      document.querySelectorAll('.sel-wrap.open').forEach(x => { if (x !== w) x.classList.remove('open'); });
       w.classList.toggle('open');
       syncBack();
     });
-    dd.querySelectorAll('.opt').forEach(function (o) {
-      o.addEventListener('click', function (e) {
+    dd.querySelectorAll('.opt').forEach(o => {
+      o.addEventListener('click', e => {
         e.stopPropagation();
         if (o.style.display === 'none') return;
-        dd.querySelectorAll('.opt').forEach(function (x) { x.classList.remove('sel'); });
+        dd.querySelectorAll('.opt').forEach(x => x.classList.remove('sel'));
         o.classList.add('sel');
-        var v = o.getAttribute('data-val');
+        const v = o.getAttribute('data-val');
         h.value = v;
         b.querySelector('.lbl').textContent = v;
         b.classList.remove('placeholder');
@@ -2231,66 +1808,70 @@ main {
       h.value = '';
       b.querySelector('.lbl').textContent = defaultText;
       b.classList.add('placeholder');
-      dd.querySelectorAll('.opt').forEach(function (x) { x.classList.remove('sel'); });
+      dd.querySelectorAll('.opt').forEach(x => x.classList.remove('sel'));
       w.classList.remove('open');
       if (cb) cb('');
     };
-  }
+  };
 
-  var resetSub = setupSel('substrate-wrap', 'substrate-btn', 'substrate-dd', 'p-substrate', 'Sélectionner un substrat…', function (v) { selSub = v; });
-  var resetFam = setupSel('family-wrap', 'family-btn', 'family-dd', 'p-family', 'Sélectionner une famille…', function (v) { selFam = v; });
-  var resetOri = setupSel('origin-wrap', 'origin-btn', 'origin-dd', 'p-origin', 'Sélectionner une région…', function (v) {
+  const resetSub = setupSel('substrate-wrap', 'substrate-btn', 'substrate-dd', 'p-substrate', 'Sélectionner un substrat…', v => selSub = v);
+  const resetFam = setupSel('family-wrap', 'family-btn', 'family-dd', 'p-family', 'Sélectionner une famille…', v => selFam = v);
+  const resetOri = setupSel('origin-wrap', 'origin-btn', 'origin-dd', 'p-origin', 'Sélectionner une région…', v => {
     selOri = v;
     $('origin-country-wrap').style.display = (v && v !== 'Horticole / Hybride') ? 'block' : 'none';
     if (!v || v === 'Horticole / Hybride') $('p-origin-country').value = '';
   });
 
-  document.addEventListener('click', function (e) {
+  document.addEventListener('click', e => {
     if (!e.target.closest('.sel-wrap')) {
-      document.querySelectorAll('.sel-wrap.open').forEach(function (w) { w.classList.remove('open'); });
+      document.querySelectorAll('.sel-wrap.open').forEach(w => w.classList.remove('open'));
       syncBack();
     }
   });
 
-  document.querySelectorAll('#exp-picker .exp-opt').forEach(function (b) {
-    b.addEventListener('click', function () {
-      document.querySelectorAll('#exp-picker .exp-opt').forEach(function (x) { x.classList.remove('active'); });
+  document.querySelectorAll('#exp-picker .exp-opt').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('#exp-picker .exp-opt').forEach(x => x.classList.remove('active'));
       b.classList.add('active');
       selExp = b.getAttribute('data-exp');
       $('p-exp').value = selExp;
     });
   });
 
-  $('p-temp').addEventListener('input', function (e) {
-    var v = e.target.value;
+  $('p-temp').addEventListener('input', e => {
+    const v = e.target.value;
     $('temp-val').textContent = (v > 0 ? '+' + v : v) + ' °C';
   });
 
-  function selectCategory(cat, btnEl) {
-    document.querySelectorAll('#chips-row .chip').forEach(function (x) { x.classList.remove('active'); });
+  // Gestion du filtre de catégorie principal
+  const selectCategory = (cat, btnEl) => {
+    document.querySelectorAll('#chips-row .chip').forEach(x => x.classList.remove('active'));
     btnEl.classList.add('active');
     filter = cat;
     genreFilter = '';
+    
     if (cat === 'all') {
       $('species-step').classList.remove('on');
       $('chips-step').style.display = '';
       render();
       return;
     }
+    
     $('chips-step').style.display = 'none';
     $('species-step').classList.add('on');
-    var dd = $('filter-species-dd');
-    var html = '<div class="opt-group">' + cat + '</div>';
-    (SPECIES[cat] || []).forEach(function (s) {
-      html += '<div class="opt" data-val="' + esc(s) + '">' + esc(s) + '</div>';
+    const dd = $('filter-species-dd');
+    let html = `<div class="opt-group">${cat}</div>`;
+    (SPECIES[cat] || []).forEach(s => {
+      html += `<div class="opt" data-val="${esc(s)}">${esc(s)}</div>`;
     });
     dd.innerHTML = html;
-    dd.querySelectorAll('.opt').forEach(function (o) {
-      o.addEventListener('click', function (e) {
+    
+    dd.querySelectorAll('.opt').forEach(o => {
+      o.addEventListener('click', e => {
         e.stopPropagation();
-        dd.querySelectorAll('.opt').forEach(function (x) { x.classList.remove('sel'); });
+        dd.querySelectorAll('.opt').forEach(x => x.classList.remove('sel'));
         o.classList.add('sel');
-        var v = o.getAttribute('data-val');
+        const v = o.getAttribute('data-val');
         $('filter-species-btn').querySelector('.lbl').textContent = v;
         $('filter-species-btn').classList.remove('placeholder');
         $('filter-species-wrap').classList.remove('open');
@@ -2305,57 +1886,54 @@ main {
     $('filter-species-wrap').classList.remove('open');
     $('filter-genre-custom').value = '';
     render();
-  }
+  };
 
-  function bindChip(b) {
-    b.addEventListener('click', function () { selectCategory(b.getAttribute('data-cat'), b); });
-  }
-  document.querySelectorAll('#chips-row .chip').forEach(bindChip);
+  document.querySelectorAll('#chips-row .chip').forEach(b => {
+    b.addEventListener('click', () => selectCategory(b.getAttribute('data-cat'), b));
+  });
 
-  $('filter-species-btn').addEventListener('click', function (e) {
+  $('filter-species-btn').addEventListener('click', e => {
     e.stopPropagation();
-    document.querySelectorAll('.sel-wrap.open').forEach(function (w) {
-      if (w !== $('filter-species-wrap')) w.classList.remove('open');
-    });
+    document.querySelectorAll('.sel-wrap.open').forEach(w => { if (w !== $('filter-species-wrap')) w.classList.remove('open'); });
     $('filter-species-wrap').classList.toggle('open');
     syncBack();
   });
 
-  $('filter-genre-custom').addEventListener('input', function (e) {
+  $('filter-genre-custom').addEventListener('input', e => {
     genreFilter = e.target.value.trim();
     render();
   });
 
-  $('back-to-chips').addEventListener('click', function () {
+  $('back-to-chips').addEventListener('click', () => {
     filter = 'all';
     genreFilter = '';
     $('species-step').classList.remove('on');
     $('chips-step').style.display = '';
-    document.querySelectorAll('#chips-row .chip').forEach(function (x) {
-      x.classList.toggle('active', x.getAttribute('data-cat') === 'all');
+    document.querySelectorAll('#chips-row .chip').forEach(x => {
+      x.classList.toggle('active', x.getAttribute('data-cat') === 'all' && (x.getAttribute('data-mode') === (secretMode ? 'secret' : 'normal')));
     });
     render();
   });
 
-  // ============ RUBRIQUE DRAWER ============
-  document.querySelectorAll('#cat-picker .cat-opt').forEach(function (b) {
-    b.addEventListener('click', function () {
-      document.querySelectorAll('#cat-picker .cat-opt').forEach(function (x) { x.classList.remove('active'); });
+  // Drawer Cat Picker
+  document.querySelectorAll('#cat-picker .cat-opt').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('#cat-picker .cat-opt').forEach(x => x.classList.remove('active'));
       b.classList.add('active');
-      var cat = b.getAttribute('data-cat');
+      const cat = b.getAttribute('data-cat');
       $('p-cat').value = cat;
-      var dd = $('drawer-species-dd');
-      var html = '<div class="opt-group">' + cat + '</div>';
-      (SPECIES[cat] || []).forEach(function (s) {
-        html += '<div class="opt" data-val="' + esc(s) + '">' + esc(s) + '</div>';
+      const dd = $('drawer-species-dd');
+      let html = `<div class="opt-group">${cat}</div>`;
+      (SPECIES[cat] || []).forEach(s => {
+        html += `<div class="opt" data-val="${esc(s)}">${esc(s)}</div>`;
       });
       dd.innerHTML = html;
-      dd.querySelectorAll('.opt').forEach(function (o) {
-        o.addEventListener('click', function (e) {
+      dd.querySelectorAll('.opt').forEach(o => {
+        o.addEventListener('click', e => {
           e.stopPropagation();
-          dd.querySelectorAll('.opt').forEach(function (x) { x.classList.remove('sel'); });
+          dd.querySelectorAll('.opt').forEach(x => x.classList.remove('sel'));
           o.classList.add('sel');
-          var v = o.getAttribute('data-val');
+          const v = o.getAttribute('data-val');
           $('drawer-species-btn').querySelector('.lbl').textContent = v;
           $('drawer-species-btn').classList.remove('placeholder');
           $('drawer-species-wrap').classList.remove('open');
@@ -2372,76 +1950,82 @@ main {
     });
   });
 
-  $('drawer-species-btn').addEventListener('click', function (e) {
+  $('drawer-species-btn').addEventListener('click', e => {
     e.stopPropagation();
-    document.querySelectorAll('.sel-wrap.open').forEach(function (w) {
-      if (w !== $('drawer-species-wrap')) w.classList.remove('open');
-    });
+    document.querySelectorAll('.sel-wrap.open').forEach(w => { if (w !== $('drawer-species-wrap')) w.classList.remove('open'); });
     $('drawer-species-wrap').classList.toggle('open');
     syncBack();
   });
 
-  // ============ PHOTO ============
-  function resizeImg(f) {
-    return new Promise(function (res, rej) {
-      var r = new FileReader();
-      r.onload = function (e) {
-        var i = new Image();
-        i.onload = function () {
-          var w = i.width, h = i.height;
+  // Photo
+  const resizeImg = f => {
+    return new Promise((res, rej) => {
+      const r = new FileReader();
+      r.onload = e => {
+        const i = new Image();
+        i.onload = () => {
+          let w = i.width, h = i.height;
           if (w > MAXW) { h = Math.round(h * MAXW / w); w = MAXW; }
-          var c = document.createElement('canvas');
+          const c = document.createElement('canvas');
           c.width = w; c.height = h;
           c.getContext('2d').drawImage(i, 0, 0, w, h);
           res(c.toDataURL('image/jpeg', Q));
         };
-        i.onerror = function () { rej(new Error('Img')); };
+        i.onerror = () => rej(new Error('Img'));
         i.src = e.target.result;
       };
-      r.onerror = function () { rej(new Error('Read')); };
+      r.onerror = () => rej(new Error('Read'));
       r.readAsDataURL(f);
     });
-  }
+  };
 
-  $('p-photo').addEventListener('change', function (e) {
-    var f = e.target.files[0];
+  $('p-photo').addEventListener('change', e => {
+    const f = e.target.files[0];
     if (!f) return;
-    resizeImg(f).then(function (d) {
+    resizeImg(f).then(d => {
       photo = d;
       $('photo-prev-img').src = d;
       $('file-drop').style.display = 'none';
       $('photo-prev').style.display = 'block';
-    }).catch(function () { toast('Erreur image'); });
+    }).catch(() => toast('Erreur image'));
   });
 
-  $('clear-photo').addEventListener('click', function () {
+  $('clear-photo').addEventListener('click', () => {
     photo = '';
     $('p-photo').value = '';
     $('photo-prev').style.display = 'none';
     $('file-drop').style.display = 'flex';
   });
 
-  // ============ FORM SUBMIT ============
-  $('plant-form').addEventListener('submit', function (e) {
+  // Formulaire
+  $('plant-form').addEventListener('submit', e => {
     e.preventDefault();
-    var nameIn = $('p-name').value.trim();
-    var gC = $('p-genre-custom').value.trim();
-    var cat = $('p-cat').value;
-    var fC = $('p-family-custom').value.trim();
-    var oC = $('p-origin-country').value.trim();
-    var fName = gC || nameIn;
-    var fFam = fC || selFam;
-    var fOri = selOri;
+    const nameIn = $('p-name').value.trim();
+    const gC = $('p-genre-custom').value.trim();
+    const cat = $('p-cat').value;
+    const fC = $('p-family-custom').value.trim();
+    const oC = $('p-origin-country').value.trim();
+    const fName = gC || nameIn;
+    const fFam = fC || selFam;
+    let fOri = selOri;
     if (oC && selOri && selOri !== 'Horticole / Hybride') fOri = selOri + ' — ' + oC;
     if (!fName || !cat || !photo) { toast('Nom, rubrique et photo obligatoires'); return; }
-    var nP = { id: 'p_' + Date.now(), name: fName, category: cat, family: fFam, substrate: selSub, exposure: selExp, minTemp: $('p-temp').value, origin: fOri, photo: photo, date: Date.now() };
-    var backup = plants.slice();
+    
+    const nP = { id: 'p_' + Date.now(), name: fName, category: cat, family: fFam, substrate: selSub, exposure: selExp, minTemp: $('p-temp').value, origin: fOri, photo: photo, date: Date.now() };
+    const backup = plants.slice();
     plants.unshift(nP);
-    if (saveP()) { stats(); render(); resetForm(); closeDrawer(); toast('Spécimen enregistré ✓'); }
-    else { plants = backup; }
+    if (saveP()) {
+      stats();
+      render();
+      resetForm();
+      closeDrawer();
+      toast('Spécimen enregistré ✓');
+    } else {
+      plants = backup;
+    }
   });
 
-  function resetForm() {
+  const resetForm = () => {
     $('plant-form').reset();
     photo = '';
     $('photo-prev').style.display = 'none';
@@ -2455,82 +2039,81 @@ main {
     $('drawer-species-step').style.display = 'none';
     $('temp-val').textContent = '0 °C';
     selSub = ''; selFam = ''; selExp = ''; selOri = '';
-    document.querySelectorAll('#cat-picker .cat-opt').forEach(function (x) { x.classList.remove('active'); });
-    document.querySelectorAll('#exp-picker .exp-opt').forEach(function (x) { x.classList.remove('active'); });
+    document.querySelectorAll('#cat-picker .cat-opt').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('#exp-picker .exp-opt').forEach(x => x.classList.remove('active'));
     resetSub(); resetFam(); resetOri();
-  }
+  };
 
-  function filterDrawerOpts(ddId, mode) {
-    var dd = $(ddId);
+  const filterDrawerOpts = (ddId, mode) => {
+    const dd = $(ddId);
     if (!dd) return;
-    dd.querySelectorAll('.opt, .opt-group').forEach(function (el) {
-      var m = el.getAttribute('data-mode') || 'normal';
+    dd.querySelectorAll('.opt, .opt-group').forEach(el => {
+      const m = el.getAttribute('data-mode') || 'normal';
       el.style.display = (m === mode) ? '' : 'none';
     });
-  }
+  };
 
-  function openDrawer(mode) {
+  const openDrawer = mode => {
     if (!unlocked) return;
     drawerMode = mode || 'normal';
     resetForm();
 
-    document.querySelectorAll('#cat-picker .cat-opt').forEach(function (b) {
-      var m = b.getAttribute('data-mode') || 'normal';
+    document.querySelectorAll('#cat-picker .cat-opt').forEach(b => {
+      const m = b.getAttribute('data-mode') || 'normal';
       b.style.display = (m === drawerMode) ? '' : 'none';
     });
     filterDrawerOpts('substrate-dd', drawerMode);
     filterDrawerOpts('family-dd', drawerMode);
 
     $('drawer-title').textContent = drawerMode === 'secret' ? 'Nouveau spécimen secret' : 'Nouveau spécimen';
-
     $('drawer').classList.add('open');
     $('drawer-bg').classList.add('open');
     document.body.style.overflow = 'hidden';
-    setTimeout(function () { $('p-name').focus(); }, 200);
-  }
-  function closeDrawer() {
+    setTimeout(() => $('p-name').focus(), 200);
+  };
+
+  const closeDrawer = () => {
     $('drawer').classList.remove('open');
     $('drawer-bg').classList.remove('open');
-    document.querySelectorAll('#drawer .sel-wrap.open').forEach(function (w) { w.classList.remove('open'); });
+    document.querySelectorAll('#drawer .sel-wrap.open').forEach(w => w.classList.remove('open'));
     syncBack();
     document.body.style.overflow = '';
-  }
+  };
 
-  // ============ LOCK ============
-  function triggerLock() {
+  // Lock
+  const triggerLock = () => {
     if (unlocked) { lock(); return; }
     $('code-input').value = '';
     openModal('code-modal');
-    setTimeout(function () { $('code-input').focus(); }, 200);
-  }
+    setTimeout(() => $('code-input').focus(), 200);
+  };
+
   $('scene-lock-btn').addEventListener('click', triggerLock);
   $('lock-btn-mobile').addEventListener('click', triggerLock);
-
-  $('code-cancel').addEventListener('click', function () { closeModal('code-modal'); });
-  $('code-ok').addEventListener('click', function () {
+  $('code-cancel').addEventListener('click', () => closeModal('code-modal'));
+  $('code-ok').addEventListener('click', () => {
     if ($('code-input').value.trim() === ADMIN) {
       closeModal('code-modal');
       unlock();
     } else {
       $('code-input').value = '';
       $('code-input').style.borderColor = '#e11d48';
-      setTimeout(function () { $('code-input').style.borderColor = ''; }, 600);
+      setTimeout(() => $('code-input').style.borderColor = '', 600);
       toast('Code incorrect');
     }
   });
-  $('code-input').addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') $('code-ok').click();
-  });
+  $('code-input').addEventListener('keydown', e => { if (e.key === 'Enter') $('code-ok').click(); });
 
-  $('add-btn').addEventListener('click', function () { openDrawer('normal'); });
-  $('add-secret-btn').addEventListener('click', function () { openDrawer('secret'); });
+  $('add-btn').addEventListener('click', () => openDrawer('normal'));
+  $('add-secret-btn').addEventListener('click', () => openDrawer('secret'));
   $('lock-again').addEventListener('click', lock);
   $('close-drawer').addEventListener('click', closeDrawer);
   $('drawer-bg').addEventListener('click', closeDrawer);
   $('search-input').addEventListener('input', render);
-  $('lb-close').addEventListener('click', function (e) { e.stopPropagation(); closeLB(); });
-  $('lightbox').addEventListener('click', function (e) { if (e.target === $('lightbox')) closeLB(); });
-  document.addEventListener('keydown', function (e) {
+  $('lb-close').addEventListener('click', e => { e.stopPropagation(); closeLB(); });
+  $('lightbox').addEventListener('click', e => { if (e.target === $('lightbox')) closeLB(); });
+
+  document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
       if ($('lightbox').classList.contains('open')) closeLB();
       else if ($('code-modal').classList.contains('on')) closeModal('code-modal');
@@ -2538,105 +2121,88 @@ main {
     }
   });
 
-  // ============ SECRET "Dr" ============
-  function makePlaceholder(c1, c2, letter) {
-    var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">' +
-      '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">' +
-      '<stop offset="0%" stop-color="' + c1 + '"/>' +
-      '<stop offset="100%" stop-color="' + c2 + '"/>' +
-      '</linearGradient></defs>' +
-      '<rect width="400" height="300" fill="url(#g)"/>' +
-      '<text x="200" y="185" font-family="Bodoni Moda,Georgia,serif" font-size="140" font-weight="500" fill="rgba(255,255,255,0.88)" text-anchor="middle">' + letter + '</text>' +
-      '</svg>';
+  // Mode Secret
+  const makePlaceholder = (c1, c2, letter) => {
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+      <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="${c1}"/><stop offset="100%" stop-color="${c2}"/>
+      </linearGradient></defs>
+      <rect width="400" height="300" fill="url(#g)"/>
+      <text x="200" y="185" font-family="Bodoni Moda,Georgia,serif" font-size="140" font-weight="500" fill="rgba(255,255,255,0.88)" text-anchor="middle">${letter}</text>
+    </svg>`;
     return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
-  }
+  };
 
-  function seedSecretPlants() {
+  const seedSecretPlants = () => {
     if (localStorage.getItem(SEED_KEY) === '1') return;
-    SECRET_EXAMPLES.forEach(function (ex, i) {
+    SECRET_EXAMPLES.forEach((ex, i) => {
       plants.push({
         id: 'secret_' + i + '_' + Date.now(),
-        name: ex.name,
-        category: ex.category,
-        family: ex.family,
-        substrate: ex.substrate,
-        exposure: ex.exposure,
-        minTemp: ex.minTemp,
-        origin: ex.origin,
-        photo: makePlaceholder(ex.c1, ex.c2, ex.letter),
-        date: Date.now() - (100 + i * 10)
+        name: ex.name, category: ex.category, family: ex.family, substrate: ex.substrate,
+        exposure: ex.exposure, minTemp: ex.minTemp, origin: ex.origin,
+        photo: makePlaceholder(ex.c1, ex.c2, ex.letter), date: Date.now() - (100 + i * 10)
       });
     });
     saveP();
     localStorage.setItem(SEED_KEY, '1');
-  }
+  };
 
-  function revealSecretCategories() {
-    if (secretRevealed) return;
-    secretRevealed = true;
-    localStorage.setItem(SECRET_KEY, '1');
-    toast('Le cabinet secret s\'ouvre…', 4000);
-  }
-
-  document.querySelector('.dr-secret').addEventListener('click', function (e) {
+  $('dr-btn').addEventListener('click', e => {
     e.preventDefault();
     e.stopPropagation();
     if (!secretRevealed) {
-      revealSecretCategories();
-      setSecretMode(true);
-    } else {
-      setSecretMode(!secretMode);
+      secretRevealed = true;
+      localStorage.setItem(SECRET_KEY, '1');
+      toast('Le cabinet secret s\'ouvre…', 3000);
     }
+    setSecretMode(!secretMode);
   });
 
-  $('exit-secret-btn').addEventListener('click', function () {
-    setSecretMode(false);
-  });
+  $('exit-secret-btn').addEventListener('click', () => setSecretMode(false));
 
-  // ============ OISEAU QUI VOLE ============
-  (function birdLoop() {
-    var bird = $('scene-bird');
+  // Animation de l'oiseau
+  const startBird = () => {
+    const bird = $('scene-bird');
     if (!bird) return;
-    var currentPos = 50;
-    var currentHeight = 30;
+    let currentPos = 50;
     
-    function step() {
-      var newPos = 15 + Math.random() * 70;
-      var newHeight = 20 + Math.random() * 40;
-      var dist = Math.abs(newPos - currentPos);
-      var duration = Math.max(3000, dist * 80);
+    const move = () => {
+      // Vol aléatoire au dessus des plantes (entre 20% et 80% de largeur, et 15px à 45px de hauteur)
+      const newPos = 20 + Math.random() * 60;
+      const newHeight = 15 + Math.random() * 30;
+      const dist = Math.abs(newPos - currentPos);
+      const duration = Math.max(2500, dist * 100); // Vitesse douce
       
       if (newPos < currentPos) bird.classList.add('flip');
       else bird.classList.remove('flip');
       
-      bird.style.transition = 'left ' + duration + 'ms linear, bottom ' + duration + 'ms ease-in-out';
+      bird.style.transition = `left ${duration}ms linear, bottom ${duration}ms ease-in-out`;
       bird.style.left = newPos + '%';
       bird.style.bottom = newHeight + 'px';
       currentPos = newPos;
-      currentHeight = newHeight;
       
-      setTimeout(step, duration + 1000);
-    }
-    setTimeout(step, 1000);
-  })();
+      setTimeout(move, duration + 1000 + Math.random() * 1500);
+    };
+    setTimeout(move, 500);
+  };
 
-  // ============ SAISONS ============
-  (function seasons() {
-    var c = $('season-bg');
+  // Saisons
+  const initSeasons = () => {
+    const c = $('season-bg');
     if (!c || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    var rnd = function (a, b) { return Math.random() * (b - a) + a; };
-    var m = new Date().getMonth() + 1;
-    var s = m >= 3 && m <= 5 ? 'spring' : m >= 6 && m <= 8 ? 'summer' : m >= 9 && m <= 11 ? 'autumn' : 'winter';
+    const rnd = (a, b) => Math.random() * (b - a) + a;
+    const m = new Date().getMonth() + 1;
+    const s = m >= 3 && m <= 5 ? 'spring' : m >= 6 && m <= 8 ? 'summer' : m >= 9 && m <= 11 ? 'autumn' : 'winter';
+    
     if (s === 'autumn') {
-      var CO = ['#7a9e4b', '#8fae5d', '#6b8e3e', '#9bb874', '#8a8a52'];
-      var SH = '<svg viewBox="0 0 20 30" xmlns="http://www.w3.org/2000/svg"><path d="M10 1 C 4.5 10, 4.5 21, 10 29 C 15.5 21, 15.5 10, 10 1 Z" fill="currentColor"/></svg>';
-      for (var i = 0; i < 5; i++) {
-        var d = document.createElement('div');
+      const CO = ['#7a9e4b', '#8fae5d', '#6b8e3e', '#9bb874', '#8a8a52'];
+      const SH = '<svg viewBox="0 0 20 30" xmlns="http://www.w3.org/2000/svg"><path d="M10 1 C 4.5 10, 4.5 21, 10 29 C 15.5 21, 15.5 10, 10 1 Z" fill="currentColor"/></svg>';
+      for (let i = 0; i < 5; i++) {
+        const d = document.createElement('div');
         d.className = 'season-leaf';
-        var z = rnd(6, 10);
+        const z = rnd(6, 10);
         d.style.left = rnd(-5, 105) + '%';
-        d.style.width = z + 'px';
-        d.style.height = (z * 1.4) + 'px';
+        d.style.width = z + 'px'; d.style.height = (z * 1.4) + 'px';
         d.style.color = CO[Math.floor(Math.random() * CO.length)];
         d.style.setProperty('--drift', rnd(-15, 25).toFixed(1) + 'vw');
         d.style.animationDuration = rnd(22, 32).toFixed(2) + 's';
@@ -2645,38 +2211,36 @@ main {
         c.appendChild(d);
       }
     } else if (s === 'winter') {
-      for (var j = 0; j < 14; j++) {
-        var f = document.createElement('div');
+      for (let i = 0; i < 14; i++) {
+        const f = document.createElement('div');
         f.className = 'season-snow';
-        var sz = rnd(1.2, 2.2);
+        const sz = rnd(1.2, 2.2);
         f.style.left = rnd(0, 100) + '%';
-        f.style.width = sz + 'px';
-        f.style.height = sz + 'px';
+        f.style.width = sz + 'px'; f.style.height = sz + 'px';
         f.style.setProperty('--drift', rnd(-12, 12).toFixed(1) + 'vw');
         f.style.animationDuration = rnd(20, 30).toFixed(2) + 's';
         f.style.animationDelay = '-' + rnd(0, 30).toFixed(2) + 's';
         c.appendChild(f);
       }
     }
-  })();
+  };
 
-  // ============ INIT ============
-  plants = loadP();
+  // Init global
+  const init = () => {
+    plants = loadP();
+    if (localStorage.getItem(SEED_KEY) !== '1') seedSecretPlants();
+    plants.sort((a, b) => (b.date || 0) - (a.date || 0));
+    
+    if (localStorage.getItem(SECRET_KEY) === '1') secretRevealed = true;
+    
+    stats();
+    setSecretMode(false);
+    render();
+    startBird();
+    initSeasons();
+  };
 
-  if (localStorage.getItem(SEED_KEY) !== '1') {
-    seedSecretPlants();
-  }
-
-  plants.sort(function (a, b) { return (b.date || 0) - (a.date || 0); });
-
-  if (localStorage.getItem(SECRET_KEY) === '1') {
-    secretRevealed = true;
-  }
-
-  stats();
-  setSecretMode(false);
-  render();
-
+  init();
 })();
 </script>
 

@@ -14,7 +14,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-/* === RÉSOLUTION DU FLASH BLANC ANDROID === */
+/* === RÉSOLUTION DÉFINITIVE DU FLASH BLANC === */
 * { 
   margin: 0; 
   padding: 0; 
@@ -24,8 +24,8 @@
   user-select: none;
 }
 
-/* Désactive le comportement natif des boutons qui cause le flash */
-[role="button"], button, a, input, select {
+/* Cible tous les éléments cliquables pour leur retirer le style natif */
+div[role="button"], button, a, input, label, select {
   outline: none !important;
   -webkit-appearance: none;
   appearance: none;
@@ -37,7 +37,7 @@
 }
 
 /* Empêche les SVG de déclencher un focus ou un flash */
-[role="button"] svg { pointer-events: none; }
+[role="button"] svg, [role="button"] img { pointer-events: none; }
 
 body {
   background: #ffffff;
@@ -189,6 +189,7 @@ body.secret-mode ::selection { background: #ffffff; color: #153424; }
   cursor: pointer; 
   transition: color 0.2s ease;
   text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
 }
 .dr-secret:hover { color: #d4a548; }
 
@@ -268,6 +269,7 @@ body.secret-mode .bird-witch { display: block !important; }
   position: absolute; right: 2%; bottom: 45px; width: 14px; height: 14px;
   background: transparent; border: none; color: #153424; opacity: 0.28; cursor: pointer;
   padding: 0; z-index: 5; pointer-events: auto; transition: opacity 0.2s ease, color 0.4s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 body.secret-mode .scene-lock { color: #ffffff; opacity: 0.5; }
 .scene-lock:hover { opacity: 0.95; color: #d4a548; }
@@ -277,7 +279,7 @@ body.secret-mode .scene-lock { color: #ffffff; opacity: 0.5; }
 .header-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; position: relative; z-index: 2; }
 .stats { text-align: right; font-size: 11px; color: #888888; text-transform: uppercase; letter-spacing: 0.05em; line-height: 1; transition: color 0.4s ease; }
 .stats strong { font-family: 'Bodoni Moda', Georgia, serif; font-size: 22px; color: #153424; font-weight: 500; display: block; margin-bottom: 4px; transition: color 0.4s ease; }
-.lock-btn-mobile { width: 40px; height: 40px; border-radius: 50%; background: #f7f7f7; color: #153424; border: 1px solid #f0f0f0; cursor: pointer; display: none; align-items: center; justify-content: center; flex-shrink: 0; transition: background-color 0.3s ease, color 0.3s ease; }
+.lock-btn-mobile { width: 40px; height: 40px; border-radius: 50%; background: #f7f7f7; color: #153424; border: 1px solid #f0f0f0; cursor: pointer; display: none; align-items: center; justify-content: center; flex-shrink: 0; transition: background-color 0.3s ease, color 0.3s ease; -webkit-tap-highlight-color: transparent; }
 .lock-btn-mobile svg { width: 16px; height: 16px; }
 
 @media (max-width: 700px) {
@@ -296,6 +298,7 @@ main { max-width: 1100px; margin: 0 auto; padding: 20px 24px 60px; flex: 1; widt
   padding: 9px 18px; border-radius: 999px; background: #153424; color: #ffffff;
   font-size: 12px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px;
   transition: background-color 0.2s ease, color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 .btn.active, .btn:active { background-color: #1c4531; }
 .btn.sec { background: #ffffff; color: #153424; border: 1px solid #d8e8dd; }
@@ -316,7 +319,7 @@ body.secret-mode .btn.secret-add.active, body.secret-mode .btn.secret-add:active
   display: none; align-items: center; gap: 6px; padding: 8px 16px; margin-bottom: 16px;
   border-radius: 999px; background: rgba(255,255,255,.1); color: #ffffff;
   border: 1px solid rgba(255,255,255,.2); font-size: 12px; font-weight: 500;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease; -webkit-tap-highlight-color: transparent;
 }
 .exit-secret.active, .exit-secret:active { background-color: rgba(255,255,255,.2); }
 body.secret-mode .exit-secret { display: inline-flex; }
@@ -328,6 +331,7 @@ body.secret-mode .exit-secret { display: inline-flex; }
   display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 999px;
   background-color: #f7f7f7; color: #555555; font-size: 13px; font-weight: 500; border: 1px solid transparent;
   white-space: nowrap; flex-shrink: 0; transition: background-color 0.2s ease, color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 .chip svg { width: 18px; height: 18px; color: #888888; transition: color 0.3s ease; }
 .chip.active, .chip:active { background-color: #153424; color: #ffffff; border-color: #153424; }
@@ -341,7 +345,7 @@ body.secret-mode .chip.active svg, body.secret-mode .chip:active svg { color: #1
 .species-step { display: none; }
 .species-step.on { display: block; margin-bottom: 16px; }
 .species-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-.back-btn { display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; border-radius: 999px; background: transparent; color: #888888; font-size: 12px; font-weight: 500; transition: all 0.2s ease; }
+.back-btn { display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; border-radius: 999px; background: transparent; color: #888888; font-size: 12px; font-weight: 500; transition: all 0.2s ease; -webkit-tap-highlight-color: transparent; }
 .back-btn:hover { color: #153424; background-color: #f7f7f7; }
 .back-btn svg { width: 12px; height: 12px; }
 
@@ -353,6 +357,7 @@ body.secret-mode .chip.active svg, body.secret-mode .chip:active svg { color: #1
   background: transparent; border-bottom: 1px solid rgba(21,52,36,.15); color: #0f0f0f;
   font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 17px;
   text-align: left; font-weight: 500; transition: border-color 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 .sel-trigger.placeholder { color: #888888; }
 .sel-trigger:hover { border-bottom-color: #153424; color: #153424; }
@@ -365,7 +370,7 @@ body.secret-mode .chip.active svg, body.secret-mode .chip:active svg { color: #1
 }
 .sel-wrap.open .sel-dd { display: block; }
 .opt-group { padding: 10px 16px 4px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: #153424; opacity: 0.6; transition: color 0.4s ease; }
-.opt { padding: 8px 16px; font-size: 13.5px; color: #0f0f0f; transition: background-color 0.2s ease, color 0.2s ease; }
+.opt { padding: 8px 16px; font-size: 13.5px; color: #0f0f0f; transition: background-color 0.2s ease, color 0.2s ease; -webkit-tap-highlight-color: transparent; }
 .opt:hover, .opt:active { background-color: #f4f6f5; color: #153424; }
 .opt.sel { background-color: #153424; color: #ffffff; }
 body.secret-mode .opt:active { background-color: #2a5c41; color: #ffffff; }
@@ -388,7 +393,7 @@ body.secret-mode #drawer-dropdown-backdrop { background: rgba(21,52,36,.85); }
 .card { border: 1px solid #f0f0f0; border-radius: 16px; overflow: hidden; background: #ffffff; display: flex; flex-direction: column; position: relative; box-shadow: 0 1px 3px rgba(0,0,0,.04); transition: background-color 0.4s ease, border-color 0.4s ease; }
 .card-img-wrap { position: relative; aspect-ratio: 4/3; background: #fafafa; overflow: hidden; border-bottom: 1px solid #f0f0f0; transition: background-color 0.4s ease, border-color 0.4s ease; }
 .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; cursor: zoom-in; }
-.card-del { position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,.95); color: #0f0f0f; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,.06); }
+.card-del { position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,.95); color: #0f0f0f; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,.06); -webkit-tap-highlight-color: transparent; }
 .card-del:active { background-color: #f0f0f0; }
 .card-del.confirming { background-color: #e11d48; color: #ffffff; }
 .card-del svg { width: 14px; height: 14px; position: absolute; }
@@ -412,7 +417,7 @@ body.secret-mode #drawer-dropdown-backdrop { background: rgba(21,52,36,.85); }
 .drawer.open { transform: translateX(0); }
 .drawer-head { padding: 20px 24px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 50; background: inherit; transition: border-color 0.4s ease; }
 .drawer-head h2 { font-family: 'Bodoni Moda', Georgia, serif; font-size: 22px; color: #153424; font-weight: 500; transition: color 0.4s ease; }
-.close-x { color: #888888; padding: 6px; }
+.close-x { color: #888888; padding: 6px; -webkit-tap-highlight-color: transparent; }
 .close-x svg { width: 22px; height: 22px; display: block; }
 .drawer-body { flex: 1; overflow-y: auto; padding: 20px 24px; position: relative; z-index: 50; }
 .drawer-foot { padding: 16px 24px; border-top: 1px solid #f0f0f0; background: inherit; position: relative; z-index: 50; transition: border-color 0.4s ease; }
@@ -423,7 +428,7 @@ body.secret-mode #drawer-dropdown-backdrop { background: rgba(21,52,36,.85); }
 .field input[type="text"] { width: 100%; padding: 11px 14px; background: #f7f7f7; border: none; border-radius: 10px; color: #0f0f0f; font-size: 14px; font-family: inherit; outline: none; transition: all 0.4s ease; }
 .field input[type="text"]:focus { background: #eef2f0; }
 .cat-grid { display: grid; grid-template-columns: 1fr; gap: 6px; }
-.cat-opt { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 10px; background-color: #f7f7f7; color: #0f0f0f; font-size: 12px; font-weight: 500; text-align: left; width: 100%; transition: background-color 0.2s ease, color 0.2s ease; }
+.cat-opt { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 10px; background-color: #f7f7f7; color: #0f0f0f; font-size: 12px; font-weight: 500; text-align: left; width: 100%; transition: background-color 0.2s ease, color 0.2s ease; -webkit-tap-highlight-color: transparent; }
 .cat-opt svg { width: 18px; height: 18px; color: #888888; flex-shrink: 0; }
 .cat-opt:hover { background-color: #eef2f0; color: #153424; }
 .cat-opt:active { background-color: #eef2f0; color: #153424; }
@@ -444,7 +449,7 @@ body.secret-mode .cat-opt[data-mode="secret"].active { background-color: #ffffff
 body.secret-mode .cat-opt[data-mode="secret"].active svg { color: #153424; }
 
 .exp-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
-.exp-opt { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 4px; border-radius: 10px; background-color: #f7f7f7; color: #555555; font-size: 10px; font-weight: 500; gap: 4px; text-align: center; transition: background-color 0.2s ease, color 0.2s ease; }
+.exp-opt { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 4px; border-radius: 10px; background-color: #f7f7f7; color: #555555; font-size: 10px; font-weight: 500; gap: 4px; text-align: center; transition: background-color 0.2s ease, color 0.2s ease; -webkit-tap-highlight-color: transparent; }
 .exp-opt svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .exp-opt:hover { background-color: #eef2f0; color: #153424; }
 .exp-opt:active { background-color: #eef2f0; color: #153424; }
@@ -468,7 +473,7 @@ body.secret-mode .exp-opt.active:active { background-color: #f0f0f0; }
 
 .photo-prev { position: relative; width: 100%; aspect-ratio: 4/3; border-radius: 12px; overflow: hidden; display: none; }
 .photo-prev img { width: 100%; height: 100%; object-fit: cover; }
-.photo-prev button { position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(0,0,0,.7); color: #ffffff; font-size: 18px; display: flex; align-items: center; justify-content: center; }
+.photo-prev button { position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(0,0,0,.7); color: #ffffff; font-size: 18px; display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; }
 
 /* Modales */
 .modal { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,.55); display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
@@ -481,7 +486,7 @@ body.secret-mode .exp-opt.active:active { background-color: #f0f0f0; }
 body.secret-mode .code-inp { background: #1c4531; color: #ffffff; }
 body.secret-mode .code-inp:focus { border-color: #ffffff; background: #2a5c41; }
 .modal-acts { display: flex; gap: 10px; margin-top: 16px; }
-.modal-acts [role="button"] { flex: 1; padding: 11px; border-radius: 10px; font-weight: 500; font-size: 14px; text-align: center; transition: background-color 0.2s ease; }
+.modal-acts [role="button"] { flex: 1; padding: 11px; border-radius: 10px; font-weight: 500; font-size: 14px; text-align: center; transition: background-color 0.2s ease; -webkit-tap-highlight-color: transparent; }
 .modal-acts .primary { background-color: #153424; color: #ffffff; }
 .modal-acts .primary:active { background-color: #1c4531; }
 body.secret-mode .modal-acts .primary { background-color: #ffffff; color: #153424; }
@@ -492,7 +497,7 @@ body.secret-mode .modal-acts .primary:active { background-color: #f0f0f0; }
 /* Lightbox */
 .lightbox { position: fixed; inset: 0; z-index: 200; background: rgba(8,8,8,.96); display: flex; opacity: 0; pointer-events: none; transition: opacity 0.3s; overflow-y: auto; padding: 24px 20px; }
 .lightbox.open { opacity: 1; pointer-events: auto; }
-.lb-close { position: fixed; top: 16px; left: 16px; width: 44px; height: 44px; color: rgba(255,255,255,.72); z-index: 210; display: flex; align-items: center; justify-content: center; }
+.lb-close { position: fixed; top: 16px; left: 16px; width: 44px; height: 44px; color: rgba(255,255,255,.72); z-index: 210; display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; }
 .lb-close svg { width: 26px; height: 26px; }
 .lb-content { margin: auto; display: flex; flex-direction: column; align-items: center; gap: 24px; width: 100%; max-width: 900px; }
 .lb-content img { display: block; max-width: 90vw; max-height: 60vh; width: auto; height: auto; object-fit: contain; border-radius: 4px; box-shadow: 0 20px 50px rgba(0,0,0,.55); }
@@ -519,134 +524,79 @@ body.secret-mode .modal-acts .primary:active { background-color: #f0f0f0; }
     <div class="brand-wrap" id="brand-wrap">
       <div class="brand">
         <div class="brand-title">Plantouille</div>
-        <div class="brand-tagline">Cabinet du <span class="dr-secret" id="dr-btn" role="button" tabindex="0">Dr</span>-Cactus</div>
+        <div class="brand-tagline">Cabinet du <span class="dr-secret" id="dr-btn" role="button" tabindex="0" style="cursor:pointer; -webkit-tap-highlight-color: transparent;">Dr</span>-Cactus</div>
       </div>
     </div>
 
     <div class="brand-scene" aria-hidden="true">
-      <!-- Soleil / Lune -->
       <div class="scene-sun"></div>
       <div class="scene-moon">
         <svg viewBox="0 0 24 24"><path d="M 12 2 A 10 10 0 1 0 22 12 A 8 8 0 1 1 12 2 Z" /></svg>
       </div>
 
-      <!-- Scène Normale (Jour) -->
       <div class="scene-normal">
         <div class="plant-wrapper pw-col">
           <div class="scene-plant">
-            <svg viewBox="0 0 24 32" fill="currentColor">
-              <rect x="9" y="2" width="6" height="30" rx="3"/>
-              <path d="M9 14 H4 a2 2 0 0 1 -2 -2 V8 a2 2 0 0 1 4 0 v4 h3"/>
-              <path d="M15 18 h5 a2 2 0 0 0 2 -2 V10 a2 2 0 0 0 -4 0 v6 h-3"/>
-            </svg>
+            <svg viewBox="0 0 24 32" fill="currentColor"><rect x="9" y="2" width="6" height="30" rx="3"/><path d="M9 14 H4 a2 2 0 0 1 -2 -2 V8 a2 2 0 0 1 4 0 v4 h3"/><path d="M15 18 h5 a2 2 0 0 0 2 -2 V10 a2 2 0 0 0 -4 0 v6 h-3"/></svg>
           </div>
         </div>
         <div class="plant-wrapper pw-aloe">
           <div class="scene-plant">
-            <svg viewBox="0 0 24 20" fill="currentColor">
-              <path d="M12 20 L10 6 L14 6 Z M12 20 L4 10 L8 8 Z M12 20 L20 10 L16 8 Z M12 20 L2 14 L6 12 Z M12 20 L22 14 L18 12 Z M12 20 L12 2 L15 8 Z M12 20 L12 2 L9 8 Z"/>
-            </svg>
+            <svg viewBox="0 0 24 20" fill="currentColor"><path d="M12 20 L10 6 L14 6 Z M12 20 L4 10 L8 8 Z M12 20 L20 10 L16 8 Z M12 20 L2 14 L6 12 Z M12 20 L22 14 L18 12 Z M12 20 L12 2 L15 8 Z M12 20 L12 2 L9 8 Z"/></svg>
           </div>
         </div>
         <div class="plant-wrapper pw-ech">
           <div class="scene-plant">
-            <svg viewBox="0 0 24 16" fill="currentColor">
-              <circle cx="12" cy="10" r="6"/>
-              <path d="M12 4 l-2 -4 l4 0 z M12 4 l-2 -4 l4 0 z M6 10 l-6 -2 l2 -3 z M18 10 l6 -2 l-2 -3 z M8 16 l-4 4 l2 2 z M16 16 l4 4 l-2 2 z"/>
-            </svg>
+            <svg viewBox="0 0 24 16" fill="currentColor"><circle cx="12" cy="10" r="6"/><path d="M12 4 l-2 -4 l4 0 z M12 4 l-2 -4 l4 0 z M6 10 l-6 -2 l2 -3 z M18 10 l6 -2 l-2 -3 z M8 16 l-4 4 l2 2 z M16 16 l4 4 l-2 2 z"/></svg>
           </div>
         </div>
         <div class="plant-wrapper pw-yuc">
           <div class="scene-plant">
-            <svg viewBox="0 0 20 28" fill="currentColor">
-              <rect x="9" y="10" width="2" height="18"/>
-              <path d="M10 12 L6 2 L10 4 Z M10 12 L14 2 L10 4 Z M10 12 L2 6 L6 6 Z M10 12 L18 6 L14 6 Z M10 12 L4 14 L8 12 Z M10 12 L16 14 L12 12 Z"/>
-            </svg>
+            <svg viewBox="0 0 20 28" fill="currentColor"><rect x="9" y="10" width="2" height="18"/><path d="M10 12 L6 2 L10 4 Z M10 12 L14 2 L10 4 Z M10 12 L2 6 L6 6 Z M10 12 L18 6 L14 6 Z M10 12 L4 14 L8 12 Z M10 12 L16 14 L12 12 Z"/></svg>
           </div>
         </div>
         <div class="plant-wrapper pw-bea">
           <div class="scene-plant">
-            <svg viewBox="0 0 22 24" fill="currentColor">
-              <ellipse cx="11" cy="21" rx="8" ry="3"/>
-              <rect x="10" y="8" width="2" height="16"/>
-              <path d="M11 10 L8 2 L12 4 Z M11 10 L14 2 L10 4 Z M11 10 L2 6 L6 8 Z M11 10 L20 6 L16 8 Z M11 10 L4 12 L8 10 Z M11 10 L18 12 L14 10 Z"/>
-            </svg>
+            <svg viewBox="0 0 22 24" fill="currentColor"><ellipse cx="11" cy="21" rx="8" ry="3"/><rect x="10" y="8" width="2" height="16"/><path d="M11 10 L8 2 L12 4 Z M11 10 L14 2 L10 4 Z M11 10 L2 6 L6 8 Z M11 10 L20 6 L16 8 Z M11 10 L4 12 L8 10 Z M11 10 L18 12 L14 10 Z"/></svg>
           </div>
         </div>
       </div>
 
-      <!-- Scène Secrète (Nuit) -->
       <div class="scene-secret">
         <div class="plant-wrapper pw-mush">
           <div class="scene-plant">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M6 12 a6 6 0 0 1 12 0 v1 h-12 z"/>
-              <rect x="9" y="13" width="6" height="11" rx="2"/>
-              <circle cx="10" cy="8" r="1.5" fill="#153424"/>
-              <circle cx="15" cy="10" r="1.5" fill="#153424"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 12 a6 6 0 0 1 12 0 v1 h-12 z"/><rect x="9" y="13" width="6" height="11" rx="2"/><circle cx="10" cy="8" r="1.5" fill="#153424"/><circle cx="15" cy="10" r="1.5" fill="#153424"/></svg>
           </div>
         </div>
         <div class="plant-wrapper pw-cann">
           <div class="scene-plant">
-            <svg viewBox="0 0 28 28" fill="currentColor">
-              <path d="M14 28 V16 M14 16 L8 20 v-4 l-6 4 l2-6 l-6 2 l4-6 l-4-2 l6 0 l-2-6 l6 4 v-4 l4 4 v-4 l6 4 l-2 6 l6 0 l-4 2 l4 6 l-6-2 l2 6 l-6-4 v4 z"/>
-            </svg>
+            <svg viewBox="0 0 28 28" fill="currentColor"><path d="M14 28 V16 M14 16 L8 20 v-4 l-6 4 l2-6 l-6 2 l4-6 l-4-2 l6 0 l-2-6 l6 4 v-4 l4 4 v-4 l6 4 l-2 6 l6 0 l-4 2 l4 6 l-6-2 l2 6 l-6-4 v4 z"/></svg>
           </div>
         </div>
         <div class="plant-wrapper pw-popp">
           <div class="scene-plant">
-            <svg viewBox="0 0 24 28" fill="currentColor">
-              <path d="M12 28 v-12"/>
-              <ellipse cx="12" cy="10" rx="6" ry="6"/>
-              <path d="M12 4 L10 0 L14 0 Z"/>
-              <path d="M6 10 C0 14 4 22 8 18 C10 16 8 12 6 10 Z"/>
-              <path d="M18 10 C24 14 20 22 16 18 C14 16 16 12 18 10 Z"/>
-            </svg>
+            <svg viewBox="0 0 24 28" fill="currentColor"><path d="M12 28 v-12"/><ellipse cx="12" cy="10" rx="6" ry="6"/><path d="M12 4 L10 0 L14 0 Z"/><path d="M6 10 C0 14 4 22 8 18 C10 16 8 12 6 10 Z"/><path d="M18 10 C24 14 20 22 16 18 C14 16 16 12 18 10 Z"/></svg>
           </div>
         </div>
         <div class="plant-wrapper pw-trich">
           <div class="scene-plant">
-            <svg viewBox="0 0 22 32" fill="currentColor">
-              <rect x="6" y="2" width="10" height="30" rx="5"/>
-              <path d="M8 4 V32 M11 2 V32 M14 4 V32" stroke="#153424" stroke-width="1.5"/>
-            </svg>
+            <svg viewBox="0 0 22 32" fill="currentColor"><rect x="6" y="2" width="10" height="30" rx="5"/><path d="M8 4 V32 M11 2 V32 M14 4 V32" stroke="#153424" stroke-width="1.5"/></svg>
           </div>
         </div>
         <div class="plant-wrapper pw-peyot">
           <div class="scene-plant">
-            <svg viewBox="0 0 26 20" fill="currentColor">
-              <ellipse cx="13" cy="16" rx="10" ry="4"/>
-              <path d="M6 14 a7 7 0 0 1 14 0 v2 h-14 z"/>
-              <circle cx="9" cy="12" r="2" fill="#153424"/>
-              <circle cx="17" cy="12" r="2" fill="#153424"/>
-              <circle cx="13" cy="16" r="2" fill="#153424"/>
-            </svg>
+            <svg viewBox="0 0 26 20" fill="currentColor"><ellipse cx="13" cy="16" rx="10" ry="4"/><path d="M6 14 a7 7 0 0 1 14 0 v2 h-14 z"/><circle cx="9" cy="12" r="2" fill="#153424"/><circle cx="17" cy="12" r="2" fill="#153424"/><circle cx="13" cy="16" r="2" fill="#153424"/></svg>
           </div>
         </div>
       </div>
 
-      <!-- Oiseau / Sorcière -->
       <div class="scene-bird" id="scene-bird">
-        <svg class="bird-normal" viewBox="0 0 24 16" fill="currentColor">
-          <g class="bird-wing"><path d="M12 8 C10 4 6 2 2 4 C4 6 8 8 12 8 Z" /></g>
-          <path d="M2 8 C6 8 8 10 10 12 C12 12 14 10 16 8 C18 10 20 10 22 8 C20 6 18 6 16 8 C14 6 12 4 10 4 C8 4 6 6 2 8 Z"/>
-        </svg>
-        <svg class="bird-witch" viewBox="0 0 24 20" fill="currentColor">
-          <path d="M2 16 L16 16 L16 18 L2 18 Z"/>
-          <path d="M16 14 L24 12 L24 20 L16 18 Z"/>
-          <path d="M10 14 L12 8 L16 12 Z"/>
-          <path d="M10 8 L14 4 L16 8 Z"/>
-          <g class="bird-wing"><path d="M10 12 L6 8 L4 12 L8 14 Z" fill="currentColor"/></g>
-        </svg>
+        <svg class="bird-normal" viewBox="0 0 24 16" fill="currentColor"><g class="bird-wing"><path d="M12 8 C10 4 6 2 2 4 C4 6 8 8 12 8 Z" /></g><path d="M2 8 C6 8 8 10 10 12 C12 12 14 10 16 8 C18 10 20 10 22 8 C20 6 18 6 16 8 C14 6 12 4 10 4 C8 4 6 6 2 8 Z"/></svg>
+        <svg class="bird-witch" viewBox="0 0 24 20" fill="currentColor"><path d="M2 16 L16 16 L16 18 L2 18 Z"/><path d="M16 14 L24 12 L24 20 L16 18 Z"/><path d="M10 14 L12 8 L16 12 Z"/><path d="M10 8 L14 4 L16 8 Z"/><g class="bird-wing"><path d="M10 12 L6 8 L4 12 L8 14 Z" fill="currentColor"/></g></svg>
       </div>
 
-      <!-- Cadenas -->
       <div class="scene-lock" id="scene-lock-btn" role="button" tabindex="0" aria-label="Accès admin">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="11" width="18" height="11" rx="2"/>
-          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
       </div>
     </div>
 
@@ -656,10 +606,7 @@ body.secret-mode .modal-acts .primary:active { background-color: #f0f0f0; }
         spécimens
       </div>
       <div id="lock-btn-mobile" class="lock-btn-mobile" role="button" tabindex="0" aria-label="Accès admin">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="11" width="18" height="11" rx="2"/>
-          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
       </div>
     </div>
   </div>
@@ -669,94 +616,69 @@ body.secret-mode .modal-acts .primary:active { background-color: #f0f0f0; }
   <div id="admin-bar" class="admin-bar">
     <span class="admin-tag">Mode admin</span>
     <div id="add-btn" class="btn" role="button" tabindex="0">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
-      Ajouter
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg> Ajouter
     </div>
     <div id="add-secret-btn" class="btn secret-add" style="display:none" role="button" tabindex="0">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
-      Ajouter (secret)
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg> Ajouter (secret)
     </div>
     <div id="lock-again" class="btn sec" role="button" tabindex="0">Verrouiller</div>
   </div>
 
   <div class="search">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-      <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>
-    </svg>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
     <input id="search-input" type="search" placeholder="Rechercher une plante, famille, origine…" autocomplete="off">
   </div>
 
   <div id="exit-secret-btn" class="exit-secret" role="button" tabindex="0">
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    Retour au jour
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Retour au jour
   </div>
 
   <div id="chips-step">
     <div class="chips-row" id="chips-row">
       <!-- Normal Chips -->
       <div class="chip active" data-cat="all" data-mode="normal" role="button" tabindex="0">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/></svg>
-        Toutes
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/></svg> Toutes
       </div>
       <div class="chip" data-cat="Cactus" data-mode="normal" role="button" tabindex="0">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V6a2 2 0 0 1 4 0v16 M12 10h-3a2 2 0 0 1-2-2V5a2 2 0 0 1 4 0v3 M16 14h3a2 2 0 0 0 2-2v-3a2 2 0 0 0-4 0v3" /></svg>
-        Cactus
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V6a2 2 0 0 1 4 0v16 M12 10h-3a2 2 0 0 1-2-2V5a2 2 0 0 1 4 0v3 M16 14h3a2 2 0 0 0 2-2v-3a2 2 0 0 0-4 0v3" /></svg> Cactus
       </div>
       <div class="chip" data-cat="Succulentes" data-mode="normal" role="button" tabindex="0">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 C12 18 8 10 4 6 C8 8 10 12 12 16 C14 12 16 8 20 6 C16 10 12 18 12 22 Z M12 22 C10 18 4 14 2 12 C6 12 8 14 10 16 C8 12 6 6 8 2 C10 6 12 12 12 16 M12 22 C14 18 20 14 22 12 C18 12 16 14 14 16 C16 12 18 6 16 2 C14 6 12 12 12 16" /></svg>
-        Succulentes
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 C12 18 8 10 4 6 C8 8 10 12 12 16 C14 12 16 8 20 6 C16 10 12 18 12 22 Z M12 22 C10 18 4 14 2 12 C6 12 8 14 10 16 C8 12 6 6 8 2 C10 6 12 12 12 16 M12 22 C14 18 20 14 22 12 C18 12 16 14 14 16 C16 12 18 6 16 2 C14 6 12 12 12 16" /></svg> Succulentes
       </div>
       <div class="chip" data-cat="Mesembryanthemum" data-mode="normal" role="button" tabindex="0">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 c-4 0-7-3-7-7 v-2 c0-4 3-7 7-7 s7 3 7 7 v2 c0 4-3 7-7 7 z M12 10 v6 M5 15 h14" /></svg>
-        Mesembryanthemum
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 C7 22 4 19 4 15 C4 11 7 8 12 8 C17 8 20 11 20 15 C20 19 17 22 12 22 Z" /><path d="M12 22 V14 C10 12 10 10 12 8 C14 10 14 12 12 14" /><path d="M12 8 Q12 4 10 2 M12 8 Q12 4 14 2" /></svg> Mesembryanthemum
       </div>
       <div class="chip" data-cat="Tropicales" data-mode="normal" role="button" tabindex="0">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 V12 C12 6 8 4 4 6 C6 8 8 10 10 12 M12 14 C16 14 20 12 20 8 C18 10 16 12 14 12 M12 18 C14 18 18 18 20 14 C18 16 14 16 12 16" /></svg>
-        Tropicales
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 V12 C12 6 8 4 4 6 C6 8 8 10 10 12 M12 14 C16 14 20 12 20 8 C18 10 16 12 14 12 M12 18 C14 18 18 18 20 14 C18 16 14 16 12 16" /></svg> Tropicales
       </div>
       <div class="chip" data-cat="Caudiciformes" data-mode="normal" role="button" tabindex="0">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 c-5 0-8-4-8-8 s3-6 8-6 8 2 8 6-3 8-8 8 z M12 8 V2 M10 4 l2-2 2 2" /></svg>
-        Caudiciformes
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 c-5 0-8-4-8-8 s3-6 8-6 8 2 8 6-3 8-8 8 z M12 8 V2 M10 4 l2-2 2 2" /></svg> Caudiciformes
       </div>
 
       <!-- Secret Chips -->
       <div class="chip secret active" data-cat="all" data-mode="secret" role="button" tabindex="0" style="display:none">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/></svg>
-        Toutes
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/></svg> Toutes
       </div>
       <div class="chip secret" data-cat="Sorcières" data-mode="secret" role="button" tabindex="0" style="display:none">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 L20 20 H4 Z M6 16 H18" /></svg>
-        Sorcières
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 L20 20 H4 Z M6 16 H18" /></svg> Sorcières
       </div>
       <div class="chip secret" data-cat="Chamanique" data-mode="secret" role="button" tabindex="0" style="display:none">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="9" />
-          <circle cx="12" cy="12" r="2.5" />
-          <circle cx="12" cy="6" r="1.5" />
-          <circle cx="12" cy="18" r="1.5" />
-          <circle cx="6" cy="12" r="1.5" />
-          <circle cx="18" cy="12" r="1.5" />
-          <circle cx="7.7" cy="7.7" r="1.5" />
-          <circle cx="16.3" cy="7.7" r="1.5" />
-          <circle cx="7.7" cy="16.3" r="1.5" />
-          <circle cx="16.3" cy="16.3" r="1.5" />
-        </svg>
-        Chamanique
+          <circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="2.5" /><circle cx="12" cy="6" r="1.5" /><circle cx="12" cy="18" r="1.5" /><circle cx="6" cy="12" r="1.5" /><circle cx="18" cy="12" r="1.5" /><circle cx="7.7" cy="7.7" r="1.5" /><circle cx="16.3" cy="7.7" r="1.5" /><circle cx="7.7" cy="16.3" r="1.5" /><circle cx="16.3" cy="16.3" r="1.5" />
+        </svg> Chamanique
       </div>
       <div class="chip secret" data-cat="Cannabis" data-mode="secret" role="button" tabindex="0" style="display:none">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 22 V12" />
-          <path d="M12 12 L10 7 L11 3 L12 5 L13 3 L14 7 Z" />
-          <path d="M12 12 L6 11 L3 8 L6 8 L4 4 L7 7 Z" />
-          <path d="M12 12 L18 11 L21 8 L18 8 L20 4 L17 7 Z" />
-          <path d="M12 15 L7 16 L5 19 L8 17 Z" />
-          <path d="M12 15 L17 16 L19 19 L16 17 Z" />
-        </svg>
-        Cannabis
+          <path d="M12 22 V13" />
+          <path d="M12 13 L9 10 V6 L11 8 L12 3 L13 8 L15 6 V10 Z" />
+          <path d="M12 13 L7 12 V8 L9 10 L8 5 L10 8 Z" />
+          <path d="M12 13 L17 12 V8 L15 10 L16 5 L14 8 Z" />
+          <path d="M12 16 L8 17 L6 20 L8 18 Z" />
+          <path d="M12 16 L16 17 L18 20 L16 18 Z" />
+        </svg> Cannabis
       </div>
       <div class="chip secret" data-cat="Champignons" data-mode="secret" role="button" tabindex="0" style="display:none">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 a8 8 0 0 1 16 0 Z M9 12 v6 a3 3 0 0 0 6 0 v-6" /></svg>
-        Champignons
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 a8 8 0 0 1 16 0 Z M9 12 v6 a3 3 0 0 0 6 0 v-6" /></svg> Champignons
       </div>
     </div>
   </div>
@@ -764,14 +686,12 @@ body.secret-mode .modal-acts .primary:active { background-color: #f0f0f0; }
   <div id="species-step" class="species-step">
     <div class="species-row">
       <div id="back-to-chips" class="back-btn" role="button" tabindex="0">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-        Rubriques
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Rubriques
       </div>
     </div>
     <div class="sel-wrap" id="filter-species-wrap">
       <div class="sel-trigger placeholder" id="filter-species-btn" role="button" tabindex="0">
-        <span class="lbl">Sélectionner un genre…</span>
-        <span class="sel-arrow"></span>
+        <span class="lbl">Sélectionner un genre…</span><span class="sel-arrow"></span>
       </div>
       <div class="sel-dd" id="filter-species-dd"></div>
     </div>
@@ -796,7 +716,7 @@ body.secret-mode .modal-acts .primary:active { background-color: #f0f0f0; }
     </div>
   </div>
 
-  <form id="plant-form" style="flex:1;display:flex;flex-direction:column;overflow:hidden">
+  <div id="plant-form" style="flex:1;display:flex;flex-direction:column;overflow:hidden">
     <div class="drawer-body">
       <div class="field">
         <label>Nom de la plante *</label>
@@ -807,67 +727,43 @@ body.secret-mode .modal-acts .primary:active { background-color: #f0f0f0; }
         <label>Rubrique *</label>
         <div class="cat-grid" id="cat-picker">
           <div class="cat-opt" data-cat="Cactus" data-mode="normal" role="button" tabindex="0">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V6a2 2 0 0 1 4 0v16 M12 10h-3a2 2 0 0 1-2-2V5a2 2 0 0 1 4 0v3 M16 14h3a2 2 0 0 0 2-2v-3a2 2 0 0 0-4 0v3" /></svg>
-            Cactus
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V6a2 2 0 0 1 4 0v16 M12 10h-3a2 2 0 0 1-2-2V5a2 2 0 0 1 4 0v3 M16 14h3a2 2 0 0 0 2-2v-3a2 2 0 0 0-4 0v3" /></svg> Cactus
           </div>
           <div class="cat-opt" data-cat="Succulentes" data-mode="normal" role="button" tabindex="0">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 C12 18 8 10 4 6 C8 8 10 12 12 16 C14 12 16 8 20 6 C16 10 12 18 12 22 Z M12 22 C10 18 4 14 2 12 C6 12 8 14 10 16 C8 12 6 6 8 2 C10 6 12 12 12 16 M12 22 C14 18 20 14 22 12 C18 12 16 14 14 16 C16 12 18 6 16 2 C14 6 12 12 12 16" /></svg>
-            Succulentes
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 C12 18 8 10 4 6 C8 8 10 12 12 16 C14 12 16 8 20 6 C16 10 12 18 12 22 Z M12 22 C10 18 4 14 2 12 C6 12 8 14 10 16 C8 12 6 6 8 2 C10 6 12 12 12 16 M12 22 C14 18 20 14 22 12 C18 12 16 14 14 16 C16 12 18 6 16 2 C14 6 12 12 12 16" /></svg> Succulentes
           </div>
           <div class="cat-opt" data-cat="Mesembryanthemum" data-mode="normal" role="button" tabindex="0">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 c-4 0-7-3-7-7 v-2 c0-4 3-7 7-7 s7 3 7 7 v2 c0 4-3 7-7 7 z M12 10 v6 M5 15 h14" /></svg>
-            Mesembryanthemum
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 C7 22 4 19 4 15 C4 11 7 8 12 8 C17 8 20 11 20 15 C20 19 17 22 12 22 Z" /><path d="M12 22 V14 C10 12 10 10 12 8 C14 10 14 12 12 14" /><path d="M12 8 Q12 4 10 2 M12 8 Q12 4 14 2" /></svg> Mesembryanthemum
           </div>
           <div class="cat-opt" data-cat="Tropicales" data-mode="normal" role="button" tabindex="0">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 V12 C12 6 8 4 4 6 C6 8 8 10 10 12 M12 14 C16 14 20 12 20 8 C18 10 16 12 14 12 M12 18 C14 18 18 18 20 14 C18 16 14 16 12 16" /></svg>
-            Tropicales
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 V12 C12 6 8 4 4 6 C6 8 8 10 10 12 M12 14 C16 14 20 12 20 8 C18 10 16 12 14 12 M12 18 C14 18 18 18 20 14 C18 16 14 16 12 16" /></svg> Tropicales
           </div>
           <div class="cat-opt" data-cat="Caudiciformes" data-mode="normal" role="button" tabindex="0">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 c-5 0-8-4-8-8 s3-6 8-6 8 2 8 6-3 8-8 8 z M12 8 V2 M10 4 l2-2 2 2" /></svg>
-            Caudiciformes
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 c-5 0-8-4-8-8 s3-6 8-6 8 2 8 6-3 8-8 8 z M12 8 V2 M10 4 l2-2 2 2" /></svg> Caudiciformes
           </div>
 
           <div class="cat-opt" data-cat="Sorcières" data-mode="secret" role="button" tabindex="0">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 L20 20 H4 Z M6 16 H18" /></svg>
-            Sorcières
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 L20 20 H4 Z M6 16 H18" /></svg> Sorcières
           </div>
           <div class="cat-opt" data-cat="Chamanique" data-mode="secret" role="button" tabindex="0">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="9" />
-              <circle cx="12" cy="12" r="2.5" />
-              <circle cx="12" cy="6" r="1.5" />
-              <circle cx="12" cy="18" r="1.5" />
-              <circle cx="6" cy="12" r="1.5" />
-              <circle cx="18" cy="12" r="1.5" />
-              <circle cx="7.7" cy="7.7" r="1.5" />
-              <circle cx="16.3" cy="7.7" r="1.5" />
-              <circle cx="7.7" cy="16.3" r="1.5" />
-              <circle cx="16.3" cy="16.3" r="1.5" />
-            </svg>
-            Chamanique
+              <circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="2.5" /><circle cx="12" cy="6" r="1.5" /><circle cx="12" cy="18" r="1.5" /><circle cx="6" cy="12" r="1.5" /><circle cx="18" cy="12" r="1.5" /><circle cx="7.7" cy="7.7" r="1.5" /><circle cx="16.3" cy="7.7" r="1.5" /><circle cx="7.7" cy="16.3" r="1.5" /><circle cx="16.3" cy="16.3" r="1.5" />
+            </svg> Chamanique
           </div>
           <div class="cat-opt" data-cat="Cannabis" data-mode="secret" role="button" tabindex="0">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 22 V12" />
-              <path d="M12 12 L10 7 L11 3 L12 5 L13 3 L14 7 Z" />
-              <path d="M12 12 L6 11 L3 8 L6 8 L4 4 L7 7 Z" />
-              <path d="M12 12 L18 11 L21 8 L18 8 L20 4 L17 7 Z" />
-              <path d="M12 15 L7 16 L5 19 L8 17 Z" />
-              <path d="M12 15 L17 16 L19 19 L16 17 Z" />
-            </svg>
-            Cannabis
+              <path d="M12 22 V13" /><path d="M12 13 L9 10 V6 L11 8 L12 3 L13 8 L15 6 V10 Z" /><path d="M12 13 L7 12 V8 L9 10 L8 5 L10 8 Z" /><path d="M12 13 L17 12 V8 L15 10 L16 5 L14 8 Z" /><path d="M12 16 L8 17 L6 20 L8 18 Z" /><path d="M12 16 L16 17 L18 20 L16 18 Z" />
+            </svg> Cannabis
           </div>
           <div class="cat-opt" data-cat="Champignons" data-mode="secret" role="button" tabindex="0">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 a8 8 0 0 1 16 0 Z M9 12 v6 a3 3 0 0 0 6 0 v-6" /></svg>
-            Champignons
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 a8 8 0 0 1 16 0 Z M9 12 v6 a3 3 0 0 0 6 0 v-6" /></svg> Champignons
           </div>
         </div>
 
         <div id="drawer-species-step" style="display:none;margin-top:10px">
           <div class="sel-wrap" id="drawer-species-wrap">
             <div class="sel-trigger placeholder" id="drawer-species-btn" role="button" tabindex="0">
-              <span class="lbl">Sélectionner un genre…</span>
-              <span class="sel-arrow"></span>
+              <span class="lbl">Sélectionner un genre…</span><span class="sel-arrow"></span>
             </div>
             <div class="sel-dd" id="drawer-species-dd"></div>
           </div>
@@ -883,8 +779,7 @@ body.secret-mode .modal-acts .primary:active { background-color: #f0f0f0; }
         <label>Substrat</label>
         <div class="sel-wrap" id="substrate-wrap">
           <div class="sel-trigger placeholder" id="substrate-btn" role="button" tabindex="0">
-            <span class="lbl">Sélectionner un substrat…</span>
-            <span class="sel-arrow"></span>
+            <span class="lbl">Sélectionner un substrat…</span><span class="sel-arrow"></span>
           </div>
           <div class="sel-dd" id="substrate-dd">
             <div class="opt-group" data-mode="normal">Cactus & Succulentes</div>
@@ -920,8 +815,7 @@ body.secret-mode .modal-acts .primary:active { background-color: #f0f0f0; }
         <label>Famille botanique</label>
         <div class="sel-wrap" id="family-wrap">
           <div class="sel-trigger placeholder" id="family-btn" role="button" tabindex="0">
-            <span class="lbl">Sélectionner une famille…</span>
-            <span class="sel-arrow"></span>
+            <span class="lbl">Sélectionner une famille…</span><span class="sel-arrow"></span>
           </div>
           <div class="sel-dd" id="family-dd">
             <div class="opt" data-val="Acanthaceae" data-mode="normal" role="button" tabindex="0">Acanthaceae</div>
@@ -985,16 +879,13 @@ body.secret-mode .modal-acts .primary:active { background-color: #f0f0f0; }
         <label>Exposition</label>
         <div class="exp-grid" id="exp-picker">
           <div class="exp-opt" data-exp="Plein soleil" role="button" tabindex="0">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg>
-            Soleil
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg> Soleil
           </div>
           <div class="exp-opt" data-exp="Mi-ombre" role="button" tabindex="0">
-            <svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3.5"/><path d="M8 2.5v1.5M2.5 8H4M4.2 4.2l1 1M11.8 4.2l-1 1M4.2 11.8l1-1"/><path d="M18 19h-5a2.5 2.5 0 0 1 0-5 4 4 0 0 1 7.5-1A2.5 2.5 0 0 1 18 19z"/></svg>
-            Mi-ombre
+            <svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3.5"/><path d="M8 2.5v1.5M2.5 8H4M4.2 4.2l1 1M11.8 4.2l-1 1M4.2 11.8l1-1"/><path d="M18 19h-5a2.5 2.5 0 0 1 0-5 4 4 0 0 1 7.5-1A2.5 2.5 0 0 1 18 19z"/></svg> Mi-ombre
           </div>
           <div class="exp-opt" data-exp="Ombre" role="button" tabindex="0">
-            <svg viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
-            Ombre
+            <svg viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg> Ombre
           </div>
         </div>
         <input type="hidden" id="p-exp" value="">
@@ -1002,23 +893,17 @@ body.secret-mode .modal-acts .primary:active { background-color: #f0f0f0; }
 
       <div class="field">
         <div class="temp-head">
-          <label style="margin:0">Température minimale</label>
-          <span id="temp-val" class="temp-val">0 °C</span>
+          <label style="margin:0">Température minimale</label><span id="temp-val" class="temp-val">0 °C</span>
         </div>
-        <div class="slider-wrap">
-          <input type="range" id="p-temp" min="-20" max="15" step="1" value="0">
-        </div>
-        <div class="temp-legend">
-          <span>-20°C</span><span>0°C</span><span>+15°C</span>
-        </div>
+        <div class="slider-wrap"><input type="range" id="p-temp" min="-20" max="15" step="1" value="0"></div>
+        <div class="temp-legend"><span>-20°C</span><span>0°C</span><span>+15°C</span></div>
       </div>
 
       <div class="field">
         <label>Origine géographique</label>
         <div class="sel-wrap" id="origin-wrap">
           <div class="sel-trigger placeholder" id="origin-btn" role="button" tabindex="0">
-            <span class="lbl">Sélectionner une région…</span>
-            <span class="sel-arrow"></span>
+            <span class="lbl">Sélectionner une région…</span><span class="sel-arrow"></span>
           </div>
           <div class="sel-dd" id="origin-dd">
             <div class="opt-group">Afrique</div>
@@ -1076,7 +961,7 @@ body.secret-mode .modal-acts .primary:active { background-color: #f0f0f0; }
         Enregistrer
       </div>
     </div>
-  </form>
+  </div>
 </aside>
 
 <div id="code-modal" class="modal">
@@ -1150,7 +1035,7 @@ body.secret-mode .modal-acts .primary:active { background-color: #f0f0f0; }
     { name: 'Banisteriopsis caapi', category: 'Chamanique', family: 'Malpighiaceae', substrate: 'Sol tropical humide', exposure: 'Mi-ombre', minTemp: '15', origin: 'Brésil & Bassin Amazonien', c1: '#00695c', c2: '#80cbc4', letter: 'B' },
     { name: 'Trichocereus pachanoi', category: 'Chamanique', family: 'Cactaceae', substrate: 'Substrat 3 tiers', exposure: 'Plein soleil', minTemp: '-5', origin: 'Andes & Amérique du Sud Ouest', c1: '#1b5e20', c2: '#c8e6c9', letter: 'T' },
     { name: 'Psychotria viridis', category: 'Chamanique', family: 'Rubiaceae', substrate: 'Terreau riche', exposure: 'Ombre', minTemp: '18', origin: 'Brésil & Bassin Amazonien', c1: '#33691e', c2: '#dcedc8', letter: 'P' },
-    { name: 'Cannabis sativa', category: 'Cannabis', family: 'Cannabaceae', substrate: 'Terreur riche & perlite', exposure: 'Plein soleil', minTemp: '10', origin: 'Asie centrale', c1: '#2e7d32', c2: '#a5d6a7', letter: 'C' }
+    { name: 'Cannabis sativa', category: 'Cannabis', family: 'Cannabaceae', substrate: 'Terreau riche & perlite', exposure: 'Plein soleil', minTemp: '10', origin: 'Asie centrale', c1: '#2e7d32', c2: '#a5d6a7', letter: 'C' }
   ];
 
   let plants = [];

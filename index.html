@@ -14,7 +14,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-/* === CORRECTION DU FLASH BLANC ANDROID === */
+/* === RÉSOLUTION DU FLASH BLANC ANDROID === */
 * { 
   margin: 0; 
   padding: 0; 
@@ -33,7 +33,7 @@ button, input, select, a {
   border: none;
 }
 
-/* Désactive les focus/active natifs du navigateur */
+/* Interdit le focus/active natif qui crée le flash */
 button:focus, button:active, button:hover {
   outline: none !important;
   box-shadow: none !important;
@@ -351,7 +351,7 @@ body.secret-mode .scene-lock { color: #ffffff; opacity: 0.5; }
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 .lock-btn-mobile svg { width: 16px; height: 16px; }
 
@@ -415,14 +415,18 @@ main {
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 .btn:hover { background: #1c4531; }
+.btn:active { background: #1c4531; }
 .btn.sec { background: #ffffff; color: #153424; border: 1px solid #d8e8dd; }
+.btn.sec:active { background: #eef2f0; }
 
 .btn.secret-add {
   background: #153424;
   color: #ecdfb8;
   border: 1px solid #d4a548;
 }
+.btn.secret-add:active { background: #1c4531; }
 body.secret-mode .btn.secret-add { background: #ffffff; color: #153424; border-color: #ffffff; }
+body.secret-mode .btn.secret-add:active { background: #f0f0f0; }
 body.secret-mode .btn.secret-add svg { color: #153424; }
 
 /* Search */
@@ -461,7 +465,7 @@ body.secret-mode .btn.secret-add svg { color: #153424; }
   font-family: inherit;
   transition: background-color 0.2s ease;
 }
-.exit-secret:hover { background: rgba(255,255,255,.2); }
+.exit-secret:active { background: rgba(255,255,255,.2); }
 body.secret-mode .exit-secret { display: inline-flex; }
 
 /* Chips */
@@ -1202,10 +1206,10 @@ body.secret-mode .modal-acts .primary:active { background: #f0f0f0; }
         </svg>
         Chamanique
       </button>
-      <!-- FEUILLE DE CANNABIS -->
+      <!-- FEUILLE DE CANNABIS (5 pointes) -->
       <button class="chip secret" data-cat="Cannabis" data-mode="secret" style="display:none">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 22 V12 M12 12 L6 10 V6 L9 8 L12 2 L15 8 L18 6 V10 Z M12 12 L4 12 L1 9 L4 9 L2 5 L6 8 M12 12 L20 12 L23 9 L20 9 L22 5 L18 8" />
+          <path d="M12 22 V12 M12 12 C11 8 11 4 12 2 C13 4 13 8 12 12 M12 12 C10 10 7 8 4 6 C6 6 8 8 8 5 C8 5 9 7 12 12 M12 12 C10 12 7 14 4 16 C6 14 7 12 6 10 C7 11 9 11 12 12 M12 12 C14 10 17 8 20 6 C18 6 16 8 16 5 C16 5 15 7 12 12 M12 12 C14 12 17 14 20 16 C18 14 17 12 18 10 C17 11 15 11 12 12" />
         </svg>
         Cannabis
       </button>
@@ -1296,10 +1300,10 @@ body.secret-mode .modal-acts .primary:active { background: #f0f0f0; }
             </svg>
             Chamanique
           </button>
-          <!-- FEUILLE DE CANNABIS -->
+          <!-- FEUILLE DE CANNABIS (5 pointes) -->
           <button type="button" class="cat-opt" data-cat="Cannabis" data-mode="secret">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 22 V12 M12 12 L6 10 V6 L9 8 L12 2 L15 8 L18 6 V10 Z M12 12 L4 12 L1 9 L4 9 L2 5 L6 8 M12 12 L20 12 L23 9 L20 9 L22 5 L18 8" />
+              <path d="M12 22 V12 M12 12 C11 8 11 4 12 2 C13 4 13 8 12 12 M12 12 C10 10 7 8 4 6 C6 6 8 8 8 5 C8 5 9 7 12 12 M12 12 C10 12 7 14 4 16 C6 14 7 12 6 10 C7 11 9 11 12 12 M12 12 C14 10 17 8 20 6 C18 6 16 8 16 5 C16 5 15 7 12 12 M12 12 C14 12 17 14 20 16 C18 14 17 12 18 10 C17 11 15 11 12 12" />
             </svg>
             Cannabis
           </button>

@@ -19,8 +19,6 @@
   padding: 0; 
   box-sizing: border-box; 
   -webkit-tap-highlight-color: transparent !important; 
-  -webkit-touch-callout: none;
-  user-select: none;
 }
 
 html, body {
@@ -177,7 +175,6 @@ body.secret-mode .site-header::after {
 }
 .dr-secret:hover { color: #d4a548; }
 
-/* SCÈNE DU TITRE & ASTRES */
 .brand-scene {
   position: absolute;
   left: 8%; right: 8%; bottom: -1px;
@@ -340,7 +337,7 @@ body.secret-mode .exit-secret { display: inline-flex; }
 .custom-field label { font-size: 10px; color: #888888; font-weight: 500; display: block; margin-bottom: 4px; }
 .custom-field input { width: 100%; padding: 10px 14px; background: #f7f7f7; border: none; border-radius: 10px; font-family: inherit; font-size: 13px; color: #0f0f0f; outline: none; }
 
-#page-backdrop { position: fixed; inset: 0; background: rgba(255,255,255,.85); z-index: 45; opacity: 0; pointer-events: none; }
+#page-backdrop { position: fixed; inset: 0; background: rgba(255,255,255,.85); z-index: 45; opacity: 0; pointer-events: none; transition: opacity 0.2s ease; }
 body.secret-mode #page-backdrop { background: rgba(0,0,0,.85); }
 #page-backdrop.visible { opacity: 1; pointer-events: auto; }
 
@@ -1615,8 +1612,6 @@ body.secret-mode #drawer-dropdown-backdrop { background: rgba(0,0,0,.85); }
         photo: makePlaceholder(ex.c1, ex.c2, ex.letter), date: Date.now() - (100 + i * 10)
       });
     });
-    saveP();
-    localStorage.setItem(SEED_KEY, '1');
   };
 
   $('dr-btn').addEventListener('click', e => {
@@ -1634,7 +1629,11 @@ body.secret-mode #drawer-dropdown-backdrop { background: rgba(0,0,0,.85); }
 
   const init = () => {
     plants = loadP();
-    if (localStorage.getItem(SEED_KEY) !== '1') seedSecretPlants();
+    if (localStorage.getItem(SEED_KEY) !== '1') {
+      seedSecretPlants();
+      saveP();
+      localStorage.setItem(SEED_KEY, '1');
+    }
     plants.sort((a, b) => (b.date || 0) - (a.date || 0));
     
     if (localStorage.getItem(SECRET_KEY) === '1') secretRevealed = true;
@@ -1649,4 +1648,4 @@ body.secret-mode #drawer-dropdown-backdrop { background: rgba(0,0,0,.85); }
 </script>
 
 </body>
-</html>
+                                                                                                                                       </html>

@@ -182,7 +182,6 @@ body.secret-mode .site-header::after {
   position: absolute;
   left: 8%; right: 8%; bottom: -1px;
   height: 70px;
-  pointer-events: none;
   z-index: 1;
 }
 
@@ -219,7 +218,6 @@ body.secret-mode .scene-moon { opacity: 1; transform: scale(1); }
 .scene-normal, .scene-secret {
   position: absolute;
   inset: 0;
-  pointer-events: none;
 }
 .scene-normal { opacity: 1; }
 .scene-secret { opacity: 0; }
@@ -255,7 +253,7 @@ body.secret-mode .bird-witch { display: block !important; }
 .scene-lock {
   position: absolute; right: 2%; bottom: 45px; width: 14px; height: 14px;
   background: transparent; border: none; color: #153424; opacity: 0.35; cursor: pointer;
-  padding: 0; z-index: 5; pointer-events: auto;
+  padding: 0; z-index: 5;
 }
 body.secret-mode .scene-lock { color: #ffffff; opacity: 0.5; }
 .scene-lock:hover { opacity: 0.95; color: #d4a548; }
@@ -1656,4 +1654,4 @@ body.secret-mode #drawer-dropdown-backdrop { background: rgba(0,0,0,.85); }
 </script>
 
 </body>
-</html>
+              </html>

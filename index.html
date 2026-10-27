@@ -24,7 +24,7 @@ body {
   display: flex;
   flex-direction: column;
   -webkit-font-smoothing: antialiased;
-  transition: background-color 0.8s ease, color 0.8s ease;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 /* =========================================
@@ -81,7 +81,7 @@ body.secret-mode .modal-acts .secondary { background: #1c4531; color: #ffffff; }
 body.secret-mode .toast { background: #ffffff; color: #153424; }
 body.secret-mode .card-cat { color: #ffffff; }
 
-/* Boutons de rubriques (inversion classique) */
+/* Boutons de rubriques */
 body.secret-mode .chip { background: #1c4531; color: #ffffff; border-color: transparent; }
 body.secret-mode .chip:hover { background: #2a5c41; }
 body.secret-mode .chip.active { background: #ffffff; color: #153424; border-color: #ffffff; }
@@ -89,7 +89,7 @@ body.secret-mode .chip.active svg { color: #153424; }
 body.secret-mode .chip svg { color: #aaaaaa; }
 body.secret-mode .chip.active svg { color: #153424; }
 
-/* Badge Admin (cercle vert permanent) */
+/* Badge Admin */
 body.secret-mode .admin-tag { background: #1c4531; border-color: #2a5c41; color: #ffffff; }
 body.secret-mode .admin-tag::before { background: #22c55e; }
 
@@ -104,7 +104,7 @@ body.secret-mode ::selection { background: #ffffff; color: #153424; }
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  transition: background-color 0.8s ease;
+  transition: background-color 0.5s ease;
 }
 
 .site-header::after {
@@ -114,7 +114,7 @@ body.secret-mode ::selection { background: #ffffff; color: #153424; }
   height: 1px;
   background: linear-gradient(to right, transparent 0%, rgba(21,52,36,.10) 20%, rgba(21,52,36,.15) 50%, rgba(21,52,36,.10) 80%, transparent 100%);
   pointer-events: none;
-  transition: background 0.8s ease;
+  transition: background 0.5s ease;
 }
 
 .header-inner {
@@ -128,17 +128,11 @@ body.secret-mode ::selection { background: #ffffff; color: #153424; }
   position: relative;
 }
 
-/* Animation de rotation */
 .brand-wrap { 
   display: flex; 
   align-items: center; 
   position: relative; 
   z-index: 2;
-  transition: transform 1.5s cubic-bezier(0.25, 1.5, 0.5, 1);
-  transform-origin: center center;
-}
-.brand-wrap.flipped {
-  transform: rotate(180deg);
 }
 
 .brand { position: relative; }
@@ -149,7 +143,7 @@ body.secret-mode ::selection { background: #ffffff; color: #153424; }
   font-size: 28px;
   color: #153424;
   line-height: 0.95;
-  transition: color 0.8s ease;
+  transition: color 0.5s ease;
 }
 
 .brand-tagline {
@@ -160,7 +154,7 @@ body.secret-mode ::selection { background: #ffffff; color: #153424; }
   letter-spacing: 0.32em;
   color: #888888;
   margin-top: 4px;
-  transition: color 0.8s ease;
+  transition: color 0.5s ease;
   text-decoration: none;
   border: none;
 }
@@ -175,7 +169,7 @@ body.secret-mode ::selection { background: #ffffff; color: #153424; }
 }
 .dr-secret:hover { color: #d4a548; }
 
-/* ============ SCÈNE ANIMÉE ============ */
+/* ============ SCÈNE STATIQUE ============ */
 .brand-scene {
   position: absolute;
   left: 8%; right: 8%; bottom: -1px;
@@ -184,15 +178,15 @@ body.secret-mode ::selection { background: #ffffff; color: #153424; }
   z-index: 1;
 }
 
-/* Soleil / Lune */
+/* Soleil / Lune (Statique) */
 .scene-sun, .scene-moon {
   position: absolute;
   bottom: 0;
-  left: 0;
+  left: 50%;
   width: 16px; height: 16px;
   margin-left: -8px;
   z-index: 3;
-  animation: astroPath 15s linear infinite;
+  transform: translateY(-30px);
 }
 
 .scene-sun { border-radius: 50%; background: #d4a548; }
@@ -202,19 +196,11 @@ body.secret-mode ::selection { background: #ffffff; color: #153424; }
 body.secret-mode .scene-sun { display: none; }
 body.secret-mode .scene-moon { display: block; }
 
-@keyframes astroPath {
-  0% { left: 0%; bottom: -10px; opacity: 0; }
-  10% { opacity: 1; }
-  50% { bottom: 55px; }
-  90% { opacity: 1; }
-  100% { left: 100%; bottom: -10px; opacity: 0; }
-}
-
 /* Scènes Jour / Nuit */
 .scene-normal, .scene-secret {
   position: absolute;
   inset: 0;
-  transition: opacity 0.8s ease;
+  transition: opacity 0.5s ease;
   pointer-events: none;
 }
 .scene-normal { opacity: 1; }
@@ -222,35 +208,16 @@ body.secret-mode .scene-moon { display: block; }
 body.secret-mode .scene-normal { opacity: 0; }
 body.secret-mode .scene-secret { opacity: 1; }
 
-/* Plantes : Pousse, pause, disparition */
+/* Plantes (Statiques) */
 .plant-wrapper {
   position: absolute;
   bottom: 0;
-  transform-origin: bottom center;
-  animation: growAndFade 15s ease-in-out infinite;
-  opacity: 0;
-}
-
-@keyframes growAndFade {
-  0% { transform: scaleY(0); opacity: 0; }
-  10% { transform: scaleY(1.1); opacity: 1; }
-  15% { transform: scaleY(1); opacity: 1; }
-  60% { transform: scaleY(1); opacity: 1; }
-  80% { transform: scaleY(0); opacity: 0; }
-  100% { transform: scaleY(0); opacity: 0; }
 }
 
 .scene-plant {
   display: block;
   color: #153424;
-  transform-origin: bottom center;
-  animation: swayPlant 3.5s ease-in-out infinite alternate;
-  transition: color 0.8s ease;
-}
-
-@keyframes swayPlant {
-  0% { transform: rotate(-5deg); }
-  100% { transform: rotate(5deg); }
+  transition: color 0.5s ease;
 }
 
 body.secret-mode .scene-plant { color: #ffffff; }
@@ -263,56 +230,39 @@ body.secret-mode .scene-plant { color: #ffffff; }
 }
 
 /* Positionnement Jour */
-.pw-col   { left: 30%; width: 24px; height: 32px; margin-left: -12px; animation-delay: 0s; }
-.pw-aloe  { left: 40%; width: 26px; height: 20px; margin-left: -13px; animation-delay: 1.5s; }
-.pw-ech   { left: 50%; width: 24px; height: 16px; margin-left: -12px; animation-delay: 3s; }
-.pw-yuc   { left: 60%; width: 20px; height: 28px; margin-left: -10px; animation-delay: 4.5s; }
-.pw-bea   { left: 70%; width: 22px; height: 24px; margin-left: -11px; animation-delay: 6s; }
+.pw-col   { left: 30%; width: 24px; height: 32px; margin-left: -12px; }
+.pw-aloe  { left: 40%; width: 26px; height: 20px; margin-left: -13px; }
+.pw-ech   { left: 50%; width: 24px; height: 16px; margin-left: -12px; }
+.pw-yuc   { left: 60%; width: 20px; height: 28px; margin-left: -10px; }
+.pw-bea   { left: 70%; width: 22px; height: 24px; margin-left: -11px; }
 
 /* Positionnement Nuit */
-.pw-mush  { left: 28%; width: 24px; height: 24px; margin-left: -12px; animation-delay: 0s; }
-.pw-cann  { left: 38%; width: 28px; height: 28px; margin-left: -14px; animation-delay: 1.5s; }
-.pw-popp  { left: 50%; width: 24px; height: 28px; margin-left: -12px; animation-delay: 3s; }
-.pw-trich { left: 62%; width: 22px; height: 32px; margin-left: -11px; animation-delay: 4.5s; }
-.pw-peyot { left: 72%; width: 26px; height: 20px; margin-left: -13px; animation-delay: 6s; }
+.pw-mush  { left: 28%; width: 24px; height: 24px; margin-left: -12px; }
+.pw-cann  { left: 38%; width: 28px; height: 28px; margin-left: -14px; }
+.pw-popp  { left: 50%; width: 24px; height: 28px; margin-left: -12px; }
+.pw-trich { left: 62%; width: 22px; height: 32px; margin-left: -11px; }
+.pw-peyot { left: 72%; width: 26px; height: 20px; margin-left: -13px; }
 
-/* Oiseau / Sorcière */
+/* Oiseau / Sorcière (Statique) */
 .scene-bird {
   position: absolute;
   width: 16px;
   height: 14px;
   color: #153424;
   z-index: 4;
-  transition: color 0.8s ease;
-  will-change: left, bottom;
-  animation: flyBob 3s ease-in-out infinite;
+  left: 40%;
+  bottom: 25px;
+  transition: color 0.5s ease;
 }
 body.secret-mode .scene-bird { color: #ffffff; }
 
-@keyframes flyBob {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-
-.scene-bird svg { display: block; width: 100%; height: 100%; overflow: visible; transition: transform 0.3s ease; }
+.scene-bird svg { display: block; width: 100%; height: 100%; overflow: visible; }
 
 /* Affichage strict */
 .bird-normal { display: block !important; }
 .bird-witch { display: none !important; }
 body.secret-mode .bird-normal { display: none !important; }
 body.secret-mode .bird-witch { display: block !important; }
-
-.bird-wing {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: flap 0.6s ease-in-out infinite alternate;
-}
-@keyframes flap {
-  0% { transform: rotate(-15deg); }
-  100% { transform: rotate(35deg); }
-}
-
-.scene-bird.flip svg { transform: scaleX(-1); }
 
 /* Cadenas */
 .scene-lock {
@@ -329,7 +279,7 @@ body.secret-mode .bird-witch { display: block !important; }
   padding: 0;
   z-index: 5;
   pointer-events: auto;
-  transition: opacity 0.2s ease, color 0.8s ease;
+  transition: opacity 0.2s ease, color 0.5s ease;
 }
 body.secret-mode .scene-lock { color: #ffffff; opacity: 0.5; }
 .scene-lock:hover { opacity: 0.95; color: #d4a548; }
@@ -352,7 +302,7 @@ body.secret-mode .scene-lock { color: #ffffff; opacity: 0.5; }
   text-transform: uppercase;
   letter-spacing: 0.05em;
   line-height: 1;
-  transition: color 0.8s ease;
+  transition: color 0.5s ease;
 }
 
 .stats strong {
@@ -362,7 +312,7 @@ body.secret-mode .scene-lock { color: #ffffff; opacity: 0.5; }
   font-weight: 500;
   display: block;
   margin-bottom: 4px;
-  transition: color 0.8s ease;
+  transition: color 0.5s ease;
 }
 
 .lock-btn-mobile {
@@ -414,7 +364,7 @@ main {
   font-size: 11px;
   font-weight: 600;
   color: #153424;
-  transition: all 0.8s ease;
+  transition: all 0.5s ease;
 }
 
 .admin-tag::before {
@@ -458,7 +408,7 @@ body.secret-mode .btn.secret-add svg { color: #153424; }
   padding: 10px 0;
   margin-bottom: 8px;
 }
-.search svg { color: #888888; flex-shrink: 0; transition: color 0.8s ease; }
+.search svg { color: #888888; flex-shrink: 0; transition: color 0.5s ease; }
 .search input {
   flex: 1;
   border: none; outline: none;
@@ -466,7 +416,7 @@ body.secret-mode .btn.secret-add svg { color: #153424; }
   font-size: 15px;
   background: transparent;
   color: #0f0f0f;
-  transition: color 0.8s ease;
+  transition: color 0.5s ease;
 }
 
 /* Retour mode normal */
@@ -593,7 +543,7 @@ body.secret-mode .exit-secret { display: inline-flex; }
   box-shadow: 0 15px 35px rgba(0,0,0,.10);
   border-radius: 12px;
   display: none;
-  transition: background-color 0.8s ease;
+  transition: background-color 0.5s ease;
 }
 .sel-wrap.open .sel-dd { display: block; }
 
@@ -605,7 +555,7 @@ body.secret-mode .exit-secret { display: inline-flex; }
   letter-spacing: 0.12em;
   color: #153424;
   opacity: 0.6;
-  transition: color 0.8s ease;
+  transition: color 0.5s ease;
 }
 
 .opt {
@@ -619,7 +569,7 @@ body.secret-mode .exit-secret { display: inline-flex; }
 .opt.sel { background: #153424; color: #ffffff; }
 
 .custom-field { margin-top: 10px; }
-.custom-field label { font-size: 10px; color: #888888; font-weight: 500; display: block; margin-bottom: 4px; transition: color 0.8s ease; }
+.custom-field label { font-size: 10px; color: #888888; font-weight: 500; display: block; margin-bottom: 4px; transition: color 0.5s ease; }
 .custom-field input {
   width: 100%;
   padding: 10px 14px;
@@ -630,7 +580,7 @@ body.secret-mode .exit-secret { display: inline-flex; }
   font-size: 13px;
   color: #0f0f0f;
   outline: none;
-  transition: all 0.8s ease;
+  transition: all 0.5s ease;
 }
 
 /* Backdrops */
@@ -642,7 +592,7 @@ body.secret-mode .exit-secret { display: inline-flex; }
   z-index: 45;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.25s ease, background-color 0.8s ease;
+  transition: opacity 0.25s ease, background-color 0.5s ease;
 }
 body.secret-mode #page-backdrop { background: rgba(21,52,36,.30); }
 #page-backdrop.visible { opacity: 1; pointer-events: auto; }
@@ -655,7 +605,7 @@ body.secret-mode #page-backdrop { background: rgba(21,52,36,.30); }
   z-index: 40;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.25s ease, background-color 0.8s ease;
+  transition: opacity 0.25s ease, background-color 0.5s ease;
 }
 body.secret-mode #drawer-dropdown-backdrop { background: rgba(21,52,36,.40); }
 #drawer-dropdown-backdrop.visible { opacity: 1; pointer-events: auto; }
@@ -677,13 +627,7 @@ body.secret-mode #drawer-dropdown-backdrop { background: rgba(21,52,36,.40); }
   flex-direction: column;
   position: relative;
   box-shadow: 0 1px 3px rgba(0,0,0,.04);
-  animation: cardFadeIn 0.5s ease forwards;
-  transition: background-color 0.8s ease, border-color 0.8s ease;
-}
-
-@keyframes cardFadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  transition: background-color 0.5s ease, border-color 0.5s ease;
 }
 
 .card-img-wrap {
@@ -692,7 +636,7 @@ body.secret-mode #drawer-dropdown-backdrop { background: rgba(21,52,36,.40); }
   background: #fafafa;
   overflow: hidden;
   border-bottom: 1px solid #f0f0f0;
-  transition: background-color 0.8s ease, border-color 0.8s ease;
+  transition: background-color 0.5s ease, border-color 0.5s ease;
 }
 
 .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; cursor: zoom-in; }
@@ -727,10 +671,10 @@ body.secret-mode #drawer-dropdown-backdrop { background: rgba(21,52,36,.40); }
   justify-content: space-between;
 }
 
-.card-cat { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: #153424; font-weight: 600; transition: color 0.8s ease; }
+.card-cat { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: #153424; font-weight: 600; transition: color 0.5s ease; }
 
-.card-name { font-family: 'Bodoni Moda', Georgia, serif; font-size: 19px; color: #0f0f0f; line-height: 1.2; margin-top: 2px; font-weight: 400; transition: color 0.8s ease; }
-.card-fam { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 12px; color: #888888; margin-top: 2px; transition: color 0.8s ease; }
+.card-name { font-family: 'Bodoni Moda', Georgia, serif; font-size: 19px; color: #0f0f0f; line-height: 1.2; margin-top: 2px; font-weight: 400; transition: color 0.5s ease; }
+.card-fam { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 12px; color: #888888; margin-top: 2px; transition: color 0.5s ease; }
 
 .card-info {
   display: grid;
@@ -740,12 +684,12 @@ body.secret-mode #drawer-dropdown-backdrop { background: rgba(21,52,36,.40); }
   border-top: 1px solid #f0f0f0;
   font-size: 11px;
   color: #888888;
-  transition: border-color 0.8s ease, color 0.8s ease;
+  transition: border-color 0.5s ease, color 0.5s ease;
 }
-.card-info b { font-weight: 500; color: #0f0f0f; transition: color 0.8s ease; }
+.card-info b { font-weight: 500; color: #0f0f0f; transition: color 0.5s ease; }
 .card-info .full { grid-column: 1/-1; }
 
-.empty { padding: 80px 20px; text-align: center; color: #888888; font-size: 14px; grid-column: 1/-1; transition: color 0.8s ease; }
+.empty { padding: 80px 20px; text-align: center; color: #888888; font-size: 14px; grid-column: 1/-1; transition: color 0.5s ease; }
 .empty svg { width: 36px; height: 36px; color: #cccccc; display: block; margin: 0 auto 12px; }
 
 /* Drawer */
@@ -770,7 +714,7 @@ body.secret-mode #drawer-dropdown-backdrop { background: rgba(21,52,36,.40); }
   background: #ffffff;
   z-index: 100;
   transform: translateX(100%);
-  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), background-color 0.8s ease;
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), background-color 0.5s ease;
   display: flex;
   flex-direction: column;
   box-shadow: -10px 0 30px rgba(0,0,0,.05);
@@ -786,21 +730,21 @@ body.secret-mode #drawer-dropdown-backdrop { background: rgba(21,52,36,.40); }
   position: relative;
   z-index: 50;
   background: inherit;
-  transition: border-color 0.8s ease;
+  transition: border-color 0.5s ease;
 }
 
-.drawer-head h2 { font-family: 'Bodoni Moda', Georgia, serif; font-size: 22px; color: #153424; font-weight: 500; transition: color 0.8s ease; }
+.drawer-head h2 { font-family: 'Bodoni Moda', Georgia, serif; font-size: 22px; color: #153424; font-weight: 500; transition: color 0.5s ease; }
 
 .close-x { background: transparent; border: none; color: #888888; cursor: pointer; padding: 6px; }
 .close-x svg { width: 22px; height: 22px; display: block; }
 
 .drawer-body { flex: 1; overflow-y: auto; padding: 20px 24px; position: relative; z-index: 50; }
 
-.drawer-foot { padding: 16px 24px; border-top: 1px solid #f0f0f0; background: inherit; position: relative; z-index: 50; transition: border-color 0.8s ease; }
+.drawer-foot { padding: 16px 24px; border-top: 1px solid #f0f0f0; background: inherit; position: relative; z-index: 50; transition: border-color 0.5s ease; }
 
 /* Form */
 .field { margin-bottom: 18px; }
-.field label { display: block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #0f0f0f; margin-bottom: 6px; transition: color 0.8s ease; }
+.field label { display: block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #0f0f0f; margin-bottom: 6px; transition: color 0.5s ease; }
 .field input[type="text"] {
   width: 100%;
   padding: 11px 14px;
@@ -811,7 +755,7 @@ body.secret-mode #drawer-dropdown-backdrop { background: rgba(21,52,36,.40); }
   font-size: 14px;
   font-family: inherit;
   outline: none;
-  transition: all 0.8s ease;
+  transition: all 0.5s ease;
 }
 .field input[type="text"]:focus { background: #eef2f0; }
 
@@ -887,7 +831,7 @@ body.secret-mode .cat-opt[data-mode="secret"].active svg { color: #153424; }
   border-radius: 999px;
   outline: none;
   -webkit-appearance: none;
-  transition: background 0.8s ease;
+  transition: background 0.5s ease;
 }
 .slider-wrap input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
@@ -896,10 +840,10 @@ body.secret-mode .cat-opt[data-mode="secret"].active svg { color: #153424; }
   background: #153424;
   cursor: pointer;
   border: 2px solid #ffffff;
-  transition: background 0.8s ease;
+  transition: background 0.5s ease;
 }
 
-.temp-val { font-size: 12px; font-weight: 600; color: #153424; background: rgba(21,52,36,.08); padding: 2px 10px; border-radius: 999px; transition: all 0.8s ease; }
+.temp-val { font-size: 12px; font-weight: 600; color: #153424; background: rgba(21,52,36,.08); padding: 2px 10px; border-radius: 999px; transition: all 0.5s ease; }
 .temp-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
 .temp-legend { display: flex; justify-content: space-between; font-size: 10px; color: #888888; margin-top: 4px; }
 
@@ -915,11 +859,11 @@ body.secret-mode .cat-opt[data-mode="secret"].active svg { color: #153424; }
   cursor: pointer;
   text-align: center;
   position: relative;
-  transition: all 0.8s ease;
+  transition: all 0.5s ease;
 }
 .file-drop:hover { border-color: #153424; }
 .file-drop svg { width: 24px; height: 24px; color: #888888; margin-bottom: 8px; }
-.file-drop span { font-size: 12px; color: #0f0f0f; font-weight: 500; transition: color 0.8s ease; }
+.file-drop span { font-size: 12px; color: #0f0f0f; font-weight: 500; transition: color 0.5s ease; }
 .file-drop input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
 
 .photo-prev { position: relative; width: 100%; aspect-ratio: 4/3; border-radius: 12px; overflow: hidden; display: none; }
@@ -947,10 +891,10 @@ body.secret-mode .cat-opt[data-mode="secret"].active svg { color: #153424; }
   padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s;
 }
 .modal.on { opacity: 1; pointer-events: auto; }
-.modal-box { background: #ffffff; border-radius: 18px; padding: 26px 22px; width: 100%; max-width: 380px; box-shadow: 0 20px 60px rgba(0,0,0,.2); transition: background-color 0.8s ease; }
-.modal-box h3 { font-family: 'Bodoni Moda', Georgia, serif; font-size: 22px; color: #153424; margin-bottom: 6px; font-weight: 500; transition: color 0.8s ease; }
-.modal-box p { font-size: 13px; color: #888888; margin-bottom: 20px; line-height: 1.5; transition: color 0.8s ease; }
-.code-inp { width: 100%; padding: 16px; font-family: monospace; font-size: 22px; text-align: center; letter-spacing: 10px; background: #f7f7f7; border: 2px solid transparent; border-radius: 10px; color: #153424; outline: none; transition: all 0.8s ease; }
+.modal-box { background: #ffffff; border-radius: 18px; padding: 26px 22px; width: 100%; max-width: 380px; box-shadow: 0 20px 60px rgba(0,0,0,.2); transition: background-color 0.5s ease; }
+.modal-box h3 { font-family: 'Bodoni Moda', Georgia, serif; font-size: 22px; color: #153424; margin-bottom: 6px; font-weight: 500; transition: color 0.5s ease; }
+.modal-box p { font-size: 13px; color: #888888; margin-bottom: 20px; line-height: 1.5; transition: color 0.5s ease; }
+.code-inp { width: 100%; padding: 16px; font-family: monospace; font-size: 22px; text-align: center; letter-spacing: 10px; background: #f7f7f7; border: 2px solid transparent; border-radius: 10px; color: #153424; outline: none; transition: all 0.5s ease; }
 .code-inp:focus { border-color: #153424; background: #ffffff; }
 body.secret-mode .code-inp { background: #1c4531; color: #ffffff; }
 body.secret-mode .code-inp:focus { border-color: #ffffff; background: #2a5c41; }
@@ -982,34 +926,16 @@ body.secret-mode .modal-acts .primary { background: #ffffff; color: #153424; }
 
 /* Toasts */
 .toast-wrap { position: fixed; bottom: 24px; left: 16px; right: 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 400; pointer-events: none; }
-.toast { padding: 12px 18px; background: #0f0f0f; color: #ffffff; font-size: 12px; border-radius: 999px; box-shadow: 0 10px 30px rgba(0,0,0,.2); max-width: 440px; text-align: center; font-family: inherit; pointer-events: auto; line-height: 1.4; transition: background-color 0.8s ease, color 0.8s ease; }
-
-/* Saisons */
-.season-bg { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
-.season-leaf { position: absolute; top: 0; animation: leafFall linear infinite; }
-@keyframes leafFall {
-  0% { transform: translate3d(0,-15vh,0); opacity: 0; }
-  10% { opacity: .4; }
-  90% { opacity: .4; }
-  100% { transform: translate3d(var(--drift,40px),115vh,0); opacity: 0; }
-}
-.season-snow { position: absolute; top: 0; border-radius: 50%; background: rgba(120,150,130,.35); animation: snowFall linear infinite; }
-@keyframes snowFall {
-  0% { transform: translate3d(0,-8vh,0); opacity: 0; }
-  10% { opacity: .45; }
-  90% { opacity: .45; }
-  100% { transform: translate3d(var(--drift,20px),108vh,0); opacity: 0; }
-}
+.toast { padding: 12px 18px; background: #0f0f0f; color: #ffffff; font-size: 12px; border-radius: 999px; box-shadow: 0 10px 30px rgba(0,0,0,.2); max-width: 440px; text-align: center; font-family: inherit; pointer-events: auto; line-height: 1.4; transition: background-color 0.5s ease, color 0.5s ease; }
 </style>
 </head>
 <body>
 
 <div id="page-backdrop"></div>
-<div id="season-bg" class="season-bg" aria-hidden="true"></div>
 
 <header class="site-header">
   <div class="header-inner">
-    <div class="brand-wrap" id="brand-wrap">
+    <div class="brand-wrap">
       <div class="brand">
         <div class="brand-title">Plantouille</div>
         <div class="brand-tagline">Cabinet du <span class="dr-secret" id="dr-btn">Dr</span>-Cactus</div>
@@ -1128,14 +1054,12 @@ body.secret-mode .modal-acts .primary { background: #ffffff; color: #153424; }
           </g>
           <path d="M2 8 C6 8 8 10 10 12 C12 12 14 10 16 8 C18 10 20 10 22 8 C20 6 18 6 16 8 C14 6 12 4 10 4 C8 4 6 6 2 8 Z"/>
         </svg>
-        <!-- Sorcière sur balai (forme corrigée) -->
+        <!-- Sorcière sur balai -->
         <svg class="bird-witch" viewBox="0 0 24 20" fill="currentColor">
-          <!-- Balai -->
           <path d="M2 16 L16 16 L16 18 L2 18 Z"/>
-          <path d="M16 14 L24 12 L24 20 L16 18 Z"/> <!-- Brins du balai -->
-          <!-- Sorcière -->
-          <path d="M10 14 L12 8 L16 12 Z"/> <!-- Cape -->
-          <path d="M10 8 L14 4 L16 8 Z"/> <!-- Chapeau -->
+          <path d="M16 14 L24 12 L24 20 L16 18 Z"/>
+          <path d="M10 14 L12 8 L16 12 Z"/>
+          <path d="M10 8 L14 4 L16 8 Z"/>
           <g class="bird-wing">
             <path d="M10 12 L6 8 L4 12 L8 14 Z" fill="currentColor"/>
           </g>
@@ -1196,7 +1120,7 @@ body.secret-mode .modal-acts .primary { background: #ffffff; color: #153424; }
 
   <div id="chips-step">
     <div class="chips-row" id="chips-row">
-      <!-- Normal Chips (Silhouettes claires) -->
+      <!-- Normal Chips -->
       <button class="chip active" data-cat="all" data-mode="normal">
         <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/></svg>
         Toutes
@@ -1222,7 +1146,7 @@ body.secret-mode .modal-acts .primary { background: #ffffff; color: #153424; }
         Caudiciformes
       </button>
 
-      <!-- Secret Chips (Silhouettes claires) -->
+      <!-- Secret Chips -->
       <button class="chip secret active" data-cat="all" data-mode="secret" style="display:none">
         <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/></svg>
         Toutes
@@ -1810,7 +1734,6 @@ body.secret-mode .modal-acts .primary { background: #ffffff; color: #153424; }
   const setSecretMode = mode => {
     secretMode = !!mode;
     document.body.classList.toggle('secret-mode', secretMode);
-    document.getElementById('brand-wrap').classList.toggle('flipped', secretMode);
     
     document.querySelectorAll('#chips-row .chip').forEach(c => {
       const m = c.getAttribute('data-mode') || 'normal';
@@ -1831,13 +1754,6 @@ body.secret-mode .modal-acts .primary { background: #ffffff; color: #153424; }
     });
     $('species-step').classList.remove('on');
     $('chips-step').style.display = '';
-
-    // Relance les animations des plantes
-    document.querySelectorAll('.plant-wrapper').forEach(p => {
-      p.style.animation = 'none';
-      void p.offsetWidth;
-      p.style.animation = null;
-    });
     
     render();
   };
@@ -2208,68 +2124,6 @@ body.secret-mode .modal-acts .primary { background: #ffffff; color: #153424; }
 
   $('exit-secret-btn').addEventListener('click', () => setSecretMode(false));
 
-  const startBird = () => {
-    const bird = $('scene-bird');
-    if (!bird) return;
-    let currentPos = 50;
-    
-    const move = () => {
-      const newPos = 15 + Math.random() * 70;
-      const newHeight = 10 + Math.random() * 40;
-      const dist = Math.abs(newPos - currentPos);
-      const duration = Math.max(5000, dist * 120);
-      
-      if (newPos < currentPos) bird.classList.add('flip');
-      else bird.classList.remove('flip');
-      
-      bird.style.transition = `left ${duration}ms linear, bottom ${duration}ms ease-in-out`;
-      bird.style.left = newPos + '%';
-      bird.style.bottom = newHeight + 'px';
-      currentPos = newPos;
-      
-      setTimeout(move, duration + 2000 + Math.random() * 2000);
-    };
-    setTimeout(move, 1000);
-  };
-
-  const initSeasons = () => {
-    const c = $('season-bg');
-    if (!c) return;
-    const rnd = (a, b) => Math.random() * (b - a) + a;
-    const m = new Date().getMonth() + 1;
-    const s = m >= 3 && m <= 5 ? 'spring' : m >= 6 && m <= 8 ? 'summer' : m >= 9 && m <= 11 ? 'autumn' : 'winter';
-    
-    if (s === 'autumn') {
-      const CO = ['#7a9e4b', '#8fae5d', '#6b8e3e', '#9bb874', '#8a8a52'];
-      const SH = '<svg viewBox="0 0 20 30" xmlns="http://www.w3.org/2000/svg"><path d="M10 1 C 4.5 10, 4.5 21, 10 29 C 15.5 21, 15.5 10, 10 1 Z" fill="currentColor"/></svg>';
-      for (let i = 0; i < 5; i++) {
-        const d = document.createElement('div');
-        d.className = 'season-leaf';
-        const z = rnd(6, 10);
-        d.style.left = rnd(-5, 105) + '%';
-        d.style.width = z + 'px'; d.style.height = (z * 1.4) + 'px';
-        d.style.color = CO[Math.floor(Math.random() * CO.length)];
-        d.style.setProperty('--drift', rnd(-15, 25).toFixed(1) + 'vw');
-        d.style.animationDuration = rnd(22, 32).toFixed(2) + 's';
-        d.style.animationDelay = '-' + rnd(0, 32).toFixed(2) + 's';
-        d.innerHTML = SH;
-        c.appendChild(d);
-      }
-    } else if (s === 'winter') {
-      for (let i = 0; i < 14; i++) {
-        const f = document.createElement('div');
-        f.className = 'season-snow';
-        const sz = rnd(1.2, 2.2);
-        f.style.left = rnd(0, 100) + '%';
-        f.style.width = sz + 'px'; f.style.height = sz + 'px';
-        f.style.setProperty('--drift', rnd(-12, 12).toFixed(1) + 'vw');
-        f.style.animationDuration = rnd(20, 30).toFixed(2) + 's';
-        f.style.animationDelay = '-' + rnd(0, 30).toFixed(2) + 's';
-        c.appendChild(f);
-      }
-    }
-  };
-
   const init = () => {
     plants = loadP();
     if (localStorage.getItem(SEED_KEY) !== '1') seedSecretPlants();
@@ -2280,8 +2134,6 @@ body.secret-mode .modal-acts .primary { background: #ffffff; color: #153424; }
     stats();
     setSecretMode(false);
     render();
-    startBird();
-    initSeasons();
   };
 
   init();
@@ -2290,3 +2142,4 @@ body.secret-mode .modal-acts .primary { background: #ffffff; color: #153424; }
 
 </body>
 </html>
+```

@@ -14,36 +14,30 @@
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-/* === RÉSOLUTION DÉFINITIVE DU FLASH BLANC ANDROID === */
+/* === RÉSOLUTION DU FLASH BLANC ANDROID === */
 * { 
   margin: 0; 
   padding: 0; 
   box-sizing: border-box; 
   -webkit-tap-highlight-color: rgba(0,0,0,0) !important; 
   -webkit-touch-callout: none;
-  -webkit-user-select: none;
   user-select: none;
 }
 
-/* Empêche le SVG de capter le clic et de faire un flash blanc */
-button *, a * { pointer-events: none !important; }
-
-button, input, select, a {
+/* Désactive le comportement natif des boutons qui cause le flash */
+[role="button"], button, a, input, select {
   outline: none !important;
   -webkit-appearance: none;
   appearance: none;
   background-color: transparent;
   font-family: inherit;
   border: none;
+  cursor: pointer;
   touch-action: manipulation;
 }
 
-/* Interdit le focus/active natif qui crée le flash */
-button:focus, button:active, button:hover {
-  outline: none !important;
-  box-shadow: none !important;
-  -webkit-focus-ring-color: transparent;
-}
+/* Empêche les SVG de déclencher un focus ou un flash */
+[role="button"] svg { pointer-events: none; }
 
 body {
   background: #ffffff;
@@ -238,25 +232,10 @@ body.secret-mode .scene-normal { opacity: 0; }
 body.secret-mode .scene-secret { opacity: 1; }
 
 /* Plantes (Statiques) */
-.plant-wrapper {
-  position: absolute;
-  bottom: 0;
-}
-
-.scene-plant {
-  display: block;
-  color: #153424;
-  transition: color 0.4s ease;
-}
-
+.plant-wrapper { position: absolute; bottom: 0; }
+.scene-plant { display: block; color: #153424; transition: color 0.4s ease; }
 body.secret-mode .scene-plant { color: #ffffff; }
-
-.scene-plant svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
+.scene-plant svg { display: block; width: 100%; height: 100%; overflow: visible; }
 
 /* Positionnement Jour */
 .pw-col   { left: 30%; width: 24px; height: 32px; margin-left: -12px; }
@@ -272,22 +251,13 @@ body.secret-mode .scene-plant { color: #ffffff; }
 .pw-trich { left: 62%; width: 22px; height: 32px; margin-left: -11px; }
 .pw-peyot { left: 72%; width: 26px; height: 20px; margin-left: -13px; }
 
-/* Oiseau / Sorcière (Statique) */
+/* Oiseau / Sorcière */
 .scene-bird {
-  position: absolute;
-  width: 16px;
-  height: 14px;
-  color: #153424;
-  z-index: 4;
-  left: 40%;
-  bottom: 25px;
-  transition: color 0.4s ease;
+  position: absolute; width: 16px; height: 14px; color: #153424;
+  z-index: 4; left: 40%; bottom: 25px; transition: color 0.4s ease;
 }
 body.secret-mode .scene-bird { color: #ffffff; }
-
 .scene-bird svg { display: block; width: 100%; height: 100%; overflow: visible; }
-
-/* Affichage strict */
 .bird-normal { display: block !important; }
 .bird-witch { display: none !important; }
 body.secret-mode .bird-normal { display: none !important; }
@@ -295,68 +265,19 @@ body.secret-mode .bird-witch { display: block !important; }
 
 /* Cadenas */
 .scene-lock {
-  position: absolute;
-  right: 2%;
-  bottom: 45px;
-  width: 14px;
-  height: 14px;
-  background: transparent;
-  border: none;
-  color: #153424;
-  opacity: 0.28;
-  cursor: pointer;
-  padding: 0;
-  z-index: 5;
-  pointer-events: auto;
-  transition: opacity 0.2s ease, color 0.4s ease;
+  position: absolute; right: 2%; bottom: 45px; width: 14px; height: 14px;
+  background: transparent; border: none; color: #153424; opacity: 0.28; cursor: pointer;
+  padding: 0; z-index: 5; pointer-events: auto; transition: opacity 0.2s ease, color 0.4s ease;
 }
 body.secret-mode .scene-lock { color: #ffffff; opacity: 0.5; }
 .scene-lock:hover { opacity: 0.95; color: #d4a548; }
 .scene-lock svg { width: 100%; height: 100%; }
 
 /* ============ HEADER RIGHT ============ */
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
-  position: relative;
-  z-index: 2;
-}
-
-.stats {
-  text-align: right;
-  font-size: 11px;
-  color: #888888;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  line-height: 1;
-  transition: color 0.4s ease;
-}
-
-.stats strong {
-  font-family: 'Bodoni Moda', Georgia, serif;
-  font-size: 22px;
-  color: #153424;
-  font-weight: 500;
-  display: block;
-  margin-bottom: 4px;
-  transition: color 0.4s ease;
-}
-
-.lock-btn-mobile {
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  background: #f7f7f7;
-  color: #153424;
-  border: 1px solid #f0f0f0;
-  cursor: pointer;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
+.header-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; position: relative; z-index: 2; }
+.stats { text-align: right; font-size: 11px; color: #888888; text-transform: uppercase; letter-spacing: 0.05em; line-height: 1; transition: color 0.4s ease; }
+.stats strong { font-family: 'Bodoni Moda', Georgia, serif; font-size: 22px; color: #153424; font-weight: 500; display: block; margin-bottom: 4px; transition: color 0.4s ease; }
+.lock-btn-mobile { width: 40px; height: 40px; border-radius: 50%; background: #f7f7f7; color: #153424; border: 1px solid #f0f0f0; cursor: pointer; display: none; align-items: center; justify-content: center; flex-shrink: 0; transition: background-color 0.3s ease, color 0.3s ease; }
 .lock-btn-mobile svg { width: 16px; height: 16px; }
 
 @media (max-width: 700px) {
@@ -365,546 +286,181 @@ body.secret-mode .scene-lock { color: #ffffff; opacity: 0.5; }
 }
 
 /* ============ MAIN ============ */
-main {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 20px 24px 60px;
-  flex: 1;
-  width: 100%;
-}
-
-.admin-bar {
-  display: none;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 16px;
-}
+main { max-width: 1100px; margin: 0 auto; padding: 20px 24px 60px; flex: 1; width: 100%; }
+.admin-bar { display: none; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
 .admin-bar.on { display: flex; }
-
-.admin-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 12px;
-  border-radius: 999px;
-  background: #f0f7f2;
-  border: 1px solid #d8e8dd;
-  font-size: 11px;
-  font-weight: 600;
-  color: #153424;
-  transition: all 0.4s ease;
-}
-
-.admin-tag::before {
-  content: '';
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: #22c55e;
-}
+.admin-tag { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: #f0f7f2; border: 1px solid #d8e8dd; font-size: 11px; font-weight: 600; color: #153424; transition: all 0.4s ease; }
+.admin-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #22c55e; }
 
 .btn {
-  padding: 9px 18px;
-  border-radius: 999px;
-  background: #153424;
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: 500;
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+  padding: 9px 18px; border-radius: 999px; background: #153424; color: #ffffff;
+  font-size: 12px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
-.btn:hover { background: #1c4531; }
-.btn:active { background: #1c4531; }
+.btn.active, .btn:active { background-color: #1c4531; }
 .btn.sec { background: #ffffff; color: #153424; border: 1px solid #d8e8dd; }
-.btn.sec:active { background: #eef2f0; }
+.btn.sec.active, .btn.sec:active { background-color: #eef2f0; }
 
-.btn.secret-add {
-  background: #153424;
-  color: #ecdfb8;
-  border: 1px solid #d4a548;
-}
-.btn.secret-add:active { background: #1c4531; }
+.btn.secret-add { background: #153424; color: #ecdfb8; border: 1px solid #d4a548; }
+.btn.secret-add.active, .btn.secret-add:active { background-color: #1c4531; }
 body.secret-mode .btn.secret-add { background: #ffffff; color: #153424; border-color: #ffffff; }
-body.secret-mode .btn.secret-add:active { background: #f0f0f0; }
-body.secret-mode .btn.secret-add svg { color: #153424; }
+body.secret-mode .btn.secret-add.active, body.secret-mode .btn.secret-add:active { background-color: #f0f0f0; }
 
 /* Search */
-.search {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 0;
-  margin-bottom: 8px;
-}
+.search { display: flex; align-items: center; gap: 10px; padding: 10px 0; margin-bottom: 8px; }
 .search svg { color: #888888; flex-shrink: 0; transition: color 0.4s ease; }
-.search input {
-  flex: 1;
-  border: none; outline: none;
-  font-family: inherit;
-  font-size: 15px;
-  background: transparent;
-  color: #0f0f0f;
-  transition: color 0.4s ease;
-}
+.search input { flex: 1; border: none; outline: none; font-family: inherit; font-size: 15px; background: transparent; color: #0f0f0f; transition: color 0.4s ease; }
 
 /* Retour mode normal */
 .exit-secret {
-  display: none;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  margin-bottom: 16px;
-  border-radius: 999px;
-  background: rgba(255,255,255,.1);
-  color: #ffffff;
-  border: 1px solid rgba(255,255,255,.2);
-  font-size: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  font-family: inherit;
+  display: none; align-items: center; gap: 6px; padding: 8px 16px; margin-bottom: 16px;
+  border-radius: 999px; background: rgba(255,255,255,.1); color: #ffffff;
+  border: 1px solid rgba(255,255,255,.2); font-size: 12px; font-weight: 500;
   transition: background-color 0.2s ease;
 }
-.exit-secret:active { background: rgba(255,255,255,.2); }
+.exit-secret.active, .exit-secret:active { background-color: rgba(255,255,255,.2); }
 body.secret-mode .exit-secret { display: inline-flex; }
 
 /* Chips */
-.chips-row {
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
-  padding: 8px 0;
-  margin-bottom: 16px;
-  -webkit-overflow-scrolling: touch;
-}
+.chips-row { display: flex; gap: 10px; overflow-x: auto; padding: 8px 0; margin-bottom: 16px; -webkit-overflow-scrolling: touch; }
 .chips-row::-webkit-scrollbar { display: none; }
-
 .chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  border-radius: 999px;
-  background: #f7f7f7;
-  color: #555555;
-  font-size: 13px;
-  font-weight: 500;
-  border: 1px solid transparent;
-  cursor: pointer;
-  white-space: nowrap;
-  flex-shrink: 0;
-  font-family: inherit;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 999px;
+  background-color: #f7f7f7; color: #555555; font-size: 13px; font-weight: 500; border: 1px solid transparent;
+  white-space: nowrap; flex-shrink: 0; transition: background-color 0.2s ease, color 0.2s ease;
 }
 .chip svg { width: 18px; height: 18px; color: #888888; transition: color 0.3s ease; }
-.chip:hover { background: #eef2f0; color: #153424; }
-.chip:active { background: #eef2f0; color: #153424; } /* Empêche le flash blanc au clic */
-.chip.active { background: #153424; color: #ffffff; border-color: #153424; }
-.chip.active svg { color: #ffffff; }
-
-body.secret-mode .chip:active { background: #2a5c41; color: #ffffff; }
-body.secret-mode .chip.active:active { background: #ffffff; color: #153424; }
+.chip.active, .chip:active { background-color: #153424; color: #ffffff; border-color: #153424; }
+.chip.active svg, .chip:active svg { color: #ffffff; }
+body.secret-mode .chip { background-color: #1c4531; color: #ffffff; border-color: transparent; }
+body.secret-mode .chip svg { color: #aaaaaa; }
+body.secret-mode .chip.active, body.secret-mode .chip:active { background-color: #ffffff; color: #153424; border-color: #ffffff; }
+body.secret-mode .chip.active svg, body.secret-mode .chip:active svg { color: #153424; }
 
 /* Species Step */
 .species-step { display: none; }
 .species-step.on { display: block; margin-bottom: 16px; }
-
 .species-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-
-.back-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 6px 12px;
-  border-radius: 999px;
-  background: transparent;
-  color: #888888;
-  font-size: 12px;
-  font-weight: 500;
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
-  transition: all 0.2s ease;
-}
-.back-btn:hover { color: #153424; background: #f7f7f7; }
+.back-btn { display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; border-radius: 999px; background: transparent; color: #888888; font-size: 12px; font-weight: 500; transition: all 0.2s ease; }
+.back-btn:hover { color: #153424; background-color: #f7f7f7; }
 .back-btn svg { width: 12px; height: 12px; }
 
 /* Select Custom */
 .sel-wrap { position: relative; width: 100%; }
 .sel-wrap.open { z-index: 55; }
-
 .sel-trigger {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 0;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid rgba(21,52,36,.15);
-  color: #0f0f0f;
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-style: italic;
-  font-size: 17px;
-  cursor: pointer;
-  text-align: left;
-  font-weight: 500;
-  transition: border-color 0.3s ease;
+  width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 10px 0;
+  background: transparent; border-bottom: 1px solid rgba(21,52,36,.15); color: #0f0f0f;
+  font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 17px;
+  text-align: left; font-weight: 500; transition: border-color 0.3s ease;
 }
 .sel-trigger.placeholder { color: #888888; }
 .sel-trigger:hover { border-bottom-color: #153424; color: #153424; }
-
-.sel-arrow {
-  width: 6px; height: 6px;
-  border-right: 1.5px solid #153424;
-  border-bottom: 1.5px solid #153424;
-  transform: rotate(45deg);
-  flex-shrink: 0;
-  margin-left: 10px;
-  transition: transform 0.2s ease;
-}
+.sel-arrow { width: 6px; height: 6px; border-right: 1.5px solid #153424; border-bottom: 1.5px solid #153424; transform: rotate(45deg); flex-shrink: 0; margin-left: 10px; transition: transform 0.2s ease; }
 .sel-wrap.open .sel-arrow { transform: rotate(-135deg); }
-
 .sel-dd {
-  position: absolute;
-  top: 100%; left: 0; right: 0;
-  max-height: 320px;
-  overflow-y: auto;
-  background: #ffffff;
-  z-index: 60;
-  margin-top: 6px;
-  padding: 6px 0;
-  box-shadow: 0 15px 35px rgba(0,0,0,.10);
-  border-radius: 12px;
-  display: none;
-  transition: background-color 0.4s ease;
+  position: absolute; top: 100%; left: 0; right: 0; max-height: 320px; overflow-y: auto;
+  background: #ffffff; z-index: 60; margin-top: 6px; padding: 6px 0;
+  box-shadow: 0 15px 35px rgba(0,0,0,.10); border-radius: 12px; display: none; transition: background-color 0.4s ease;
 }
 .sel-wrap.open .sel-dd { display: block; }
-
-.opt-group {
-  padding: 10px 16px 4px;
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: #153424;
-  opacity: 0.6;
-  transition: color 0.4s ease;
-}
-
-.opt {
-  padding: 8px 16px;
-  font-size: 13.5px;
-  color: #0f0f0f;
-  cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-.opt:hover { background: #f4f6f5; color: #153424; }
-.opt:active { background: #f4f6f5; color: #153424; }
-.opt.sel { background: #153424; color: #ffffff; }
-
-body.secret-mode .opt:active { background: #2a5c41; color: #ffffff; }
+.opt-group { padding: 10px 16px 4px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: #153424; opacity: 0.6; transition: color 0.4s ease; }
+.opt { padding: 8px 16px; font-size: 13.5px; color: #0f0f0f; transition: background-color 0.2s ease, color 0.2s ease; }
+.opt:hover, .opt:active { background-color: #f4f6f5; color: #153424; }
+.opt.sel { background-color: #153424; color: #ffffff; }
+body.secret-mode .opt:active { background-color: #2a5c41; color: #ffffff; }
 
 .custom-field { margin-top: 10px; }
 .custom-field label { font-size: 10px; color: #888888; font-weight: 500; display: block; margin-bottom: 4px; transition: color 0.4s ease; }
-.custom-field input {
-  width: 100%;
-  padding: 10px 14px;
-  background: #f7f7f7;
-  border: none;
-  border-radius: 10px;
-  font-family: inherit;
-  font-size: 13px;
-  color: #0f0f0f;
-  outline: none;
-  transition: all 0.4s ease;
-}
+.custom-field input { width: 100%; padding: 10px 14px; background: #f7f7f7; border: none; border-radius: 10px; font-family: inherit; font-size: 13px; color: #0f0f0f; outline: none; transition: all 0.4s ease; }
 
-/* Backdrops - SOLIDE POUR ÉVITER LES FLASHS ANDROID */
-#page-backdrop {
-  position: fixed; inset: 0;
-  background: rgba(255,255,255,.85);
-  z-index: 45;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s ease, background-color 0.4s ease;
-}
+/* Backdrops */
+#page-backdrop { position: fixed; inset: 0; background: rgba(255,255,255,.85); z-index: 45; opacity: 0; pointer-events: none; transition: opacity 0.25s ease, background-color 0.4s ease; }
 body.secret-mode #page-backdrop { background: rgba(21,52,36,.85); }
 #page-backdrop.visible { opacity: 1; pointer-events: auto; }
 
-#drawer-dropdown-backdrop {
-  position: absolute; inset: 0;
-  background: rgba(255,255,255,.85);
-  z-index: 40;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s ease, background-color 0.4s ease;
-}
+#drawer-dropdown-backdrop { position: absolute; inset: 0; background: rgba(255,255,255,.85); z-index: 40; opacity: 0; pointer-events: none; transition: opacity 0.25s ease, background-color 0.4s ease; }
 body.secret-mode #drawer-dropdown-backdrop { background: rgba(21,52,36,.85); }
 #drawer-dropdown-backdrop.visible { opacity: 1; pointer-events: auto; }
 
 /* Grid */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 300px));
-  gap: 20px;
-  justify-content: center;
-}
-
-.card {
-  border: 1px solid #f0f0f0;
-  border-radius: 16px;
-  overflow: hidden;
-  background: #ffffff;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  box-shadow: 0 1px 3px rgba(0,0,0,.04);
-  transition: background-color 0.4s ease, border-color 0.4s ease;
-}
-
-.card-img-wrap {
-  position: relative;
-  aspect-ratio: 4/3;
-  background: #fafafa;
-  overflow: hidden;
-  border-bottom: 1px solid #f0f0f0;
-  transition: background-color 0.4s ease, border-color 0.4s ease;
-}
-
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 300px)); gap: 20px; justify-content: center; }
+.card { border: 1px solid #f0f0f0; border-radius: 16px; overflow: hidden; background: #ffffff; display: flex; flex-direction: column; position: relative; box-shadow: 0 1px 3px rgba(0,0,0,.04); transition: background-color 0.4s ease, border-color 0.4s ease; }
+.card-img-wrap { position: relative; aspect-ratio: 4/3; background: #fafafa; overflow: hidden; border-bottom: 1px solid #f0f0f0; transition: background-color 0.4s ease, border-color 0.4s ease; }
 .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; cursor: zoom-in; }
-
-.card-del {
-  position: absolute;
-  top: 10px; right: 10px;
-  width: 30px; height: 30px;
-  border-radius: 50%;
-  background: rgba(255,255,255,.95);
-  color: #0f0f0f;
-  border: none;
-  cursor: pointer;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,.06);
-}
-.card-del:active { background: #f0f0f0; }
-.card-del.confirming { background: #e11d48; color: #ffffff; }
+.card-del { position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,.95); color: #0f0f0f; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,.06); }
+.card-del:active { background-color: #f0f0f0; }
+.card-del.confirming { background-color: #e11d48; color: #ffffff; }
 .card-del svg { width: 14px; height: 14px; position: absolute; }
 .card-del .ck { opacity: 0; }
 .card-del.confirming .x { opacity: 0; }
 .card-del.confirming .ck { opacity: 1; }
-
-.card-body {
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  flex: 1;
-  justify-content: space-between;
-}
-
+.card-body { padding: 16px; display: flex; flex-direction: column; gap: 10px; flex: 1; justify-content: space-between; }
 .card-cat { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: #153424; font-weight: 600; transition: color 0.4s ease; }
-
 .card-name { font-family: 'Bodoni Moda', Georgia, serif; font-size: 19px; color: #0f0f0f; line-height: 1.2; margin-top: 2px; font-weight: 400; transition: color 0.4s ease; }
 .card-fam { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 12px; color: #888888; margin-top: 2px; transition: color 0.4s ease; }
-
-.card-info {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px;
-  padding-top: 8px;
-  border-top: 1px solid #f0f0f0;
-  font-size: 11px;
-  color: #888888;
-  transition: border-color 0.4s ease, color 0.4s ease;
-}
+.card-info { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding-top: 8px; border-top: 1px solid #f0f0f0; font-size: 11px; color: #888888; transition: border-color 0.4s ease, color 0.4s ease; }
 .card-info b { font-weight: 500; color: #0f0f0f; transition: color 0.4s ease; }
 .card-info .full { grid-column: 1/-1; }
-
 .empty { padding: 80px 20px; text-align: center; color: #888888; font-size: 14px; grid-column: 1/-1; transition: color 0.4s ease; }
 .empty svg { width: 36px; height: 36px; color: #cccccc; display: block; margin: 0 auto 12px; }
 
 /* Drawer */
-.drawer-bg {
-  position: fixed; inset: 0;
-  z-index: 100;
-  background: rgba(0,0,0,.25);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
+.drawer-bg { position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,.25); opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
 .drawer-bg.open { opacity: 1; pointer-events: auto; }
-
-.drawer {
-  position: fixed;
-  top: 0; right: 0;
-  height: 100vh;
-  width: 100%;
-  max-width: 440px;
-  background: #ffffff;
-  z-index: 100;
-  transform: translateX(100%);
-  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), background-color 0.4s ease;
-  display: flex;
-  flex-direction: column;
-  box-shadow: -10px 0 30px rgba(0,0,0,.05);
-}
+.drawer { position: fixed; top: 0; right: 0; height: 100vh; width: 100%; max-width: 440px; background: #ffffff; z-index: 100; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), background-color 0.4s ease; display: flex; flex-direction: column; box-shadow: -10px 0 30px rgba(0,0,0,.05); }
 .drawer.open { transform: translateX(0); }
-
-.drawer-head {
-  padding: 20px 24px;
-  border-bottom: 1px solid #f0f0f0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  z-index: 50;
-  background: inherit;
-  transition: border-color 0.4s ease;
-}
-
+.drawer-head { padding: 20px 24px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 50; background: inherit; transition: border-color 0.4s ease; }
 .drawer-head h2 { font-family: 'Bodoni Moda', Georgia, serif; font-size: 22px; color: #153424; font-weight: 500; transition: color 0.4s ease; }
-
-.close-x { background: transparent; border: none; color: #888888; cursor: pointer; padding: 6px; }
+.close-x { color: #888888; padding: 6px; }
 .close-x svg { width: 22px; height: 22px; display: block; }
-
 .drawer-body { flex: 1; overflow-y: auto; padding: 20px 24px; position: relative; z-index: 50; }
-
 .drawer-foot { padding: 16px 24px; border-top: 1px solid #f0f0f0; background: inherit; position: relative; z-index: 50; transition: border-color 0.4s ease; }
 
 /* Form */
 .field { margin-bottom: 18px; }
 .field label { display: block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #0f0f0f; margin-bottom: 6px; transition: color 0.4s ease; }
-.field input[type="text"] {
-  width: 100%;
-  padding: 11px 14px;
-  background: #f7f7f7;
-  border: none;
-  border-radius: 10px;
-  color: #0f0f0f;
-  font-size: 14px;
-  font-family: inherit;
-  outline: none;
-  transition: all 0.4s ease;
-}
+.field input[type="text"] { width: 100%; padding: 11px 14px; background: #f7f7f7; border: none; border-radius: 10px; color: #0f0f0f; font-size: 14px; font-family: inherit; outline: none; transition: all 0.4s ease; }
 .field input[type="text"]:focus { background: #eef2f0; }
-
 .cat-grid { display: grid; grid-template-columns: 1fr; gap: 6px; }
-.cat-opt {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
-  border-radius: 10px;
-  background: #f7f7f7;
-  color: #0f0f0f;
-  font-size: 12px;
-  font-weight: 500;
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
-  text-align: left;
-  width: 100%;
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
+.cat-opt { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 10px; background-color: #f7f7f7; color: #0f0f0f; font-size: 12px; font-weight: 500; text-align: left; width: 100%; transition: background-color 0.2s ease, color 0.2s ease; }
 .cat-opt svg { width: 18px; height: 18px; color: #888888; flex-shrink: 0; }
-.cat-opt:hover { background: #eef2f0; color: #153424; }
-.cat-opt:active { background: #eef2f0; color: #153424; }
-.cat-opt.active { background: #153424; color: #ffffff; }
+.cat-opt:hover { background-color: #eef2f0; color: #153424; }
+.cat-opt:active { background-color: #eef2f0; color: #153424; }
+.cat-opt.active { background-color: #153424; color: #ffffff; }
 .cat-opt.active svg { color: #ffffff; }
-.cat-opt.active:active { background: #1c4531; }
-
-body.secret-mode .cat-opt:not([data-mode="secret"]) { background: #1c4531; color: #ffffff; }
-body.secret-mode .cat-opt:not([data-mode="secret"]).active { background: #ffffff; color: #153424; }
+.cat-opt.active:active { background-color: #1c4531; }
+body.secret-mode .cat-opt:not([data-mode="secret"]) { background-color: #1c4531; color: #ffffff; }
+body.secret-mode .cat-opt:not([data-mode="secret"]).active { background-color: #ffffff; color: #153424; }
 body.secret-mode .cat-opt:not([data-mode="secret"]).active svg { color: #153424; }
-body.secret-mode .cat-opt:not([data-mode="secret"]):active { background: #2a5c41; }
-
-.cat-opt[data-mode="secret"] {
-  background: transparent;
-  color: #153424;
-  border: 1px solid #d4a548;
-}
+body.secret-mode .cat-opt:not([data-mode="secret"]):active { background-color: #2a5c41; }
+.cat-opt[data-mode="secret"] { background: transparent; color: #153424; border: 1px solid #d4a548; }
 .cat-opt[data-mode="secret"] svg { color: #d4a548; }
-.cat-opt[data-mode="secret"]:hover { border-color: #b8903d; background: #f4f6f5; }
-.cat-opt[data-mode="secret"].active { background: #153424; color: #ecdfb8; border-color: #153424; }
+.cat-opt[data-mode="secret"]:hover { border-color: #b8903d; background-color: #f4f6f5; }
+.cat-opt[data-mode="secret"].active { background-color: #153424; color: #ecdfb8; border-color: #153424; }
 .cat-opt[data-mode="secret"].active svg { color: #d4a548; }
-
 body.secret-mode .cat-opt[data-mode="secret"] { border-color: #ffffff; color: #ffffff; }
-body.secret-mode .cat-opt[data-mode="secret"].active { background: #ffffff; color: #153424; }
+body.secret-mode .cat-opt[data-mode="secret"].active { background-color: #ffffff; color: #153424; }
 body.secret-mode .cat-opt[data-mode="secret"].active svg { color: #153424; }
 
 .exp-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
-.exp-opt {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 4px;
-  border-radius: 10px;
-  background: #f7f7f7;
-  color: #555555;
-  font-size: 10px;
-  font-weight: 500;
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
-  gap: 4px;
-  text-align: center;
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
+.exp-opt { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 4px; border-radius: 10px; background-color: #f7f7f7; color: #555555; font-size: 10px; font-weight: 500; gap: 4px; text-align: center; transition: background-color 0.2s ease, color 0.2s ease; }
 .exp-opt svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-.exp-opt:hover { background: #eef2f0; color: #153424; }
-.exp-opt:active { background: #eef2f0; color: #153424; }
-.exp-opt.active { background: #153424; color: #ffffff; }
-.exp-opt.active:active { background: #1c4531; }
-
-body.secret-mode .exp-opt:active { background: #2a5c41; }
-body.secret-mode .exp-opt.active:active { background: #f0f0f0; }
+.exp-opt:hover { background-color: #eef2f0; color: #153424; }
+.exp-opt:active { background-color: #eef2f0; color: #153424; }
+.exp-opt.active { background-color: #153424; color: #ffffff; }
+.exp-opt.active:active { background-color: #1c4531; }
+body.secret-mode .exp-opt:active { background-color: #2a5c41; }
+body.secret-mode .exp-opt.active:active { background-color: #f0f0f0; }
 
 .slider-wrap { padding: 10px 0; }
-.slider-wrap input[type="range"] {
-  width: 100%;
-  height: 4px;
-  background: #eef2f0;
-  border-radius: 999px;
-  outline: none;
-  -webkit-appearance: none;
-  transition: background 0.4s ease;
-}
-.slider-wrap input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 18px; height: 18px;
-  border-radius: 50%;
-  background: #153424;
-  cursor: pointer;
-  border: 2px solid #ffffff;
-  transition: background 0.4s ease;
-}
-
+.slider-wrap input[type="range"] { width: 100%; height: 4px; background: #eef2f0; border-radius: 999px; outline: none; -webkit-appearance: none; transition: background 0.4s ease; }
+.slider-wrap input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #153424; cursor: pointer; border: 2px solid #ffffff; transition: background 0.4s ease; }
 .temp-val { font-size: 12px; font-weight: 600; color: #153424; background: rgba(21,52,36,.08); padding: 2px 10px; border-radius: 999px; transition: all 0.4s ease; }
 .temp-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
 .temp-legend { display: flex; justify-content: space-between; font-size: 10px; color: #888888; margin-top: 4px; }
 
-.file-drop {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 24px 16px;
-  border: 1px dashed #dcdcdc;
-  border-radius: 12px;
-  background: #ffffff;
-  cursor: pointer;
-  text-align: center;
-  position: relative;
-  transition: all 0.4s ease;
-}
+.file-drop { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px; border: 1px dashed #dcdcdc; border-radius: 12px; background: #ffffff; text-align: center; position: relative; transition: all 0.4s ease; }
 .file-drop:hover { border-color: #153424; }
 .file-drop svg { width: 24px; height: 24px; color: #888888; margin-bottom: 8px; }
 .file-drop span { font-size: 12px; color: #0f0f0f; font-weight: 500; transition: color 0.4s ease; }
@@ -912,27 +468,10 @@ body.secret-mode .exp-opt.active:active { background: #f0f0f0; }
 
 .photo-prev { position: relative; width: 100%; aspect-ratio: 4/3; border-radius: 12px; overflow: hidden; display: none; }
 .photo-prev img { width: 100%; height: 100%; object-fit: cover; }
-.photo-prev button {
-  position: absolute;
-  top: 10px; right: 10px;
-  width: 30px; height: 30px;
-  border-radius: 50%;
-  background: rgba(0,0,0,.7);
-  color: #ffffff;
-  border: none;
-  cursor: pointer;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+.photo-prev button { position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(0,0,0,.7); color: #ffffff; font-size: 18px; display: flex; align-items: center; justify-content: center; }
 
 /* Modales */
-.modal {
-  position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,.55);
-  display: flex; align-items: center; justify-content: center;
-  padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s;
-}
+.modal { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,.55); display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
 .modal.on { opacity: 1; pointer-events: auto; }
 .modal-box { background: #ffffff; border-radius: 18px; padding: 26px 22px; width: 100%; max-width: 380px; box-shadow: 0 20px 60px rgba(0,0,0,.2); transition: background-color 0.4s ease; }
 .modal-box h3 { font-family: 'Bodoni Moda', Georgia, serif; font-size: 22px; color: #153424; margin-bottom: 6px; font-weight: 500; transition: color 0.4s ease; }
@@ -942,21 +481,18 @@ body.secret-mode .exp-opt.active:active { background: #f0f0f0; }
 body.secret-mode .code-inp { background: #1c4531; color: #ffffff; }
 body.secret-mode .code-inp:focus { border-color: #ffffff; background: #2a5c41; }
 .modal-acts { display: flex; gap: 10px; margin-top: 16px; }
-.modal-acts button { flex: 1; padding: 11px; border-radius: 10px; font-family: inherit; font-weight: 500; font-size: 14px; border: none; cursor: pointer; transition: background-color 0.2s ease; }
-.modal-acts .primary { background: #153424; color: #ffffff; }
-.modal-acts .primary:active { background: #1c4531; }
-body.secret-mode .modal-acts .primary { background: #ffffff; color: #153424; }
-body.secret-mode .modal-acts .primary:active { background: #f0f0f0; }
-.modal-acts .secondary { background: #f7f7f7; color: #153424; }
-.modal-acts .secondary:active { background: #eef2f0; }
+.modal-acts [role="button"] { flex: 1; padding: 11px; border-radius: 10px; font-weight: 500; font-size: 14px; text-align: center; transition: background-color 0.2s ease; }
+.modal-acts .primary { background-color: #153424; color: #ffffff; }
+.modal-acts .primary:active { background-color: #1c4531; }
+body.secret-mode .modal-acts .primary { background-color: #ffffff; color: #153424; }
+body.secret-mode .modal-acts .primary:active { background-color: #f0f0f0; }
+.modal-acts .secondary { background-color: #f7f7f7; color: #153424; }
+.modal-acts .secondary:active { background-color: #eef2f0; }
 
 /* Lightbox */
-.lightbox {
-  position: fixed; inset: 0; z-index: 200; background: rgba(8,8,8,.96);
-  display: flex; opacity: 0; pointer-events: none; transition: opacity 0.3s; overflow-y: auto; padding: 24px 20px;
-}
+.lightbox { position: fixed; inset: 0; z-index: 200; background: rgba(8,8,8,.96); display: flex; opacity: 0; pointer-events: none; transition: opacity 0.3s; overflow-y: auto; padding: 24px 20px; }
 .lightbox.open { opacity: 1; pointer-events: auto; }
-.lb-close { position: fixed; top: 16px; left: 16px; width: 44px; height: 44px; background: transparent; border: none; color: rgba(255,255,255,.72); cursor: pointer; z-index: 210; display: flex; align-items: center; justify-content: center; }
+.lb-close { position: fixed; top: 16px; left: 16px; width: 44px; height: 44px; color: rgba(255,255,255,.72); z-index: 210; display: flex; align-items: center; justify-content: center; }
 .lb-close svg { width: 26px; height: 26px; }
 .lb-content { margin: auto; display: flex; flex-direction: column; align-items: center; gap: 24px; width: 100%; max-width: 900px; }
 .lb-content img { display: block; max-width: 90vw; max-height: 60vh; width: auto; height: auto; object-fit: contain; border-radius: 4px; box-shadow: 0 20px 50px rgba(0,0,0,.55); }
@@ -983,7 +519,7 @@ body.secret-mode .modal-acts .primary:active { background: #f0f0f0; }
     <div class="brand-wrap" id="brand-wrap">
       <div class="brand">
         <div class="brand-title">Plantouille</div>
-        <div class="brand-tagline">Cabinet du <span class="dr-secret" id="dr-btn">Dr</span>-Cactus</div>
+        <div class="brand-tagline">Cabinet du <span class="dr-secret" id="dr-btn" role="button" tabindex="0">Dr</span>-Cactus</div>
       </div>
     </div>
 
@@ -1092,32 +628,26 @@ body.secret-mode .modal-acts .primary:active { background: #f0f0f0; }
 
       <!-- Oiseau / Sorcière -->
       <div class="scene-bird" id="scene-bird">
-        <!-- Oiseau normal -->
         <svg class="bird-normal" viewBox="0 0 24 16" fill="currentColor">
-          <g class="bird-wing">
-            <path d="M12 8 C10 4 6 2 2 4 C4 6 8 8 12 8 Z" />
-          </g>
+          <g class="bird-wing"><path d="M12 8 C10 4 6 2 2 4 C4 6 8 8 12 8 Z" /></g>
           <path d="M2 8 C6 8 8 10 10 12 C12 12 14 10 16 8 C18 10 20 10 22 8 C20 6 18 6 16 8 C14 6 12 4 10 4 C8 4 6 6 2 8 Z"/>
         </svg>
-        <!-- Sorcière sur balai -->
         <svg class="bird-witch" viewBox="0 0 24 20" fill="currentColor">
           <path d="M2 16 L16 16 L16 18 L2 18 Z"/>
           <path d="M16 14 L24 12 L24 20 L16 18 Z"/>
           <path d="M10 14 L12 8 L16 12 Z"/>
           <path d="M10 8 L14 4 L16 8 Z"/>
-          <g class="bird-wing">
-            <path d="M10 12 L6 8 L4 12 L8 14 Z" fill="currentColor"/>
-          </g>
+          <g class="bird-wing"><path d="M10 12 L6 8 L4 12 L8 14 Z" fill="currentColor"/></g>
         </svg>
       </div>
 
       <!-- Cadenas -->
-      <button class="scene-lock" id="scene-lock-btn" type="button" aria-label="Accès admin">
+      <div class="scene-lock" id="scene-lock-btn" role="button" tabindex="0" aria-label="Accès admin">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="11" width="18" height="11" rx="2"/>
           <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
         </svg>
-      </button>
+      </div>
     </div>
 
     <div class="header-right">
@@ -1125,12 +655,12 @@ body.secret-mode .modal-acts .primary:active { background: #f0f0f0; }
         <strong id="stat-total">0</strong>
         spécimens
       </div>
-      <button id="lock-btn-mobile" class="lock-btn-mobile" type="button" aria-label="Accès admin">
+      <div id="lock-btn-mobile" class="lock-btn-mobile" role="button" tabindex="0" aria-label="Accès admin">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="11" width="18" height="11" rx="2"/>
           <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
         </svg>
-      </button>
+      </div>
     </div>
   </div>
 </header>
@@ -1138,117 +668,111 @@ body.secret-mode .modal-acts .primary:active { background: #f0f0f0; }
 <main>
   <div id="admin-bar" class="admin-bar">
     <span class="admin-tag">Mode admin</span>
-    <button id="add-btn" class="btn">
+    <div id="add-btn" class="btn" role="button" tabindex="0">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
       Ajouter
-    </button>
-    <button id="add-secret-btn" class="btn secret-add" style="display:none" type="button">
+    </div>
+    <div id="add-secret-btn" class="btn secret-add" style="display:none" role="button" tabindex="0">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
       Ajouter (secret)
-    </button>
-    <button id="lock-again" class="btn sec">Verrouiller</button>
+    </div>
+    <div id="lock-again" class="btn sec" role="button" tabindex="0">Verrouiller</div>
   </div>
 
   <div class="search">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-      <circle cx="11" cy="11" r="7"/>
-      <path d="M20 20l-3.5-3.5"/>
+      <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>
     </svg>
     <input id="search-input" type="search" placeholder="Rechercher une plante, famille, origine…" autocomplete="off">
   </div>
 
-  <!-- Bouton Retour au mode normal -->
-  <button id="exit-secret-btn" class="exit-secret">
+  <div id="exit-secret-btn" class="exit-secret" role="button" tabindex="0">
     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     Retour au jour
-  </button>
+  </div>
 
   <div id="chips-step">
     <div class="chips-row" id="chips-row">
       <!-- Normal Chips -->
-      <button class="chip active" data-cat="all" data-mode="normal">
+      <div class="chip active" data-cat="all" data-mode="normal" role="button" tabindex="0">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/></svg>
         Toutes
-      </button>
-      <button class="chip" data-cat="Cactus" data-mode="normal">
+      </div>
+      <div class="chip" data-cat="Cactus" data-mode="normal" role="button" tabindex="0">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V6a2 2 0 0 1 4 0v16 M12 10h-3a2 2 0 0 1-2-2V5a2 2 0 0 1 4 0v3 M16 14h3a2 2 0 0 0 2-2v-3a2 2 0 0 0-4 0v3" /></svg>
         Cactus
-      </button>
-      <button class="chip" data-cat="Succulentes" data-mode="normal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22L8 12 M12 22L16 12 M12 22L4 16 M12 22L20 16 M12 22L12 8 M12 22L6 6 M12 22L18 6" /></svg>
+      </div>
+      <div class="chip" data-cat="Succulentes" data-mode="normal" role="button" tabindex="0">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 C12 18 8 10 4 6 C8 8 10 12 12 16 C14 12 16 8 20 6 C16 10 12 18 12 22 Z M12 22 C10 18 4 14 2 12 C6 12 8 14 10 16 C8 12 6 6 8 2 C10 6 12 12 12 16 M12 22 C14 18 20 14 22 12 C18 12 16 14 14 16 C16 12 18 6 16 2 C14 6 12 12 12 16" /></svg>
         Succulentes
-      </button>
-      <button class="chip" data-cat="Mesembryanthemum" data-mode="normal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22C8 22 4 18 4 14c0-4 4-6 8-6s8 2 8 6c0 4-4 8-8 8z M12 22V8 M12 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" /></svg>
+      </div>
+      <div class="chip" data-cat="Mesembryanthemum" data-mode="normal" role="button" tabindex="0">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 c-4 0-7-3-7-7 v-2 c0-4 3-7 7-7 s7 3 7 7 v2 c0 4-3 7-7 7 z M12 10 v6 M5 15 h14" /></svg>
         Mesembryanthemum
-      </button>
-      <button class="chip" data-cat="Tropicales" data-mode="normal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12 M12 12C8 12 4 8 6 4c4-2 6 4 6 8zm0 0c4 0 8-4 6-8-4-2-6 4-6 8z M12 12V2" /></svg>
+      </div>
+      <div class="chip" data-cat="Tropicales" data-mode="normal" role="button" tabindex="0">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 V12 C12 6 8 4 4 6 C6 8 8 10 10 12 M12 14 C16 14 20 12 20 8 C18 10 16 12 14 12 M12 18 C14 18 18 18 20 14 C18 16 14 16 12 16" /></svg>
         Tropicales
-      </button>
-      <button class="chip" data-cat="Caudiciformes" data-mode="normal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 22a3 3 0 0 1-3-3v-4a5 5 0 0 1 10 0v4a3 3 0 0 1-3 3H9z M12 10V4 M12 8l-2-2 M12 8l2-2" /></svg>
+      </div>
+      <div class="chip" data-cat="Caudiciformes" data-mode="normal" role="button" tabindex="0">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 c-5 0-8-4-8-8 s3-6 8-6 8 2 8 6-3 8-8 8 z M12 8 V2 M10 4 l2-2 2 2" /></svg>
         Caudiciformes
-      </button>
+      </div>
 
       <!-- Secret Chips -->
-      <button class="chip secret active" data-cat="all" data-mode="secret" style="display:none">
+      <div class="chip secret active" data-cat="all" data-mode="secret" role="button" tabindex="0" style="display:none">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/></svg>
         Toutes
-      </button>
-      <button class="chip secret" data-cat="Sorcières" data-mode="secret" style="display:none">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16l-5-5-3-10-3 10-5 5z" /></svg>
+      </div>
+      <div class="chip secret" data-cat="Sorcières" data-mode="secret" role="button" tabindex="0" style="display:none">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 L20 20 H4 Z M6 16 H18" /></svg>
         Sorcières
-      </button>
-      <!-- PEYOTL (Chamanique) -->
-      <button class="chip secret" data-cat="Chamanique" data-mode="secret" style="display:none">
+      </div>
+      <div class="chip secret" data-cat="Chamanique" data-mode="secret" role="button" tabindex="0" style="display:none">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="9" />
           <circle cx="12" cy="12" r="2.5" />
-          <path d="M12 3v5 M12 16v5 M3 12h5 M16 12h5 M5.6 5.6l3.5 3.5 M14.9 14.9l3.5 3.5 M18.4 5.6l-3.5 3.5 M9.1 14.9l-3.5 3.5" />
-          <circle cx="8" cy="6" r="1" fill="currentColor"/>
-          <circle cx="16" cy="6" r="1" fill="currentColor"/>
-          <circle cx="6" cy="8" r="1" fill="currentColor"/>
-          <circle cx="18" cy="8" r="1" fill="currentColor"/>
-          <circle cx="6" cy="16" r="1" fill="currentColor"/>
-          <circle cx="18" cy="16" r="1" fill="currentColor"/>
-          <circle cx="8" cy="18" r="1" fill="currentColor"/>
-          <circle cx="16" cy="18" r="1" fill="currentColor"/>
+          <circle cx="12" cy="6" r="1.5" />
+          <circle cx="12" cy="18" r="1.5" />
+          <circle cx="6" cy="12" r="1.5" />
+          <circle cx="18" cy="12" r="1.5" />
+          <circle cx="7.7" cy="7.7" r="1.5" />
+          <circle cx="16.3" cy="7.7" r="1.5" />
+          <circle cx="7.7" cy="16.3" r="1.5" />
+          <circle cx="16.3" cy="16.3" r="1.5" />
         </svg>
         Chamanique
-      </button>
-      <!-- FEUILLE DE CANNABIS (5 pointes) -->
-      <button class="chip secret" data-cat="Cannabis" data-mode="secret" style="display:none">
+      </div>
+      <div class="chip secret" data-cat="Cannabis" data-mode="secret" role="button" tabindex="0" style="display:none">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 22 V12" />
-          <path d="M12 14 C9 14 6 15 4 17 C6 16 8 15 10 13 Z" />
-          <path d="M12 14 C15 14 18 15 20 17 C18 16 16 15 14 13 Z" />
-          <path d="M12 12 C8 12 4 13 2 15 C4 13 7 12 10 10 Z" />
-          <path d="M12 12 C16 12 20 13 22 15 C20 13 17 12 14 10 Z" />
-          <path d="M12 10 C10 8 8 6 7 3 C9 5 10 7 12 9 Z" />
-          <path d="M12 10 C14 8 16 6 17 3 C15 5 14 7 12 9 Z" />
+          <path d="M12 12 L10 7 L11 3 L12 5 L13 3 L14 7 Z" />
+          <path d="M12 12 L6 11 L3 8 L6 8 L4 4 L7 7 Z" />
+          <path d="M12 12 L18 11 L21 8 L18 8 L20 4 L17 7 Z" />
+          <path d="M12 15 L7 16 L5 19 L8 17 Z" />
+          <path d="M12 15 L17 16 L19 19 L16 17 Z" />
         </svg>
         Cannabis
-      </button>
-      <button class="chip secret" data-cat="Champignons" data-mode="secret" style="display:none">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-8h-3v8h6v-8h-3zm-8-8c0-4.4 3.6-8 8-8s8 3.6 8 8H4z" /></svg>
+      </div>
+      <div class="chip secret" data-cat="Champignons" data-mode="secret" role="button" tabindex="0" style="display:none">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 a8 8 0 0 1 16 0 Z M9 12 v6 a3 3 0 0 0 6 0 v-6" /></svg>
         Champignons
-      </button>
+      </div>
     </div>
   </div>
 
   <div id="species-step" class="species-step">
     <div class="species-row">
-      <button id="back-to-chips" class="back-btn">
+      <div id="back-to-chips" class="back-btn" role="button" tabindex="0">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         Rubriques
-      </button>
+      </div>
     </div>
     <div class="sel-wrap" id="filter-species-wrap">
-      <button class="sel-trigger placeholder" id="filter-species-btn">
+      <div class="sel-trigger placeholder" id="filter-species-btn" role="button" tabindex="0">
         <span class="lbl">Sélectionner un genre…</span>
         <span class="sel-arrow"></span>
-      </button>
+      </div>
       <div class="sel-dd" id="filter-species-dd"></div>
     </div>
     <div class="custom-field">
@@ -1267,9 +791,9 @@ body.secret-mode .modal-acts .primary:active { background: #f0f0f0; }
 
   <div class="drawer-head">
     <h2 id="drawer-title">Nouveau spécimen</h2>
-    <button id="close-drawer" class="close-x">
+    <div id="close-drawer" class="close-x" role="button" tabindex="0">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
-    </button>
+    </div>
   </div>
 
   <form id="plant-form" style="flex:1;display:flex;flex-direction:column;overflow:hidden">
@@ -1282,73 +806,69 @@ body.secret-mode .modal-acts .primary:active { background: #f0f0f0; }
       <div class="field">
         <label>Rubrique *</label>
         <div class="cat-grid" id="cat-picker">
-          <button type="button" class="cat-opt" data-cat="Cactus" data-mode="normal">
+          <div class="cat-opt" data-cat="Cactus" data-mode="normal" role="button" tabindex="0">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V6a2 2 0 0 1 4 0v16 M12 10h-3a2 2 0 0 1-2-2V5a2 2 0 0 1 4 0v3 M16 14h3a2 2 0 0 0 2-2v-3a2 2 0 0 0-4 0v3" /></svg>
             Cactus
-          </button>
-          <button type="button" class="cat-opt" data-cat="Succulentes" data-mode="normal">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22L8 12 M12 22L16 12 M12 22L4 16 M12 22L20 16 M12 22L12 8 M12 22L6 6 M12 22L18 6" /></svg>
+          </div>
+          <div class="cat-opt" data-cat="Succulentes" data-mode="normal" role="button" tabindex="0">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 C12 18 8 10 4 6 C8 8 10 12 12 16 C14 12 16 8 20 6 C16 10 12 18 12 22 Z M12 22 C10 18 4 14 2 12 C6 12 8 14 10 16 C8 12 6 6 8 2 C10 6 12 12 12 16 M12 22 C14 18 20 14 22 12 C18 12 16 14 14 16 C16 12 18 6 16 2 C14 6 12 12 12 16" /></svg>
             Succulentes
-          </button>
-          <button type="button" class="cat-opt" data-cat="Mesembryanthemum" data-mode="normal">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22C8 22 4 18 4 14c0-4 4-6 8-6s8 2 8 6c0 4-4 8-8 8z M12 22V8 M12 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" /></svg>
+          </div>
+          <div class="cat-opt" data-cat="Mesembryanthemum" data-mode="normal" role="button" tabindex="0">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 c-4 0-7-3-7-7 v-2 c0-4 3-7 7-7 s7 3 7 7 v2 c0 4-3 7-7 7 z M12 10 v6 M5 15 h14" /></svg>
             Mesembryanthemum
-          </button>
-          <button type="button" class="cat-opt" data-cat="Tropicales" data-mode="normal">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12 M12 12C8 12 4 8 6 4c4-2 6 4 6 8zm0 0c4 0 8-4 6-8-4-2-6 4-6 8z M12 12V2" /></svg>
+          </div>
+          <div class="cat-opt" data-cat="Tropicales" data-mode="normal" role="button" tabindex="0">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 V12 C12 6 8 4 4 6 C6 8 8 10 10 12 M12 14 C16 14 20 12 20 8 C18 10 16 12 14 12 M12 18 C14 18 18 18 20 14 C18 16 14 16 12 16" /></svg>
             Tropicales
-          </button>
-          <button type="button" class="cat-opt" data-cat="Caudiciformes" data-mode="normal">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 22a3 3 0 0 1-3-3v-4a5 5 0 0 1 10 0v4a3 3 0 0 1-3 3H9z M12 10V4 M12 8l-2-2 M12 8l2-2" /></svg>
+          </div>
+          <div class="cat-opt" data-cat="Caudiciformes" data-mode="normal" role="button" tabindex="0">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 c-5 0-8-4-8-8 s3-6 8-6 8 2 8 6-3 8-8 8 z M12 8 V2 M10 4 l2-2 2 2" /></svg>
             Caudiciformes
-          </button>
+          </div>
 
-          <button type="button" class="cat-opt" data-cat="Sorcières" data-mode="secret">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16l-5-5-3-10-3 10-5 5z" /></svg>
+          <div class="cat-opt" data-cat="Sorcières" data-mode="secret" role="button" tabindex="0">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 L20 20 H4 Z M6 16 H18" /></svg>
             Sorcières
-          </button>
-          <!-- PEYOTL (Chamanique) -->
-          <button type="button" class="cat-opt" data-cat="Chamanique" data-mode="secret">
+          </div>
+          <div class="cat-opt" data-cat="Chamanique" data-mode="secret" role="button" tabindex="0">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="9" />
               <circle cx="12" cy="12" r="2.5" />
-              <path d="M12 3v5 M12 16v5 M3 12h5 M16 12h5 M5.6 5.6l3.5 3.5 M14.9 14.9l3.5 3.5 M18.4 5.6l-3.5 3.5 M9.1 14.9l-3.5 3.5" />
-              <circle cx="8" cy="6" r="1" fill="currentColor"/>
-              <circle cx="16" cy="6" r="1" fill="currentColor"/>
-              <circle cx="6" cy="8" r="1" fill="currentColor"/>
-              <circle cx="18" cy="8" r="1" fill="currentColor"/>
-              <circle cx="6" cy="16" r="1" fill="currentColor"/>
-              <circle cx="18" cy="16" r="1" fill="currentColor"/>
-              <circle cx="8" cy="18" r="1" fill="currentColor"/>
-              <circle cx="16" cy="18" r="1" fill="currentColor"/>
+              <circle cx="12" cy="6" r="1.5" />
+              <circle cx="12" cy="18" r="1.5" />
+              <circle cx="6" cy="12" r="1.5" />
+              <circle cx="18" cy="12" r="1.5" />
+              <circle cx="7.7" cy="7.7" r="1.5" />
+              <circle cx="16.3" cy="7.7" r="1.5" />
+              <circle cx="7.7" cy="16.3" r="1.5" />
+              <circle cx="16.3" cy="16.3" r="1.5" />
             </svg>
             Chamanique
-          </button>
-          <!-- FEUILLE DE CANNABIS (5 pointes) -->
-          <button type="button" class="cat-opt" data-cat="Cannabis" data-mode="secret">
+          </div>
+          <div class="cat-opt" data-cat="Cannabis" data-mode="secret" role="button" tabindex="0">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 22 V12" />
-              <path d="M12 14 C9 14 6 15 4 17 C6 16 8 15 10 13 Z" />
-              <path d="M12 14 C15 14 18 15 20 17 C18 16 16 15 14 13 Z" />
-              <path d="M12 12 C8 12 4 13 2 15 C4 13 7 12 10 10 Z" />
-              <path d="M12 12 C16 12 20 13 22 15 C20 13 17 12 14 10 Z" />
-              <path d="M12 10 C10 8 8 6 7 3 C9 5 10 7 12 9 Z" />
-              <path d="M12 10 C14 8 16 6 17 3 C15 5 14 7 12 9 Z" />
+              <path d="M12 12 L10 7 L11 3 L12 5 L13 3 L14 7 Z" />
+              <path d="M12 12 L6 11 L3 8 L6 8 L4 4 L7 7 Z" />
+              <path d="M12 12 L18 11 L21 8 L18 8 L20 4 L17 7 Z" />
+              <path d="M12 15 L7 16 L5 19 L8 17 Z" />
+              <path d="M12 15 L17 16 L19 19 L16 17 Z" />
             </svg>
             Cannabis
-          </button>
-          <button type="button" class="cat-opt" data-cat="Champignons" data-mode="secret">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-8h-3v8h6v-8h-3zm-8-8c0-4.4 3.6-8 8-8s8 3.6 8 8H4z" /></svg>
+          </div>
+          <div class="cat-opt" data-cat="Champignons" data-mode="secret" role="button" tabindex="0">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 a8 8 0 0 1 16 0 Z M9 12 v6 a3 3 0 0 0 6 0 v-6" /></svg>
             Champignons
-          </button>
+          </div>
         </div>
 
         <div id="drawer-species-step" style="display:none;margin-top:10px">
           <div class="sel-wrap" id="drawer-species-wrap">
-            <button type="button" class="sel-trigger placeholder" id="drawer-species-btn">
+            <div class="sel-trigger placeholder" id="drawer-species-btn" role="button" tabindex="0">
               <span class="lbl">Sélectionner un genre…</span>
               <span class="sel-arrow"></span>
-            </button>
+            </div>
             <div class="sel-dd" id="drawer-species-dd"></div>
           </div>
           <div class="custom-field">
@@ -1362,35 +882,35 @@ body.secret-mode .modal-acts .primary:active { background: #f0f0f0; }
       <div class="field">
         <label>Substrat</label>
         <div class="sel-wrap" id="substrate-wrap">
-          <button type="button" class="sel-trigger placeholder" id="substrate-btn">
+          <div class="sel-trigger placeholder" id="substrate-btn" role="button" tabindex="0">
             <span class="lbl">Sélectionner un substrat…</span>
             <span class="sel-arrow"></span>
-          </button>
+          </div>
           <div class="sel-dd" id="substrate-dd">
             <div class="opt-group" data-mode="normal">Cactus & Succulentes</div>
-            <div class="opt" data-val="Substrat 3 tiers (Terreau, sable, pouzzolane)" data-mode="normal">Substrat 3 tiers</div>
-            <div class="opt" data-val="Mélange minéral pur (Ponce, pouzzolane, akadama)" data-mode="normal">Mélange minéral pur</div>
+            <div class="opt" data-val="Substrat 3 tiers (Terreau, sable, pouzzolane)" data-mode="normal" role="button" tabindex="0">Substrat 3 tiers</div>
+            <div class="opt" data-val="Mélange minéral pur (Ponce, pouzzolane, akadama)" data-mode="normal" role="button" tabindex="0">Mélange minéral pur</div>
             <div class="opt-group" data-mode="normal">Mesembryanthemum</div>
-            <div class="opt" data-val="100% Minéral (Sable grossier, pouzzolane)" data-mode="normal">100% Minéral</div>
+            <div class="opt" data-val="100% Minéral (Sable grossier, pouzzolane)" data-mode="normal" role="button" tabindex="0">100% Minéral</div>
             <div class="opt-group" data-mode="normal">Tropicales</div>
-            <div class="opt" data-val="Terreau riche, perlite & écorces de pin" data-mode="normal">Terreau riche, perlite</div>
-            <div class="opt" data-val="Mélange type Jungle (Terreau, tourbe, coco, perlite)" data-mode="normal">Mélange type Jungle</div>
+            <div class="opt" data-val="Terreau riche, perlite & écorces de pin" data-mode="normal" role="button" tabindex="0">Terreau riche, perlite</div>
+            <div class="opt" data-val="Mélange type Jungle (Terreau, tourbe, coco, perlite)" data-mode="normal" role="button" tabindex="0">Mélange type Jungle</div>
             <div class="opt-group" data-mode="normal">Caudiciformes</div>
-            <div class="opt" data-val="Substrat hautement drainant (Ponce, terreau tamisé)" data-mode="normal">Substrat hautement drainant</div>
+            <div class="opt" data-val="Substrat hautement drainant (Ponce, terreau tamisé)" data-mode="normal" role="button" tabindex="0">Substrat hautement drainant</div>
             <div class="opt-group" data-mode="normal">Universel</div>
-            <div class="opt" data-val="Terreau horticole standard avec drainage" data-mode="normal">Terreau horticole standard</div>
+            <div class="opt" data-val="Terreau horticole standard avec drainage" data-mode="normal" role="button" tabindex="0">Terreau horticole standard</div>
 
             <div class="opt-group" data-mode="secret">Rubriques secrètes</div>
-            <div class="opt" data-val="Sol forestier humide" data-mode="secret">Sol forestier humide</div>
-            <div class="opt" data-val="Fumier composté & litière" data-mode="secret">Fumier composté & litière</div>
-            <div class="opt" data-val="Bois mort & copeaux" data-mode="secret">Bois mort & copeaux</div>
-            <div class="opt" data-val="Terreau sombre enrichi en humus" data-mode="secret">Terreau sombre enrichi</div>
-            <div class="opt" data-val="Sol acide de sous-bois" data-mode="secret">Sol acide de sous-bois</div>
-            <div class="opt" data-val="Sable & terre de bruyère" data-mode="secret">Sable & terre de bruyère</div>
-            <div class="opt" data-val="Prairies herbeuses" data-mode="secret">Prairies herbeuses</div>
-            <div class="opt" data-val="Sol tropical humide" data-mode="secret">Sol tropical humide</div>
-            <div class="opt" data-val="Terreau riche & perlite" data-mode="secret">Terreau riche & perlite</div>
-            <div class="opt" data-val="Mélange aéré (coco, perlite, lombricompost)" data-mode="secret">Mélange aéré</div>
+            <div class="opt" data-val="Sol forestier humide" data-mode="secret" role="button" tabindex="0">Sol forestier humide</div>
+            <div class="opt" data-val="Fumier composté & litière" data-mode="secret" role="button" tabindex="0">Fumier composté & litière</div>
+            <div class="opt" data-val="Bois mort & copeaux" data-mode="secret" role="button" tabindex="0">Bois mort & copeaux</div>
+            <div class="opt" data-val="Terreau sombre enrichi en humus" data-mode="secret" role="button" tabindex="0">Terreau sombre enrichi</div>
+            <div class="opt" data-val="Sol acide de sous-bois" data-mode="secret" role="button" tabindex="0">Sol acide de sous-bois</div>
+            <div class="opt" data-val="Sable & terre de bruyère" data-mode="secret" role="button" tabindex="0">Sable & terre de bruyère</div>
+            <div class="opt" data-val="Prairies herbeuses" data-mode="secret" role="button" tabindex="0">Prairies herbeuses</div>
+            <div class="opt" data-val="Sol tropical humide" data-mode="secret" role="button" tabindex="0">Sol tropical humide</div>
+            <div class="opt" data-val="Terreau riche & perlite" data-mode="secret" role="button" tabindex="0">Terreau riche & perlite</div>
+            <div class="opt" data-val="Mélange aéré (coco, perlite, lombricompost)" data-mode="secret" role="button" tabindex="0">Mélange aéré</div>
           </div>
           <input type="hidden" id="p-substrate" value="">
         </div>
@@ -1399,59 +919,59 @@ body.secret-mode .modal-acts .primary:active { background: #f0f0f0; }
       <div class="field">
         <label>Famille botanique</label>
         <div class="sel-wrap" id="family-wrap">
-          <button type="button" class="sel-trigger placeholder" id="family-btn">
+          <div class="sel-trigger placeholder" id="family-btn" role="button" tabindex="0">
             <span class="lbl">Sélectionner une famille…</span>
             <span class="sel-arrow"></span>
-          </button>
+          </div>
           <div class="sel-dd" id="family-dd">
-            <div class="opt" data-val="Acanthaceae" data-mode="normal">Acanthaceae</div>
-            <div class="opt" data-val="Aizoaceae" data-mode="normal">Aizoaceae</div>
-            <div class="opt" data-val="Amanitaceae" data-mode="normal">Amanitaceae</div>
-            <div class="opt" data-val="Apocynaceae" data-mode="normal">Apocynaceae</div>
-            <div class="opt" data-val="Araceae" data-mode="normal">Araceae</div>
-            <div class="opt" data-val="Asparagaceae" data-mode="normal">Asparagaceae</div>
-            <div class="opt" data-val="Asphodelaceae" data-mode="normal">Asphodelaceae</div>
-            <div class="opt" data-val="Cactaceae" data-mode="normal">Cactaceae</div>
-            <div class="opt" data-val="Crassulaceae" data-mode="normal">Crassulaceae</div>
-            <div class="opt" data-val="Euphorbiaceae" data-mode="normal">Euphorbiaceae</div>
-            <div class="opt" data-val="Hymenogastraceae" data-mode="normal">Hymenogastraceae</div>
-            <div class="opt" data-val="Lamiaceae" data-mode="normal">Lamiaceae</div>
-            <div class="opt" data-val="Malpighiaceae" data-mode="normal">Malpighiaceae</div>
-            <div class="opt" data-val="Moraceae" data-mode="normal">Moraceae</div>
-            <div class="opt" data-val="Orchidaceae" data-mode="normal">Orchidaceae</div>
-            <div class="opt" data-val="Portulacaceae" data-mode="normal">Portulacaceae</div>
-            <div class="opt" data-val="Solanaceae" data-mode="normal">Solanaceae</div>
-            <div class="opt" data-val="Zingiberaceae" data-mode="normal">Zingiberaceae</div>
+            <div class="opt" data-val="Acanthaceae" data-mode="normal" role="button" tabindex="0">Acanthaceae</div>
+            <div class="opt" data-val="Aizoaceae" data-mode="normal" role="button" tabindex="0">Aizoaceae</div>
+            <div class="opt" data-val="Amanitaceae" data-mode="normal" role="button" tabindex="0">Amanitaceae</div>
+            <div class="opt" data-val="Apocynaceae" data-mode="normal" role="button" tabindex="0">Apocynaceae</div>
+            <div class="opt" data-val="Araceae" data-mode="normal" role="button" tabindex="0">Araceae</div>
+            <div class="opt" data-val="Asparagaceae" data-mode="normal" role="button" tabindex="0">Asparagaceae</div>
+            <div class="opt" data-val="Asphodelaceae" data-mode="normal" role="button" tabindex="0">Asphodelaceae</div>
+            <div class="opt" data-val="Cactaceae" data-mode="normal" role="button" tabindex="0">Cactaceae</div>
+            <div class="opt" data-val="Crassulaceae" data-mode="normal" role="button" tabindex="0">Crassulaceae</div>
+            <div class="opt" data-val="Euphorbiaceae" data-mode="normal" role="button" tabindex="0">Euphorbiaceae</div>
+            <div class="opt" data-val="Hymenogastraceae" data-mode="normal" role="button" tabindex="0">Hymenogastraceae</div>
+            <div class="opt" data-val="Lamiaceae" data-mode="normal" role="button" tabindex="0">Lamiaceae</div>
+            <div class="opt" data-val="Malpighiaceae" data-mode="normal" role="button" tabindex="0">Malpighiaceae</div>
+            <div class="opt" data-val="Moraceae" data-mode="normal" role="button" tabindex="0">Moraceae</div>
+            <div class="opt" data-val="Orchidaceae" data-mode="normal" role="button" tabindex="0">Orchidaceae</div>
+            <div class="opt" data-val="Portulacaceae" data-mode="normal" role="button" tabindex="0">Portulacaceae</div>
+            <div class="opt" data-val="Solanaceae" data-mode="normal" role="button" tabindex="0">Solanaceae</div>
+            <div class="opt" data-val="Zingiberaceae" data-mode="normal" role="button" tabindex="0">Zingiberaceae</div>
 
             <div class="opt-group" data-mode="secret">Occulte & champignons</div>
-            <div class="opt" data-val="Ranunculaceae" data-mode="secret">Ranunculaceae</div>
-            <div class="opt" data-val="Plantaginaceae" data-mode="secret">Plantaginaceae</div>
-            <div class="opt" data-val="Apiaceae" data-mode="secret">Apiaceae</div>
-            <div class="opt" data-val="Asteraceae" data-mode="secret">Asteraceae</div>
-            <div class="opt" data-val="Papaveraceae" data-mode="secret">Papaveraceae</div>
-            <div class="opt" data-val="Taxaceae" data-mode="secret">Taxaceae</div>
-            <div class="opt" data-val="Verbenaceae" data-mode="secret">Verbenaceae</div>
-            <div class="opt" data-val="Adoxaceae" data-mode="secret">Adoxaceae</div>
-            <div class="opt" data-val="Loganiaceae" data-mode="secret">Loganiaceae</div>
-            <div class="opt" data-val="Colchicaceae" data-mode="secret">Colchicaceae</div>
-            <div class="opt" data-val="Rubiaceae" data-mode="secret">Rubiaceae</div>
-            <div class="opt" data-val="Zygophyllaceae" data-mode="secret">Zygophyllaceae</div>
-            <div class="opt" data-val="Erythroxylaceae" data-mode="secret">Erythroxylaceae</div>
-            <div class="opt" data-val="Myristicaceae" data-mode="secret">Myristicaceae</div>
-            <div class="opt" data-val="Acoraceae" data-mode="secret">Acoraceae</div>
-            <div class="opt" data-val="Fabaceae" data-mode="secret">Fabaceae</div>
-            <div class="opt" data-val="Cannabaceae" data-mode="secret">Cannabaceae</div>
-            <div class="opt" data-val="Lythraceae" data-mode="secret">Lythraceae</div>
-            <div class="opt" data-val="Agaricaceae" data-mode="secret">Agaricaceae</div>
-            <div class="opt" data-val="Polyporaceae" data-mode="secret">Polyporaceae</div>
-            <div class="opt" data-val="Boletaceae" data-mode="secret">Boletaceae</div>
-            <div class="opt" data-val="Morchellaceae" data-mode="secret">Morchellaceae</div>
-            <div class="opt" data-val="Clavicipitaceae" data-mode="secret">Clavicipitaceae</div>
-            <div class="opt" data-val="Pleurotaceae" data-mode="secret">Pleurotaceae</div>
-            <div class="opt" data-val="Strophariaceae" data-mode="secret">Strophariaceae</div>
-            <div class="opt" data-val="Ganodermataceae" data-mode="secret">Ganodermataceae</div>
-            <div class="opt" data-val="Hericiaceae" data-mode="secret">Hericiaceae</div>
-            <div class="opt" data-val="Psathyrellaceae" data-mode="secret">Psathyrellaceae</div>
+            <div class="opt" data-val="Ranunculaceae" data-mode="secret" role="button" tabindex="0">Ranunculaceae</div>
+            <div class="opt" data-val="Plantaginaceae" data-mode="secret" role="button" tabindex="0">Plantaginaceae</div>
+            <div class="opt" data-val="Apiaceae" data-mode="secret" role="button" tabindex="0">Apiaceae</div>
+            <div class="opt" data-val="Asteraceae" data-mode="secret" role="button" tabindex="0">Asteraceae</div>
+            <div class="opt" data-val="Papaveraceae" data-mode="secret" role="button" tabindex="0">Papaveraceae</div>
+            <div class="opt" data-val="Taxaceae" data-mode="secret" role="button" tabindex="0">Taxaceae</div>
+            <div class="opt" data-val="Verbenaceae" data-mode="secret" role="button" tabindex="0">Verbenaceae</div>
+            <div class="opt" data-val="Adoxaceae" data-mode="secret" role="button" tabindex="0">Adoxaceae</div>
+            <div class="opt" data-val="Loganiaceae" data-mode="secret" role="button" tabindex="0">Loganiaceae</div>
+            <div class="opt" data-val="Colchicaceae" data-mode="secret" role="button" tabindex="0">Colchicaceae</div>
+            <div class="opt" data-val="Rubiaceae" data-mode="secret" role="button" tabindex="0">Rubiaceae</div>
+            <div class="opt" data-val="Zygophyllaceae" data-mode="secret" role="button" tabindex="0">Zygophyllaceae</div>
+            <div class="opt" data-val="Erythroxylaceae" data-mode="secret" role="button" tabindex="0">Erythroxylaceae</div>
+            <div class="opt" data-val="Myristicaceae" data-mode="secret" role="button" tabindex="0">Myristicaceae</div>
+            <div class="opt" data-val="Acoraceae" data-mode="secret" role="button" tabindex="0">Acoraceae</div>
+            <div class="opt" data-val="Fabaceae" data-mode="secret" role="button" tabindex="0">Fabaceae</div>
+            <div class="opt" data-val="Cannabaceae" data-mode="secret" role="button" tabindex="0">Cannabaceae</div>
+            <div class="opt" data-val="Lythraceae" data-mode="secret" role="button" tabindex="0">Lythraceae</div>
+            <div class="opt" data-val="Agaricaceae" data-mode="secret" role="button" tabindex="0">Agaricaceae</div>
+            <div class="opt" data-val="Polyporaceae" data-mode="secret" role="button" tabindex="0">Polyporaceae</div>
+            <div class="opt" data-val="Boletaceae" data-mode="secret" role="button" tabindex="0">Boletaceae</div>
+            <div class="opt" data-val="Morchellaceae" data-mode="secret" role="button" tabindex="0">Morchellaceae</div>
+            <div class="opt" data-val="Clavicipitaceae" data-mode="secret" role="button" tabindex="0">Clavicipitaceae</div>
+            <div class="opt" data-val="Pleurotaceae" data-mode="secret" role="button" tabindex="0">Pleurotaceae</div>
+            <div class="opt" data-val="Strophariaceae" data-mode="secret" role="button" tabindex="0">Strophariaceae</div>
+            <div class="opt" data-val="Ganodermataceae" data-mode="secret" role="button" tabindex="0">Ganodermataceae</div>
+            <div class="opt" data-val="Hericiaceae" data-mode="secret" role="button" tabindex="0">Hericiaceae</div>
+            <div class="opt" data-val="Psathyrellaceae" data-mode="secret" role="button" tabindex="0">Psathyrellaceae</div>
           </div>
           <input type="hidden" id="p-family" value="">
         </div>
@@ -1464,18 +984,18 @@ body.secret-mode .modal-acts .primary:active { background: #f0f0f0; }
       <div class="field">
         <label>Exposition</label>
         <div class="exp-grid" id="exp-picker">
-          <button type="button" class="exp-opt" data-exp="Plein soleil">
+          <div class="exp-opt" data-exp="Plein soleil" role="button" tabindex="0">
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg>
             Soleil
-          </button>
-          <button type="button" class="exp-opt" data-exp="Mi-ombre">
+          </div>
+          <div class="exp-opt" data-exp="Mi-ombre" role="button" tabindex="0">
             <svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3.5"/><path d="M8 2.5v1.5M2.5 8H4M4.2 4.2l1 1M11.8 4.2l-1 1M4.2 11.8l1-1"/><path d="M18 19h-5a2.5 2.5 0 0 1 0-5 4 4 0 0 1 7.5-1A2.5 2.5 0 0 1 18 19z"/></svg>
             Mi-ombre
-          </button>
-          <button type="button" class="exp-opt" data-exp="Ombre">
+          </div>
+          <div class="exp-opt" data-exp="Ombre" role="button" tabindex="0">
             <svg viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
             Ombre
-          </button>
+          </div>
         </div>
         <input type="hidden" id="p-exp" value="">
       </div>
@@ -1496,38 +1016,38 @@ body.secret-mode .modal-acts .primary:active { background: #f0f0f0; }
       <div class="field">
         <label>Origine géographique</label>
         <div class="sel-wrap" id="origin-wrap">
-          <button type="button" class="sel-trigger placeholder" id="origin-btn">
+          <div class="sel-trigger placeholder" id="origin-btn" role="button" tabindex="0">
             <span class="lbl">Sélectionner une région…</span>
             <span class="sel-arrow"></span>
-          </button>
+          </div>
           <div class="sel-dd" id="origin-dd">
             <div class="opt-group">Afrique</div>
-            <div class="opt" data-val="Afrique du Nord">Afrique du Nord</div>
-            <div class="opt" data-val="Afrique de l'Ouest">Afrique de l'Ouest</div>
-            <div class="opt" data-val="Afrique centrale">Afrique centrale</div>
-            <div class="opt" data-val="Afrique de l'Est">Afrique de l'Est</div>
-            <div class="opt" data-val="Afrique australe">Afrique australe</div>
+            <div class="opt" data-val="Afrique du Nord" role="button" tabindex="0">Afrique du Nord</div>
+            <div class="opt" data-val="Afrique de l'Ouest" role="button" tabindex="0">Afrique de l'Ouest</div>
+            <div class="opt" data-val="Afrique centrale" role="button" tabindex="0">Afrique centrale</div>
+            <div class="opt" data-val="Afrique de l'Est" role="button" tabindex="0">Afrique de l'Est</div>
+            <div class="opt" data-val="Afrique australe" role="button" tabindex="0">Afrique australe</div>
             <div class="opt-group">Amériques</div>
-            <div class="opt" data-val="Amérique du Nord">Amérique du Nord</div>
-            <div class="opt" data-val="Amérique centrale">Amérique centrale</div>
-            <div class="opt" data-val="Amérique du Sud">Amérique du Sud</div>
-            <div class="opt" data-val="Bassin amazonien">Bassin amazonien</div>
-            <div class="opt" data-val="Caraïbes">Caraïbes</div>
+            <div class="opt" data-val="Amérique du Nord" role="button" tabindex="0">Amérique du Nord</div>
+            <div class="opt" data-val="Amérique centrale" role="button" tabindex="0">Amérique centrale</div>
+            <div class="opt" data-val="Amérique du Sud" role="button" tabindex="0">Amérique du Sud</div>
+            <div class="opt" data-val="Bassin amazonien" role="button" tabindex="0">Bassin amazonien</div>
+            <div class="opt" data-val="Caraïbes" role="button" tabindex="0">Caraïbes</div>
             <div class="opt-group">Asie</div>
-            <div class="opt" data-val="Moyen-Orient">Moyen-Orient</div>
-            <div class="opt" data-val="Asie du Sud">Asie du Sud</div>
-            <div class="opt" data-val="Asie du Sud-Est">Asie du Sud-Est</div>
-            <div class="opt" data-val="Asie de l'Est">Asie de l'Est</div>
+            <div class="opt" data-val="Moyen-Orient" role="button" tabindex="0">Moyen-Orient</div>
+            <div class="opt" data-val="Asie du Sud" role="button" tabindex="0">Asie du Sud</div>
+            <div class="opt" data-val="Asie du Sud-Est" role="button" tabindex="0">Asie du Sud-Est</div>
+            <div class="opt" data-val="Asie de l'Est" role="button" tabindex="0">Asie de l'Est</div>
             <div class="opt-group">Europe</div>
-            <div class="opt" data-val="Europe du Nord">Europe du Nord</div>
-            <div class="opt" data-val="Europe de l'Ouest">Europe de l'Ouest</div>
-            <div class="opt" data-val="Europe du Sud">Europe du Sud</div>
-            <div class="opt" data-val="Europe de l'Est">Europe de l'Est</div>
+            <div class="opt" data-val="Europe du Nord" role="button" tabindex="0">Europe du Nord</div>
+            <div class="opt" data-val="Europe de l'Ouest" role="button" tabindex="0">Europe de l'Ouest</div>
+            <div class="opt" data-val="Europe du Sud" role="button" tabindex="0">Europe du Sud</div>
+            <div class="opt" data-val="Europe de l'Est" role="button" tabindex="0">Europe de l'Est</div>
             <div class="opt-group">Océanie</div>
-            <div class="opt" data-val="Australie & Nouvelle-Zélande">Australie & Nouvelle-Zélande</div>
-            <div class="opt" data-val="Pacifique">Pacifique</div>
+            <div class="opt" data-val="Australie & Nouvelle-Zélande" role="button" tabindex="0">Australie & Nouvelle-Zélande</div>
+            <div class="opt" data-val="Pacifique" role="button" tabindex="0">Pacifique</div>
             <div class="opt-group">Culture</div>
-            <div class="opt" data-val="Horticole / Hybride">Horticole / Hybride</div>
+            <div class="opt" data-val="Horticole / Hybride" role="button" tabindex="0">Horticole / Hybride</div>
           </div>
           <input type="hidden" id="p-origin" value="">
         </div>
@@ -1546,15 +1066,15 @@ body.secret-mode .modal-acts .primary:active { background: #f0f0f0; }
         </div>
         <div id="photo-prev" class="photo-prev">
           <img id="photo-prev-img" alt="">
-          <button type="button" id="clear-photo">×</button>
+          <div id="clear-photo" role="button" tabindex="0">×</div>
         </div>
       </div>
     </div>
 
     <div class="drawer-foot">
-      <button type="submit" id="submit-btn" class="btn" style="width:100%;justify-content:center;padding:13px">
+      <div id="submit-btn" class="btn" style="width:100%;justify-content:center;padding:13px" role="button" tabindex="0">
         Enregistrer
-      </button>
+      </div>
     </div>
   </form>
 </aside>
@@ -1565,16 +1085,16 @@ body.secret-mode .modal-acts .primary:active { background: #f0f0f0; }
     <p>Entrez votre code pour déverrouiller la modification.</p>
     <input type="text" id="code-input" class="code-inp" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="••••" autocomplete="off">
     <div class="modal-acts">
-      <button type="button" id="code-cancel" class="secondary">Annuler</button>
-      <button type="button" id="code-ok" class="primary">Valider</button>
+      <div id="code-cancel" class="secondary" role="button" tabindex="0">Annuler</div>
+      <div id="code-ok" class="primary" role="button" tabindex="0">Valider</div>
     </div>
   </div>
 </div>
 
 <div id="lightbox" class="lightbox" aria-hidden="true">
-  <button id="lb-close" class="lb-close">
+  <div id="lb-close" class="lb-close" role="button" tabindex="0">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-  </button>
+  </div>
   <div class="lb-content">
     <img id="lb-img" alt="">
     <div class="lb-info">
@@ -1582,22 +1102,10 @@ body.secret-mode .modal-acts .primary:active { background: #f0f0f0; }
       <div class="lb-name" id="lb-name"></div>
       <div class="lb-fam" id="lb-fam"></div>
       <div class="lb-grid">
-        <div class="lb-item" id="lb-expo-w" style="display:none">
-          <div class="lb-key">Exposition</div>
-          <div class="lb-val" id="lb-expo"></div>
-        </div>
-        <div class="lb-item" id="lb-temp-w" style="display:none">
-          <div class="lb-key">Température min</div>
-          <div class="lb-val" id="lb-temp"></div>
-        </div>
-        <div class="lb-item" id="lb-sub-w" style="display:none">
-          <div class="lb-key">Substrat</div>
-          <div class="lb-val" id="lb-sub"></div>
-        </div>
-        <div class="lb-item" id="lb-ori-w" style="display:none">
-          <div class="lb-key">Origine</div>
-          <div class="lb-val" id="lb-ori"></div>
-        </div>
+        <div class="lb-item" id="lb-expo-w" style="display:none"><div class="lb-key">Exposition</div><div class="lb-val" id="lb-expo"></div></div>
+        <div class="lb-item" id="lb-temp-w" style="display:none"><div class="lb-key">Température min</div><div class="lb-val" id="lb-temp"></div></div>
+        <div class="lb-item" id="lb-sub-w" style="display:none"><div class="lb-key">Substrat</div><div class="lb-val" id="lb-sub"></div></div>
+        <div class="lb-item" id="lb-ori-w" style="display:none"><div class="lb-key">Origine</div><div class="lb-val" id="lb-ori"></div></div>
       </div>
     </div>
   </div>
@@ -1642,7 +1150,7 @@ body.secret-mode .modal-acts .primary:active { background: #f0f0f0; }
     { name: 'Banisteriopsis caapi', category: 'Chamanique', family: 'Malpighiaceae', substrate: 'Sol tropical humide', exposure: 'Mi-ombre', minTemp: '15', origin: 'Brésil & Bassin Amazonien', c1: '#00695c', c2: '#80cbc4', letter: 'B' },
     { name: 'Trichocereus pachanoi', category: 'Chamanique', family: 'Cactaceae', substrate: 'Substrat 3 tiers', exposure: 'Plein soleil', minTemp: '-5', origin: 'Andes & Amérique du Sud Ouest', c1: '#1b5e20', c2: '#c8e6c9', letter: 'T' },
     { name: 'Psychotria viridis', category: 'Chamanique', family: 'Rubiaceae', substrate: 'Terreau riche', exposure: 'Ombre', minTemp: '18', origin: 'Brésil & Bassin Amazonien', c1: '#33691e', c2: '#dcedc8', letter: 'P' },
-    { name: 'Cannabis sativa', category: 'Cannabis', family: 'Cannabaceae', substrate: 'Terreau riche & perlite', exposure: 'Plein soleil', minTemp: '10', origin: 'Asie centrale', c1: '#2e7d32', c2: '#a5d6a7', letter: 'C' }
+    { name: 'Cannabis sativa', category: 'Cannabis', family: 'Cannabaceae', substrate: 'Terreur riche & perlite', exposure: 'Plein soleil', minTemp: '10', origin: 'Asie centrale', c1: '#2e7d32', c2: '#a5d6a7', letter: 'C' }
   ];
 
   let plants = [];
@@ -1733,10 +1241,10 @@ body.secret-mode .modal-acts .primary:active { background: #f0f0f0; }
       if (p.substrate) info += `<div class="full"><b>Substrat:</b> ${esc(p.substrate)}</div>`;
       if (p.origin) info += `<div class="full"><b>Origine:</b> ${esc(p.origin)}</div>`;
       
-      const db = unlocked ? `<button type="button" class="card-del">
+      const db = unlocked ? `<div class="card-del" role="button" tabindex="0">
         <svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"/></svg>
         <svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg>
-      </button>` : '';
+      </div>` : '';
 
       c.innerHTML = `
         <div class="card-img-wrap"><img src="${esc(p.photo)}" alt="${esc(p.name)}" loading="lazy">${db}</div>
@@ -1928,7 +1436,7 @@ body.secret-mode .modal-acts .primary:active { background: #f0f0f0; }
     const dd = $('filter-species-dd');
     let html = `<div class="opt-group">${cat}</div>`;
     (SPECIES[cat] || []).forEach(s => {
-      html += `<div class="opt" data-val="${esc(s)}">${esc(s)}</div>`;
+      html += `<div class="opt" data-val="${esc(s)}" role="button" tabindex="0">${esc(s)}</div>`;
     });
     dd.innerHTML = html;
     
@@ -1990,7 +1498,7 @@ body.secret-mode .modal-acts .primary:active { background: #f0f0f0; }
       const dd = $('drawer-species-dd');
       let html = `<div class="opt-group">${cat}</div>`;
       (SPECIES[cat] || []).forEach(s => {
-        html += `<div class="opt" data-val="${esc(s)}">${esc(s)}</div>`;
+        html += `<div class="opt" data-val="${esc(s)}" role="button" tabindex="0">${esc(s)}</div>`;
       });
       dd.innerHTML = html;
       dd.querySelectorAll('.opt').forEach(o => {
@@ -2061,7 +1569,7 @@ body.secret-mode .modal-acts .primary:active { background: #f0f0f0; }
     $('file-drop').style.display = 'flex';
   });
 
-  $('plant-form').addEventListener('submit', e => {
+  $('submit-btn').addEventListener('click', e => {
     e.preventDefault();
     const nameIn = $('p-name').value.trim();
     const gC = $('p-genre-custom').value.trim();

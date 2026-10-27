@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#ffffff">
-<title>Plantouille — Cabinet du Dr-Cactus</title>
+<title>Plantioullie — Cabinet du Dr-Cactus</title>
 
 <!-- Favicon : Cactus dans un cercle vert -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23153424'/%3E%3Cpath d='M45 85V50H30a5 5 0 0 1-5-5V30a5 5 0 0 1 10 0v15h10V15a5 5 0 0 1 10 0v30h10V25a5 5 0 0 1 10 0v20a5 5 0 0 1-5 5H55v35H45z' fill='%23ffffff'/%3E%3C/svg%3E">
@@ -14,7 +14,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-/* === RÉSOLUTION RADICALE DU FLASH BLANC ANDROID === */
+/* === CORRECTION TOTALE FLASH BLANC ANDROID === */
 *, *::before, *::after { 
   margin: 0; 
   padding: 0; 
@@ -33,9 +33,13 @@ html, body {
   flex-direction: column;
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: 100%;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-body.secret-mode { background-color: #153424; color: #ffffff; }
+body.secret-mode { 
+  background-color: #000000 !important; 
+  color: #ffffff; 
+}
 
 /* Désactivation stricte des retours natifs interactifs provoquant les flashs */
 [role="button"], button, a, input, select {
@@ -52,72 +56,71 @@ body.secret-mode { background-color: #153424; color: #ffffff; }
 [role="button"] svg { pointer-events: none; }
 
 /* =========================================
-   INVERSION DES COULEURS (MODE SECRET)
+   INVERSION DES COULEURS (MODE SECRET - FOND NOIR)
    ========================================= */
-body.secret-mode .site-header { background: #153424; }
+body.secret-mode .site-header { background: #000000; }
 body.secret-mode .site-header::after { background: linear-gradient(to right, transparent, rgba(255,255,255,.15) 50%, transparent); }
 body.secret-mode .brand-title { color: #ffffff; }
 body.secret-mode .brand-tagline { color: #aaaaaa; }
 body.secret-mode .stats strong { color: #ffffff; }
 body.secret-mode .stats { color: #aaaaaa; }
-body.secret-mode .lock-btn-mobile { background: #1c4531; border-color: #2a5c41; color: #ffffff; }
+body.secret-mode .lock-btn-mobile { background: #111111; border-color: #222222; color: #ffffff; }
 body.secret-mode main { color: #ffffff; }
 body.secret-mode .search input { color: #ffffff; }
 body.secret-mode .search svg { color: #aaaaaa; }
-body.secret-mode .card { background: #153424; border-color: #1c4531; }
+body.secret-mode .card { background: #0a0a0a; border-color: #222222; }
 body.secret-mode .card-name { color: #ffffff; }
 body.secret-mode .card-info b { color: #ffffff; }
-body.secret-mode .card-info { border-top-color: #1c4531; color: #aaaaaa; }
+body.secret-mode .card-info { border-top-color: #222222; color: #aaaaaa; }
 body.secret-mode .card-fam { color: #aaaaaa; }
-body.secret-mode .card-img-wrap { background: #1c4531; border-bottom-color: #1c4531; }
+body.secret-mode .card-img-wrap { background: #111111; border-bottom-color: #222222; }
 body.secret-mode .empty { color: #aaaaaa; }
-body.secret-mode .drawer { background: #153424; }
-body.secret-mode .drawer-head { border-bottom-color: #1c4531; }
+body.secret-mode .drawer { background: #000000; }
+body.secret-mode .drawer-head { border-bottom-color: #222222; }
 body.secret-mode .drawer-head h2 { color: #ffffff; }
-body.secret-mode .drawer-foot { background: #153424; border-top-color: #1c4531; }
+body.secret-mode .drawer-foot { background: #000000; border-top-color: #222222; }
 body.secret-mode .field label { color: #aaaaaa; }
-body.secret-mode .field input[type="text"] { background: #1c4531; color: #ffffff; }
-body.secret-mode .field input[type="text"]:focus { background: #2a5c41; }
-body.secret-mode .sel-trigger { color: #ffffff; border-bottom-color: #2a5c41; }
+body.secret-mode .field input[type="text"] { background: #111111; color: #ffffff; border: 1px solid #222222; }
+body.secret-mode .field input[type="text"]:focus { background: #1a1a1a; border-color: #ffffff; }
+body.secret-mode .sel-trigger { color: #ffffff; border-bottom-color: #333333; }
 body.secret-mode .sel-trigger:hover { border-bottom-color: #ffffff; color: #ffffff; }
 body.secret-mode .sel-arrow { border-color: #ffffff; }
-body.secret-mode .sel-dd { background: #1c4531; box-shadow: 0 15px 35px rgba(0,0,0,.3); }
+body.secret-mode .sel-dd { background: #111111; box-shadow: 0 15px 35px rgba(0,0,0,.6); border: 1px solid #222222; }
 body.secret-mode .opt-group { color: #aaaaaa; }
 body.secret-mode .opt { color: #ffffff; }
-body.secret-mode .opt:hover { background: #2a5c41; color: #ffffff; }
-body.secret-mode .opt.sel { background: #ffffff; color: #153424; }
-body.secret-mode .exp-opt { background: #1c4531; color: #aaaaaa; }
-body.secret-mode .exp-opt:hover { background: #2a5c41; }
-body.secret-mode .exp-opt.active { background: #ffffff; color: #153424; }
-body.secret-mode .slider-wrap input[type="range"] { background: #1c4531; }
-body.secret-mode .slider-wrap input[type="range"]::-webkit-slider-thumb { background: #ffffff; border-color: #153424; }
+body.secret-mode .opt:hover { background: #222222; color: #ffffff; }
+body.secret-mode .opt.sel { background: #ffffff; color: #000000; }
+body.secret-mode .exp-opt { background: #111111; color: #aaaaaa; border: 1px solid #222222; }
+body.secret-mode .exp-opt:hover { background: #222222; }
+body.secret-mode .exp-opt.active { background: #ffffff; color: #000000; }
+body.secret-mode .slider-wrap input[type="range"] { background: #222222; }
+body.secret-mode .slider-wrap input[type="range"]::-webkit-slider-thumb { background: #ffffff; border-color: #000000; }
 body.secret-mode .temp-val { color: #ffffff; background: rgba(255,255,255,.15); }
-body.secret-mode .file-drop { background: #1c4531; border-color: #2a5c41; }
+body.secret-mode .file-drop { background: #111111; border-color: #222222; }
 body.secret-mode .file-drop span { color: #aaaaaa; }
 body.secret-mode .file-drop:hover { border-color: #ffffff; }
-body.secret-mode .back-btn:hover { color: #ffffff; background: #1c4531; }
+body.secret-mode .back-btn:hover { color: #ffffff; background: #111111; }
 body.secret-mode .custom-field label { color: #aaaaaa; }
-body.secret-mode .custom-field input { background: #1c4531; color: #ffffff; }
-body.secret-mode .modal-box { background: #153424; }
+body.secret-mode .custom-field input { background: #111111; color: #ffffff; border: 1px solid #222222; }
+body.secret-mode .modal-box { background: #111111; border: 1px solid #222222; }
 body.secret-mode .modal-box h3 { color: #ffffff; }
-body.secret-mode .modal-acts .secondary { background: #1c4531; color: #ffffff; }
-body.secret-mode .toast { background: #ffffff; color: #153424; }
+body.secret-mode .modal-acts .secondary { background: #222222; color: #ffffff; }
+body.secret-mode .toast { background: #ffffff; color: #000000; }
 body.secret-mode .card-cat { color: #ffffff; }
 
 /* Boutons de rubriques */
-body.secret-mode .chip { background: #1c4531; color: #ffffff; border-color: transparent; }
-body.secret-mode .chip:hover { background: #2a5c41; }
-body.secret-mode .chip.active { background: #ffffff; color: #153424; border-color: #ffffff; }
-body.secret-mode .chip.active svg { color: #153424; }
+body.secret-mode .chip { background: #111111; color: #ffffff; border-color: #222222; }
+body.secret-mode .chip:hover { background: #222222; }
+body.secret-mode .chip.active { background: #ffffff; color: #000000; border-color: #ffffff; }
 body.secret-mode .chip svg { color: #aaaaaa; }
-body.secret-mode .chip.active svg { color: #153424; }
+body.secret-mode .chip.active svg { color: #000000; }
 
 /* Badge Admin */
-body.secret-mode .admin-tag { background: #1c4531; border-color: #2a5c41; color: #ffffff; }
+body.secret-mode .admin-tag { background: #111111; border-color: #222222; color: #ffffff; }
 body.secret-mode .admin-tag::before { background: #22c55e; }
 
 ::selection { background: #153424; color: #ffffff; }
-body.secret-mode ::selection { background: #ffffff; color: #153424; }
+body.secret-mode ::selection { background: #ffffff; color: #000000; }
 
 /* ============ HEADER ============ */
 .site-header {
@@ -125,7 +128,7 @@ body.secret-mode ::selection { background: #ffffff; color: #153424; }
   top: 0;
   z-index: 40;
   background: #ffffff;
-  will-change: background-color;
+  transition: background-color 0.4s ease;
 }
 
 .site-header::after {
@@ -135,6 +138,7 @@ body.secret-mode ::selection { background: #ffffff; color: #153424; }
   height: 1px;
   background: linear-gradient(to right, transparent 0%, rgba(21,52,36,.10) 20%, rgba(21,52,36,.15) 50%, rgba(21,52,36,.10) 80%, transparent 100%);
   pointer-events: none;
+  transition: background 0.4s ease;
 }
 
 .header-inner {
@@ -148,12 +152,15 @@ body.secret-mode ::selection { background: #ffffff; color: #153424; }
   position: relative;
 }
 
-/* Correction du bug d'affichage et de flash sur le titre */
+/* =========================================
+   ANIMATION DE ROTATION AVEC REBOND (FLIP)
+   ========================================= */
 .brand-wrap { 
   display: flex; 
   align-items: center; 
   position: relative; 
   z-index: 2;
+  transition: transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
   transform-origin: center center;
   will-change: transform;
 }
@@ -169,6 +176,7 @@ body.secret-mode ::selection { background: #ffffff; color: #153424; }
   font-size: 28px;
   color: #153424;
   line-height: 0.95;
+  transition: color 0.4s ease;
 }
 
 .brand-tagline {
@@ -179,16 +187,18 @@ body.secret-mode ::selection { background: #ffffff; color: #153424; }
   letter-spacing: 0.32em;
   color: #888888;
   margin-top: 4px;
+  transition: color 0.4s ease;
 }
 
 .dr-secret { 
   display: inline; 
   cursor: pointer; 
+  transition: color 0.2s ease;
   text-decoration: none;
 }
 .dr-secret:hover { color: #d4a548; }
 
-/* ============ SCÈNE STATIQUE ============ */
+/* ============ SCÈNE STATIQUE & ASTRES DINAMIQUES ============ */
 .brand-scene {
   position: absolute;
   left: 8%; right: 8%; bottom: -1px;
@@ -197,28 +207,41 @@ body.secret-mode ::selection { background: #ffffff; color: #153424; }
   z-index: 1;
 }
 
-/* Soleil / Lune (Statique) */
-.scene-sun, .scene-moon {
+/* Soleil / Lune à la place du 'e' de Plantioullie / Icônes animées */
+.scene-celestial {
   position: absolute;
   bottom: 0;
   left: 50%;
-  width: 16px; height: 16px;
-  margin-left: -8px;
+  width: 18px; height: 18px;
+  margin-left: -9px;
   z-index: 3;
-  transform: translateY(-30px);
+  transform: translateY(-28px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.scene-sun { border-radius: 50%; background: #d4a548; }
-.scene-moon { display: none; }
-.scene-moon svg { width: 100%; height: 100%; fill: #d4a548; display: block; }
+.scene-sun {
+  border-radius: 50%;
+  background: #d4a548;
+  box-shadow: 0 0 10px rgba(212,165,72,0.5);
+  opacity: 1;
+}
 
-body.secret-mode .scene-sun { display: none; }
-body.secret-mode .scene-moon { display: block; }
+.scene-moon {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(0.8);
+}
+.scene-moon svg { width: 100%; height: 100%; fill: #e2e8f0; display: block; }
 
-/* Scènes Jour / Nuit */
+body.secret-mode .scene-sun { opacity: 0; transform: scale(0.8); }
+body.secret-mode .scene-moon { opacity: 1; transform: scale(1); }
+
+/* Transitions Douces Fade In / Fade Out pour les Scènes et Plantes */
 .scene-normal, .scene-secret {
   position: absolute;
   inset: 0;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
 }
 .scene-normal { opacity: 1; }
@@ -226,30 +249,27 @@ body.secret-mode .scene-moon { display: block; }
 body.secret-mode .scene-normal { opacity: 0; }
 body.secret-mode .scene-secret { opacity: 1; }
 
-/* Plantes (Statiques) */
+/* Plantes (Statiques & thématiques Trichocereus / Champignon) */
 .plant-wrapper { position: absolute; bottom: 0; }
-.scene-plant { display: block; color: #153424; }
+.scene-plant { display: block; color: #153424; transition: color 0.4s ease; }
 body.secret-mode .scene-plant { color: #ffffff; }
 .scene-plant svg { display: block; width: 100%; height: 100%; overflow: visible; }
 
-/* Positionnement Jour */
-.pw-col   { left: 30%; width: 24px; height: 32px; margin-left: -12px; }
-.pw-aloe  { left: 40%; width: 26px; height: 20px; margin-left: -13px; }
-.pw-ech   { left: 50%; width: 24px; height: 16px; margin-left: -12px; }
-.pw-yuc   { left: 60%; width: 20px; height: 28px; margin-left: -10px; }
-.pw-bea   { left: 70%; width: 22px; height: 24px; margin-left: -11px; }
+/* Positionnements et formes demandées (Trichocereus pour le t du jour, Champignon pour la nuit) */
+.pw-trichocereus { left: 35%; width: 22px; height: 34px; margin-left: -11px; } /* Trichocereus jour */
+.pw-col   { left: 45%; width: 24px; height: 32px; margin-left: -12px; }
+.pw-aloe  { left: 55%; width: 26px; height: 20px; margin-left: -13px; }
+.pw-bea   { left: 65%; width: 22px; height: 24px; margin-left: -11px; }
 
-/* Positionnement Nuit */
-.pw-mush  { left: 28%; width: 24px; height: 24px; margin-left: -12px; }
-.pw-cann  { left: 38%; width: 28px; height: 28px; margin-left: -14px; }
-.pw-popp  { left: 50%; width: 24px; height: 28px; margin-left: -12px; }
-.pw-trich { left: 62%; width: 22px; height: 32px; margin-left: -11px; }
-.pw-peyot { left: 72%; width: 26px; height: 20px; margin-left: -13px; }
+.pw-mushroom { left: 35%; width: 24px; height: 26px; margin-left: -12px; } /* Champignon nuit */
+.pw-cann  { left: 45%; width: 28px; height: 28px; margin-left: -14px; }
+.pw-popp  { left: 55%; width: 24px; height: 28px; margin-left: -12px; }
+.pw-peyot { left: 68%; width: 26px; height: 20px; margin-left: -13px; }
 
 /* Oiseau / Sorcière */
 .scene-bird {
   position: absolute; width: 16px; height: 14px; color: #153424;
-  z-index: 4; left: 40%; bottom: 25px;
+  z-index: 4; left: 40%; bottom: 25px; transition: color 0.4s ease, opacity 0.4s ease;
 }
 body.secret-mode .scene-bird { color: #ffffff; }
 .scene-bird svg { display: block; width: 100%; height: 100%; overflow: visible; }
@@ -262,7 +282,7 @@ body.secret-mode .bird-witch { display: block !important; }
 .scene-lock {
   position: absolute; right: 2%; bottom: 45px; width: 14px; height: 14px;
   background: transparent; border: none; color: #153424; opacity: 0.28; cursor: pointer;
-  padding: 0; z-index: 5; pointer-events: auto;
+  padding: 0; z-index: 5; pointer-events: auto; transition: opacity 0.2s ease, color 0.4s ease;
 }
 body.secret-mode .scene-lock { color: #ffffff; opacity: 0.5; }
 .scene-lock:hover { opacity: 0.95; color: #d4a548; }
@@ -270,9 +290,9 @@ body.secret-mode .scene-lock { color: #ffffff; opacity: 0.5; }
 
 /* ============ HEADER RIGHT ============ */
 .header-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; position: relative; z-index: 2; }
-.stats { text-align: right; font-size: 11px; color: #888888; text-transform: uppercase; letter-spacing: 0.05em; line-height: 1; }
-.stats strong { font-family: 'Bodoni Moda', Georgia, serif; font-size: 22px; color: #153424; font-weight: 500; display: block; margin-bottom: 4px; }
-.lock-btn-mobile { width: 40px; height: 40px; border-radius: 50%; background: #f7f7f7; color: #153424; border: 1px solid #f0f0f0; cursor: pointer; display: none; align-items: center; justify-content: center; flex-shrink: 0; }
+.stats { text-align: right; font-size: 11px; color: #888888; text-transform: uppercase; letter-spacing: 0.05em; line-height: 1; transition: color 0.4s ease; }
+.stats strong { font-family: 'Bodoni Moda', Georgia, serif; font-size: 22px; color: #153424; font-weight: 500; display: block; margin-bottom: 4px; transition: color 0.4s ease; }
+.lock-btn-mobile { width: 40px; height: 40px; border-radius: 50%; background: #f7f7f7; color: #153424; border: 1px solid #f0f0f0; cursor: pointer; display: none; align-items: center; justify-content: center; flex-shrink: 0; transition: background-color 0.3s ease, color 0.3s ease; }
 .lock-btn-mobile svg { width: 16px; height: 16px; }
 
 @media (max-width: 700px) {
@@ -284,27 +304,29 @@ body.secret-mode .scene-lock { color: #ffffff; opacity: 0.5; }
 main { max-width: 1100px; margin: 0 auto; padding: 20px 24px 60px; flex: 1; width: 100%; }
 .admin-bar { display: none; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
 .admin-bar.on { display: flex; }
-.admin-tag { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: #f0f7f2; border: 1px solid #d8e8dd; font-size: 11px; font-weight: 600; color: #153424; }
+.admin-tag { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: #f0f7f2; border: 1px solid #d8e8dd; font-size: 11px; font-weight: 600; color: #153424; transition: all 0.4s ease; }
 .admin-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #22c55e; }
 
 .btn {
   padding: 9px 18px; border-radius: 999px; background: #153424; color: #ffffff;
   font-size: 12px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 .btn.sec { background: #ffffff; color: #153424; border: 1px solid #d8e8dd; }
 .btn.secret-add { background: #153424; color: #ecdfb8; border: 1px solid #d4a548; }
-body.secret-mode .btn.secret-add { background: #ffffff; color: #153424; border-color: #ffffff; }
+body.secret-mode .btn.secret-add { background: #ffffff; color: #000000; border-color: #ffffff; }
 
 /* Search */
 .search { display: flex; align-items: center; gap: 10px; padding: 10px 0; margin-bottom: 8px; }
-.search svg { color: #888888; flex-shrink: 0; }
-.search input { flex: 1; border: none; outline: none; font-family: inherit; font-size: 15px; background: transparent; color: #0f0f0f; }
+.search svg { color: #888888; flex-shrink: 0; transition: color 0.4s ease; }
+.search input { flex: 1; border: none; outline: none; font-family: inherit; font-size: 15px; background: transparent; color: #0f0f0f; transition: color 0.4s ease; }
 
 /* Retour mode normal */
 .exit-secret {
   display: none; align-items: center; gap: 6px; padding: 8px 16px; margin-bottom: 16px;
   border-radius: 999px; background: rgba(255,255,255,.1); color: #ffffff;
   border: 1px solid rgba(255,255,255,.2); font-size: 12px; font-weight: 500;
+  transition: background-color 0.2s ease;
 }
 body.secret-mode .exit-secret { display: inline-flex; }
 
@@ -314,21 +336,21 @@ body.secret-mode .exit-secret { display: inline-flex; }
 .chip {
   display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 999px;
   background-color: #f7f7f7; color: #555555; font-size: 13px; font-weight: 500; border: 1px solid transparent;
-  white-space: nowrap; flex-shrink: 0;
+  white-space: nowrap; flex-shrink: 0; transition: background-color 0.2s ease, color 0.2s ease;
 }
-.chip svg { width: 18px; height: 18px; color: #888888; }
+.chip svg { width: 18px; height: 18px; color: #888888; transition: color 0.3s ease; }
 .chip.active { background-color: #153424; color: #ffffff; border-color: #153424; }
 .chip.active svg { color: #ffffff; }
-body.secret-mode .chip { background-color: #1c4531; color: #ffffff; border-color: transparent; }
+body.secret-mode .chip { background-color: #111111; color: #ffffff; border-color: #222222; }
 body.secret-mode .chip svg { color: #aaaaaa; }
-body.secret-mode .chip.active { background-color: #ffffff; color: #153424; border-color: #ffffff; }
-body.secret-mode .chip.active svg { color: #153424; }
+body.secret-mode .chip.active { background-color: #ffffff; color: #000000; border-color: #ffffff; }
+body.secret-mode .chip.active svg { color: #000000; }
 
 /* Species Step */
 .species-step { display: none; }
 .species-step.on { display: block; margin-bottom: 16px; }
 .species-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-.back-btn { display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; border-radius: 999px; background: transparent; color: #888888; font-size: 12px; font-weight: 500; }
+.back-btn { display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; border-radius: 999px; background: transparent; color: #888888; font-size: 12px; font-weight: 500; transition: all 0.2s ease; }
 .back-btn:hover { color: #153424; background-color: #f7f7f7; }
 .back-btn svg { width: 12px; height: 12px; }
 
@@ -339,7 +361,7 @@ body.secret-mode .chip.active svg { color: #153424; }
   width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 10px 0;
   background: transparent; border-bottom: 1px solid rgba(21,52,36,.15); color: #0f0f0f;
   font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 17px;
-  text-align: left; font-weight: 500;
+  text-align: left; font-weight: 500; transition: border-color 0.3s ease;
 }
 .sel-trigger.placeholder { color: #888888; }
 .sel-trigger:hover { border-bottom-color: #153424; color: #153424; }
@@ -348,31 +370,31 @@ body.secret-mode .chip.active svg { color: #153424; }
 .sel-dd {
   position: absolute; top: 100%; left: 0; right: 0; max-height: 320px; overflow-y: auto;
   background: #ffffff; z-index: 60; margin-top: 6px; padding: 6px 0;
-  box-shadow: 0 15px 35px rgba(0,0,0,.10); border-radius: 12px; display: none;
+  box-shadow: 0 15px 35px rgba(0,0,0,.10); border-radius: 12px; display: none; transition: background-color 0.4s ease;
 }
 .sel-wrap.open .sel-dd { display: block; }
-.opt-group { padding: 10px 16px 4px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: #153424; opacity: 0.6; }
-.opt { padding: 8px 16px; font-size: 13.5px; color: #0f0f0f; }
+.opt-group { padding: 10px 16px 4px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: #153424; opacity: 0.6; transition: color 0.4s ease; }
+.opt { padding: 8px 16px; font-size: 13.5px; color: #0f0f0f; transition: background-color 0.2s ease, color 0.2s ease; }
 .opt:hover { background-color: #f4f6f5; color: #153424; }
 .opt.sel { background-color: #153424; color: #ffffff; }
 
 .custom-field { margin-top: 10px; }
-.custom-field label { font-size: 10px; color: #888888; font-weight: 500; display: block; margin-bottom: 4px; }
-.custom-field input { width: 100%; padding: 10px 14px; background: #f7f7f7; border: none; border-radius: 10px; font-family: inherit; font-size: 13px; color: #0f0f0f; outline: none; }
+.custom-field label { font-size: 10px; color: #888888; font-weight: 500; display: block; margin-bottom: 4px; transition: color 0.4s ease; }
+.custom-field input { width: 100%; padding: 10px 14px; background: #f7f7f7; border: none; border-radius: 10px; font-family: inherit; font-size: 13px; color: #0f0f0f; outline: none; transition: all 0.4s ease; }
 
 /* Backdrops */
-#page-backdrop { position: fixed; inset: 0; background: rgba(255,255,255,.85); z-index: 45; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
-body.secret-mode #page-backdrop { background: rgba(21,52,36,.85); }
+#page-backdrop { position: fixed; inset: 0; background: rgba(255,255,255,.85); z-index: 45; opacity: 0; pointer-events: none; transition: opacity 0.25s ease, background-color 0.4s ease; }
+body.secret-mode #page-backdrop { background: rgba(0,0,0,.85); }
 #page-backdrop.visible { opacity: 1; pointer-events: auto; }
 
-#drawer-dropdown-backdrop { position: absolute; inset: 0; background: rgba(255,255,255,.85); z-index: 40; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
-body.secret-mode #drawer-dropdown-backdrop { background: rgba(21,52,36,.85); }
+#drawer-dropdown-backdrop { position: absolute; inset: 0; background: rgba(255,255,255,.85); z-index: 40; opacity: 0; pointer-events: none; transition: opacity 0.25s ease, background-color 0.4s ease; }
+body.secret-mode #drawer-dropdown-backdrop { background: rgba(0,0,0,.85); }
 #drawer-dropdown-backdrop.visible { opacity: 1; pointer-events: auto; }
 
 /* Grid */
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 300px)); gap: 20px; justify-content: center; }
-.card { border: 1px solid #f0f0f0; border-radius: 16px; overflow: hidden; background: #ffffff; display: flex; flex-direction: column; position: relative; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
-.card-img-wrap { position: relative; aspect-ratio: 4/3; background: #fafafa; overflow: hidden; border-bottom: 1px solid #f0f0f0; }
+.card { border: 1px solid #f0f0f0; border-radius: 16px; overflow: hidden; background: #ffffff; display: flex; flex-direction: column; position: relative; box-shadow: 0 1px 3px rgba(0,0,0,.04); transition: background-color 0.4s ease, border-color 0.4s ease; }
+.card-img-wrap { position: relative; aspect-ratio: 4/3; background: #fafafa; overflow: hidden; border-bottom: 1px solid #f0f0f0; transition: background-color 0.4s ease, border-color 0.4s ease; }
 .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; cursor: zoom-in; }
 .card-del { position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,.95); color: #0f0f0f; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,.06); }
 .card-del.confirming { background-color: #e11d48; color: #ffffff; }
@@ -381,67 +403,67 @@ body.secret-mode #drawer-dropdown-backdrop { background: rgba(21,52,36,.85); }
 .card-del.confirming .x { opacity: 0; }
 .card-del.confirming .ck { opacity: 1; }
 .card-body { padding: 16px; display: flex; flex-direction: column; gap: 10px; flex: 1; justify-content: space-between; }
-.card-cat { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: #153424; font-weight: 600; }
-.card-name { font-family: 'Bodoni Moda', Georgia, serif; font-size: 19px; color: #0f0f0f; line-height: 1.2; margin-top: 2px; font-weight: 400; }
-.card-fam { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 12px; color: #888888; margin-top: 2px; }
-.card-info { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding-top: 8px; border-top: 1px solid #f0f0f0; font-size: 11px; color: #888888; }
-.card-info b { font-weight: 500; color: #0f0f0f; }
+.card-cat { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: #153424; font-weight: 600; transition: color 0.4s ease; }
+.card-name { font-family: 'Bodoni Moda', Georgia, serif; font-size: 19px; color: #0f0f0f; line-height: 1.2; margin-top: 2px; font-weight: 400; transition: color 0.4s ease; }
+.card-fam { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 12px; color: #888888; margin-top: 2px; transition: color 0.4s ease; }
+.card-info { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding-top: 8px; border-top: 1px solid #f0f0f0; font-size: 11px; color: #888888; transition: border-color 0.4s ease, color 0.4s ease; }
+.card-info b { font-weight: 500; color: #0f0f0f; transition: color 0.4s ease; }
 .card-info .full { grid-column: 1/-1; }
-.empty { padding: 80px 20px; text-align: center; color: #888888; font-size: 14px; grid-column: 1/-1; }
+.empty { padding: 80px 20px; text-align: center; color: #888888; font-size: 14px; grid-column: 1/-1; transition: color 0.4s ease; }
 .empty svg { width: 36px; height: 36px; color: #cccccc; display: block; margin: 0 auto 12px; }
 
 /* Drawer */
 .drawer-bg { position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,.25); opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
 .drawer-bg.open { opacity: 1; pointer-events: auto; }
-.drawer { position: fixed; top: 0; right: 0; height: 100vh; width: 100%; max-width: 440px; background: #ffffff; z-index: 100; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); display: flex; flex-direction: column; box-shadow: -10px 0 30px rgba(0,0,0,.05); }
+.drawer { position: fixed; top: 0; right: 0; height: 100vh; width: 100%; max-width: 440px; background: #ffffff; z-index: 100; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), background-color 0.4s ease; display: flex; flex-direction: column; box-shadow: -10px 0 30px rgba(0,0,0,.05); }
 .drawer.open { transform: translateX(0); }
-.drawer-head { padding: 20px 24px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 50; background: inherit; }
-.drawer-head h2 { font-family: 'Bodoni Moda', Georgia, serif; font-size: 22px; color: #153424; font-weight: 500; }
+.drawer-head { padding: 20px 24px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 50; background: inherit; transition: border-color 0.4s ease; }
+.drawer-head h2 { font-family: 'Bodoni Moda', Georgia, serif; font-size: 22px; color: #153424; font-weight: 500; transition: color 0.4s ease; }
 .close-x { color: #888888; padding: 6px; }
 .close-x svg { width: 22px; height: 22px; display: block; }
 .drawer-body { flex: 1; overflow-y: auto; padding: 20px 24px; position: relative; z-index: 50; }
-.drawer-foot { padding: 16px 24px; border-top: 1px solid #f0f0f0; background: inherit; position: relative; z-index: 50; }
+.drawer-foot { padding: 16px 24px; border-top: 1px solid #f0f0f0; background: inherit; position: relative; z-index: 50; transition: border-color 0.4s ease; }
 
 /* Form */
 .field { margin-bottom: 18px; }
-.field label { display: block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #0f0f0f; margin-bottom: 6px; }
-.field input[type="text"] { width: 100%; padding: 11px 14px; background: #f7f7f7; border: none; border-radius: 10px; color: #0f0f0f; font-size: 14px; font-family: inherit; outline: none; }
+.field label { display: block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #0f0f0f; margin-bottom: 6px; transition: color 0.4s ease; }
+.field input[type="text"] { width: 100%; padding: 11px 14px; background: #f7f7f7; border: none; border-radius: 10px; color: #0f0f0f; font-size: 14px; font-family: inherit; outline: none; transition: all 0.4s ease; }
 .field input[type="text"]:focus { background: #eef2f0; }
 .cat-grid { display: grid; grid-template-columns: 1fr; gap: 6px; }
-.cat-opt { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 10px; background-color: #f7f7f7; color: #0f0f0f; font-size: 12px; font-weight: 500; text-align: left; width: 100%; }
+.cat-opt { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 10px; background-color: #f7f7f7; color: #0f0f0f; font-size: 12px; font-weight: 500; text-align: left; width: 100%; transition: background-color 0.2s ease, color 0.2s ease; }
 .cat-opt svg { width: 18px; height: 18px; color: #888888; flex-shrink: 0; }
 .cat-opt:hover { background-color: #eef2f0; color: #153424; }
 .cat-opt.active { background-color: #153424; color: #ffffff; }
 .cat-opt.active svg { color: #ffffff; }
-body.secret-mode .cat-opt:not([data-mode="secret"]) { background-color: #1c4531; color: #ffffff; }
-body.secret-mode .cat-opt:not([data-mode="secret"]).active { background-color: #ffffff; color: #153424; }
-body.secret-mode .cat-opt:not([data-mode="secret"]).active svg { color: #153424; }
+body.secret-mode .cat-opt:not([data-mode="secret"]) { background-color: #111111; color: #ffffff; }
+body.secret-mode .cat-opt:not([data-mode="secret"]).active { background-color: #ffffff; color: #000000; }
+body.secret-mode .cat-opt:not([data-mode="secret"]).active svg { color: #000000; }
 .cat-opt[data-mode="secret"] { background: transparent; color: #153424; border: 1px solid #d4a548; }
 .cat-opt[data-mode="secret"] svg { color: #d4a548; }
 .cat-opt[data-mode="secret"]:hover { border-color: #b8903d; background-color: #f4f6f5; }
 .cat-opt[data-mode="secret"].active { background-color: #153424; color: #ecdfb8; border-color: #153424; }
 .cat-opt[data-mode="secret"].active svg { color: #d4a548; }
 body.secret-mode .cat-opt[data-mode="secret"] { border-color: #ffffff; color: #ffffff; }
-body.secret-mode .cat-opt[data-mode="secret"].active { background-color: #ffffff; color: #153424; }
-body.secret-mode .cat-opt[data-mode="secret"].active svg { color: #153424; }
+body.secret-mode .cat-opt[data-mode="secret"].active { background-color: #ffffff; color: #000000; }
+body.secret-mode .cat-opt[data-mode="secret"].active svg { color: #000000; }
 
 .exp-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
-.exp-opt { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 4px; border-radius: 10px; background-color: #f7f7f7; color: #555555; font-size: 10px; font-weight: 500; gap: 4px; text-align: center; }
+.exp-opt { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 4px; border-radius: 10px; background-color: #f7f7f7; color: #555555; font-size: 10px; font-weight: 500; gap: 4px; text-align: center; transition: background-color 0.2s ease, color 0.2s ease; }
 .exp-opt svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .exp-opt:hover { background-color: #eef2f0; color: #153424; }
 .exp-opt.active { background-color: #153424; color: #ffffff; }
 
 .slider-wrap { padding: 10px 0; }
-.slider-wrap input[type="range"] { width: 100%; height: 4px; background: #eef2f0; border-radius: 999px; outline: none; -webkit-appearance: none; }
-.slider-wrap input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #153424; cursor: pointer; border: 2px solid #ffffff; }
-.temp-val { font-size: 12px; font-weight: 600; color: #153424; background: rgba(21,52,36,.08); padding: 2px 10px; border-radius: 999px; }
+.slider-wrap input[type="range"] { width: 100%; height: 4px; background: #eef2f0; border-radius: 999px; outline: none; -webkit-appearance: none; transition: background 0.4s ease; }
+.slider-wrap input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #153424; cursor: pointer; border: 2px solid #ffffff; transition: background 0.4s ease; }
+.temp-val { font-size: 12px; font-weight: 600; color: #153424; background: rgba(21,52,36,.08); padding: 2px 10px; border-radius: 999px; transition: all 0.4s ease; }
 .temp-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
 .temp-legend { display: flex; justify-content: space-between; font-size: 10px; color: #888888; margin-top: 4px; }
 
-.file-drop { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px; border: 1px dashed #dcdcdc; border-radius: 12px; background: #ffffff; text-align: center; position: relative; }
+.file-drop { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px; border: 1px dashed #dcdcdc; border-radius: 12px; background: #ffffff; text-align: center; position: relative; transition: all 0.4s ease; }
 .file-drop:hover { border-color: #153424; }
 .file-drop svg { width: 24px; height: 24px; color: #888888; margin-bottom: 8px; }
-.file-drop span { font-size: 12px; color: #0f0f0f; font-weight: 500; }
+.file-drop span { font-size: 12px; color: #0f0f0f; font-weight: 500; transition: color 0.4s ease; }
 .file-drop input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
 
 .photo-prev { position: relative; width: 100%; aspect-ratio: 4/3; border-radius: 12px; overflow: hidden; display: none; }
@@ -451,17 +473,17 @@ body.secret-mode .cat-opt[data-mode="secret"].active svg { color: #153424; }
 /* Modales */
 .modal { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,.55); display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
 .modal.on { opacity: 1; pointer-events: auto; }
-.modal-box { background: #ffffff; border-radius: 18px; padding: 26px 22px; width: 100%; max-width: 380px; box-shadow: 0 20px 60px rgba(0,0,0,.2); }
-.modal-box h3 { font-family: 'Bodoni Moda', Georgia, serif; font-size: 22px; color: #153424; margin-bottom: 6px; font-weight: 500; }
-.modal-box p { font-size: 13px; color: #888888; margin-bottom: 20px; line-height: 1.5; }
-.code-inp { width: 100%; padding: 16px; font-family: monospace; font-size: 22px; text-align: center; letter-spacing: 10px; background: #f7f7f7; border: 2px solid transparent; border-radius: 10px; color: #153424; outline: none; }
+.modal-box { background: #ffffff; border-radius: 18px; padding: 26px 22px; width: 100%; max-width: 380px; box-shadow: 0 20px 60px rgba(0,0,0,.2); transition: background-color 0.4s ease; }
+.modal-box h3 { font-family: 'Bodoni Moda', Georgia, serif; font-size: 22px; color: #153424; margin-bottom: 6px; font-weight: 500; transition: color 0.4s ease; }
+.modal-box p { font-size: 13px; color: #888888; margin-bottom: 20px; line-height: 1.5; transition: color 0.4s ease; }
+.code-inp { width: 100%; padding: 16px; font-family: monospace; font-size: 22px; text-align: center; letter-spacing: 10px; background: #f7f7f7; border: 2px solid transparent; border-radius: 10px; color: #153424; outline: none; transition: all 0.4s ease; }
 .code-inp:focus { border-color: #153424; background: #ffffff; }
-body.secret-mode .code-inp { background: #1c4531; color: #ffffff; }
-body.secret-mode .code-inp:focus { border-color: #ffffff; background: #2a5c41; }
+body.secret-mode .code-inp { background: #111111; color: #ffffff; border-color: #222222; }
+body.secret-mode .code-inp:focus { border-color: #ffffff; background: #1a1a1a; }
 .modal-acts { display: flex; gap: 10px; margin-top: 16px; }
 .modal-acts [role="button"] { flex: 1; padding: 11px; border-radius: 10px; font-weight: 500; font-size: 14px; text-align: center; }
 .modal-acts .primary { background-color: #153424; color: #ffffff; }
-body.secret-mode .modal-acts .primary { background-color: #ffffff; color: #153424; }
+body.secret-mode .modal-acts .primary { background-color: #ffffff; color: #000000; }
 .modal-acts .secondary { background-color: #f7f7f7; color: #153424; }
 
 /* Lightbox */
@@ -482,7 +504,7 @@ body.secret-mode .modal-acts .primary { background-color: #ffffff; color: #15342
 
 /* Toasts */
 .toast-wrap { position: fixed; bottom: 24px; left: 16px; right: 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 400; pointer-events: none; }
-.toast { padding: 12px 18px; background: #0f0f0f; color: #ffffff; font-size: 12px; border-radius: 999px; box-shadow: 0 10px 30px rgba(0,0,0,.2); max-width: 440px; text-align: center; font-family: inherit; pointer-events: auto; line-height: 1.4; }
+.toast { padding: 12px 18px; background: #0f0f0f; color: #ffffff; font-size: 12px; border-radius: 999px; box-shadow: 0 10px 30px rgba(0,0,0,.2); max-width: 440px; text-align: center; font-family: inherit; pointer-events: auto; line-height: 1.4; transition: background-color 0.4s ease, color 0.4s ease; }
 </style>
 </head>
 <body>
@@ -493,20 +515,32 @@ body.secret-mode .modal-acts .primary { background-color: #ffffff; color: #15342
   <div class="header-inner">
     <div class="brand-wrap" id="brand-wrap">
       <div class="brand">
-        <div class="brand-title">Plantouille</div>
+        <div class="brand-title">Plantioullie</div>
         <div class="brand-tagline">Cabinet du <span class="dr-secret" id="dr-btn" role="button" tabindex="0">Dr</span>-Cactus</div>
       </div>
     </div>
 
     <div class="brand-scene" aria-hidden="true">
-      <!-- Soleil / Lune -->
-      <div class="scene-sun"></div>
-      <div class="scene-moon">
-        <svg viewBox="0 0 24 24"><path d="M 12 2 A 10 10 0 1 0 22 12 A 8 8 0 1 1 12 2 Z" /></svg>
+      <!-- Soleil / Lune dynamique à la place de l'astre -->
+      <div class="scene-celestial">
+        <div class="scene-sun"></div>
+        <div class="scene-moon">
+          <svg viewBox="0 0 24 24"><path d="M 12 2 A 10 10 0 1 0 22 12 A 8 8 0 1 1 12 2 Z" /></svg>
+        </div>
       </div>
 
-      <!-- Scène Normale (Jour) -->
+      <!-- Scène Normale (Jour - avec Trichocereus pour le t) -->
       <div class="scene-normal">
+        <div class="plant-wrapper pw-trichocereus">
+          <div class="scene-plant">
+            <svg viewBox="0 0 24 34" fill="currentColor">
+              <rect x="7" y="2" width="10" height="30" rx="4"/>
+              <path d="M9 4V32 M12 2V34 M15 4V32" stroke="currentColor" stroke-width="1.2" opacity="0.3"/>
+              <path d="M7 12H3a2 2 0 0 1-2-2V8a2 2 0 0 1 4 0v2h2"/>
+              <path d="M17 18h4a2 2 0 0 0 2-2v-3a2 2 0 0 0-4 0v3h-2"/>
+            </svg>
+          </div>
+        </div>
         <div class="plant-wrapper pw-col">
           <div class="scene-plant">
             <svg viewBox="0 0 24 32" fill="currentColor">
@@ -523,22 +557,6 @@ body.secret-mode .modal-acts .primary { background-color: #ffffff; color: #15342
             </svg>
           </div>
         </div>
-        <div class="plant-wrapper pw-ech">
-          <div class="scene-plant">
-            <svg viewBox="0 0 24 16" fill="currentColor">
-              <circle cx="12" cy="10" r="6"/>
-              <path d="M12 4 l-2 -4 l4 0 z M12 4 l-2 -4 l4 0 z M6 10 l-6 -2 l2 -3 z M18 10 l6 -2 l-2 -3 z M8 16 l-4 4 l2 2 z M16 16 l4 4 l-2 2 z"/>
-            </svg>
-          </div>
-        </div>
-        <div class="plant-wrapper pw-yuc">
-          <div class="scene-plant">
-            <svg viewBox="0 0 20 28" fill="currentColor">
-              <rect x="9" y="10" width="2" height="18"/>
-              <path d="M10 12 L6 2 L10 4 Z M10 12 L14 2 L10 4 Z M10 12 L2 6 L6 6 Z M10 12 L18 6 L14 6 Z M10 12 L4 14 L8 12 Z M10 12 L16 14 L12 12 Z"/>
-            </svg>
-          </div>
-        </div>
         <div class="plant-wrapper pw-bea">
           <div class="scene-plant">
             <svg viewBox="0 0 22 24" fill="currentColor">
@@ -550,15 +568,16 @@ body.secret-mode .modal-acts .primary { background-color: #ffffff; color: #15342
         </div>
       </div>
 
-      <!-- Scène Secrète (Nuit) -->
+      <!-- Scène Secrète (Nuit - avec Champignon) -->
       <div class="scene-secret">
-        <div class="plant-wrapper pw-mush">
+        <div class="plant-wrapper pw-mushroom">
           <div class="scene-plant">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M6 12 a6 6 0 0 1 12 0 v1 h-12 z"/>
-              <rect x="9" y="13" width="6" height="11" rx="2"/>
-              <circle cx="10" cy="8" r="1.5" fill="#153424"/>
-              <circle cx="15" cy="10" r="1.5" fill="#153424"/>
+            <svg viewBox="0 0 24 26" fill="currentColor">
+              <path d="M2 13a10 10 0 0 1 20 0c0 1.2-.4 2.3-1.2 3.1H3.2C2.4 15.3 2 14.2 2 13z"/>
+              <rect x="10" y="15" width="4" height="10" rx="1"/>
+              <circle cx="8" cy="11" r="1.2" fill="#000000"/>
+              <circle cx="15" cy="9" r="1.5" fill="#000000"/>
+              <circle cx="12" cy="13" r="1" fill="#000000"/>
             </svg>
           </div>
         </div>
@@ -580,22 +599,14 @@ body.secret-mode .modal-acts .primary { background-color: #ffffff; color: #15342
             </svg>
           </div>
         </div>
-        <div class="plant-wrapper pw-trich">
-          <div class="scene-plant">
-            <svg viewBox="0 0 22 32" fill="currentColor">
-              <rect x="6" y="2" width="10" height="30" rx="5"/>
-              <path d="M8 4 V32 M11 2 V32 M14 4 V32" stroke="#153424" stroke-width="1.5"/>
-            </svg>
-          </div>
-        </div>
         <div class="plant-wrapper pw-peyot">
           <div class="scene-plant">
             <svg viewBox="0 0 26 20" fill="currentColor">
               <ellipse cx="13" cy="16" rx="10" ry="4"/>
               <path d="M6 14 a7 7 0 0 1 14 0 v2 h-14 z"/>
-              <circle cx="9" cy="12" r="2" fill="#153424"/>
-              <circle cx="17" cy="12" r="2" fill="#153424"/>
-              <circle cx="13" cy="16" r="2" fill="#153424"/>
+              <circle cx="9" cy="12" r="2" fill="#000000"/>
+              <circle cx="17" cy="12" r="2" fill="#000000"/>
+              <circle cx="13" cy="16" r="2" fill="#000000"/>
             </svg>
           </div>
         </div>
@@ -668,7 +679,7 @@ body.secret-mode .modal-acts .primary { background-color: #ffffff; color: #15342
 
   <div id="chips-step">
     <div class="chips-row" id="chips-row">
-      <!-- Normal Chips -->
+      <!-- Normal Chips Refaites -->
       <div class="chip active" data-cat="all" data-mode="normal" role="button" tabindex="0">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/></svg>
         Toutes
@@ -694,38 +705,31 @@ body.secret-mode .modal-acts .primary { background-color: #ffffff; color: #15342
         Caudiciformes
       </div>
 
-      <!-- Secret Chips (avec iconographie personnalisée) -->
+      <!-- Secret Chips Refaites -->
       <div class="chip secret active" data-cat="all" data-mode="secret" role="button" tabindex="0" style="display:none">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/></svg>
         Toutes
       </div>
       <div class="chip secret" data-cat="Sorcières" data-mode="secret" role="button" tabindex="0" style="display:none">
-        <!-- Chapeau de sorcière -->
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18h20M5 18l4-8 3 4 4-6 2 10"/></svg>
         Sorcières
       </div>
       <div class="chip secret" data-cat="Chamanique" data-mode="secret" role="button" tabindex="0" style="display:none">
-        <!-- Œil de vision / Symbole chamanique -->
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/></svg>
         Chamanique
       </div>
       <div class="chip secret" data-cat="Cannabis" data-mode="secret" role="button" tabindex="0" style="display:none">
-        <!-- Feuille de cannabis à 5 folioles dentelées -->
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 22V12"/>
-          <!-- Foliole centrale -->
           <path d="M12 12l-1.5-7.5L12 2l1.5 2.5z"/>
-          <!-- Folioles latérales supérieures -->
           <path d="M12 12l-5.5-2L4 5l3 2.5z"/>
           <path d="M12 12l5.5-2L20 5l-3 2.5z"/>
-          <!-- Folioles latérales inférieures -->
           <path d="M12 15l-5-1L3 10l3.5 1.5z"/>
           <path d="M12 15l5-1l4-4l-3.5 1.5z"/>
         </svg>
         Cannabis
       </div>
       <div class="chip secret" data-cat="Champignons" data-mode="secret" role="button" tabindex="0" style="display:none">
-        <!-- Champignon vénéneux / Amanite -->
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10a9 9 0 0 1 18 0c0 1-.5 2-1.5 2.5h-15C3.5 12 3 11 3 10z"/><path d="M9 12.5v6.5a2 2 0 0 0 4 0v-6.5"/><circle cx="8" cy="8" r="1"/><circle cx="15" cy="7" r="1.2"/><circle cx="12" cy="10" r="0.8"/></svg>
         Champignons
       </div>
@@ -1652,7 +1656,7 @@ body.secret-mode .modal-acts .primary { background-color: #ffffff; color: #15342
       <rect width="400" height="300" fill="url(#g)"/>
       <text x="200" y="185" font-family="Bodoni Moda,Georgia,serif" font-size="140" font-weight="500" fill="rgba(255,255,255,0.88)" text-anchor="middle">${letter}</text>
     </svg>`;
-    return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+    return 'data:image/svg+xml;utf8,+encodeURIComponent(svg)';
   };
 
   const seedSecretPlants = () => {
@@ -1699,4 +1703,4 @@ body.secret-mode .modal-acts .primary { background-color: #ffffff; color: #15342
 </script>
 
 </body>
-        </html>
+                </html>

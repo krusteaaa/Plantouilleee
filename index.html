@@ -1,3 +1,14 @@
+Voici le code complet et définitif de votre fichier index.html.
+
+Pour que l'animation soit totalement indépendante et que vous n'ayez plus jamais à toucher à ce fichier, j'ai :
+
+1. Supprimé la scène animée (plantes, soleil, oiseau) de l'en-tête.
+2. Intégré l'iframe juste en dessous de l'en-tête.
+3. Ajouté une communication invisible entre votre site et l'animation : quand vous cliquez sur "Dr", le site bascule en mode sombre et envoie un signal à l'animation pour qu'elle passe en mode nuit de son côté aussi.
+
+Voici le code de votre index.html :
+
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -14,7 +25,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-/* === RÉSOLUTION DÉFINITIVE DU FLASH BLANC === */
+/* === RÉSOLUTION DU FLASH BLANC ANDROID === */
 * { 
   margin: 0; 
   padding: 0; 
@@ -24,8 +35,7 @@
   user-select: none;
 }
 
-/* Cible tous les éléments cliquables pour leur retirer le style natif */
-div[role="button"], button, a, input, label, select {
+[role="button"], button, a, input, select {
   outline: none !important;
   -webkit-appearance: none;
   appearance: none;
@@ -36,8 +46,7 @@ div[role="button"], button, a, input, label, select {
   touch-action: manipulation;
 }
 
-/* Empêche les SVG de déclencher un focus ou un flash */
-[role="button"] svg, [role="button"] img { pointer-events: none; }
+[role="button"] svg { pointer-events: none; }
 
 body {
   background: #ffffff;
@@ -189,101 +198,17 @@ body.secret-mode ::selection { background: #ffffff; color: #153424; }
   cursor: pointer; 
   transition: color 0.2s ease;
   text-decoration: none;
-  -webkit-tap-highlight-color: transparent;
 }
 .dr-secret:hover { color: #d4a548; }
-
-/* ============ SCÈNE STATIQUE ============ */
-.brand-scene {
-  position: absolute;
-  left: 8%; right: 8%; bottom: -1px;
-  height: 70px;
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* Soleil / Lune (Statique) */
-.scene-sun, .scene-moon {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 16px; height: 16px;
-  margin-left: -8px;
-  z-index: 3;
-  transform: translateY(-30px);
-}
-
-.scene-sun { border-radius: 50%; background: #d4a548; }
-.scene-moon { display: none; }
-.scene-moon svg { width: 100%; height: 100%; fill: #d4a548; display: block; }
-
-body.secret-mode .scene-sun { display: none; }
-body.secret-mode .scene-moon { display: block; }
-
-/* Scènes Jour / Nuit */
-.scene-normal, .scene-secret {
-  position: absolute;
-  inset: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
-}
-.scene-normal { opacity: 1; }
-.scene-secret { opacity: 0; }
-body.secret-mode .scene-normal { opacity: 0; }
-body.secret-mode .scene-secret { opacity: 1; }
-
-/* Plantes (Statiques) */
-.plant-wrapper { position: absolute; bottom: 0; }
-.scene-plant { display: block; color: #153424; transition: color 0.4s ease; }
-body.secret-mode .scene-plant { color: #ffffff; }
-.scene-plant svg { display: block; width: 100%; height: 100%; overflow: visible; }
-
-/* Positionnement Jour */
-.pw-col   { left: 30%; width: 24px; height: 32px; margin-left: -12px; }
-.pw-aloe  { left: 40%; width: 26px; height: 20px; margin-left: -13px; }
-.pw-ech   { left: 50%; width: 24px; height: 16px; margin-left: -12px; }
-.pw-yuc   { left: 60%; width: 20px; height: 28px; margin-left: -10px; }
-.pw-bea   { left: 70%; width: 22px; height: 24px; margin-left: -11px; }
-
-/* Positionnement Nuit */
-.pw-mush  { left: 28%; width: 24px; height: 24px; margin-left: -12px; }
-.pw-cann  { left: 38%; width: 28px; height: 28px; margin-left: -14px; }
-.pw-popp  { left: 50%; width: 24px; height: 28px; margin-left: -12px; }
-.pw-trich { left: 62%; width: 22px; height: 32px; margin-left: -11px; }
-.pw-peyot { left: 72%; width: 26px; height: 20px; margin-left: -13px; }
-
-/* Oiseau / Sorcière */
-.scene-bird {
-  position: absolute; width: 16px; height: 14px; color: #153424;
-  z-index: 4; left: 40%; bottom: 25px; transition: color 0.4s ease;
-}
-body.secret-mode .scene-bird { color: #ffffff; }
-.scene-bird svg { display: block; width: 100%; height: 100%; overflow: visible; }
-.bird-normal { display: block !important; }
-.bird-witch { display: none !important; }
-body.secret-mode .bird-normal { display: none !important; }
-body.secret-mode .bird-witch { display: block !important; }
-
-/* Cadenas */
-.scene-lock {
-  position: absolute; right: 2%; bottom: 45px; width: 14px; height: 14px;
-  background: transparent; border: none; color: #153424; opacity: 0.28; cursor: pointer;
-  padding: 0; z-index: 5; pointer-events: auto; transition: opacity 0.2s ease, color 0.4s ease;
-  -webkit-tap-highlight-color: transparent;
-}
-body.secret-mode .scene-lock { color: #ffffff; opacity: 0.5; }
-.scene-lock:hover { opacity: 0.95; color: #d4a548; }
-.scene-lock svg { width: 100%; height: 100%; }
 
 /* ============ HEADER RIGHT ============ */
 .header-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; position: relative; z-index: 2; }
 .stats { text-align: right; font-size: 11px; color: #888888; text-transform: uppercase; letter-spacing: 0.05em; line-height: 1; transition: color 0.4s ease; }
 .stats strong { font-family: 'Bodoni Moda', Georgia, serif; font-size: 22px; color: #153424; font-weight: 500; display: block; margin-bottom: 4px; transition: color 0.4s ease; }
-.lock-btn-mobile { width: 40px; height: 40px; border-radius: 50%; background: #f7f7f7; color: #153424; border: 1px solid #f0f0f0; cursor: pointer; display: none; align-items: center; justify-content: center; flex-shrink: 0; transition: background-color 0.3s ease, color 0.3s ease; -webkit-tap-highlight-color: transparent; }
+.lock-btn-mobile { width: 40px; height: 40px; border-radius: 50%; background: #f7f7f7; color: #153424; border: 1px solid #f0f0f0; cursor: pointer; display: none; align-items: center; justify-content: center; flex-shrink: 0; transition: background-color 0.3s ease, color 0.3s ease; }
 .lock-btn-mobile svg { width: 16px; height: 16px; }
 
 @media (max-width: 700px) {
-  .brand-scene { display: none; }
   .lock-btn-mobile { display: flex; }
 }
 
@@ -298,7 +223,6 @@ main { max-width: 1100px; margin: 0 auto; padding: 20px 24px 60px; flex: 1; widt
   padding: 9px 18px; border-radius: 999px; background: #153424; color: #ffffff;
   font-size: 12px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px;
   transition: background-color 0.2s ease, color 0.2s ease;
-  -webkit-tap-highlight-color: transparent;
 }
 .btn.active, .btn:active { background-color: #1c4531; }
 .btn.sec { background: #ffffff; color: #153424; border: 1px solid #d8e8dd; }
@@ -319,7 +243,7 @@ body.secret-mode .btn.secret-add.active, body.secret-mode .btn.secret-add:active
   display: none; align-items: center; gap: 6px; padding: 8px 16px; margin-bottom: 16px;
   border-radius: 999px; background: rgba(255,255,255,.1); color: #ffffff;
   border: 1px solid rgba(255,255,255,.2); font-size: 12px; font-weight: 500;
-  transition: background-color 0.2s ease; -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.2s ease;
 }
 .exit-secret.active, .exit-secret:active { background-color: rgba(255,255,255,.2); }
 body.secret-mode .exit-secret { display: inline-flex; }
@@ -331,7 +255,6 @@ body.secret-mode .exit-secret { display: inline-flex; }
   display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 999px;
   background-color: #f7f7f7; color: #555555; font-size: 13px; font-weight: 500; border: 1px solid transparent;
   white-space: nowrap; flex-shrink: 0; transition: background-color 0.2s ease, color 0.2s ease;
-  -webkit-tap-highlight-color: transparent;
 }
 .chip svg { width: 18px; height: 18px; color: #888888; transition: color 0.3s ease; }
 .chip.active, .chip:active { background-color: #153424; color: #ffffff; border-color: #153424; }
@@ -345,7 +268,7 @@ body.secret-mode .chip.active svg, body.secret-mode .chip:active svg { color: #1
 .species-step { display: none; }
 .species-step.on { display: block; margin-bottom: 16px; }
 .species-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-.back-btn { display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; border-radius: 999px; background: transparent; color: #888888; font-size: 12px; font-weight: 500; transition: all 0.2s ease; -webkit-tap-highlight-color: transparent; }
+.back-btn { display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; border-radius: 999px; background: transparent; color: #888888; font-size: 12px; font-weight: 500; transition: all 0.2s ease; }
 .back-btn:hover { color: #153424; background-color: #f7f7f7; }
 .back-btn svg { width: 12px; height: 12px; }
 
@@ -357,7 +280,6 @@ body.secret-mode .chip.active svg, body.secret-mode .chip:active svg { color: #1
   background: transparent; border-bottom: 1px solid rgba(21,52,36,.15); color: #0f0f0f;
   font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 17px;
   text-align: left; font-weight: 500; transition: border-color 0.3s ease;
-  -webkit-tap-highlight-color: transparent;
 }
 .sel-trigger.placeholder { color: #888888; }
 .sel-trigger:hover { border-bottom-color: #153424; color: #153424; }
@@ -370,7 +292,7 @@ body.secret-mode .chip.active svg, body.secret-mode .chip:active svg { color: #1
 }
 .sel-wrap.open .sel-dd { display: block; }
 .opt-group { padding: 10px 16px 4px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: #153424; opacity: 0.6; transition: color 0.4s ease; }
-.opt { padding: 8px 16px; font-size: 13.5px; color: #0f0f0f; transition: background-color 0.2s ease, color 0.2s ease; -webkit-tap-highlight-color: transparent; }
+.opt { padding: 8px 16px; font-size: 13.5px; color: #0f0f0f; transition: background-color 0.2s ease, color 0.2s ease; }
 .opt:hover, .opt:active { background-color: #f4f6f5; color: #153424; }
 .opt.sel { background-color: #153424; color: #ffffff; }
 body.secret-mode .opt:active { background-color: #2a5c41; color: #ffffff; }
@@ -393,7 +315,7 @@ body.secret-mode #drawer-dropdown-backdrop { background: rgba(21,52,36,.85); }
 .card { border: 1px solid #f0f0f0; border-radius: 16px; overflow: hidden; background: #ffffff; display: flex; flex-direction: column; position: relative; box-shadow: 0 1px 3px rgba(0,0,0,.04); transition: background-color 0.4s ease, border-color 0.4s ease; }
 .card-img-wrap { position: relative; aspect-ratio: 4/3; background: #fafafa; overflow: hidden; border-bottom: 1px solid #f0f0f0; transition: background-color 0.4s ease, border-color 0.4s ease; }
 .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; cursor: zoom-in; }
-.card-del { position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,.95); color: #0f0f0f; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,.06); -webkit-tap-highlight-color: transparent; }
+.card-del { position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,.95); color: #0f0f0f; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,.06); }
 .card-del:active { background-color: #f0f0f0; }
 .card-del.confirming { background-color: #e11d48; color: #ffffff; }
 .card-del svg { width: 14px; height: 14px; position: absolute; }
@@ -417,7 +339,7 @@ body.secret-mode #drawer-dropdown-backdrop { background: rgba(21,52,36,.85); }
 .drawer.open { transform: translateX(0); }
 .drawer-head { padding: 20px 24px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 50; background: inherit; transition: border-color 0.4s ease; }
 .drawer-head h2 { font-family: 'Bodoni Moda', Georgia, serif; font-size: 22px; color: #153424; font-weight: 500; transition: color 0.4s ease; }
-.close-x { color: #888888; padding: 6px; -webkit-tap-highlight-color: transparent; }
+.close-x { color: #888888; padding: 6px; }
 .close-x svg { width: 22px; height: 22px; display: block; }
 .drawer-body { flex: 1; overflow-y: auto; padding: 20px 24px; position: relative; z-index: 50; }
 .drawer-foot { padding: 16px 24px; border-top: 1px solid #f0f0f0; background: inherit; position: relative; z-index: 50; transition: border-color 0.4s ease; }
@@ -428,7 +350,7 @@ body.secret-mode #drawer-dropdown-backdrop { background: rgba(21,52,36,.85); }
 .field input[type="text"] { width: 100%; padding: 11px 14px; background: #f7f7f7; border: none; border-radius: 10px; color: #0f0f0f; font-size: 14px; font-family: inherit; outline: none; transition: all 0.4s ease; }
 .field input[type="text"]:focus { background: #eef2f0; }
 .cat-grid { display: grid; grid-template-columns: 1fr; gap: 6px; }
-.cat-opt { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 10px; background-color: #f7f7f7; color: #0f0f0f; font-size: 12px; font-weight: 500; text-align: left; width: 100%; transition: background-color 0.2s ease, color 0.2s ease; -webkit-tap-highlight-color: transparent; }
+.cat-opt { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 10px; background-color: #f7f7f7; color: #0f0f0f; font-size: 12px; font-weight: 500; text-align: left; width: 100%; transition: background-color 0.2s ease, color 0.2s ease; }
 .cat-opt svg { width: 18px; height: 18px; color: #888888; flex-shrink: 0; }
 .cat-opt:hover { background-color: #eef2f0; color: #153424; }
 .cat-opt:active { background-color: #eef2f0; color: #153424; }
@@ -449,7 +371,7 @@ body.secret-mode .cat-opt[data-mode="secret"].active { background-color: #ffffff
 body.secret-mode .cat-opt[data-mode="secret"].active svg { color: #153424; }
 
 .exp-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
-.exp-opt { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 4px; border-radius: 10px; background-color: #f7f7f7; color: #555555; font-size: 10px; font-weight: 500; gap: 4px; text-align: center; transition: background-color 0.2s ease, color 0.2s ease; -webkit-tap-highlight-color: transparent; }
+.exp-opt { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 4px; border-radius: 10px; background-color: #f7f7f7; color: #555555; font-size: 10px; font-weight: 500; gap: 4px; text-align: center; transition: background-color 0.2s ease, color 0.2s ease; }
 .exp-opt svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .exp-opt:hover { background-color: #eef2f0; color: #153424; }
 .exp-opt:active { background-color: #eef2f0; color: #153424; }
@@ -473,7 +395,7 @@ body.secret-mode .exp-opt.active:active { background-color: #f0f0f0; }
 
 .photo-prev { position: relative; width: 100%; aspect-ratio: 4/3; border-radius: 12px; overflow: hidden; display: none; }
 .photo-prev img { width: 100%; height: 100%; object-fit: cover; }
-.photo-prev button { position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(0,0,0,.7); color: #ffffff; font-size: 18px; display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; }
+.photo-prev button { position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(0,0,0,.7); color: #ffffff; font-size: 18px; display: flex; align-items: center; justify-content: center; }
 
 /* Modales */
 .modal { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,.55); display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
@@ -486,7 +408,7 @@ body.secret-mode .exp-opt.active:active { background-color: #f0f0f0; }
 body.secret-mode .code-inp { background: #1c4531; color: #ffffff; }
 body.secret-mode .code-inp:focus { border-color: #ffffff; background: #2a5c41; }
 .modal-acts { display: flex; gap: 10px; margin-top: 16px; }
-.modal-acts [role="button"] { flex: 1; padding: 11px; border-radius: 10px; font-weight: 500; font-size: 14px; text-align: center; transition: background-color 0.2s ease; -webkit-tap-highlight-color: transparent; }
+.modal-acts [role="button"] { flex: 1; padding: 11px; border-radius: 10px; font-weight: 500; font-size: 14px; text-align: center; transition: background-color 0.2s ease; }
 .modal-acts .primary { background-color: #153424; color: #ffffff; }
 .modal-acts .primary:active { background-color: #1c4531; }
 body.secret-mode .modal-acts .primary { background-color: #ffffff; color: #153424; }
@@ -497,7 +419,7 @@ body.secret-mode .modal-acts .primary:active { background-color: #f0f0f0; }
 /* Lightbox */
 .lightbox { position: fixed; inset: 0; z-index: 200; background: rgba(8,8,8,.96); display: flex; opacity: 0; pointer-events: none; transition: opacity 0.3s; overflow-y: auto; padding: 24px 20px; }
 .lightbox.open { opacity: 1; pointer-events: auto; }
-.lb-close { position: fixed; top: 16px; left: 16px; width: 44px; height: 44px; color: rgba(255,255,255,.72); z-index: 210; display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; }
+.lb-close { position: fixed; top: 16px; left: 16px; width: 44px; height: 44px; color: rgba(255,255,255,.72); z-index: 210; display: flex; align-items: center; justify-content: center; }
 .lb-close svg { width: 26px; height: 26px; }
 .lb-content { margin: auto; display: flex; flex-direction: column; align-items: center; gap: 24px; width: 100%; max-width: 900px; }
 .lb-content img { display: block; max-width: 90vw; max-height: 60vh; width: auto; height: auto; object-fit: contain; border-radius: 4px; box-shadow: 0 20px 50px rgba(0,0,0,.55); }
@@ -524,79 +446,7 @@ body.secret-mode .modal-acts .primary:active { background-color: #f0f0f0; }
     <div class="brand-wrap" id="brand-wrap">
       <div class="brand">
         <div class="brand-title">Plantouille</div>
-        <div class="brand-tagline">Cabinet du <span class="dr-secret" id="dr-btn" role="button" tabindex="0" style="cursor:pointer; -webkit-tap-highlight-color: transparent;">Dr</span>-Cactus</div>
-      </div>
-    </div>
-
-    <div class="brand-scene" aria-hidden="true">
-      <div class="scene-sun"></div>
-      <div class="scene-moon">
-        <svg viewBox="0 0 24 24"><path d="M 12 2 A 10 10 0 1 0 22 12 A 8 8 0 1 1 12 2 Z" /></svg>
-      </div>
-
-      <div class="scene-normal">
-        <div class="plant-wrapper pw-col">
-          <div class="scene-plant">
-            <svg viewBox="0 0 24 32" fill="currentColor"><rect x="9" y="2" width="6" height="30" rx="3"/><path d="M9 14 H4 a2 2 0 0 1 -2 -2 V8 a2 2 0 0 1 4 0 v4 h3"/><path d="M15 18 h5 a2 2 0 0 0 2 -2 V10 a2 2 0 0 0 -4 0 v6 h-3"/></svg>
-          </div>
-        </div>
-        <div class="plant-wrapper pw-aloe">
-          <div class="scene-plant">
-            <svg viewBox="0 0 24 20" fill="currentColor"><path d="M12 20 L10 6 L14 6 Z M12 20 L4 10 L8 8 Z M12 20 L20 10 L16 8 Z M12 20 L2 14 L6 12 Z M12 20 L22 14 L18 12 Z M12 20 L12 2 L15 8 Z M12 20 L12 2 L9 8 Z"/></svg>
-          </div>
-        </div>
-        <div class="plant-wrapper pw-ech">
-          <div class="scene-plant">
-            <svg viewBox="0 0 24 16" fill="currentColor"><circle cx="12" cy="10" r="6"/><path d="M12 4 l-2 -4 l4 0 z M12 4 l-2 -4 l4 0 z M6 10 l-6 -2 l2 -3 z M18 10 l6 -2 l-2 -3 z M8 16 l-4 4 l2 2 z M16 16 l4 4 l-2 2 z"/></svg>
-          </div>
-        </div>
-        <div class="plant-wrapper pw-yuc">
-          <div class="scene-plant">
-            <svg viewBox="0 0 20 28" fill="currentColor"><rect x="9" y="10" width="2" height="18"/><path d="M10 12 L6 2 L10 4 Z M10 12 L14 2 L10 4 Z M10 12 L2 6 L6 6 Z M10 12 L18 6 L14 6 Z M10 12 L4 14 L8 12 Z M10 12 L16 14 L12 12 Z"/></svg>
-          </div>
-        </div>
-        <div class="plant-wrapper pw-bea">
-          <div class="scene-plant">
-            <svg viewBox="0 0 22 24" fill="currentColor"><ellipse cx="11" cy="21" rx="8" ry="3"/><rect x="10" y="8" width="2" height="16"/><path d="M11 10 L8 2 L12 4 Z M11 10 L14 2 L10 4 Z M11 10 L2 6 L6 8 Z M11 10 L20 6 L16 8 Z M11 10 L4 12 L8 10 Z M11 10 L18 12 L14 10 Z"/></svg>
-          </div>
-        </div>
-      </div>
-
-      <div class="scene-secret">
-        <div class="plant-wrapper pw-mush">
-          <div class="scene-plant">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 12 a6 6 0 0 1 12 0 v1 h-12 z"/><rect x="9" y="13" width="6" height="11" rx="2"/><circle cx="10" cy="8" r="1.5" fill="#153424"/><circle cx="15" cy="10" r="1.5" fill="#153424"/></svg>
-          </div>
-        </div>
-        <div class="plant-wrapper pw-cann">
-          <div class="scene-plant">
-            <svg viewBox="0 0 28 28" fill="currentColor"><path d="M14 28 V16 M14 16 L8 20 v-4 l-6 4 l2-6 l-6 2 l4-6 l-4-2 l6 0 l-2-6 l6 4 v-4 l4 4 v-4 l6 4 l-2 6 l6 0 l-4 2 l4 6 l-6-2 l2 6 l-6-4 v4 z"/></svg>
-          </div>
-        </div>
-        <div class="plant-wrapper pw-popp">
-          <div class="scene-plant">
-            <svg viewBox="0 0 24 28" fill="currentColor"><path d="M12 28 v-12"/><ellipse cx="12" cy="10" rx="6" ry="6"/><path d="M12 4 L10 0 L14 0 Z"/><path d="M6 10 C0 14 4 22 8 18 C10 16 8 12 6 10 Z"/><path d="M18 10 C24 14 20 22 16 18 C14 16 16 12 18 10 Z"/></svg>
-          </div>
-        </div>
-        <div class="plant-wrapper pw-trich">
-          <div class="scene-plant">
-            <svg viewBox="0 0 22 32" fill="currentColor"><rect x="6" y="2" width="10" height="30" rx="5"/><path d="M8 4 V32 M11 2 V32 M14 4 V32" stroke="#153424" stroke-width="1.5"/></svg>
-          </div>
-        </div>
-        <div class="plant-wrapper pw-peyot">
-          <div class="scene-plant">
-            <svg viewBox="0 0 26 20" fill="currentColor"><ellipse cx="13" cy="16" rx="10" ry="4"/><path d="M6 14 a7 7 0 0 1 14 0 v2 h-14 z"/><circle cx="9" cy="12" r="2" fill="#153424"/><circle cx="17" cy="12" r="2" fill="#153424"/><circle cx="13" cy="16" r="2" fill="#153424"/></svg>
-          </div>
-        </div>
-      </div>
-
-      <div class="scene-bird" id="scene-bird">
-        <svg class="bird-normal" viewBox="0 0 24 16" fill="currentColor"><g class="bird-wing"><path d="M12 8 C10 4 6 2 2 4 C4 6 8 8 12 8 Z" /></g><path d="M2 8 C6 8 8 10 10 12 C12 12 14 10 16 8 C18 10 20 10 22 8 C20 6 18 6 16 8 C14 6 12 4 10 4 C8 4 6 6 2 8 Z"/></svg>
-        <svg class="bird-witch" viewBox="0 0 24 20" fill="currentColor"><path d="M2 16 L16 16 L16 18 L2 18 Z"/><path d="M16 14 L24 12 L24 20 L16 18 Z"/><path d="M10 14 L12 8 L16 12 Z"/><path d="M10 8 L14 4 L16 8 Z"/><g class="bird-wing"><path d="M10 12 L6 8 L4 12 L8 14 Z" fill="currentColor"/></g></svg>
-      </div>
-
-      <div class="scene-lock" id="scene-lock-btn" role="button" tabindex="0" aria-label="Accès admin">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <div class="brand-tagline">Cabinet du <span class="dr-secret" id="dr-btn" role="button" tabindex="0">Dr</span>-Cactus</div>
       </div>
     </div>
 
@@ -611,6 +461,11 @@ body.secret-mode .modal-acts .primary:active { background-color: #f0f0f0; }
     </div>
   </div>
 </header>
+
+<!-- L'ANIMATION INDÉPENDANTE EST ICI -->
+<div style="width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 24px;">
+  <iframe id="animation-iframe" src="animation.html" style="width: 100%; height: 100px; border: none; overflow: hidden; background: transparent; display: block;" scrolling="no" title="Animation Soleil et Plantes"></iframe>
+</div>
 
 <main>
   <div id="admin-bar" class="admin-bar">
@@ -669,12 +524,7 @@ body.secret-mode .modal-acts .primary:active { background-color: #f0f0f0; }
       </div>
       <div class="chip secret" data-cat="Cannabis" data-mode="secret" role="button" tabindex="0" style="display:none">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 22 V13" />
-          <path d="M12 13 L9 10 V6 L11 8 L12 3 L13 8 L15 6 V10 Z" />
-          <path d="M12 13 L7 12 V8 L9 10 L8 5 L10 8 Z" />
-          <path d="M12 13 L17 12 V8 L15 10 L16 5 L14 8 Z" />
-          <path d="M12 16 L8 17 L6 20 L8 18 Z" />
-          <path d="M12 16 L16 17 L18 20 L16 18 Z" />
+          <path d="M12 22 V13" /><path d="M12 13 L9 10 V6 L11 8 L12 3 L13 8 L15 6 V10 Z" /><path d="M12 13 L7 12 V8 L9 10 L8 5 L10 8 Z" /><path d="M12 13 L17 12 V8 L15 10 L16 5 L14 8 Z" /><path d="M12 16 L8 17 L6 20 L8 18 Z" /><path d="M12 16 L16 17 L18 20 L16 18 Z" />
         </svg> Cannabis
       </div>
       <div class="chip secret" data-cat="Champignons" data-mode="secret" role="button" tabindex="0" style="display:none">
@@ -1009,6 +859,7 @@ body.secret-mode .modal-acts .primary:active { background-color: #f0f0f0; }
   const SEED_KEY = 'plantouille_secret_seeded';
   const MAXW = 900;
   const Q = 0.72;
+  const iframe = document.getElementById('animation-iframe');
 
   const SPECIES = {
     'Cactus': ['Acanthocereus','Acharagma','Ancistrocactus','Aporocactus','Ariocarpus','Armatocereus','Arrojadoa','Astrophytum','Austrocactus','Austrocephalocereus','Austrocylindropuntia','Aylostera','Aztekium','Bergerocactus','Blossfeldia','Borzicactus','Brachycereus','Brasilicactus','Brasilicereus','Browningia','Calymmanthium','Carnegiea','Cephalocereus','Cereus','Cintia','Cleistocactus','Coleocephalocereus','Consolea','Copiapoa','Corryocactus','Coryphantha','Cumulopuntia','Cylindropuntia','Denmoza','Discocactus','Echinocactus','Echinocereus','Echinomastus','Echinopsis','Epiphyllum','Eriosyce','Escobaria','Espostoa','Espostoopsis','Eulychnia','Facheiroa','Ferocactus','Frailea','Geohintonia','Gymnocalycium','Haageocereus','Hamatocactus','Harrisia','Hatiora','Hylocereus','Isolatocereus','Islaya','Jasminocereus','Lasiocereus','Leocereus','Lepismium','Leptocereus','Leuchtenbergia','Lobivia','Lophophora','Loxanthocereus','Mammillaria','Mammilloydia','Matucana','Melocactus','Micranthocereus','Mila','Monvillea','Morawetzia','Myrtillocactus','Neobuxbaumia','Neolloydia','Neoporteria','Neoraimondia','Neowerdermannia','Notocactus','Obregonia','Opuntia','Oreocereus','Oroya','Ortegocactus','Pachycereus','Parodia','Pediocactus','Pelecyphora','Peniocereus','Pereskia','Pilosocereus','Polaskia','Pterocactus','Pygmaeocereus','Rebutia','Rhipsalis','Schlumbergera','Selenicereus','Setiechinopsis','Stenocactus','Stenocereus','Stephanocereus','Stetsonia','Strombocactus','Sulcorebutia','Tacinga','Tephrocactus','Thelocactus','Trichocereus','Tunilla','Turbinicarpus','Uebelmannia','Weberbauerocereus','Weingartia','Wilcoxia','Yavia'],
@@ -1218,6 +1069,11 @@ body.secret-mode .modal-acts .primary:active { background-color: #f0f0f0; }
     document.body.classList.toggle('secret-mode', secretMode);
     document.getElementById('brand-wrap').classList.toggle('flipped', secretMode);
     
+    // Envoi du signal à l'animation indépendante
+    if (iframe && iframe.contentWindow) {
+      iframe.contentWindow.postMessage({ action: 'setSecretMode', mode: secretMode }, '*');
+    }
+
     document.querySelectorAll('#chips-row .chip').forEach(c => {
       const m = c.getAttribute('data-mode') || 'normal';
       if (secretMode) {
@@ -1625,4 +1481,20 @@ body.secret-mode .modal-acts .primary:active { background-color: #f0f0f0; }
 
 </body>
 </html>
+```
+
+⚠️ Dernière petite chose pour que l'animation fonctionne parfaitement :
+Dans votre fichier animation.html, ajoutez ce petit bout de code à l'intérieur de la balise <script> (juste avant })();). Cela permettra à l'animation de réagir quand vous cliquez sur "Dr" depuis le site principal :
+
+```javascript
+  // Écouteur pour changer de mode depuis le site principal
+  window.addEventListener('message', function(event) {
+    if (event.data && event.data.action === 'setSecretMode') {
+      if (event.data.mode) {
+        document.body.classList.add('secret-mode');
+      } else {
+        document.body.classList.remove('secret-mode');
+      }
+    }
+  });
 ```

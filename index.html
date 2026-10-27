@@ -14,15 +14,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-/* === RÉSOLUTION DU FLASH BLANC ANDROID === */
+/* === RÉSOLUTION DÉFINITIVE DU FLASH BLANC ANDROID === */
 * { 
   margin: 0; 
   padding: 0; 
   box-sizing: border-box; 
-  -webkit-tap-highlight-color: transparent !important; 
+  -webkit-tap-highlight-color: rgba(0,0,0,0) !important; 
   -webkit-touch-callout: none;
+  -webkit-user-select: none;
   user-select: none;
 }
+
+/* Empêche le SVG de capter le clic et de faire un flash blanc */
+button *, a * { pointer-events: none !important; }
 
 button, input, select, a {
   outline: none !important;
@@ -31,6 +35,7 @@ button, input, select, a {
   background-color: transparent;
   font-family: inherit;
   border: none;
+  touch-action: manipulation;
 }
 
 /* Interdit le focus/active natif qui crée le flash */
@@ -49,7 +54,6 @@ body {
   flex-direction: column;
   -webkit-font-smoothing: antialiased;
   transition: background-color 0.4s ease, color 0.4s ease;
-  touch-action: manipulation; 
 }
 
 /* =========================================
@@ -151,13 +155,13 @@ body.secret-mode ::selection { background: #ffffff; color: #153424; }
   position: relative;
 }
 
-/* Animation de rotation */
+/* Animation de rotation avec rebond */
 .brand-wrap { 
   display: flex; 
   align-items: center; 
   position: relative; 
   z-index: 2;
-  transition: transform 1s cubic-bezier(0.25, 1.5, 0.5, 1);
+  transition: transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
   transform-origin: center center;
 }
 .brand-wrap.flipped {
@@ -1199,17 +1203,30 @@ body.secret-mode .modal-acts .primary:active { background: #f0f0f0; }
       <!-- PEYOTL (Chamanique) -->
       <button class="chip secret" data-cat="Chamanique" data-mode="secret" style="display:none">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 21c-5 0-9-4-9-9s4-9 9-9 9 4 9 9-4 9-9 9z" />
-          <path d="M12 3v18M3 12h18M6.5 6.5l11 11M6.5 17.5l11-11" />
+          <circle cx="12" cy="12" r="9" />
           <circle cx="12" cy="12" r="2.5" />
-          <path d="M10 10l4 4M14 10l-4 4" />
+          <path d="M12 3v5 M12 16v5 M3 12h5 M16 12h5 M5.6 5.6l3.5 3.5 M14.9 14.9l3.5 3.5 M18.4 5.6l-3.5 3.5 M9.1 14.9l-3.5 3.5" />
+          <circle cx="8" cy="6" r="1" fill="currentColor"/>
+          <circle cx="16" cy="6" r="1" fill="currentColor"/>
+          <circle cx="6" cy="8" r="1" fill="currentColor"/>
+          <circle cx="18" cy="8" r="1" fill="currentColor"/>
+          <circle cx="6" cy="16" r="1" fill="currentColor"/>
+          <circle cx="18" cy="16" r="1" fill="currentColor"/>
+          <circle cx="8" cy="18" r="1" fill="currentColor"/>
+          <circle cx="16" cy="18" r="1" fill="currentColor"/>
         </svg>
         Chamanique
       </button>
       <!-- FEUILLE DE CANNABIS (5 pointes) -->
       <button class="chip secret" data-cat="Cannabis" data-mode="secret" style="display:none">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 22 V12 M12 12 C11 8 11 4 12 2 C13 4 13 8 12 12 M12 12 C10 10 7 8 4 6 C6 6 8 8 8 5 C8 5 9 7 12 12 M12 12 C10 12 7 14 4 16 C6 14 7 12 6 10 C7 11 9 11 12 12 M12 12 C14 10 17 8 20 6 C18 6 16 8 16 5 C16 5 15 7 12 12 M12 12 C14 12 17 14 20 16 C18 14 17 12 18 10 C17 11 15 11 12 12" />
+          <path d="M12 22 V12" />
+          <path d="M12 14 C9 14 6 15 4 17 C6 16 8 15 10 13 Z" />
+          <path d="M12 14 C15 14 18 15 20 17 C18 16 16 15 14 13 Z" />
+          <path d="M12 12 C8 12 4 13 2 15 C4 13 7 12 10 10 Z" />
+          <path d="M12 12 C16 12 20 13 22 15 C20 13 17 12 14 10 Z" />
+          <path d="M12 10 C10 8 8 6 7 3 C9 5 10 7 12 9 Z" />
+          <path d="M12 10 C14 8 16 6 17 3 C15 5 14 7 12 9 Z" />
         </svg>
         Cannabis
       </button>
@@ -1293,17 +1310,30 @@ body.secret-mode .modal-acts .primary:active { background: #f0f0f0; }
           <!-- PEYOTL (Chamanique) -->
           <button type="button" class="cat-opt" data-cat="Chamanique" data-mode="secret">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 21c-5 0-9-4-9-9s4-9 9-9 9 4 9 9-4 9-9 9z" />
-              <path d="M12 3v18M3 12h18M6.5 6.5l11 11M6.5 17.5l11-11" />
+              <circle cx="12" cy="12" r="9" />
               <circle cx="12" cy="12" r="2.5" />
-              <path d="M10 10l4 4M14 10l-4 4" />
+              <path d="M12 3v5 M12 16v5 M3 12h5 M16 12h5 M5.6 5.6l3.5 3.5 M14.9 14.9l3.5 3.5 M18.4 5.6l-3.5 3.5 M9.1 14.9l-3.5 3.5" />
+              <circle cx="8" cy="6" r="1" fill="currentColor"/>
+              <circle cx="16" cy="6" r="1" fill="currentColor"/>
+              <circle cx="6" cy="8" r="1" fill="currentColor"/>
+              <circle cx="18" cy="8" r="1" fill="currentColor"/>
+              <circle cx="6" cy="16" r="1" fill="currentColor"/>
+              <circle cx="18" cy="16" r="1" fill="currentColor"/>
+              <circle cx="8" cy="18" r="1" fill="currentColor"/>
+              <circle cx="16" cy="18" r="1" fill="currentColor"/>
             </svg>
             Chamanique
           </button>
           <!-- FEUILLE DE CANNABIS (5 pointes) -->
           <button type="button" class="cat-opt" data-cat="Cannabis" data-mode="secret">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 22 V12 M12 12 C11 8 11 4 12 2 C13 4 13 8 12 12 M12 12 C10 10 7 8 4 6 C6 6 8 8 8 5 C8 5 9 7 12 12 M12 12 C10 12 7 14 4 16 C6 14 7 12 6 10 C7 11 9 11 12 12 M12 12 C14 10 17 8 20 6 C18 6 16 8 16 5 C16 5 15 7 12 12 M12 12 C14 12 17 14 20 16 C18 14 17 12 18 10 C17 11 15 11 12 12" />
+              <path d="M12 22 V12" />
+              <path d="M12 14 C9 14 6 15 4 17 C6 16 8 15 10 13 Z" />
+              <path d="M12 14 C15 14 18 15 20 17 C18 16 16 15 14 13 Z" />
+              <path d="M12 12 C8 12 4 13 2 15 C4 13 7 12 10 10 Z" />
+              <path d="M12 12 C16 12 20 13 22 15 C20 13 17 12 14 10 Z" />
+              <path d="M12 10 C10 8 8 6 7 3 C9 5 10 7 12 9 Z" />
+              <path d="M12 10 C14 8 16 6 17 3 C15 5 14 7 12 9 Z" />
             </svg>
             Cannabis
           </button>

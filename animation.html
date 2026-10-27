@@ -1,14 +1,3 @@
-C'est une excellente idée de séparer l'animation pour ne plus toucher au fichier index.html.
-
-Voici un fichier indépendant, 100% autonome, qui contient uniquement la scène animée (le soleil, la lune, les plantes, l'oiseau/sorcière et le cadenas).
-
-Vous pouvez l'enregistrer sous le nom animation.html et l'intégrer sur n'importe quelle page de votre site via une simple balise <iframe>.
-
-Fonctionnalité ajoutée pour l'autonomie : comme le bouton "Dr" n'est pas dans ce fichier, cliquez simplement sur le Soleil ou la Lune pour basculer entre le mode jour et le mode nuit !
-
-Le fichier animation.html
-
-```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -43,14 +32,14 @@ body {
 .scene-container {
   position: relative;
   width: 100%;
-  max-width: 800px;
+  max-width: 1100px;
   height: 80px; /* Hauteur de la zone */
   overflow: hidden;
 }
 
 .brand-scene {
   position: absolute;
-  left: 0; right: 0; bottom: 0;
+  left: 8%; right: 8%; bottom: 0;
   height: 70px;
 }
 
@@ -58,7 +47,7 @@ body {
 .brand-scene::after {
   content: '';
   position: absolute;
-  left: 8%; right: 8%; bottom: 0;
+  left: 0; right: 0; bottom: 0;
   height: 1px;
   background: rgba(21, 52, 36, 0.15);
   transition: background-color 0.4s ease;
@@ -149,17 +138,6 @@ body.secret-mode .bird-witch { display: block; }
   from { transform: rotate(-10deg); }
   to { transform: rotate(30deg); }
 }
-
-/* Cadenas (Statique) */
-.scene-lock {
-  position: absolute; right: 2%; bottom: 45px; width: 14px; height: 14px;
-  background: transparent; border: none; color: #153424; opacity: 0.28;
-  cursor: pointer; padding: 0; z-index: 5;
-  transition: opacity 0.2s ease, color 0.6s ease;
-}
-body.secret-mode .scene-lock { color: #ffffff; opacity: 0.5; }
-.scene-lock:hover { opacity: 0.95; color: #d4a548; }
-.scene-lock svg { width: 100%; height: 100%; }
 </style>
 </head>
 <body>
@@ -197,11 +175,6 @@ body.secret-mode .scene-lock { color: #ffffff; opacity: 0.5; }
       <svg class="bird-witch" viewBox="0 0 24 20" fill="currentColor"><path d="M2 16 L16 16 L16 18 L2 18 Z"/><path d="M16 14 L24 12 L24 20 L16 18 Z"/><path d="M10 14 L12 8 L16 12 Z"/><path d="M10 8 L14 4 L16 8 Z"/><g class="bird-wing"><path d="M10 12 L6 8 L4 12 L8 14 Z" fill="currentColor"/></g></svg>
     </div>
 
-    <!-- Cadenas -->
-    <div class="scene-lock" role="button" aria-label="Accès admin">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-    </div>
-
   </div>
 </div>
 
@@ -209,7 +182,7 @@ body.secret-mode .scene-lock { color: #ffffff; opacity: 0.5; }
 (function () {
   'use strict';
 
-  // 1. Gestion du clic sur le Soleil / Lune pour basculer de mode
+  // 1. Gestion du clic local sur le Soleil / Lune
   const sun = document.getElementById('toggle-day-night');
   const moon = document.getElementById('toggle-night-day');
 
@@ -220,10 +193,21 @@ body.secret-mode .scene-lock { color: #ffffff; opacity: 0.5; }
   sun.addEventListener('click', toggleMode);
   moon.addEventListener('click', toggleMode);
 
-  // 2. Animation de l'oiseau qui vole aléatoirement
+  // 2. ÉCOUTE DU SIGNAL DU SITE PRINCIPAL (index.html)
+  // Permet de synchroniser le mode nuit quand on clique sur "Dr" sur le site
+  window.addEventListener('message', function(event) {
+    if (event.data && event.data.action === 'setSecretMode') {
+      if (event.data.mode) {
+        document.body.classList.add('secret-mode');
+      } else {
+        document.body.classList.remove('secret-mode');
+      }
+    }
+  });
+
+  // 3. Animation de l'oiseau qui vole aléatoirement
   const bird = document.getElementById('scene-bird');
-  let currentPos = 50;
-  let currentHeight = 35; // Position initiale en bas
+  let currentPos = 40;
 
   function moveBird() {
     // L'oiseau vole entre 15% et 85% de la largeur
@@ -231,16 +215,13 @@ body.secret-mode .scene-lock { color: #ffffff; opacity: 0.5; }
     // L'oiseau vole entre 35px et 65px de hauteur
     const newHeight = 35 + Math.random() * 30;
     
-    // Calcul de la distance pour la durée (plus c'est loin, plus c'est long)
     const dist = Math.abs(newPos - currentPos);
     const duration = Math.max(2500, dist * 100);
 
     // Gestion de la direction (retournement de l'oiseau)
     if (newPos < currentPos) {
-      bird.classList.add('flip'); // (Assurez-vous que le CSS flip existe si besoin)
       bird.style.transform = 'scaleX(-1)';
     } else {
-      bird.classList.remove('flip');
       bird.style.transform = 'scaleX(1)';
     }
 
@@ -250,9 +231,8 @@ body.secret-mode .scene-lock { color: #ffffff; opacity: 0.5; }
     bird.style.bottom = newHeight + 'px';
 
     currentPos = newPos;
-    currentHeight = newHeight;
 
-    // Prochain mouvement dans un délai aléatoire
+    // Prochain mouvement
     setTimeout(moveBird, duration + 1000 + Math.random() * 2000);
   }
 
@@ -264,20 +244,3 @@ body.secret-mode .scene-lock { color: #ffffff; opacity: 0.5; }
 
 </body>
 </html>
-```
-
-Comment l'intégrer sur votre site sans toucher à l'index ?
-
-1. Enregistrez le fichier : Créez un fichier nommé animation.html et collez-y le code ci-dessus.
-2. Uploadez-le : Mettez ce fichier sur votre serveur (au même niveau que votre index.html).
-3. Affichez-le : Dans votre index.html (ou n'importe quelle autre page de votre site), vous n'avez plus qu'à utiliser une balise <iframe> à l'endroit exact où vous voulez voir la scène :
-
-```html
-<iframe src="animation.html" style="width: 100%; height: 100px; border: none; overflow: hidden;" scrolling="no"></iframe>
-```
-
-Avantages de cette méthode :
-
-· Le code de votre index.html principal reste totalement intact et propre.
-· Le fichier d'animation est autonome : l'oiseau bouge, le soleil traverse l'écran, et un clic sur le soleil ou la lune fait basculer l'animation de jour en nuit.
-· Le fond de l'iframe est transparent, il s'intègre donc parfaitement sur votre site (qu'il soit blanc ou vert).

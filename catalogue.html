@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plantouille — Catalogue</title>
+<style>
+  :root{--bg:#faf9f6;--text:#2b2b28;--muted:#6b6b63;--accent:#7a8c6f;--accent-dark:#5f6f56;--border:#e2e0d8}
+  @media(prefers-color-scheme:dark){:root{--bg:#17170f;--text:#e8e6dd;--muted:#9a988e;--accent:#8fa583;--accent-dark:#a8bd9d;--border:#2c2c24}}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+  a{color:var(--accent-dark);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header{padding:1.5rem 1rem;border-bottom:1px solid var(--border);text-align:center}
+  header h1{font-size:1.4rem;font-weight:500;letter-spacing:.05em}
+  header h1 a{color:var(--text)}
+  .wrap{max-width:960px;margin:0 auto;padding:2rem 1rem}
+  input[name="cat"]{display:none}
+  .tabs{display:flex;gap:.5rem;justify-content:center;border-bottom:1px solid var(--border);margin-bottom:2rem}
+  .tabs label{padding:.75rem 1.25rem;cursor:pointer;color:var(--muted);font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;border-bottom:2px solid transparent;margin-bottom:-1px}
+  .tabs label:hover{color:var(--text)}
+  #cat-plantes:checked~.tabs label[for="cat-plantes"],
+  #cat-graines:checked~.tabs label[for="cat-graines"],
+  #cat-spores:checked~.tabs label[for="cat-spores"]{color:var(--accent-dark);border-bottom-color:var(--accent)}
+  .cat{display:none}
+  #cat-plantes:checked~.plantes,#cat-graines:checked~.graines,#cat-spores:checked~.spores{display:block}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem}
+  .card{display:block;padding:1.25rem;border:1px solid var(--border);border-radius:4px;color:var(--text);transition:border-color .25s,transform .25s}
+  .card:hover,.card:focus{border-color:var(--accent);transform:translateY(-2px);text-decoration:none}
+  .card h2{font-size:1rem;font-weight:500;margin-bottom:.25rem}
+  .card .latin{font-style:italic;color:var(--muted);font-size:.85rem}
+  .card .meta{font-size:.75rem;color:var(--muted);margin-top:.5rem}
+  .empty{text-align:center;color:var(--muted);padding:3rem 1rem;font-style:italic;font-size:.9rem}
+  footer{padding:2rem 1rem;text-align:center;font-size:.8rem;color:var(--muted);border-top:1px solid var(--border);margin-top:3rem}
+</style>
+</head>
+<body>
+<header><h1><a href="entree.html">Plantouille</a></h1></header>
+<main class="wrap">
+  <input type="radio" name="cat" id="cat-plantes" checked>
+  <input type="radio" name="cat" id="cat-graines">
+  <input type="radio" name="cat" id="cat-spores">
+  <nav class="tabs">
+    <label for="cat-plantes">Plantes</label>
+    <label for="cat-graines">Graines</label>
+    <label for="cat-spores">Spores</label>
+  </nav>
+
+  <section class="cat plantes">
+    <div class="grid">
+      <a href="#" class="card">
+        <h2>Trichocereus pachanoi</h2>
+        <p class="latin">Echinopsis pachanoi</p>
+        <p class="meta">Cactus · Cactaceae</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="cat graines">
+    <p class="empty">Aucune graine pour l'instant.</p>
+  </section>
+
+  <section class="cat spores">
+    <p class="empty">Aucune spore pour l'instant.</p>
+  </section>
+</main>
+<footer>Plantouille — catalogue personnel</footer>
+</body>
+</html>

@@ -1,1 +1,34 @@
-
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plantouille</title>
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/presentation.css">
+</head>
+<body>
+<main class="presentation">
+  <svg class="scene" viewBox="0 0 400 400" aria-hidden="true">
+    <ellipse class="seed" cx="200" cy="250" rx="6" ry="10"/>
+    <g class="cactus">
+      <rect class="cactus-body" x="175" y="120" width="50" height="200" rx="10"/>
+      <line class="cactus-rib" x1="185" y1="130" x2="185" y2="310"/>
+      <line class="cactus-rib" x1="200" y1="130" x2="200" y2="310"/>
+      <line class="cactus-rib" x1="215" y1="130" x2="215" y2="310"/>
+    </g>
+    <g class="flower">
+      <ellipse class="petal" cx="200" cy="95" rx="10" ry="25" transform="rotate(-45 200 120)"/>
+      <ellipse class="petal" cx="200" cy="95" rx="10" ry="25" transform="rotate(-22 200 120)"/>
+      <ellipse class="petal" cx="200" cy="95" rx="10" ry="25"/>
+      <ellipse class="petal" cx="200" cy="95" rx="10" ry="25" transform="rotate(22 200 120)"/>
+      <ellipse class="petal" cx="200" cy="95" rx="10" ry="25" transform="rotate(45 200 120)"/>
+      <circle class="flower-center" cx="200" cy="120" r="6"/>
+    </g>
+    <path class="soil" d="M0 310 Q100 300 200 305 T400 310 L400 400 L0 400 Z"/>
+  </svg>
+  <a href="entree.html" class="plantouille-btn">Entrer</a>
+</main>
+</body>
+</html>

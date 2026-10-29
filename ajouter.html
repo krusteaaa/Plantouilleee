@@ -91,7 +91,7 @@
     white-space: nowrap;
   }
 
-  /* LE DR EN OR BRONZE — sélecteur corrigé, cible .dr directement */
+  /* LE DR EN OR BRONZE */
   .dr {
     color: #b8860b !important;
     -webkit-text-fill-color: #b8860b !important;
@@ -105,7 +105,7 @@
     font-style: normal !important;
   }
   
-  /* LOGO 1,5X PLUS GROS, CENTRÉ */
+  /* LOGO 1,5X PLUS GROS, CENTRÉ (desktop) */
   .brand-logo{
     height: clamp(375px, 52.5vw, 600px); 
     width: auto;
@@ -235,13 +235,15 @@
     .header{gap:1.25rem}
     .brand-block{flex-direction: column; align-items: center; gap: 1rem;}
     .brand-text{align-self: flex-start;}
-    .brand-logo{height: 675px; width: 100%; max-width: 100%; object-fit: contain;}
+    /* Logo 1,5x plus gros : 450px = 1,5 × 300px (taille mobile d'origine) */
+    .brand-logo{height: 450px; width: auto; max-width: 100%; object-fit: contain; margin: 0 auto;}
   }
   @media(max-width:640px){
     body{padding:1.5rem 1rem}
     .brand-text h1, .brand h1 { font-size: 3rem; }
     .brand-text .subtitle, .brand .subtitle { font-size: 1.2rem; }
-    .brand-logo { height: 675px; width: 100%; max-width: 100%; object-fit: contain; }
+    /* Logo 1,5x plus gros sur mobile/Android */
+    .brand-logo { height: 450px; width: auto; max-width: 100%; object-fit: contain; margin: 0 auto; }
     .action-btn{width:100%; font-size: 1.2rem;}
     .back-btn{width:100%; justify-content: center;}
     .submit-block .action-btn { font-size: 1.3rem; padding: 1rem 2rem; }

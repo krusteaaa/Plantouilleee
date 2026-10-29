@@ -43,16 +43,16 @@
     user-select: none;
   }
   
-  /* TYPOGRAPHIE PLANTouille */
+  /* TYPOGRAPHIE IDENTIQUE AUX MENUS (Instrument Serif) */
   .brand h1{
-    font-family: "Playfair Display", Georgia, serif !important; 
+    font-family: "Instrument Serif", Georgia, serif !important; 
     font-style: italic !important; 
-    font-weight: 700 !important; 
-    font-size: clamp(3rem, 6vw, 4.5rem); 
-    line-height: 0.95; 
-    letter-spacing: -.03em;
+    font-weight: 400 !important; 
+    font-size: clamp(3.5rem, 7vw, 5.5rem); 
+    line-height: 0.9; 
+    letter-spacing: .01em;
     color: var(--yellow); 
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.1rem; /* Rapprochement */
   }
   
   /* LIGNE CABINET + LOGO */
@@ -60,21 +60,23 @@
     display: flex;
     align-items: center;
     gap: 1.5rem;
+    margin-top: -0.5rem; /* Rapprochement avec Plantouille */
   }
   
   .brand .subtitle{
     font-family: "Montserrat", sans-serif !important; 
     font-weight: 500 !important; 
-    font-size: clamp(1.2rem, 2vw, 1.6rem); 
+    font-size: clamp(1.4rem, 3vw, 2rem); 
     color: var(--cd); 
     letter-spacing: .05em;
     white-space: nowrap;
   }
   
-  /* LOGO A DROITE DU TEXTE */
+  /* LOGO 3X PLUS GROS */
   .brand-logo{
-    height: 120px; 
+    height: clamp(280px, 30vw, 380px); 
     width: auto;
+    max-width: 100%;
     object-fit: contain;
     display: block;
   }
@@ -199,13 +201,13 @@
   @media(max-width:768px){
     .header{flex-direction:column;align-items:flex-start;gap:1.5rem}
     .subtitle-row{flex-wrap: wrap; gap: 1rem;}
-    .brand-logo{height: 100px;}
+    .brand-logo{height: 200px;}
   }
   @media(max-width:640px){
     body{padding:1.5rem 1rem}
-    .brand h1 { font-size: 2.8rem; }
+    .brand h1 { font-size: 3.5rem; }
     .brand .subtitle { font-size: 1.2rem; }
-    .brand-logo { height: 90px; }
+    .brand-logo { height: 160px; }
     .action-btn{width:100%; font-size: 1.2rem;}
     .back-btn{width:100%; justify-content: center;}
     .submit-block .action-btn { font-size: 1.3rem; padding: 1rem 2rem; }
@@ -221,7 +223,7 @@
     <div class="brand-container">
       <h1 class="wave-text"><span class="wave-letter">P</span><span class="wave-letter">l</span><span class="wave-letter">a</span><span class="wave-letter">n</span><span class="wave-letter">t</span><span class="wave-letter">o</span><span class="wave-letter">u</span><span class="wave-letter">i</span><span class="wave-letter">l</span><span class="wave-letter">l</span><span class="wave-letter">e</span></h1>
       
-      <!-- Logo à droite du sous-titre -->
+      <!-- Logo 3x plus gros à droite de Cabinet -->
       <div class="subtitle-row">
         <p class="subtitle">Cabinet du Dr-Cactus</p>
         <img src="logo.png" alt="Logo Dr-Cactus" class="brand-logo">

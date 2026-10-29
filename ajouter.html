@@ -68,6 +68,7 @@
   }
   
   /* TYPOGRAPHIE IDENTIQUE AUX RUBRIQUES (Instrument Serif) */
+  .brand-text h1,
   .brand h1{
     font-family: "Instrument Serif", Georgia, serif !important; 
     font-style: italic !important; 
@@ -79,6 +80,7 @@
     margin-bottom: 0.2rem;
   }
   
+  .brand-text .subtitle,
   .brand .subtitle{
     font-family: "Instrument Serif", Georgia, serif !important; 
     font-style: italic !important; 
@@ -89,14 +91,18 @@
     white-space: nowrap;
   }
 
-  /* LE DR EN OR BRONZE — couleur solide compatible Android */
-  .brand .dr {
-    font-family: "Instrument Serif", serif;
-    font-style: normal;
-    font-weight: 400;
-    color: var(--bronze);
-    background: none;
-    -webkit-text-fill-color: var(--bronze);
+  /* LE DR EN OR BRONZE — sélecteur corrigé, cible .dr directement */
+  .dr {
+    color: #b8860b !important;
+    -webkit-text-fill-color: #b8860b !important;
+    background: transparent !important;
+    font-style: normal !important;
+  }
+  .brand-text .dr{
+    color: #b8860b !important;
+    -webkit-text-fill-color: #b8860b !important;
+    background: transparent !important;
+    font-style: normal !important;
   }
   
   /* LOGO 1,5X PLUS GROS, CENTRÉ */
@@ -229,13 +235,13 @@
     .header{gap:1.25rem}
     .brand-block{flex-direction: column; align-items: center; gap: 1rem;}
     .brand-text{align-self: flex-start;}
-    .brand-logo{height: 450px; max-width: 100%;}
+    .brand-logo{height: 675px; width: 100%; max-width: 100%; object-fit: contain;}
   }
   @media(max-width:640px){
     body{padding:1.5rem 1rem}
-    .brand h1 { font-size: 3rem; }
-    .brand .subtitle { font-size: 1.2rem; }
-    .brand-logo { height: 450px; max-width: 100%; }
+    .brand-text h1, .brand h1 { font-size: 3rem; }
+    .brand-text .subtitle, .brand .subtitle { font-size: 1.2rem; }
+    .brand-logo { height: 675px; width: 100%; max-width: 100%; object-fit: contain; }
     .action-btn{width:100%; font-size: 1.2rem;}
     .back-btn{width:100%; justify-content: center;}
     .submit-block .action-btn { font-size: 1.3rem; padding: 1rem 2rem; }

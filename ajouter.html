@@ -77,13 +77,15 @@
     letter-spacing: .03em;
   }
   
-  /* LOGO : Double taille, couleur forcée, sans fond fluo */
+  /* LOGO CORRIGÉ */
   .brand-logo{
     height: 160px; 
     width: auto;
     object-fit: contain;
-    /* Filtre CSS stable pour Android (transforme le bleu en vert foncé) */
-    filter: brightness(0) saturate(100%) invert(22%) sepia(22%) saturate(1211%) hue-rotate(74deg) brightness(93%) contrast(90%);
+    /* Rend le fond blanc transparent */
+    mix-blend-mode: multiply; 
+    /* Teinte le dessin en vert (sans toucher au fond blanc) */
+    filter: sepia(1) hue-rotate(70deg) saturate(2) brightness(0.8);
     transition: transform .3s ease;
   }
   .brand-container:hover .brand-logo{transform: scale(1.05)}
@@ -293,7 +295,7 @@
     </div>
 
     <div class="field">
-      <label>Genre</label>
+      <label>Genre / Variété</label>
       <div class="select-row">
         <div class="dropdown" data-dropdown="genre">
           <select id="genre" class="dd-native"></select>
@@ -397,7 +399,7 @@ photoInput.addEventListener('change', function(e) {
   }
 });
 
-// ==================== DONNÉES (Listes complètes intégrées) ====================
+// ==================== DONNÉES COMPLÈTES ====================
 const DATA = {
   cactus: { genres: ["Acanthocereus","Ariocarpus","Astrophytum","Carnegiea","Cereus","Echinocactus","Echinopsis","Ferocactus","Gymnocalycium","Lophophora","Mammillaria","Opuntia","Parodia","Rebutia","Trichocereus"], familles: ["Cactaceae"] },
   succulentes: { genres: ["Aeonium","Agave","Aloe","Crassula","Echeveria","Haworthia","Kalanchoe","Lithops","Sedum","Sempervivum"], familles: ["Crassulaceae","Aizoaceae","Asphodelaceae"] },
@@ -409,7 +411,10 @@ const DATA = {
   aromatiques: { genres: ["Mentha","Ocimum","Rosmarinus","Salvia","Thymus"], familles: ["Lamiaceae"] },
   carnivores: { genres: ["Dionaea","Drosera","Nepenthes","Sarracenia"], familles: ["Droseraceae","Nepenthaceae","Sarraceniaceae"] },
   entheogenes: { genres: ["Lophophora","Mimosa","Psychotria","Trichocereus"], familles: ["Cactaceae","Fabaceae","Rubiaceae"] },
-  cannabis: { genres: ["Cannabis"], familles: ["Cannabaceae"] },
+  cannabis: { 
+    genres: ["Cannabis Sativa", "Cannabis Indica", "Cannabis Ruderalis", "Hybride (Sativa/Indica)", "Hybride (CBD dominant)", "Hybride (Auto-floraison)"], 
+    familles: ["Cannabaceae"] 
+  },
   "bonsais-feuillus": { genres: ["Acer","Ficus","Ulmus"], familles: ["Sapindaceae","Moraceae","Ulmaceae"] },
   "bonsais-coniferes": { genres: ["Juniperus","Pinus"], familles: ["Cupressaceae","Pinaceae"] },
   "bonsais-fleurs": { genres: ["Camellia","Rhododendron"], familles: ["Theaceae","Ericaceae"] },
@@ -420,19 +425,23 @@ const DATA = {
   "graines-fruitiers": { genres: ["Citrus","Malus"], familles: ["Rutaceae","Rosaceae"] },
   "graines-cactus": { genres: ["Astrophytum","Mammillaria"], familles: ["Cactaceae"] },
   "graines-arbres": { genres: ["Acer","Pinus"], familles: ["Sapindaceae","Pinaceae"] },
-  "spores-cultives": { genres: ["Agaricus","Lentinula","Pleurotus"], familles: ["Agaricaceae","Omphalotaceae","Pleurotaceae"] },
-  "spores-medicinaux": { genres: ["Ganoderma","Hericium"], familles: ["Ganodermataceae","Hericiaceae"] },
-  "spores-sauvages": { genres: ["Boletus","Cantharellus","Morchella"], familles: ["Boletaceae","Cantharellaceae","Morchellaceae"] },
-  "spores-psychedeliques": { genres: ["Psilocybe","Panaeolus"], familles: ["Hymenogastraceae","Galeropsidaceae"] }
+  "spores-cultives": { genres: ["Agaricus bisporus", "Lentinula edodes", "Pleurotus ostreatus"], familles: ["Agaricaceae","Omphalotaceae","Pleurotaceae"] },
+  "spores-medicinaux": { genres: ["Ganoderma lucidum", "Hericium erinaceus", "Cordyceps militaris"], familles: ["Ganodermataceae","Hericiaceae","Ophiocordycipitaceae"] },
+  "spores-sauvages": { genres: ["Boletus edulis", "Cantharellus cibarius", "Morchella esculenta"], familles: ["Boletaceae","Cantharellaceae","Morchellaceae"] },
+  "spores-psychedeliques": { 
+    genres: ["Psilocybe cubensis", "Psilocybe semilanceata", "Panaeolus cyanescens", "Panaeolus cinctulus", "Copelandia cambodginiensis", "Amanita muscaria", "Gymnopilus luteofolius"], 
+    familles: ["Hymenogastraceae", "Galeropsidaceae", "Bolbitiaceae", "Amanitaceae", "Strophariaceae"] 
+  }
 };
 
 const SUBSTRATS = {
   cactus: ["Terreau + pouzzolane + sable","Minéral pur"], succulentes: ["Drainant classique","Minéral pur"], caudex: ["Terreau + sable + pouzzolane"],
   arbres: ["Terreau universel","Terre argileuse"], fleurs: ["Terreau horticole","Terreau + compost"], legumes: ["Terreau potager","Compost"],
   fruitiers: ["Terreau + compost"], aromatiques: ["Terreau + sable","Pauvre"], carnivores: ["Sphaigne pure","Tourbe + sable"],
-  entheogenes: ["Terreau drainant"], cannabis: ["Terreau enrichi","Coco + perlite"], "bonsais-feuillus": ["Akadama + pumice"], "bonsais-coniferes": ["Akadama + pumice"],
-  "bonsais-fleurs": ["Akadama + pumice"], "bonsais-fruitiers": ["Akadama + pumice"], "graines-aromatiques": ["Terreau à semis"], "graines-legumes": ["Terreau à semis"], "graines-fleurs": ["Terreau à semis"], "graines-fruitiers": ["Terreau à semis"], "graines-cactus": ["Sable + terreau"], "graines-arbres": ["Terreau à semis"],
-  "spores-cultives": ["Paille","Copeaux"], "spores-medicinaux": ["Copeaux","Bûche"], "spores-sauvages": ["Sol forestier"], "spores-psychedeliques": ["Graines de seigle","BRF"]
+  entheogenes: ["Terreau drainant"], cannabis: ["Terreau enrichi (Light Mix)", "Terreau super soil", "Coco + perlite", "Hydroculture"], 
+  "bonsais-feuillus": ["Akadama + pumice"], "bonsais-coniferes": ["Akadama + pumice"], "bonsais-fleurs": ["Akadama + pumice"], "bonsais-fruitiers": ["Akadama + pumice"], 
+  "graines-aromatiques": ["Terreau à semis"], "graines-legumes": ["Terreau à semis"], "graines-fleurs": ["Terreau à semis"], "graines-fruitiers": ["Terreau à semis"], "graines-cactus": ["Sable + terreau"], "graines-arbres": ["Terreau à semis"],
+  "spores-cultives": ["Paille pasteurisée","Copeaux de hêtre","Bûche"], "spores-medicinaux": ["Copeaux de hêtre","Paille + son","Bûche de chêne","Riz complet"], "spores-sauvages": ["Sol forestier","Bois mort"], "spores-psychedeliques": ["Graines de seigle (Rye berries)", "BRF (bois raméal fragmenté)", "Copeaux de bois", "Substrat PF Tek (vermiculite + farine de riz)"]
 };
 
 function unionGenres(){

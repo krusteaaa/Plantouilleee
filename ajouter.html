@@ -13,20 +13,20 @@
   *{box-sizing:border-box;margin:0;padding:0}html,body{height:100%}
   :root{
     color-scheme: light; 
-    --cd:#2d4a2b; 
+    --cd:#2d4a2b; /* Vert cactus foncé */
     --ch:#4a6b3d; 
     --bg:#ffffff;
     --f:rgba(45,74,43,.4);
     --tint:rgba(45,74,43,.04);
     --btn-bg:rgba(45,74,43,.06);
     --btn-hover:var(--cd);
-    --yellow:#d4a373; 
+    --yellow:#d4a373; /* Jaune ocre */
   }
   body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--cd);min-height:100vh;padding:3rem;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
   /* ==================== ANIMATIONS DE PAGE ==================== */
   .page-content {
-    max-width: 1100px;
+    max-width: 1200px; /* Élargi pour faire de la place au grand logo */
     margin: 0 auto;
     animation: fadeSlideIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
   }
@@ -45,45 +45,47 @@
   /* ==================== HEADER & LOGO ==================== */
   .header{display:flex;justify-content:space-between;align-items:center;gap:2rem;margin-bottom:4rem;flex-wrap:wrap}
   
-  /* Logo et Texte : Plus de lien/bouton, juste un bloc visuel */
+  /* Logo à droite du texte */
   .brand-container {
     display: flex;
     align-items: center;
-    gap: 2.5rem;
-    text-decoration: none;
-    color: inherit;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 900px; /* Limite la largeur pour bien séparer */
+    gap: 2rem;
     user-select: none;
   }
   
   .brand-text { display: flex; flex-direction: column; }
   
-  /* NOUVELLE TYPOGRAPHIE GRANDE ET ÉLÉGANTE */
+  /* TYPOGRAPHIE PLANTouille */
   .brand h1{
     font-family: "Playfair Display", Georgia, serif !important; 
     font-style: italic !important; 
     font-weight: 700 !important; 
-    font-size: 5.5rem; 
-    line-height: 0.9; 
+    font-size: clamp(3.5rem, 7vw, 6.5rem); /* Encore plus grand */
+    line-height: 0.95; 
     letter-spacing: -.03em;
     color: var(--yellow); 
   }
   
+  /* TYPOGRAPHIE CABINET */
   .brand .subtitle{
     font-family: "Montserrat", sans-serif !important; 
     font-weight: 500 !important; 
-    font-size: 2rem; 
+    font-size: clamp(1.4rem, 2.5vw, 2.2rem); /* Plus grand */
     color: var(--cd); 
-    margin-top: 0.8rem; 
+    margin-top: 1rem; 
     letter-spacing: .08em;
   }
   
-  /* LOGO TRÈS GRAND, À GAUCHE, SANS FOND */
+  /* LOGO 1.5x PLUS GRAND ET A DROITE */
   .brand-logo{
-    height: 350px; 
+    height: clamp(250px, 35vw, 525px); /* 1.5x plus grand (350*1.5=525) */
     width: auto;
     object-fit: contain;
-    mix-blend-mode: multiply; 
-    order: -1; /* Force le logo à gauche */
+    mix-blend-mode: multiply; /* Fond blanc transparent */
+    flex-shrink: 0;
   }
 
   /* ==================== BOUTON RETOUR ==================== */
@@ -195,7 +197,7 @@
   .temp-slider input[type=range]{-webkit-appearance:none;width:100%;height:2px;background:rgba(45,74,43,.1);outline:none;padding:.8rem 0;background-clip:content-box;border-radius:2px}
   .temp-slider input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--cd);cursor:pointer;box-shadow:0 2px 6px rgba(45,74,43,.3)}
 
-  /* BOUTON ENREGISTRER (Juste sous l'histoire) */
+  /* BOUTON ENREGISTRER */
   .submit-block { 
     display: flex; 
     justify-content: center; 
@@ -212,16 +214,14 @@
 
   /* ==================== RESPONSIVE ==================== */
   @media(max-width:900px){
-    .header{flex-direction:column;align-items:flex-start;gap:2rem}
-    .brand-container{flex-direction:column;align-items:flex-start;gap:1.5rem}
-    .brand h1{font-size:4rem}
-    .brand .subtitle{font-size:1.5rem}
-    .brand-logo{height:250px;}
+    .brand-container{flex-direction:column;align-items:flex-start;gap:1.5rem; max-width: 100%;}
+    .brand-logo{ height: clamp(200px, 40vw, 300px); }
   }
   @media(max-width:640px){
     body{padding:2rem 1.5rem}
     .brand h1 { font-size: 3.5rem; }
-    .brand-logo { height: 180px; }
+    .brand .subtitle { font-size: 1.5rem; }
+    .brand-logo { height: 200px; }
     .action-btn{width:100%; font-size: 1.3rem;}
     .back-btn{width:100%; justify-content: center;}
     .submit-block .action-btn { font-size: 1.4rem; padding: 1rem 2rem; }
@@ -233,14 +233,13 @@
 <div class="page-content">
 
   <header class="header">
-    <!-- Plus de lien cliquable sur le logo et le titre -->
+    <!-- Texte à gauche, Logo à droite -->
     <div class="brand-container">
-      <img src="logo.png" alt="Logo Dr-Cactus" class="brand-logo">
-      
       <div class="brand-text">
         <h1 class="wave-text"><span class="wave-letter">P</span><span class="wave-letter">l</span><span class="wave-letter">a</span><span class="wave-letter">n</span><span class="wave-letter">t</span><span class="wave-letter">o</span><span class="wave-letter">u</span><span class="wave-letter">i</span><span class="wave-letter">l</span><span class="wave-letter">l</span><span class="wave-letter">e</span></h1>
         <p class="subtitle">Cabinet du Dr-Cactus</p>
       </div>
+      <img src="logo.png" alt="Logo Dr-Cactus" class="brand-logo">
     </div>
 
     <a href="#" class="back-btn" onclick="navigate('page2.html'); return false;">
@@ -367,7 +366,7 @@
       <textarea id="histoire" rows="4" placeholder="D'où vient cette plante, son histoire..."></textarea>
     </div>
 
-    <!-- BOUTON ENREGISTRER (Juste sous l'histoire) -->
+    <!-- BOUTON ENREGISTRER -->
     <div class="submit-block">
       <button type="submit" class="action-btn wave-text">
         <span class="action-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span>

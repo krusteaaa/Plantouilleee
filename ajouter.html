@@ -89,16 +89,14 @@
     white-space: nowrap;
   }
 
-  /* LE DR EN OR BRONZE */
+  /* LE DR EN OR BRONZE — couleur solide compatible Android */
   .brand .dr {
     font-family: "Instrument Serif", serif;
     font-style: normal;
     font-weight: 400;
     color: var(--bronze);
-    background: linear-gradient(100deg, #e3bc45 0%, #c99700 45%, #8f6b12 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    background: none;
+    -webkit-text-fill-color: var(--bronze);
   }
   
   /* LOGO 1,5X PLUS GROS, CENTRÉ */
@@ -237,7 +235,7 @@
     body{padding:1.5rem 1rem}
     .brand h1 { font-size: 3rem; }
     .brand .subtitle { font-size: 1.2rem; }
-    .brand-logo { height: 300px; }
+    .brand-logo { height: 450px; max-width: 100%; }
     .action-btn{width:100%; font-size: 1.2rem;}
     .back-btn{width:100%; justify-content: center;}
     .submit-block .action-btn { font-size: 1.3rem; padding: 1rem 2rem; }

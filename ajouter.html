@@ -22,11 +22,52 @@
   .search svg{color:var(--f);flex-shrink:0}
   .search input{flex:1;border:none;outline:none;background:none;font-family:"Instrument Serif",serif;font-style:italic;font-size:.9rem;color:var(--cd);padding:.1rem 0;min-width:0}
   .search input::placeholder{color:var(--f);font-style:italic}
-  .header-right{display:flex;flex-direction:column;align-items:flex-end;gap:.8rem;margin-top:.3rem}
-  .back-link{display:inline-flex;align-items:center;gap:.5rem;font-family:"Instrument Serif",serif;font-style:italic;font-size:.95rem;color:var(--f);text-decoration:none;transition:color .35s;cursor:pointer}
-  .back-link:hover{color:var(--cd)}
-  .back-link .arrow-back{display:inline-block;font-family:"Cormorant Garamond",serif;font-style:normal;font-size:1rem;transition:transform .35s}
-  .back-link:hover .arrow-back{transform:translateX(-4px)}
+  .header-right{display:flex;align-items:center;margin-top:.3rem;margin-right:2.5rem}
+
+  /* ===== BOUTON RETOUR REDESSINÉ ===== */
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:.75rem;
+    padding:.4rem .9rem .4rem .4rem;
+    font-family:"Instrument Serif",serif;
+    font-style:italic;
+    font-size:1rem;
+    color:var(--f);
+    text-decoration:none;
+    border-radius:999px;
+    transition:color .4s ease, background .4s ease;
+  }
+  .back-link:hover,
+  .back-link:focus{
+    color:var(--cd);
+    background:rgba(45,74,43,.05);
+    outline:none;
+  }
+  .back-link .arrow-back{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:26px;
+    height:26px;
+    border-radius:50%;
+    background:rgba(45,74,43,.08);
+    color:var(--cd);
+    font-family:"Cormorant Garamond",serif;
+    font-style:normal;
+    font-size:.95rem;
+    font-weight:500;
+    transition:transform .45s cubic-bezier(.4,0,.2,1),
+               background .35s ease,
+               color .35s ease;
+  }
+  .back-link:hover .arrow-back,
+  .back-link:focus .arrow-back{
+    transform:translateX(-3px);
+    background:var(--cd);
+    color:#fff;
+  }
+  .back-link__text{display:inline-flex;align-items:baseline;letter-spacing:.02em}
 
   /* FORMULAIRE */
   .form{max-width:720px;display:flex;flex-direction:column;gap:2.5rem}
@@ -40,41 +81,26 @@
   /* DROPDOWN */
   .dropdown{position:relative;flex:1;min-width:0}
   .dd-native{position:absolute;width:0;height:0;opacity:0;pointer-events:none}
-  .dd-trigger{display:flex;align-items:center;gap:.8rem;width:100%;padding:.3rem 0;background:none;border:none;outline:none;color:var(--cd);cursor:pointer;text-align:left}
+  .dd-trigger{display:flex;align-items:center;justify-content:flex-start;gap:.4rem;width:100%;padding:.3rem 0;background:none;border:none;outline:none;color:var(--cd);cursor:pointer;text-align:left}
   .dd-trigger:focus-visible{outline:none}
-  .dd-value{display:inline-flex;align-items:baseline;flex-wrap:wrap;flex:1;min-width:0;font-family:"Instrument Serif",serif;font-style:italic;font-size:1.15rem;color:var(--cd);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .dd-chevron{display:inline-block;width:12px;height:12px;flex-shrink:0;transition:transform .35s cubic-bezier(.4,0,.2,1)}
-  .dd-chevron::before{content:'';display:block;width:8px;height:8px;border-right:1px solid var(--cd);border-bottom:1px solid var(--cd);transform:rotate(45deg) translate(-2px,-2px);opacity:.6;transition:opacity .3s}
-  .dd-trigger:hover .dd-chevron::before{opacity:1}
+  .dd-value{display:inline-flex;align-items:baseline;flex-wrap:nowrap;max-width:calc(100% - 20px);min-width:0;font-family:"Instrument Serif",serif;font-style:italic;font-size:1.15rem;color:var(--cd);overflow:hidden}
+  .dd-chevron{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:14px;height:14px;color:var(--cd);opacity:.5;transition:transform .35s cubic-bezier(.4,0,.2,1),opacity .3s ease}
+  .dd-chevron svg{display:block}
+  .dd-trigger:hover .dd-chevron{opacity:1}
   .dropdown.is-open .dd-chevron{transform:rotate(180deg)}
 
-  /* MENU — fond blanc, aucun cadre, fondu en haut et en bas */
   .dd-menu{
-    position:absolute;top:calc(100% + 4px);left:0;right:0;
-    max-height:min(300px,50vh);overflow-y:auto;overflow-x:hidden;
-    background:#ffffff;
-    border:none;outline:none;border-radius:4px;z-index:50;
-    padding:22px 0;
-    box-shadow:0 16px 32px -20px rgba(45,74,43,.08);
-    -webkit-mask-image:linear-gradient(to bottom,
-      transparent 0,
-      rgba(0,0,0,.5) 10px,
-      black 24px,
-      black calc(100% - 36px),
-      rgba(0,0,0,.5) calc(100% - 12px),
-      transparent 100%);
-    mask-image:linear-gradient(to bottom,
-      transparent 0,
-      rgba(0,0,0,.5) 10px,
-      black 24px,
-      black calc(100% - 36px),
-      rgba(0,0,0,.5) calc(100% - 12px),
-      transparent 100%);
+    position:absolute;top:calc(100% + 6px);left:0;right:0;
+    max-height:min(320px,55vh);overflow-y:auto;overflow-x:hidden;
+    background:#fff;border:none;outline:none;border-radius:4px;z-index:50;
+    padding:38px 0;
+    box-shadow:0 16px 32px -20px rgba(45,74,43,.10);
+    -webkit-mask-image:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.35) 14px,black 30px,black calc(100% - 40px),rgba(0,0,0,.35) calc(100% - 14px),transparent 100%);
+    mask-image:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.35) 14px,black 30px,black calc(100% - 40px),rgba(0,0,0,.35) calc(100% - 14px),transparent 100%);
     opacity:0;transform:translateY(-6px) scaleY(.98);transform-origin:top center;
     pointer-events:none;visibility:hidden;
     transition:opacity .28s ease,transform .38s cubic-bezier(.4,0,.2,1),visibility 0s linear .38s;
   }
-  .dropdown.is-up .dd-menu{top:auto;bottom:calc(100% + 4px);transform-origin:bottom center;transform:translateY(6px) scaleY(.98)}
   .dropdown.is-open .dd-menu{opacity:1;transform:translateY(0) scaleY(1);pointer-events:auto;visibility:visible;transition:opacity .28s ease,transform .38s cubic-bezier(.4,0,.2,1),visibility 0s linear 0s}
 
   .dd-menu{scrollbar-width:thin;scrollbar-color:rgba(45,74,43,.15) transparent}
@@ -83,23 +109,22 @@
   .dd-menu::-webkit-scrollbar-thumb{background:rgba(45,74,43,.15);border-radius:2px}
   .dd-menu::-webkit-scrollbar-thumb:hover{background:rgba(45,74,43,.35)}
 
-  .dd-group{font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:400;font-size:1rem;letter-spacing:.02em;color:var(--cd);padding:.7rem 1rem .3rem;opacity:.55;list-style:none;user-select:none}
-  .dd-item{font-family:"Instrument Serif",serif;font-style:italic;font-size:1rem;color:var(--cd);padding:.4rem 1rem;cursor:pointer;list-style:none;transition:background .15s ease,color .15s ease,padding-left .3s ease;opacity:0;transform:translateY(-4px)}
+  .dd-group{font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:400;font-size:1rem;letter-spacing:.02em;color:var(--cd);padding:.7rem 1rem .3rem;opacity:.55;list-style:none;user-select:none;pointer-events:none}
+  .dd-item{font-family:"Instrument Serif",serif;font-style:italic;font-size:1rem;color:var(--cd);padding:.4rem 1rem;cursor:pointer;list-style:none;pointer-events:auto;transition:background .15s ease,color .15s ease,padding-left .3s ease,opacity .32s ease,transform .32s cubic-bezier(.4,0,.2,1);opacity:0;transform:translateY(-4px)}
   .dropdown.is-open .dd-item{opacity:1;transform:translateY(0)}
   .dd-item:hover{background:rgba(45,74,43,.06);padding-left:1.3rem}
   .dd-item.is-selected{color:var(--ch)}
   .dd-item.is-selected::after{content:'·';margin-left:.5rem;color:var(--ch)}
+  .dd-empty{font-family:"Instrument Serif",serif;font-style:italic;font-size:.95rem;color:var(--f);padding:.6rem 1rem;list-style:none;pointer-events:none}
 
-  /* "Autre" */
-  .select-row{display:flex;align-items:baseline;gap:1rem}
-  .select-row .dropdown{flex:1;min-width:0}
+  .select-row{display:flex;align-items:baseline;gap:.5rem;justify-content:flex-start}
+  .select-row .dropdown{flex:0 1 auto;min-width:0;max-width:75%}
   .autre-btn{flex-shrink:0;padding:0 0 .3rem 0;background:none;border:none;cursor:pointer;font-family:"Instrument Serif",serif;font-style:italic;font-size:.9rem;color:var(--f);letter-spacing:.02em;transition:color .3s;align-self:flex-end}
   .autre-btn:hover,.autre-btn:focus{color:var(--cd);outline:none}
   .autre-btn.is-active{color:var(--cd)}
   .autre-input[hidden]{display:none}
   .autre-input{margin-top:.5rem}
 
-  /* Radios — texte toujours en couleur foncée */
   .radio-group{display:flex;flex-wrap:wrap;gap:2rem;padding-top:.2rem}
   .radio{display:inline-flex;align-items:center;cursor:pointer;padding:.1rem 0}
   .radio input{display:none}
@@ -107,7 +132,6 @@
   .radio:hover .radio-text{border-bottom-color:rgba(45,74,43,.3)}
   .radio input:checked+.radio-text{border-bottom-color:var(--cd)}
 
-  /* Slider température */
   .temp-slider{display:flex;flex-direction:column;gap:.8rem;padding-top:.3rem}
   .temp-slider__header{display:flex;justify-content:space-between;align-items:baseline}
   .temp-slider__value{font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:300;font-size:2rem;line-height:1;color:var(--cd)}
@@ -118,28 +142,77 @@
   .temp-slider input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--cd);cursor:pointer;border:none;box-shadow:none}
   .temp-slider__marks{display:flex;justify-content:space-between;font-family:"Inter",sans-serif;font-size:.55rem;letter-spacing:.15em;color:var(--f);text-transform:uppercase}
 
-  /* Submit */
-  .submit-btn{display:inline-flex;align-self:flex-start;padding:.3rem .8rem;margin-top:1rem;font-family:"Instrument Serif",serif;font-size:1.7rem;font-style:italic;color:var(--cd);background:none;border:none;cursor:pointer;transition:color .35s}
+  /* ===== ACTIONS EN BAS ===== */
+  .form-actions{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:2rem;
+    flex-wrap:wrap;
+    margin-top:1.5rem;
+  }
+  .submit-btn{display:inline-flex;padding:.3rem .8rem;font-family:"Instrument Serif",serif;font-size:1.7rem;font-style:italic;color:var(--cd);background:none;border:none;cursor:pointer;transition:color .35s}
   .submit-btn:hover{color:var(--ch)}
 
-  /* Vague */
+  /* ===== BOUTON PHOTOS ===== */
+  .photos-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:.7rem;
+    padding:.5rem .9rem .5rem .7rem;
+    font-family:"Instrument Serif",serif;
+    font-style:italic;
+    font-size:1.15rem;
+    color:var(--f);
+    text-decoration:none;
+    border-radius:999px;
+    transition:color .4s ease, background .4s ease;
+  }
+  .photos-btn:hover,
+  .photos-btn:focus{
+    color:var(--cd);
+    background:rgba(45,74,43,.05);
+    outline:none;
+  }
+  .photos-btn .photos-icon{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:26px;
+    height:26px;
+    border-radius:50%;
+    background:rgba(45,74,43,.08);
+    color:var(--cd);
+    transition:transform .45s cubic-bezier(.4,0,.2,1),
+               background .35s ease,
+               color .35s ease;
+  }
+  .photos-btn:hover .photos-icon,
+  .photos-btn:focus .photos-icon{
+    background:var(--cd);
+    color:#fff;
+    transform:translateY(-2px);
+  }
+  .photos-btn__text{display:inline-flex;align-items:baseline;letter-spacing:.02em}
+
   .wave-text{display:inline-flex;align-items:baseline;flex-wrap:wrap;overflow:visible}
   .wave-letter{display:inline-block;will-change:transform;white-space:pre}
 
-  /* Responsive */
   @media(max-width:640px){
     body{padding:2rem 1.5rem}
     .header{margin-bottom:2.5rem;gap:1.2rem}
     .brand h1{font-size:1.6rem}
     .search{max-width:none;width:100%}
-    .header-right{align-items:flex-start;width:100%}
+    .header-right{align-items:flex-start;width:100%;margin-right:0}
     .form{gap:2rem}
     .radio-group{gap:1.4rem}
     .field input[type=text],.field input[type=number],.field textarea,.dd-value{font-size:1.05rem}
     .temp-slider__value{font-size:1.7rem}
     .submit-btn{font-size:1.4rem}
+    .photos-btn{font-size:1rem}
     .dd-menu{max-height:50vh}
     .autre-btn{font-size:.85rem}
+    .form-actions{flex-direction:column;align-items:flex-start;gap:1rem}
   }
 </style>
 </head>
@@ -157,9 +230,11 @@
     </form>
   </a>
   <div class="header-right">
-    <a href="page2.html" class="back-link wave-text" aria-label="retour">
+    <a href="page2.html" class="back-link" aria-label="retour">
       <span class="arrow-back">←</span>
-      <span class="wave-letter">r</span><span class="wave-letter">e</span><span class="wave-letter">t</span><span class="wave-letter">o</span><span class="wave-letter">u</span><span class="wave-letter">r</span>
+      <span class="back-link__text wave-text" aria-hidden="true">
+        <span class="wave-letter">r</span><span class="wave-letter">e</span><span class="wave-letter">t</span><span class="wave-letter">o</span><span class="wave-letter">u</span><span class="wave-letter">r</span>
+      </span>
     </a>
   </div>
 </header>
@@ -207,7 +282,7 @@
       </select>
       <button type="button" class="dd-trigger" aria-haspopup="listbox" aria-expanded="false" data-placeholder="Sélectionner une catégorie…">
         <span class="dd-value"></span>
-        <span class="dd-chevron" aria-hidden="true"></span>
+        <span class="dd-chevron" aria-hidden="true"><svg viewBox="0 0 10 6" width="10" height="6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1 L5 5 L9 1"/></svg></span>
       </button>
       <div class="dd-menu" role="listbox"></div>
     </div>
@@ -220,7 +295,7 @@
         <select id="genre" name="genre" class="dd-native"></select>
         <button type="button" class="dd-trigger" aria-haspopup="listbox" aria-expanded="false" data-placeholder="Sélectionner un genre…">
           <span class="dd-value"></span>
-          <span class="dd-chevron" aria-hidden="true"></span>
+          <span class="dd-chevron" aria-hidden="true"><svg viewBox="0 0 10 6" width="10" height="6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1 L5 5 L9 1"/></svg></span>
         </button>
         <div class="dd-menu" role="listbox"></div>
       </div>
@@ -238,7 +313,7 @@
         <select id="famille" name="famille" class="dd-native"></select>
         <button type="button" class="dd-trigger" aria-haspopup="listbox" aria-expanded="false" data-placeholder="Sélectionner une famille…">
           <span class="dd-value"></span>
-          <span class="dd-chevron" aria-hidden="true"></span>
+          <span class="dd-chevron" aria-hidden="true"><svg viewBox="0 0 10 6" width="10" height="6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1 L5 5 L9 1"/></svg></span>
         </button>
         <div class="dd-menu" role="listbox"></div>
       </div>
@@ -279,47 +354,27 @@
       <select id="zone" name="zone" class="dd-native">
         <option value="">Sélectionner une zone…</option>
         <optgroup label="Afrique">
-          <option>Afrique Centrale</option>
-          <option>Afrique de l'Est</option>
-          <option>Afrique de l'Ouest</option>
-          <option>Afrique du Nord</option>
-          <option>Afrique du Sud</option>
-          <option>Madagascar</option>
+          <option>Afrique Centrale</option><option>Afrique de l'Est</option><option>Afrique de l'Ouest</option><option>Afrique du Nord</option><option>Afrique du Sud</option><option>Madagascar</option>
         </optgroup>
         <optgroup label="Asie">
-          <option>Asie Centrale</option>
-          <option>Asie de l'Est</option>
-          <option>Asie du Sud</option>
-          <option>Asie du Sud-Est</option>
-          <option>Moyen-Orient</option>
+          <option>Asie Centrale</option><option>Asie de l'Est</option><option>Asie du Sud</option><option>Asie du Sud-Est</option><option>Moyen-Orient</option>
         </optgroup>
         <optgroup label="Europe">
-          <option>Europe Centrale</option>
-          <option>Europe de l'Est</option>
-          <option>Europe de l'Ouest</option>
-          <option>Europe du Nord</option>
-          <option>Méditerranée</option>
+          <option>Europe Centrale</option><option>Europe de l'Est</option><option>Europe de l'Ouest</option><option>Europe du Nord</option><option>Méditerranée</option>
         </optgroup>
         <optgroup label="Amérique du Nord">
-          <option>Amérique Centrale</option>
-          <option>Amérique du Nord tempérée</option>
-          <option>Mexique</option>
+          <option>Amérique Centrale</option><option>Amérique du Nord tempérée</option><option>Mexique</option>
         </optgroup>
         <optgroup label="Amérique du Sud">
-          <option>Amazonie</option>
-          <option>Andes</option>
-          <option>Brésil</option>
-          <option>Patagonie / Pampa</option>
+          <option>Amazonie</option><option>Andes</option><option>Brésil</option><option>Patagonie / Pampa</option>
         </optgroup>
         <optgroup label="Océanie">
-          <option>Australie</option>
-          <option>Nouvelle-Zélande</option>
-          <option>Pacifique</option>
+          <option>Australie</option><option>Nouvelle-Zélande</option><option>Pacifique</option>
         </optgroup>
       </select>
       <button type="button" class="dd-trigger" aria-haspopup="listbox" aria-expanded="false" data-placeholder="Sélectionner une zone…">
         <span class="dd-value"></span>
-        <span class="dd-chevron" aria-hidden="true"></span>
+        <span class="dd-chevron" aria-hidden="true"><svg viewBox="0 0 10 6" width="10" height="6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1 L5 5 L9 1"/></svg></span>
       </button>
       <div class="dd-menu" role="listbox"></div>
     </div>
@@ -346,7 +401,7 @@
         <select id="substrat" name="substrat" class="dd-native"></select>
         <button type="button" class="dd-trigger" aria-haspopup="listbox" aria-expanded="false" data-placeholder="Sélectionner un substrat…">
           <span class="dd-value"></span>
-          <span class="dd-chevron" aria-hidden="true"></span>
+          <span class="dd-chevron" aria-hidden="true"><svg viewBox="0 0 10 6" width="10" height="6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1 L5 5 L9 1"/></svg></span>
         </button>
         <div class="dd-menu" role="listbox"></div>
       </div>
@@ -367,14 +422,28 @@
     <input type="number" id="nombre" name="nombre" min="0" value="1">
   </div>
 
-  <button type="submit" class="submit-btn wave-text" aria-label="Enregistrer">
-    <span class="wave-letter">E</span><span class="wave-letter">n</span><span class="wave-letter">r</span><span class="wave-letter">e</span><span class="wave-letter">g</span><span class="wave-letter">i</span><span class="wave-letter">s</span><span class="wave-letter">t</span><span class="wave-letter">r</span><span class="wave-letter">e</span><span class="wave-letter">r</span>
-  </button>
+  <div class="form-actions">
+    <button type="submit" class="submit-btn wave-text" aria-label="Enregistrer">
+      <span class="wave-letter">E</span><span class="wave-letter">n</span><span class="wave-letter">r</span><span class="wave-letter">e</span><span class="wave-letter">g</span><span class="wave-letter">i</span><span class="wave-letter">s</span><span class="wave-letter">t</span><span class="wave-letter">r</span><span class="wave-letter">e</span><span class="wave-letter">r</span>
+    </button>
+
+    <a href="photos.html" class="photos-btn" aria-label="Photos">
+      <span class="photos-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+      </span>
+      <span class="photos-btn__text wave-text" aria-hidden="true">
+        <span class="wave-letter">p</span><span class="wave-letter">h</span><span class="wave-letter">o</span><span class="wave-letter">t</span><span class="wave-letter">o</span><span class="wave-letter">s</span>
+      </span>
+    </a>
+  </div>
 
 </form>
 
 <script>
-/* ============ DONNÉES ============ */
 const DATA = {
   cactus:{genres:["Acanthocereus","Acharagma","Airampoa","Aporocactus","Ariocarpus","Armatocereus","Arrojadoa","Arthrocereus","Astrophytum","Austrocactus","Austrocylindropuntia","Aztekium","Bergerocactus","Blossfeldia","Brachycereus","Brasilicereus","Brasiliopuntia","Browningia","Calymmanthium","Carnegiea","Castellanosia","Cephalocereus","Cereus","Cintia","Cipocereus","Cleistocactus","Coleocephalocereus","Consolea","Copiapoa","Corryocactus","Corynopuntia","Coryphantha","Cumulopuntia","Cylindropuntia","Denmoza","Discocactus","Disocactus","Echinocactus","Echinocereus","Echinopsis","Epiphyllum","Epithelantha","Eriosyce","Escobaria","Escontria","Espostoa","Espostoopsis","Eulychnia","Facheiroa","Ferocactus","Frailea","Geohintonia","Grusonia","Gymnocalycium","Haageocereus","Harrisia","Hatiora","Hylocereus","Jasminocereus","Lasiocereus","Leocereus","Lepismium","Leptocereus","Leuchtenbergia","Lophophora","Maihuenia","Maihueniopsis","Mammillaria","Matucana","Melocactus","Micranthocereus","Mila","Miqueliopuntia","Myrtillocactus","Neobuxbaumia","Neolloydia","Neoraimondia","Neowerdermannia","Nopalea","Obregonia","Opuntia","Oreocereus","Oroya","Ortegocactus","Pachycereus","Parodia","Pediocactus","Pelecyphora","Peniocereus","Pereskia","Pereskiopsis","Pfeiffera","Pilosocereus","Polaskia","Praecereus","Pseudoacanthocereus","Pseudorhipsalis","Pterocactus","Pygmaeocereus","Quiabentia","Rauhocereus","Rebutia","Rhipsalis","Samaipaticereus","Schlumbergera","Sclerocactus","Selenicereus","Stenocactus","Stenocereus","Stephanocereus","Stetsonia","Strombocactus","Strophocactus","Tacinga","Tephrocactus","Thelocactus","Tunilla","Turbinicarpus","Uebelmannia","Weberbauerocereus","Weberocereus","Yavia","Yungasocereus"],familles:["Cactaceae"]},
   succulentes:{genres:["Echeveria","Sedum","Sempervivum","Crassula","Aeonium","Aloe","Haworthia","Gasteria","Lithops","Conophytum","Kalanchoe","Euphorbia","Agave","Yucca","Dudleya","Rhodiola","Senecio","Othonna","Pachyphytum","Graptopetalum","Adromischus","Cotyledon","Portulacaria","Beaucarnea","Anacampseros","Avonia","Faucaria","Titanopsis","Pleiospilos","Argyroderma","Dinteranthus","Lapidaria","Schwantesia","Trichodiadema","Delosperma","Lampranthus","Oscularia","Ruschia","Carruanthus","Hereroa","Bergeranthus","Rabiea","Nananthus","Neohenricia","Stomatium","Machairophyllum","Monilaria","Mitrophyllum","Meyerophytum","Dracophilus","Juttadinteria","Cephalophyllum","Cheiridopsis","Odontophorus","Vanzijlia","Hallianthus","Leipoldtia","Fenestraria","Frithia","Gibbaeum","Muiria","Phyllobolus","Prenia","Sceletium","Aptenia","Mesembryanthemum"],familles:["Crassulaceae","Aizoaceae","Asphodelaceae","Apocynaceae","Euphorbiaceae","Asparagaceae"]},
@@ -403,298 +472,274 @@ const DATA = {
   "spores-psychedeliques":{genres:["Psilocybe","Panaeolus","Pluteus","Gymnopilus","Copelandia","Pholiotina","Conocybe","Amanita"],familles:["Hymenogastraceae","Galeropsidaceae","Pluteaceae","Bolbitiaceae","Amanitaceae"]}
 };
 
+/* ===== SUBSTRATS GÉNÉRIQUES PAR RUBRIQUE ===== */
 const SUBSTRATS = {
-  cactus:["Mélange cactus classique — tiers terreau, tiers sable grossier, tiers pouzzolane","Mélange minéral drainant — 50 % pouzzolane, 30 % sable, 20 % terreau","Substrat minéral pur — pouzzolane + pumice + zéolite","Mélange riche pour espèces forestières — terreau + écorces + perlite"],
-  succulentes:["Mélange drainant classique — 40 % terreau, 40 % sable grossier, 20 % perlite","Mélange minéral — 50 % pouzzolane, 30 % sable, 20 % terreau","Substrat minéral pur pour Lithops — pouzzolane fine + pumice","Mélange riche pour Aeonium — terreau + sable + perlite"],
-  caudex:["Mélange caudex — 50 % terreau, 25 % sable, 25 % pouzzolane","Mélange drainant riche — terreau + perlite + sable + écorces","Mélange minéral pour Adenium — 60 % minéral, 40 % terreau"],
-  arbres:["Terreau universel + sable + perlite (60/20/20)","Mélange forestier — terreau + feuilles décomposées + sable","Terre argileuse + compost pour espèces lourdes"],
-  fleurs:["Terreau horticole classique","Mélange fleurs — terreau + compost + sable (60/30/10)","Terreau universel + perlite (70/30)","Substrat riche pour rosiers"],
-  legumes:["Terreau potager classique","Compost maison + terreau (50/50)","Mélange légumes — terreau + compost + sable (60/30/10)","Terreau à semis fin"],
-  fruitiers:["Terreau fruitiers — terreau + compost + sable (60/30/10)","Mélange riche — terreau + compost (70/30)","Terre argileuse + compost"],
-  aromatiques:["Mélange drainant — 60 % terreau, 40 % sable","Terreau + perlite (70/30)","Substrat pauvre méditerranéen — terreau + sable + graviers"],
-  carnivores:["Sphaigne pure","Mélange tourbe blonde + sable (50/50)","Sphaigne + perlite (70/30) — pour Nepenthes","Mélange sphaigne + écorces"],
-  entheogenes:["Mélange drainant — terreau + sable + pouzzolane (50/30/20)","Terreau forestier riche pour Psychotria","Mélange tropical — terreau + coco + perlite"],
-  cannabis:["Terreau horticole enrichi","Coco + perlite (70/30)","Super soil — terreau + compost + perlite + amendements","Mélange light — terreau + coco + perlite"],
-  "bonsais-feuillus":["Akadama + pumice + pouzzolane (60/20/20)","Akadama pure","Mélange terreau + sable + pouzzolane (50/30/20)"],
-  "bonsais-coniferes":["Akadama + pumice (70/30)","Akadama + pumice + pouzzolane (60/20/20)","Kanuma pour conifères acidophiles"],
-  "bonsais-fleurs":["Akadama + pumice + pouzzolane (60/20/20)","Mélange classique bonsaï + un peu de terreau","Kanuma pour azalées"],
-  "bonsais-fruitiers":["Akadama + pumice + pouzzolane (60/20/20)","Mélange riche bonsaï — akadama + terreau + pumice"],
-  "graines-aromatiques":["Terreau à semis fin","Mélange semis — terreau + sable (70/30)"],
-  "graines-legumes":["Terreau à semis","Mélange semis — terreau + sable + compost (60/30/10)"],
-  "graines-fleurs":["Terreau à semis","Mélange semis — terreau + sable (70/30)"],
-  "graines-fruitiers":["Terreau à semis","Mélange semis — terreau + sable (70/30)"],
-  "graines-cactus":["Substrat minéral à semis — pouzzolane fine + sable (50/50)","Mélange semis cactus — sable + terreau stérilisé (70/30)"],
-  "graines-arbres":["Terreau à semis","Mélange semis — terreau + sable (70/30)"],
-  "spores-cultives":["Paille pasteurisée — pleurotes","Copeaux de hêtre — shiitake","Bûche de hêtre — shiitake traditionnel","Substrat pleurotes — paille + son de blé"],
-  "spores-medicinaux":["Copeaux de hêtre — shiitake","Paille + son — reishi sur substrat","Bûche de chêne — reishi traditionnel","Substrat cordyceps — riz complet + eau"],
-  "spores-sauvages":["Sol forestier naturel","Terreau + feuilles mortes décomposées","Bois mort pour champignons lignicoles"],
-  "spores-psychedeliques":["Graines de seigle — rye berries","BRF — bois raméal fragmenté","Copeaux de bois — espèces lignicoles","Substrat PF Tek — farine de riz brun + vermiculite"]
+  cactus:["Minéral drainant","Drainant classique","Riche pour espèces forestières"],
+  succulentes:["Drainant classique","Minéral pur","Riche et drainant"],
+  caudex:["Drainant classique","Minéral","Riche et drainant"],
+  arbres:["Universel","Forestier","Argileux"],
+  fleurs:["Horticole","Riche","Universel + perlite"],
+  legumes:["Potager","Compost","À semis"],
+  fruitiers:["Fruitiers","Riche","Argileux"],
+  aromatiques:["Drainant","Pauvre méditerranéen","Universel + perlite"],
+  carnivores:["Sphaigne pure","Tourbe + sable","Sphaigne + perlite"],
+  entheogenes:["Drainant","Forestier tropical","Tropical"],
+  cannabis:["Horticole enrichi","Coco + perlite","Super soil"],
+  "bonsais-feuillus":["Akadama classique","Akadama + pumice","Terreau + sable"],
+  "bonsais-coniferes":["Akadama + pumice","Akadama classique","Kanuma"],
+  "bonsais-fleurs":["Akadama classique","Akadama + terreau","Kanuma azalées"],
+  "bonsais-fruitiers":["Akadama classique","Riche bonsaï"],
+  "graines-aromatiques":["Terreau à semis fin"],
+  "graines-legumes":["Terreau à semis","Semis + compost"],
+  "graines-fleurs":["Terreau à semis"],
+  "graines-fruitiers":["Terreau à semis"],
+  "graines-cactus":["Minéral à semis","Sable + terreau"],
+  "graines-arbres":["Terreau à semis"],
+  "spores-cultives":["Paille","Copeaux de hêtre","Bûche"],
+  "spores-medicinaux":["Copeaux de hêtre","Paille + son","Bûche de chêne"],
+  "spores-sauvages":["Sol forestier","Terreau + feuilles","Bois mort"],
+  "spores-psychedeliques":["Rye berries","BRF","Copeaux de bois","PF Tek"]
 };
 
-/* ============ POPULATE NATIVE ============ */
 const catSelect=document.getElementById('categorie');
 const genreSelect=document.getElementById('genre');
 const familleSelect=document.getElementById('famille');
 const substratSelect=document.getElementById('substrat');
 
+function unionGenres(){
+  const s=new Set();Object.values(DATA).forEach(c=>{if(c.genres)c.genres.forEach(g=>s.add(g));});
+  return [...s].sort((a,b)=>a.localeCompare(b,'fr'));
+}
+function unionFamilles(){
+  const s=new Set();Object.values(DATA).forEach(c=>{if(c.familles)c.familles.forEach(f=>s.add(f));});
+  return [...s].sort((a,b)=>a.localeCompare(b,'fr'));
+}
+function unionSubstrats(){
+  const s=new Set();Object.values(SUBSTRATS).forEach(arr=>arr.forEach(x=>s.add(x)));
+  return [...s].sort((a,b)=>a.localeCompare(b,'fr'));
+}
+
 function populateGenres(c){
   genreSelect.innerHTML='<option value="">Sélectionner un genre…</option>';
-  const d=DATA[c];
-  if(d&&d.genres){
-    [...d.genres].sort((a,b)=>a.localeCompare(b,'fr')).forEach(g=>{
-      const o=document.createElement('option');o.value=g;o.textContent=g;genreSelect.appendChild(o);
-    });
-  }
+  const list=(c&&DATA[c]&&DATA[c].genres)?[...DATA[c].genres]:unionGenres();
+  list.sort((a,b)=>a.localeCompare(b,'fr')).forEach(g=>{
+    const o=document.createElement('option');o.value=g;o.textContent=g;genreSelect.appendChild(o);
+  });
 }
 function populateFamilles(c){
   familleSelect.innerHTML='<option value="">Sélectionner une famille…</option>';
-  const d=DATA[c];
-  if(d&&d.familles){
-    [...d.familles].sort((a,b)=>a.localeCompare(b,'fr')).forEach(f=>{
-      const o=document.createElement('option');o.value=f;o.textContent=f;familleSelect.appendChild(o);
-    });
-  }
+  const list=(c&&DATA[c]&&DATA[c].familles)?[...DATA[c].familles]:unionFamilles();
+  list.sort((a,b)=>a.localeCompare(b,'fr')).forEach(f=>{
+    const o=document.createElement('option');o.value=f;o.textContent=f;familleSelect.appendChild(o);
+  });
 }
 function populateSubstrats(c){
   substratSelect.innerHTML='<option value="">Sélectionner un substrat…</option>';
-  const list=SUBSTRATS[c];
-  if(list&&list.length){
-    list.forEach(s=>{
-      const o=document.createElement('option');o.value=s;o.textContent=s;substratSelect.appendChild(o);
-    });
-  }
+  const list=(c&&SUBSTRATS[c])?[...SUBSTRATS[c]]:unionSubstrats();
+  list.forEach(s=>{
+    const o=document.createElement('option');o.value=s;o.textContent=s;substratSelect.appendChild(o);
+  });
 }
 
-/* ============ EFFET VAGUE — style page2.html ============ */
-const waveInstances = new WeakMap();
-
-function initWave(el, listenerEl, getTextFn){
-  const listener = listenerEl || el;
-  if(waveInstances.has(listener)) return;
-  waveInstances.set(listener, true);
-
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  const fontSize = parseFloat(getComputedStyle(el).fontSize) || 18;
-  const AMPLITUDE = Math.max(3, Math.min(6, fontSize * 0.22));
-  const PERIOD = 1200;
-  const STAGGER = 100;
-  const EASING = 0.12;
-  const EPSILON = 0.05;
-  let amplitude = 0, targetAmplitude = 0, phaseStart = null, rafId = null;
-
+const waveInstances=new WeakMap();
+function initWave(el, listenerEl){
+  const listener=listenerEl||el;
+  if(waveInstances.has(listener))return;
+  waveInstances.set(listener,true);
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const fontSize=parseFloat(getComputedStyle(el).fontSize)||18;
+  const AMPLITUDE=Math.max(2.5,fontSize*0.166);
+  const PERIOD=1200,STAGGER=100,EASING=0.12,EPSILON=0.05;
+  let amplitude=0,targetAmplitude=0,phaseStart=null,rafId=null;
   function tick(now){
-    if(phaseStart === null) phaseStart = now;
-    amplitude += (targetAmplitude - amplitude) * EASING;
-    if(Math.abs(targetAmplitude - amplitude) < EPSILON) amplitude = targetAmplitude;
-    const elapsed = now - phaseStart;
-    const spans = el.querySelectorAll('.wave-letter');
+    if(phaseStart===null)phaseStart=now;
+    amplitude+=(targetAmplitude-amplitude)*EASING;
+    if(Math.abs(targetAmplitude-amplitude)<EPSILON)amplitude=targetAmplitude;
+    const elapsed=now-phaseStart;
+    const spans=el.querySelectorAll('.wave-letter');
     for(let i=0;i<spans.length;i++){
-      const phase = ((elapsed - i*STAGGER) / PERIOD) * Math.PI * 2;
-      spans[i].style.transform = 'translateY(' + (-Math.sin(phase) * amplitude).toFixed(2) + 'px)';
+      const phase=((elapsed-i*STAGGER)/PERIOD)*Math.PI*2;
+      spans[i].style.transform='translateY('+(-Math.sin(phase)*amplitude).toFixed(2)+'px)';
     }
-    if(amplitude === 0 && targetAmplitude === 0){
-      el.querySelectorAll('.wave-letter').forEach(s => s.style.transform = '');
-      phaseStart = null; rafId = null; return;
+    if(amplitude===0&&targetAmplitude===0){
+      el.querySelectorAll('.wave-letter').forEach(s=>s.style.transform='');
+      phaseStart=null;rafId=null;return;
     }
-    rafId = requestAnimationFrame(tick);
+    rafId=requestAnimationFrame(tick);
   }
-  function ensure(){ if(rafId === null) rafId = requestAnimationFrame(tick); }
-  function start(){ targetAmplitude = AMPLITUDE; ensure(); }
-  function stop(){ targetAmplitude = 0; ensure(); }
-
-  listener.addEventListener('mouseenter', start);
-  listener.addEventListener('mouseleave', stop);
-  listener.addEventListener('focus', start);
-  listener.addEventListener('blur', stop);
-  listener.addEventListener('touchstart', start, {passive:true});
-  listener.addEventListener('touchend', stop, {passive:true});
+  function ensure(){if(rafId===null)rafId=requestAnimationFrame(tick);}
+  function start(){targetAmplitude=AMPLITUDE;ensure();}
+  function stop(){targetAmplitude=0;ensure();}
+  listener.addEventListener('mouseenter',start);
+  listener.addEventListener('mouseleave',stop);
+  listener.addEventListener('focus',start);
+  listener.addEventListener('blur',stop);
+  listener.addEventListener('touchstart',start,{passive:true});
+  listener.addEventListener('touchend',stop,{passive:true});
 }
 
-/* Vague sur tous les .wave-text */
-document.querySelectorAll('.wave-text').forEach(el => initWave(el, el, null));
+/* Le wave se déclenche sur le parent cliquable le plus proche */
+document.querySelectorAll('.wave-text').forEach(el=>{
+  const listener=el.closest('a, button')||el;
+  initWave(el,listener);
+});
 
-/* ============ DROPDOWN CUSTOM ============ */
-const dropdowns = {};
-
-function wrapWaveText(container, text){
-  container.innerHTML = '';
+const dropdowns={};
+function wrapWaveText(container,text){
+  container.innerHTML='';
   for(const ch of text){
-    const span = document.createElement('span');
-    span.className = 'wave-letter';
-    span.textContent = ch === ' ' ? '\u00A0' : ch;
+    const span=document.createElement('span');
+    span.className='wave-letter';
+    span.textContent=ch===' '?'\u00A0':ch;
     container.appendChild(span);
   }
 }
 
 class Dropdown{
   constructor(root){
-    this.root = root;
-    this.select = root.querySelector('.dd-native');
-    this.trigger = root.querySelector('.dd-trigger');
-    this.valueEl = root.querySelector('.dd-value');
-    this.menu = root.querySelector('.dd-menu');
-    this.items = [];
-    this.isOpen = false;
+    this.root=root;
+    this.select=root.querySelector('.dd-native');
+    this.trigger=root.querySelector('.dd-trigger');
+    this.valueEl=root.querySelector('.dd-value');
+    this.menu=root.querySelector('.dd-menu');
+    this.items=[];
+    this.isOpen=false;
     this.build();
     this.bind();
-    // Vague sur le trigger (le listener est sur le bouton, le texte est le valueEl)
-    initWave(this.valueEl, this.trigger, null);
+    initWave(this.valueEl,this.trigger);
   }
-
   build(){
-    this.menu.innerHTML = '';
-    this.items = [];
-    const walk = (parent, ul) => {
-      Array.from(parent.children).forEach(child => {
-        if(child.tagName === 'OPTGROUP'){
-          const li = document.createElement('li');
-          li.className = 'dd-group';
-          li.textContent = child.label;
+    this.menu.innerHTML='';
+    this.items=[];
+    const walk=(parent,ul)=>{
+      Array.from(parent.children).forEach(child=>{
+        if(child.tagName==='OPTGROUP'){
+          const li=document.createElement('li');
+          li.className='dd-group';
+          li.textContent=child.label;
           ul.appendChild(li);
-          walk(child, ul);
-        } else if(child.tagName === 'OPTION'){
-          if(!child.value) return;
-          const li = document.createElement('li');
-          li.className = 'dd-item';
-          li.dataset.value = child.value;
-          li.textContent = child.textContent;
-          li.setAttribute('role', 'option');
-          if(child.selected) li.classList.add('is-selected');
+          walk(child,ul);
+        } else if(child.tagName==='OPTION'){
+          if(!child.value)return;
+          const li=document.createElement('li');
+          li.className='dd-item';
+          li.dataset.value=child.value;
+          li.textContent=child.textContent;
+          li.setAttribute('role','option');
+          if(child.selected)li.classList.add('is-selected');
           ul.appendChild(li);
           this.items.push(li);
         }
       });
     };
-    walk(this.select, this.menu);
+    walk(this.select,this.menu);
+    if(this.items.length===0){
+      const li=document.createElement('li');
+      li.className='dd-empty';
+      li.textContent='Aucune option';
+      this.menu.appendChild(li);
+    }
     this.updateValue();
   }
-
-  refresh(){ this.build(); this.close(); }
-
+  refresh(){this.build();this.close();}
   updateValue(){
-    const sel = this.select.options[this.select.selectedIndex];
-    const text = (sel && sel.value) ? sel.textContent : this.trigger.dataset.placeholder;
-    wrapWaveText(this.valueEl, text);
+    const sel=this.select.options[this.select.selectedIndex];
+    const text=(sel&&sel.value)?sel.textContent:this.trigger.dataset.placeholder;
+    wrapWaveText(this.valueEl,text);
   }
-
   open(){
-    if(this.isOpen) return;
-    Object.values(dropdowns).forEach(d => {if(d !== this && d.isOpen) d.close();});
-
-    const rect = this.trigger.getBoundingClientRect();
-    const spaceBelow = window.innerHeight - rect.bottom;
-    const needed = Math.min(this.menu.scrollHeight || 300, window.innerHeight * 0.5);
-    if(spaceBelow < needed && rect.top > needed){
-      this.root.classList.add('is-up');
-    } else {
-      this.root.classList.remove('is-up');
-    }
-
-    this.isOpen = true;
+    if(this.isOpen)return;
+    Object.values(dropdowns).forEach(d=>{if(d!==this&&d.isOpen)d.close();});
+    this.isOpen=true;
     this.root.classList.add('is-open');
-    this.trigger.setAttribute('aria-expanded', 'true');
-
-    this.items.forEach((item, i) => {
-      item.style.transitionDelay = `${Math.min(i*18, 280)}ms`;
-    });
-
-    requestAnimationFrame(() => {
-      const sel = this.menu.querySelector('.is-selected');
+    this.trigger.setAttribute('aria-expanded','true');
+    this.items.forEach((item,i)=>{item.style.transitionDelay=`${Math.min(i*18,280)}ms`;});
+    requestAnimationFrame(()=>{
+      const sel=this.menu.querySelector('.is-selected');
       if(sel){
-        const mr = this.menu.getBoundingClientRect();
-        const sr = sel.getBoundingClientRect();
-        if(sr.top < mr.top || sr.bottom > mr.bottom){
-          this.menu.scrollTop = sel.offsetTop - this.menu.clientHeight/2;
+        const mr=this.menu.getBoundingClientRect();
+        const sr=sel.getBoundingClientRect();
+        if(sr.top<mr.top||sr.bottom>mr.bottom){
+          this.menu.scrollTop=sel.offsetTop-this.menu.clientHeight/2;
         }
       }
     });
   }
-
   close(){
-    if(!this.isOpen) return;
-    this.isOpen = false;
+    if(!this.isOpen)return;
+    this.isOpen=false;
     this.root.classList.remove('is-open');
-    this.trigger.setAttribute('aria-expanded', 'false');
-    this.items.forEach(item => {item.style.transitionDelay = '0ms';});
+    this.trigger.setAttribute('aria-expanded','false');
+    this.items.forEach(item=>{item.style.transitionDelay='0ms';});
   }
-
-  toggle(){ this.isOpen ? this.close() : this.open(); }
-
+  toggle(){this.isOpen?this.close():this.open();}
   pick(item){
-    this.items.forEach(i => i.classList.remove('is-selected'));
+    this.items.forEach(i=>i.classList.remove('is-selected'));
     item.classList.add('is-selected');
-    this.select.value = item.dataset.value;
+    this.select.value=item.dataset.value;
     this.updateValue();
-    this.select.dispatchEvent(new Event('change', {bubbles:true}));
+    this.select.dispatchEvent(new Event('change',{bubbles:true}));
     this.close();
   }
-
   bind(){
-    this.trigger.addEventListener('click', e => { e.stopPropagation(); this.toggle(); });
-    this.menu.addEventListener('click', e => {
-      const item = e.target.closest('.dd-item');
-      if(item){ e.stopPropagation(); this.pick(item); }
+    this.trigger.addEventListener('click',e=>{e.stopPropagation();this.toggle();});
+    this.menu.addEventListener('click',e=>{
+      const item=e.target.closest('.dd-item');
+      if(item){e.stopPropagation();this.pick(item);}
     });
   }
 }
 
-document.querySelectorAll('.dropdown').forEach(root => {
-  const key = root.dataset.dropdown;
-  dropdowns[key] = new Dropdown(root);
+document.querySelectorAll('.dropdown').forEach(root=>{
+  const key=root.dataset.dropdown;
+  dropdowns[key]=new Dropdown(root);
 });
 
-document.addEventListener('click', () => Object.values(dropdowns).forEach(d => d.close()));
-document.addEventListener('keydown', e => {
-  if(e.key === 'Escape') Object.values(dropdowns).forEach(d => d.close());
-});
+document.addEventListener('click',()=>Object.values(dropdowns).forEach(d=>d.close()));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')Object.values(dropdowns).forEach(d=>d.close());});
 
-catSelect.addEventListener('change', () => {
+catSelect.addEventListener('change',()=>{
   populateGenres(catSelect.value);
   populateFamilles(catSelect.value);
   populateSubstrats(catSelect.value);
   dropdowns['genre'].refresh();
   dropdowns['famille'].refresh();
   dropdowns['substrat'].refresh();
-  document.querySelectorAll('.autre-input').forEach(inp => {inp.hidden = true; inp.value = '';});
-  document.querySelectorAll('.autre-btn').forEach(b => b.classList.remove('is-active'));
+  document.querySelectorAll('.autre-input').forEach(inp=>{inp.hidden=true;inp.value='';});
+  document.querySelectorAll('.autre-btn').forEach(b=>b.classList.remove('is-active'));
 });
 
-/* ============ AUTRE ============ */
-document.querySelectorAll('.autre-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const input = document.getElementById(btn.dataset.target);
-    const wasHidden = input.hidden;
-    input.hidden = !wasHidden;
-    if(wasHidden){ input.focus(); btn.classList.add('is-active'); }
-    else { input.value = ''; btn.classList.remove('is-active'); }
+document.querySelectorAll('.autre-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const input=document.getElementById(btn.dataset.target);
+    const wasHidden=input.hidden;
+    input.hidden=!wasHidden;
+    if(wasHidden){input.focus();btn.classList.add('is-active');}
+    else{input.value='';btn.classList.remove('is-active');}
   });
 });
 
-/* ============ TEMPÉRATURE ============ */
-const tempInput = document.getElementById('temp');
-const tempDisplay = document.getElementById('temp-display');
-const tempQualifier = document.getElementById('temp-qualifier');
-
+const tempInput=document.getElementById('temp');
+const tempDisplay=document.getElementById('temp-display');
+const tempQualifier=document.getElementById('temp-qualifier');
 function tempLabel(v){
-  if(v <= -15) return 'très rustique';
-  if(v <= -5)  return 'rustique';
-  if(v <= 5)   return 'semi-rustique';
-  if(v <= 12)  return 'frileux';
-  return 'tropical';
+  if(v<=-15)return'très rustique';
+  if(v<=-5)return'rustique';
+  if(v<=5)return'semi-rustique';
+  if(v<=12)return'frileux';
+  return'tropical';
 }
 function updateTemp(){
-  const v = parseInt(tempInput.value, 10);
-  tempDisplay.textContent = (v > 0 ? '+' : '') + v + ' °C';
-  tempQualifier.textContent = tempLabel(v);
+  const v=parseInt(tempInput.value,10);
+  tempDisplay.textContent=(v>0?'+':'')+v+' °C';
+  tempQualifier.textContent=tempLabel(v);
 }
-tempInput.addEventListener('input', updateTemp);
+tempInput.addEventListener('input',updateTemp);
 updateTemp();
 
-/* ============ INIT ============ */
-populateGenres(catSelect.value);
-populateFamilles(catSelect.value);
-populateSubstrats(catSelect.value);
+populateGenres('');
+populateFamilles('');
+populateSubstrats('');
 dropdowns['genre'].refresh();
 dropdowns['famille'].refresh();
 dropdowns['substrat'].refresh();

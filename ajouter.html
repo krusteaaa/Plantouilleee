@@ -76,15 +76,19 @@
 
   /* LE DR EN OR BRONZE */
   .brand .dr {
-    color: var(--bronze);
     font-family: "Instrument Serif", serif;
     font-style: normal;
     font-weight: 400;
+    color: var(--bronze);
+    background: linear-gradient(100deg, #e3bc45 0%, #c99700 45%, #8f6b12 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
   
-  /* LOGO 2X PLUS GROS (DESKTOP) */
+  /* LOGO 1,5X PLUS GROS */
   .brand-logo{
-    height: clamp(250px, 35vw, 400px); 
+    height: clamp(375px, 52.5vw, 600px); 
     width: auto;
     object-fit: contain;
     display: block;
@@ -209,16 +213,13 @@
   /* ==================== RESPONSIVE ==================== */
   @media(max-width:768px){
     .brand-block{flex-direction: column; align-items: flex-start; gap: 1rem;}
-    .brand-logo{height: 300px;}
+    .brand-logo{height: 450px;}
   }
   @media(max-width:640px){
     body{padding:1.5rem 1rem}
     .brand h1 { font-size: 3rem; }
     .brand .subtitle { font-size: 1.2rem; }
-    
-    /* LOGO 1.5x PLUS GROS POUR MOBILE (200px * 1.5 = 300px) */
-    .brand-logo { height: 300px; } 
-    
+    .brand-logo { height: 300px; }
     .action-btn{width:100%; font-size: 1.2rem;}
     .back-btn{width:100%; justify-content: center;}
     .submit-block .action-btn { font-size: 1.3rem; padding: 1rem 2rem; }
@@ -584,4 +585,63 @@ const tempInput = document.getElementById('temp');
 const tempDisplay = document.getElementById('temp-display');
 const tempQualifier = document.getElementById('temp-qualifier');
 function tempLabel(v){ if(v <= -15) return 'très rustique'; if(v <= -5) return 'rustique'; if(v <= 5) return 'semi-rustique'; if(v <= 12) return 'frileux'; return 'tropical'; }
-function updateTemp(){ const v = parseInt(tempInput.value
+function updateTemp(){ const v = parseInt(tempInput.value, 10); tempDisplay.textContent = (v > 0 ? '+' : '') + v + ' °C'; tempQualifier.textContent = tempLabel(v); }
+tempInput.addEventListener('input', updateTemp); updateTemp();
+
+// ==================== SOUMISSION ====================
+document.getElementById('specimenForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const newSpecimen = {
+    id: Date.now(),
+    photo: currentImageBase64,
+    categorie: document.getElementById('categorie').value,
+    genre: document.getElementById('genre').value || document.getElementById('genre-autre').value,
+    famille: document.getElementById('famille').value || document.getElementById('famille-autre').value,
+    exposition: document.querySelector('input[name="exposition"]:checked')?.value || '',
+    temperature: document.getElementById('temp-display').textContent,
+    substrat: document.getElementById('substrat').value || document.getElementById('substrat-autre').value,
+    histoire: document.getElementById('histoire').value
+  };
+  let savedData = JSON.parse(localStorage.getItem('plantouille_data')) || [];
+  savedData.push(newSpecimen);
+  localStorage.setItem('plantouille_data', JSON.stringify(savedData));
+  navigate('photos.html');
+});
+
+// ==================== ANIMATION VAGUE ====================
+function initWave(el) {
+  const spans = el.querySelectorAll('.wave-letter');
+  if(!spans.length) return;
+  const fontSize = parseFloat(getComputedStyle(el).fontSize) || 18;
+  const AMPLITUDE = fontSize * 0.20; 
+  const PERIOD = 2500; 
+  const STAGGER = 150; 
+  let amplitude = 0, targetAmplitude = 0, phaseStart = null, rafId = null;
+  
+  function tick(now){
+    if(phaseStart === null) phaseStart = now;
+    amplitude += (targetAmplitude - amplitude) * 0.08;
+    if(Math.abs(targetAmplitude - amplitude) < 0.05) amplitude = targetAmplitude;
+    const elapsed = now - phaseStart;
+    spans.forEach((span, i) => {
+      const phase = ((elapsed - i * STAGGER) / PERIOD) * Math.PI * 2;
+      span.style.transform = `translateY(${(-Math.sin(phase) * amplitude).toFixed(2)}px)`;
+    });
+    if(amplitude === 0 && targetAmplitude === 0){
+      spans.forEach(s => s.style.transform = '');
+      phaseStart = null; rafId = null; return;
+    }
+    rafId = requestAnimationFrame(tick);
+  }
+  el.addEventListener('mouseenter', () => { targetAmplitude = AMPLITUDE; if(!rafId) rafId = requestAnimationFrame(tick); });
+  el.addEventListener('mouseleave', () => { targetAmplitude = 0; if(!rafId) rafId = requestAnimationFrame(tick); });
+  el.addEventListener('touchstart', () => { targetAmplitude = AMPLITUDE; if(!rafId) rafId = requestAnimationFrame(tick); }, {passive:true});
+  el.addEventListener('touchend', () => { targetAmplitude = 0; if(!rafId) rafId = requestAnimationFrame(tick); }, {passive:true});
+}
+document.querySelectorAll('.wave-text').forEach(el => initWave(el.closest('button, a') || el));
+
+// Initialisation au chargement
+populateGenres(''); populateFamilles(''); populateSubstrats('');
+</script>
+</body>
+</html>

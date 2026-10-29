@@ -49,18 +49,19 @@
     color: inherit;
   }
   
-  /* Titre et Logo sur la même ligne */
+  /* Ligne du haut : Titre + Logo */
   .brand-top-row {
     display: flex;
     align-items: center;
     gap: 1.5rem;
+    flex-wrap: wrap;
   }
   
-  /* TYPOGRAPHIE FORCÉE */
+  /* TYPOGRAPHIE FORCÉE (Pour Android) */
   .brand h1{
     font-family: "Cormorant Garamond", Georgia, serif !important; 
-    font-style: italic; 
-    font-weight: 300; 
+    font-style: italic !important; 
+    font-weight: 300 !important; 
     font-size: 3.5rem; 
     line-height: 1; 
     letter-spacing: -.02em;
@@ -70,24 +71,22 @@
   
   .brand .subtitle{
     font-family: "Instrument Serif", Georgia, serif !important; 
-    font-style: italic; 
+    font-style: italic !important; 
     font-size: 1.5rem; 
     color: var(--f); 
-    margin-top: 0.4rem; 
+    margin-top: 0.5rem; 
     letter-spacing: .03em;
   }
   
-  /* LOGO : Fond blanc préservé, dessin coloré en vert */
+  /* LOGO SANS FILTRE (Plus de carré vert) */
   .brand-logo{
-    height: 160px; /* Taille doublée */
+    height: 150px; /* Très grand */
     width: auto;
     object-fit: contain;
-    mix-blend-mode: multiply; /* Rend le fond blanc transparent */
-    /* Filtre qui laisse le blanc intact et transforme le bleu en vert foncé */
-    filter: sepia(1) hue-rotate(75deg) saturate(2) brightness(0.75);
+    display: block;
     transition: transform .3s ease;
   }
-  .brand-container:hover .brand-logo{transform: scale(1.05)}
+  .brand-container:hover .brand-logo{transform: scale(1.03)}
 
   /* ==================== BOUTON RETOUR ==================== */
   .back-btn{
@@ -148,14 +147,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 auto 3rem;
+    margin: 0 auto 2rem;
     max-width: 720px;
   }
   #photoInput{display:none}
   .image-preview{display:none;margin-top:1.5rem;width:250px;height:250px;border-radius:8px;object-fit:cover;box-shadow:0 8px 24px rgba(0,0,0,0.08)}
 
   /* ==================== FORMULAIRE ==================== */
-  .form{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:2.5rem}
+  .form{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:2rem}
   .field{display:flex;flex-direction:column;gap:.5rem;position:relative}
   .field>label{font-family:"Inter",sans-serif;font-size:.6rem;font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:var(--f)}
   .field input[type=text],.field input[type=number],.field textarea{font-family:"Instrument Serif",serif;font-style:italic;font-size:1.15rem;color:var(--cd);background:transparent;border:none;outline:none;padding:.3rem .5rem;margin:0 -.5rem;width:calc(100% + 1rem);resize:vertical;transition:background .3s}
@@ -196,7 +195,13 @@
   .temp-slider input[type=range]{-webkit-appearance:none;width:100%;height:1px;background:var(--f);outline:none;padding:.7rem 0;background-clip:content-box}
   .temp-slider input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--cd);cursor:pointer}
 
-  .submit-block { display: flex; justify-content: center; margin-top: 1rem; }
+  /* BOUTON ENREGISTRER RAPPROCHÉ */
+  .submit-block { 
+    display: flex; 
+    justify-content: center; 
+    margin-top: -1rem; /* Remonte le bouton près du champ histoire */
+    padding-bottom: 2rem;
+  }
 
   .wave-text{display:inline-flex;align-items:baseline;flex-wrap:wrap}
   .wave-letter{display:inline-block;will-change:transform;white-space:pre}
@@ -205,16 +210,15 @@
   @media(max-width:640px){
     body{padding:2rem 1.5rem}
     
-    /* Ajustement pour que le logo et le titre tiennent bien sur mobile */
     .header{flex-direction:column;align-items:flex-start;gap:1.5rem}
-    .brand-top-row { gap: 1rem; }
-    .brand h1 { font-size: 2.2rem; }
-    .brand-logo { height: 100px; } /* Taille mobile */
-    .brand .subtitle { font-size: 1.1rem; margin-top: 0.2rem; }
+    .brand-top-row { gap: 1rem; flex-wrap: wrap; }
+    .brand h1 { font-size: 2.5rem; }
+    .brand-logo { height: 100px; } 
+    .brand .subtitle { font-size: 1.2rem; }
     
     .action-btn{width:100%; font-size: 1.2rem;}
     .back-btn{width:100%; justify-content: center;}
-    .submit-block { width: 100%; }
+    .submit-block { width: 100%; margin-top: 0; }
   }
 </style>
 </head>
@@ -357,7 +361,7 @@
       <textarea id="histoire" rows="4" placeholder="D'où vient cette plante..."></textarea>
     </div>
 
-    <!-- BOUTON ENREGISTRER (Même style que Photo) -->
+    <!-- BOUTON ENREGISTRER RAPPROCHÉ -->
     <div class="submit-block">
       <button type="submit" class="action-btn wave-text">
         <span class="action-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 6L9 17l-5-5"/></svg></span>
@@ -606,20 +610,18 @@ function initWave(el) {
   const spans = el.querySelectorAll('.wave-letter');
   if(!spans.length) return;
   
-  // L'amplitude s'adapte à la taille du texte (20% de la police)
+  // Amplitude basée sur la taille du texte
   const fontSize = parseFloat(getComputedStyle(el).fontSize) || 18;
   const AMPLITUDE = fontSize * 0.20; 
   
-  // Ralentissement de l'animation (2.5 secondes par cycle)
+  // Animation lente
   const PERIOD = 2500; 
-  const STAGGER = 150; // Décalage plus prononcé entre les lettres
+  const STAGGER = 150; 
   
   let amplitude = 0, targetAmplitude = 0, phaseStart = null, rafId = null;
 
   function tick(now){
     if(phaseStart === null) phaseStart = now;
-    
-    // Entrée et sortie très douces
     amplitude += (targetAmplitude - amplitude) * 0.08;
     if(Math.abs(targetAmplitude - amplitude) < 0.05) amplitude = targetAmplitude;
     
@@ -643,7 +645,7 @@ function initWave(el) {
   el.addEventListener('touchend', () => { targetAmplitude = 0; if(!rafId) rafId = requestAnimationFrame(tick); }, {passive:true});
 }
 
-// Application de l'effet à tous les textes concernés
+// Application de l'effet
 document.querySelectorAll('.wave-text').forEach(el => initWave(el.closest('button, a') || el));
 
 // Initialisation des listes

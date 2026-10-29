@@ -3,145 +3,160 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <title>Ajouter — Plantouille</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *{box-sizing:border-box;margin:0;padding:0}html,body{height:100%}
-  :root{--cd:#2d4a2b;--ch:#4a6b3d;--bg:#fff;--f:rgba(45,74,43,.4);--tint:rgba(45,74,43,.04)}
+  :root{
+    color-scheme: light;
+    --cd:#2d4a2b;
+    --ch:#4a6b3d;
+    --bg:#ffffff;
+    --f:rgba(45,74,43,.4);
+    --tint:rgba(45,74,43,.04);
+  }
   body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--cd);min-height:100vh;padding:3rem;-webkit-font-smoothing:antialiased}
 
-  /* HEADER */
-  .header{display:flex;justify-content:space-between;align-items:flex-start;gap:2rem;margin-bottom:4rem;flex-wrap:wrap}
+  /* ==================== HEADER ==================== */
+  .header{display:flex;justify-content:space-between;align-items:flex-start;gap:2rem;margin-bottom:3rem;flex-wrap:wrap}
   .brand{display:flex;flex-direction:column;text-decoration:none;color:inherit;cursor:pointer}
-  
-  /* Conteneur pour le titre et le logo */
   .brand-top{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}
   
-  /* TITRE AGRANDI */
   .brand h1{font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:300;font-size:2.8rem;line-height:1;letter-spacing:-.02em;transition:color .35s}
   .brand:hover h1{color:var(--ch)}
   
-  /* LOGO MODIFIÉ ICI */
+  /* LOGO : Intégration parfaite grâce à mix-blend-mode */
   .brand-logo{
-    height:110px; /* Plus grand */
+    height:110px;
     width:auto;
     object-fit:contain;
-    border-radius:8px;
-    background:rgba(255,255,255,0.8);
-    padding:4px;
-    /* Filtre pour transformer le bleu en vert cactus */
-    filter: invert(21%) sepia(27%) saturate(987%) hue-rotate(73deg) brightness(94%) contrast(91%);
+    mix-blend-mode: multiply;
     transition: transform .3s ease;
   }
-  .brand:hover .brand-logo {
-    transform: scale(1.03); /* Petit effet de zoom au survol */
-  }
+  .brand:hover .brand-logo{transform: scale(1.03)}
   
-  /* SOUS-TITRE AGRANDI */
   .brand .subtitle{font-family:"Instrument Serif",serif;font-style:italic;font-size:1.25rem;color:var(--f);margin-top:0.6rem;letter-spacing:.03em}
   
-  .search{display:flex;align-items:center;gap:.5rem;margin-top:1.4rem;max-width:250px}
-  .search svg{color:var(--f);flex-shrink:0}
-  .search input{flex:1;border:none;outline:none;background:none;font-family:"Instrument Serif",serif;font-style:italic;font-size:.95rem;color:var(--cd);padding:.1rem 0;min-width:0}
-  .search input::placeholder{color:var(--f);font-style:italic}
-  .header-right{display:flex;align-items:center;margin-top:.3rem;margin-right:2.5rem}
-
   /* BOUTON RETOUR */
-  .back-link{display:inline-flex;align-items:center;gap:.75rem;padding:.4rem .9rem .4rem .4rem;font-family:"Instrument Serif",serif;font-style:italic;font-size:1rem;color:var(--f);text-decoration:none;border-radius:999px;transition:color .4s ease,background .4s ease}
+  .back-link{display:inline-flex;align-items:center;gap:.75rem;padding:.4rem .9rem .4rem .4rem;font-family:"Instrument Serif",serif;font-style:italic;font-size:1rem;color:var(--f);text-decoration:none;border-radius:999px;transition:color .4s ease,background .4s ease;margin-top:.3rem}
   .back-link:hover,.back-link:focus{color:var(--cd);background:rgba(45,74,43,.05);outline:none}
   .back-link .arrow-back{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:rgba(45,74,43,.08);color:var(--cd);font-family:"Cormorant Garamond",serif;font-style:normal;font-size:.95rem;font-weight:500;transition:transform .45s cubic-bezier(.4,0,.2,1),background .35s ease,color .35s ease}
-  .back-link:hover .arrow-back,.back-link:focus .arrow-back{transform:translateX(-3px);background:var(--cd);color:#fff}
+  .back-link:hover .arrow-back{transform:translateX(-3px);background:var(--cd);color:#fff}
 
-  /* BOUTON UPLOAD PHOTO */
-  .upload-block{display:flex;justify-content:center;margin:0 0 3rem;animation:fadeIn .6s ease .1s both}
-  .upload-btn{display:inline-flex;align-items:center;gap:.85rem;padding:.9rem 1.8rem .9rem 1.4rem;background:none;border:none;cursor:pointer;text-decoration:none;border-radius:999px;font-family:"Instrument Serif",serif;font-style:italic;font-size:1.25rem;color:var(--cd);transition:background .35s ease,color .35s ease;animation:softBounce 2.6s cubic-bezier(.34,1.56,.64,1) infinite;will-change:transform}
-  .upload-btn:hover,.upload-btn:focus{background:rgba(45,74,43,.06);outline:none;animation-play-state:paused}
-  .upload-icon{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:var(--cd);color:#fff;flex-shrink:0;transition:transform .4s ease}
-  .upload-btn:hover .upload-icon{transform:rotate(-6deg) scale(1.05)}
-  @keyframes softBounce{0%,100%{transform:translateY(0)}30%{transform:translateY(-9px)}50%{transform:translateY(0)}68%{transform:translateY(-4px)}82%{transform:translateY(0)}}
-  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  /* ==================== BOUTON UPLOAD PHOTO ==================== */
+  .upload-block{
+    display:flex;
+    justify-content:center;
+    margin: 0 auto 3rem;
+    max-width: 720px;
+  }
+  .upload-btn{
+    display:inline-flex;align-items:center;gap:.85rem;
+    padding:.9rem 1.8rem .9rem 1.4rem;
+    background:var(--tint);border:1px dashed rgba(45,74,43,.3);
+    cursor:pointer;border-radius:999px;
+    font-family:"Instrument Serif",serif;font-style:italic;font-size:1.25rem;
+    color:var(--cd);
+    transition:all .35s ease;
+    animation:softBounce 2.6s cubic-bezier(.34,1.56,.64,1) infinite;
+  }
+  .upload-btn:hover,.upload-btn:focus{
+    background:rgba(45,74,43,.08);
+    border-color:var(--cd);
+    outline:none;
+    animation-play-state:paused;
+  }
+  .upload-icon{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:34px;height:34px;border-radius:50%;
+    background:var(--cd);color:#fff;
+    transition:transform .4s ease;
+  }
+  .upload-btn:hover .upload-icon{transform:rotate(-10deg) scale(1.1)}
+  
+  @keyframes softBounce{
+    0%,100%{transform:translateY(0)}
+    30%{transform:translateY(-8px)}
+    50%{transform:translateY(0)}
+    70%{transform:translateY(-3px)}
+    85%{transform:translateY(0)}
+  }
 
-  /* FORMULAIRE */
-  .form{max-width:720px;display:flex;flex-direction:column;gap:2.5rem}
+  /* ==================== FORMULAIRE ==================== */
+  .form{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:2.5rem}
   .field{display:flex;flex-direction:column;gap:.5rem;position:relative}
-  .field>label,.field>.label{font-family:"Inter",sans-serif;font-size:.6rem;font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:var(--f);pointer-events:none}
-  .field input[type=text],.field input[type=number],.field textarea{font-family:"Instrument Serif",serif;font-style:italic;font-size:1.15rem;line-height:1.5;color:var(--cd);background:transparent;border:none;outline:none;box-shadow:none;padding:.3rem .5rem;margin:0 -.5rem;width:calc(100% + 1rem);resize:vertical;transition:background .3s ease}
-  .field input[type=text]::placeholder,.field input[type=number]::placeholder,.field textarea::placeholder{color:var(--f);font-style:italic}
+  .field>label{font-family:"Inter",sans-serif;font-size:.6rem;font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:var(--f);pointer-events:none}
+  
+  .field input[type=text],.field input[type=number],.field textarea{
+    font-family:"Instrument Serif",serif;font-style:italic;font-size:1.15rem;line-height:1.5;color:var(--cd);
+    background:transparent;border:none;outline:none;padding:.3rem .5rem;margin:0 -.5rem;width:calc(100% + 1rem);resize:vertical;transition:background .3s ease
+  }
   .field textarea{min-height:5.5rem;line-height:1.55}
-  .field input[type=text]:focus,.field input[type=number]:focus,.field textarea:focus{background:var(--tint)}
+  .field input:focus,.field textarea:focus{background:var(--tint)}
 
-  /* DROPDOWN */
+  /* ==================== DROPDOWNS CUSTOM ==================== */
   .dropdown{position:relative;flex:1;min-width:0}
   .dd-native{position:absolute;width:0;height:0;opacity:0;pointer-events:none}
   .dd-trigger{display:flex;align-items:center;justify-content:flex-start;gap:.4rem;width:100%;padding:.3rem 0;background:none;border:none;outline:none;color:var(--cd);cursor:pointer;text-align:left}
-  .dd-trigger:focus-visible{outline:none}
   .dd-value{display:inline-flex;align-items:baseline;flex-wrap:nowrap;max-width:calc(100% - 20px);min-width:0;font-family:"Instrument Serif",serif;font-style:italic;font-size:1.15rem;color:var(--cd);overflow:hidden}
-  .dd-chevron{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:14px;height:14px;color:var(--cd);opacity:.5;transition:transform .35s cubic-bezier(.4,0,.2,1),opacity .3s ease}
-  .dd-chevron svg{display:block}
-  .dd-trigger:hover .dd-chevron{opacity:1}
+  .dd-chevron{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:14px;height:14px;color:var(--cd);opacity:.5;transition:transform .35s}
   .dropdown.is-open .dd-chevron{transform:rotate(180deg)}
 
-  .dd-menu{position:absolute;top:calc(100% + 6px);left:0;right:0;max-height:min(340px,55vh);overflow-y:auto;overflow-x:hidden;background:#fff;border:none;outline:none;border-radius:4px;z-index:50;padding:38px 0;box-shadow:0 16px 32px -20px rgba(45,74,43,.10);-webkit-mask-image:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.35) 14px,black 30px,black calc(100% - 40px),rgba(0,0,0,.35) calc(100% - 14px),transparent 100%);mask-image:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.35) 14px,black 30px,black calc(100% - 40px),rgba(0,0,0,.35) calc(100% - 14px),transparent 100%);opacity:0;transform:translateY(-6px) scaleY(.98);transform-origin:top center;pointer-events:none;visibility:hidden;transition:opacity .28s ease,transform .38s cubic-bezier(.4,0,.2,1),visibility 0s linear .38s}
-  .dropdown.is-open .dd-menu{opacity:1;transform:translateY(0) scaleY(1);pointer-events:auto;visibility:visible;transition:opacity .28s ease,transform .38s cubic-bezier(.4,0,.2,1),visibility 0s linear 0s}
-  .dd-menu{scrollbar-width:thin;scrollbar-color:rgba(45,74,43,.15) transparent}
-  .dd-menu::-webkit-scrollbar{width:3px}
-  .dd-menu::-webkit-scrollbar-track{background:transparent}
-  .dd-menu::-webkit-scrollbar-thumb{background:rgba(45,74,43,.15);border-radius:2px}
-  .dd-menu::-webkit-scrollbar-thumb:hover{background:rgba(45,74,43,.35)}
-
-  .dd-group{font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:400;font-size:1rem;letter-spacing:.02em;color:var(--cd);padding:.7rem 1rem .3rem;opacity:.55;list-style:none;user-select:none;pointer-events:none}
-  .dd-item{font-family:"Instrument Serif",serif;font-style:italic;font-size:1rem;color:var(--cd);padding:.4rem 1rem;cursor:pointer;list-style:none;pointer-events:auto;transition:background .15s ease,color .15s ease,padding-left .3s ease,opacity .32s ease,transform .32s cubic-bezier(.4,0,.2,1);opacity:0;transform:translateY(-4px)}
+  .dd-menu{
+    position:absolute;top:calc(100% + 6px);left:0;right:0;max-height:min(340px,55vh);overflow-y:auto;overflow-x:hidden;
+    background:#fff;border:none;border-radius:4px;z-index:50;padding:38px 0;
+    box-shadow:0 16px 32px -20px rgba(45,74,43,.10);
+    mask-image:linear-gradient(to bottom,transparent 0,black 30px,black calc(100% - 40px),transparent 100%);
+    -webkit-mask-image:linear-gradient(to bottom,transparent 0,black 30px,black calc(100% - 40px),transparent 100%);
+    opacity:0;transform:translateY(-6px) scaleY(.98);transform-origin:top center;pointer-events:none;visibility:hidden;transition:all .3s
+  }
+  .dropdown.is-open .dd-menu{opacity:1;transform:translateY(0) scaleY(1);pointer-events:auto;visibility:visible}
+  
+  .dd-group{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:1rem;color:var(--cd);padding:.7rem 1rem .3rem;opacity:.55;list-style:none}
+  .dd-item{font-family:"Instrument Serif",serif;font-style:italic;font-size:1rem;color:var(--cd);padding:.4rem 1rem;cursor:pointer;list-style:none;transition:background .15s, padding-left .2s;opacity:0;transform:translateY(-4px)}
   .dropdown.is-open .dd-item{opacity:1;transform:translateY(0)}
-  .dd-item:hover{background:rgba(45,74,43,.06);padding-left:1.3rem}
-  .dd-item.is-selected{color:var(--ch)}
-  .dd-item.is-selected::after{content:'·';margin-left:.5rem;color:var(--ch)}
+  .dd-item:hover{background:var(--tint);padding-left:1.3rem}
 
-  .select-row{display:flex;align-items:baseline;gap:.5rem;justify-content:flex-start}
-  .select-row .dropdown{flex:0 1 auto;min-width:0;max-width:75%}
-  .autre-btn{flex-shrink:0;padding:0 0 .3rem 0;background:none;border:none;cursor:pointer;font-family:"Instrument Serif",serif;font-style:italic;font-size:.9rem;color:var(--f);letter-spacing:.02em;transition:color .3s;align-self:flex-end}
-  .autre-btn:hover,.autre-btn:focus{color:var(--cd);outline:none}
-  .autre-btn.is-active{color:var(--cd)}
+  /* ==================== CHAMPS AUTRE ==================== */
+  .select-row{display:flex;align-items:baseline;gap:.5rem}
+  .select-row .dropdown{flex:1}
+  .autre-btn{background:none;border:none;cursor:pointer;font-family:"Instrument Serif",serif;font-style:italic;font-size:.9rem;color:var(--f);transition:color .3s;padding-bottom:.3rem}
+  .autre-btn:hover{color:var(--cd)}
   .autre-input[hidden]{display:none}
   .autre-input{margin-top:.5rem}
 
+  /* ==================== RADIOS & SLIDER ==================== */
   .radio-group{display:flex;flex-wrap:wrap;gap:2rem;padding-top:.2rem}
-  .radio{display:inline-flex;align-items:center;cursor:pointer;padding:.1rem 0}
+  .radio{display:inline-flex;align-items:center;cursor:pointer}
   .radio input{display:none}
   .radio-text{font-family:"Instrument Serif",serif;font-style:italic;font-size:1.1rem;color:var(--cd);padding-bottom:.15rem;border-bottom:1px solid transparent;transition:border-color .3s}
-  .radio:hover .radio-text{border-bottom-color:rgba(45,74,43,.3)}
   .radio input:checked+.radio-text{border-bottom-color:var(--cd)}
 
   .temp-slider{display:flex;flex-direction:column;gap:.8rem;padding-top:.3rem}
   .temp-slider__header{display:flex;justify-content:space-between;align-items:baseline}
-  .temp-slider__value{font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:300;font-size:2rem;line-height:1;color:var(--cd)}
+  .temp-slider__value{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:2rem}
   .temp-slider__qualifier{font-family:"Instrument Serif",serif;font-style:italic;font-size:.95rem;color:var(--f)}
-  .temp-slider input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:1px;background:rgba(45,74,43,.25);outline:none;border:none;border-radius:0;cursor:pointer;padding:.7rem 0;background-clip:content-box}
-  .temp-slider input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;border-radius:50%;background:var(--cd);cursor:pointer;border:none;box-shadow:none;transition:transform .2s}
-  .temp-slider input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
-  .temp-slider input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--cd);cursor:pointer;border:none;box-shadow:none}
-  .temp-slider__marks{display:flex;justify-content:space-between;font-family:"Inter",sans-serif;font-size:.55rem;letter-spacing:.15em;color:var(--f);text-transform:uppercase}
+  .temp-slider input[type=range]{-webkit-appearance:none;width:100%;height:1px;background:var(--f);outline:none;padding:.7rem 0;background-clip:content-box}
+  .temp-slider input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--cd);cursor:pointer}
 
-  /* ACTIONS EN BAS */
-  .form-actions{display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap;margin-top:1.5rem}
-  .submit-btn{display:inline-flex;padding:.3rem .8rem;font-family:"Instrument Serif",serif;font-size:1.7rem;font-style:italic;color:var(--cd);background:none;border:none;cursor:pointer;transition:color .35s}
+  /* ==================== ACTIONS ==================== */
+  .form-actions{display:flex;justify-content:space-between;align-items:center;gap:2rem;margin-top:1.5rem;flex-wrap:wrap}
+  .submit-btn{padding:.3rem .8rem;font-family:"Instrument Serif",serif;font-size:1.7rem;font-style:italic;color:var(--cd);background:none;border:none;cursor:pointer;transition:color .3s}
   .submit-btn:hover{color:var(--ch)}
 
-  .photos-btn{display:inline-flex;align-items:center;gap:.7rem;padding:.5rem .9rem .5rem .7rem;font-family:"Instrument Serif",serif;font-style:italic;font-size:1.15rem;color:var(--f);text-decoration:none;border-radius:999px;transition:color .4s ease,background .4s ease}
-  .photos-btn:hover,.photos-btn:focus{color:var(--cd);background:rgba(45,74,43,.05);outline:none}
-  .photos-btn .photos-icon{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:rgba(45,74,43,.08);color:var(--cd);transition:transform .45s cubic-bezier(.4,0,.2,1),background .35s ease,color .35s ease}
-  .photos-btn:hover .photos-icon,.photos-btn:focus .photos-icon{background:var(--cd);color:#fff;transform:translateY(-2px)}
-
+  /* ==================== EFFET VAGUE ==================== */
   .wave-text{display:inline-flex;align-items:baseline;flex-wrap:wrap;overflow:visible}
   .wave-letter{display:inline-block;will-change:transform;white-space:pre}
 
+  /* ==================== RESPONSIVE ==================== */
   @media(max-width:640px){
     body{padding:2rem 1.5rem}
-    .header{margin-bottom:2.5rem;gap:1.2rem}
+    .header{margin-bottom:2rem;gap:1.2rem}
     .brand h1{font-size:2rem}
     .brand-logo{height:70px}
-    .brand .subtitle{font-size:1rem}
     .search{max-width:none;width:100%}
     .header-right{align-items:flex-start;width:100%;margin-right:0}
     .form{gap:2rem}
@@ -149,11 +164,10 @@
     .field input[type=text],.field input[type=number],.field textarea,.dd-value{font-size:1.05rem}
     .temp-slider__value{font-size:1.7rem}
     .submit-btn{font-size:1.4rem}
-    .photos-btn{font-size:1rem}
     .dd-menu{max-height:50vh}
     .autre-btn{font-size:.85rem}
     .form-actions{flex-direction:column;align-items:flex-start;gap:1rem}
-    .upload-btn{font-size:1.05rem;padding:.8rem 1.4rem .8rem 1.1rem}
+    .upload-btn{font-size:1.1rem;padding:.8rem 1.4rem .8rem 1.1rem}
   }
 </style>
 </head>
@@ -161,36 +175,26 @@
 
 <header class="header">
   <a href="page2.html" class="brand">
-    
-    <!-- Conteneur titre + logo -->
     <div class="brand-top">
       <h1 class="wave-text" aria-label="Plantouille">
         <span class="wave-letter">P</span><span class="wave-letter">l</span><span class="wave-letter">a</span><span class="wave-letter">n</span><span class="wave-letter">t</span><span class="wave-letter">o</span><span class="wave-letter">u</span><span class="wave-letter">i</span><span class="wave-letter">l</span><span class="wave-letter">l</span><span class="wave-letter">e</span>
       </h1>
-      
+      <!-- Le logo s'intègre maintenant parfaitement grâce au CSS mix-blend-mode -->
       <img src="logo.png" alt="Logo Dr-Cactus" class="brand-logo">
     </div>
-
     <p class="subtitle">Cabinet du Dr-Cactus</p>
-    
-    <form class="search" role="search" onsubmit="event.preventDefault();">
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="5"/><line x1="11" y1="11" x2="14" y2="14"/></svg>
-      <input type="search" placeholder="chercher…" aria-label="Rechercher">
-    </form>
   </a>
-  <div class="header-right">
-    <a href="page2.html" class="back-link" aria-label="retour">
-      <span class="arrow-back">←</span>
-      <span class="back-link__text wave-text" aria-hidden="true">
-        <span class="wave-letter">r</span><span class="wave-letter">e</span><span class="wave-letter">t</span><span class="wave-letter">o</span><span class="wave-letter">u</span><span class="wave-letter">r</span>
-      </span>
-    </a>
-  </div>
+  <a href="page2.html" class="back-link" aria-label="retour">
+    <span class="arrow-back">←</span>
+    <span class="back-link__text wave-text" aria-hidden="true">
+      <span class="wave-letter">r</span><span class="wave-letter">e</span><span class="wave-letter">t</span><span class="wave-letter">o</span><span class="wave-letter">u</span><span class="wave-letter">r</span>
+    </span>
+  </a>
 </header>
 
-<!-- UPLOAD PHOTO -->
+<!-- BOUTON UPLOAD PHOTO (PLACÉ EN HAUT) -->
 <div class="upload-block">
-  <a href="photos.html" class="upload-btn" aria-label="Ajouter une photo">
+  <a href="photos.html" class="upload-btn wave-text" aria-label="Ajouter une photo">
     <span class="upload-icon" aria-hidden="true">
       <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -198,13 +202,13 @@
         <line x1="12" y1="3" x2="12" y2="15"/>
       </svg>
     </span>
-    <span class="wave-text" aria-hidden="true">
+    <span aria-hidden="true">
       <span class="wave-letter">a</span><span class="wave-letter">j</span><span class="wave-letter">o</span><span class="wave-letter">u</span><span class="wave-letter">t</span><span class="wave-letter">e</span><span class="wave-letter">r</span><span class="wave-letter">&nbsp;</span><span class="wave-letter">u</span><span class="wave-letter">n</span><span class="wave-letter">e</span><span class="wave-letter">&nbsp;</span><span class="wave-letter">p</span><span class="wave-letter">h</span><span class="wave-letter">o</span><span class="wave-letter">t</span><span class="wave-letter">o</span>
     </span>
   </a>
 </div>
 
-<form class="form" action="#" method="post" onsubmit="event.preventDefault();">
+<form class="form" action="#" method="post" onsubmit="event.preventDefault(); alert('Spécimen ajouté !');">
 
   <div class="field">
     <label>Catégorie</label>
@@ -391,159 +395,49 @@
     <button type="submit" class="submit-btn wave-text" aria-label="Enregistrer">
       <span class="wave-letter">E</span><span class="wave-letter">n</span><span class="wave-letter">r</span><span class="wave-letter">e</span><span class="wave-letter">g</span><span class="wave-letter">i</span><span class="wave-letter">s</span><span class="wave-letter">t</span><span class="wave-letter">r</span><span class="wave-letter">e</span><span class="wave-letter">r</span>
     </button>
-
-    <a href="photos.html" class="photos-btn" aria-label="Photos">
-      <span class="photos-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="3" width="18" height="18" rx="2"/>
-          <circle cx="8.5" cy="8.5" r="1.5"/>
-          <path d="M21 15l-5-5L5 21"/>
-        </svg>
-      </span>
-      <span class="photos-btn__text wave-text" aria-hidden="true">
-        <span class="wave-letter">p</span><span class="wave-letter">h</span><span class="wave-letter">o</span><span class="wave-letter">t</span><span class="wave-letter">o</span><span class="wave-letter">s</span>
-      </span>
-    </a>
   </div>
 
 </form>
 
 <script>
 // ============================================================
-// DONNÉES — listes étendues, par rubrique
+// DONNÉES
 // ============================================================
 const DATA = {
-  cactus: {
-    genres: ["Acanthocalycium","Acanthocereus","Acharagma","Airampoa","Ancistrocactus","Aporocactus","Ariocarpus","Armatocereus","Arrojadoa","Arthrocereus","Astrophytum","Austrocactus","Austrocylindropuntia","Aztekium","Backebergia","Bergerocactus","Blossfeldia","Brachycereus","Brasilicactus","Brasilicereus","Brasiliopuntia","Bridgesia","Browningia","Calymmanthium","Carnegiea","Castellanosia","Cephalocereus","Cephalomamillaria","Cereus","Cintia","Cipocereus","Cleistocactus","Coleocephalocereus","Consolea","Copiapoa","Corryocactus","Corynopuntia","Coryphantha","Cumulopuntia","Cylindropuntia","Dendrocereus","Denmoza","Discocactus","Disocactus","Echinocactus","Echinocereus","Echinofossulocactus","Echinomastus","Echinopsis","Epiphyllum","Epithelantha","Eriosyce","Escobaria","Escontria","Espostoa","Espostoopsis","Eulychnia","Facheiroa","Ferocactus","Frailea","Geohintonia","Grusonia","Gymnocalycium","Haageocereus","Hariota","Harrisia","Hatiora","Heliocereus","Hylocereus","Islaya","Isolatocereus","Jasminocereus","Krainzia","Lasiocereus","Lemaireocereus","Lepismium","Leptocereus","Leptocladia","Leuchtenbergia","Lobivia","Lophocereus","Lophophora","Loxanthocereus","Maihuenia","Maihueniopsis","Malacocarpus","Mammillaria","Mammilloydia","Marginatocereus","Marniera","Matucana","Melocactus","Micranthocereus","Mila","Miqueliopuntia","Monvillea","Myrtillocactus","Neobesseya","Neobuxbaumia","Neochilenia","Neolloydia","Neolobivia","Neomammillaria","Neoporteria","Neoraimondia","Neowerdermannia","Nopalea","Notocactus","Nyctocereus","Obregonia","Oehmea","Opuntia","Oreocereus","Oroya","Ortegocactus","Pachycereus","Parodia","Pediocactus","Pelecyphora","Peniocereus","Pereskia","Pereskiopsis","Pfeiffera","Pilosocereus","Polaskia","Praecereus","Pseudoacanthocereus","Pseudorhipsalis","Pterocactus","Pygmaeocereus","Quiabentia","Rauhocereus","Rebutia","Rhipsalis","Samaipaticereus","Schlumbergera","Sclerocactus","Selenicereus","Stenocactus","Stenocereus","Stephanocereus","Stetsonia","Strombocactus","Strophocactus","Tacinga","Tephrocactus","Thelocactus","Toumeya","Tunilla","Turbinicarpus","Uebelmannia","Weberbauerocereus","Weberocereus","Yavia","Yungasocereus"],
-    familles: ["Cactaceae"]
-  },
-  succulentes: {
-    genres: ["Adromischus","Aeonium","Agave","Aichryson","Aloe","Anacampseros","Argyroderma","Astroloba","Avonia","Bergeranthus","Bijlia","Braunsia","Carruanthus","Cephalophyllum","Cheiridopsis","Conophytum","Cotyledon","Crassula","Delosperma","Dinteranthus","Dudleya","Echeveria","Euphorbia","Faucaria","Fenestraria","Frithia","Gasteria","Gibbaeum","Graptopetalum","Graptoveria","Haworthia","Haworthiopsis","Hereroa","Juttadinteria","Kalanchoe","Lampranthus","Lapidaria","Lithops","Machairophyllum","Mesembryanthemum","Monilaria","Oscularia","Othonna","Pachyphytum","Pachyveria","Pleiospilos","Portulacaria","Rabiea","Rhodiola","Ruschia","Sceletium","Sedum","Sempervivum","Senecio","Stomatium","Titanopsis","Trichodiadema","Tylecodon","Yucca"],
-    familles: ["Crassulaceae","Aizoaceae","Asphodelaceae","Apocynaceae","Euphorbiaceae","Asparagaceae","Anacampserotaceae","Asteraceae","Geraniaceae","Portulacaceae"]
-  },
-  caudex: {
-    genres: ["Adenia","Adenium","Adromischus","Beaucarnea","Boswellia","Brachystelma","Ceropegia","Cissus","Commiphora","Cotyledon","Dioscorea","Dorstenia","Euphorbia","Fockea","Gerrardanthus","Hydnophytum","Ibervillea","Jatropha","Kedrostis","Momordica","Myrmecodia","Operculicarya","Pachira","Pachypodium","Pelargonium","Pseudolithos","Sarcocaulon","Senecio","Seyrigia","Sinningia","Stephania","Tylecodon","Uncarina"],
-    familles: ["Apocynaceae","Passifloraceae","Dioscoreaceae","Asparagaceae","Euphorbiaceae","Moraceae","Burseraceae","Cucurbitaceae","Rubiaceae","Menispermaceae","Vitaceae","Geraniaceae","Anacardiaceae","Gesneriaceae","Crassulaceae","Asteraceae"]
-  },
-  arbres: {
-    genres: ["Abies","Acer","Aesculus","Alnus","Amelanchier","Araucaria","Betula","Carpinus","Carya","Castanea","Cedrus","Celtis","Chamaecyparis","Cornus","Corylus","Crataegus","Cryptomeria","Cupressus","Fagus","Fraxinus","Ginkgo","Ilex","Juglans","Juniperus","Larix","Liquidambar","Liriodendron","Magnolia","Metasequoia","Morus","Nyssa","Olea","Ostrya","Picea","Pinus","Platanus","Populus","Prunus","Pseudotsuga","Pyrus","Quercus","Robinia","Salix","Sequoiadendron","Sorbus","Taxodium","Taxus","Thuja","Tilia","Tsuga","Ulmus","Zelkova"],
-    familles: ["Pinaceae","Fagaceae","Betulaceae","Salicaceae","Sapindaceae","Ulmaceae","Oleaceae","Rosaceae","Fabaceae","Cupressaceae","Ginkgoaceae","Juglandaceae","Magnoliaceae","Malvaceae","Moraceae","Platanaceae","Taxodiaceae","Tiliaceae","Aquifoliaceae","Cornaceae"]
-  },
-  fleurs: {
-    genres: ["Achillea","Aconitum","Adonis","Agapanthus","Ageratum","Allium","Alstroemeria","Amaryllis","Anemone","Antirrhinum","Aquilegia","Aster","Astilbe","Begonia","Bellis","Bergenia","Bougainvillea","Calendula","Callistephus","Camellia","Campanula","Canna","Celosia","Centaurea","Chelone","Chrysanthemum","Cineraria","Clarkia","Clematis","Cleome","Colchicum","Consolida","Convallaria","Coreopsis","Cosmos","Crocus","Cyclamen","Dahlia","Delphinium","Dianthus","Digitalis","Echinacea","Erica","Erigeron","Eschscholzia","Freesia","Fritillaria","Fuchsia","Gaillardia","Gardenia","Gazania","Gentiana","Geranium","Geum","Gladiolus","Gomphrena","Gypsophila","Hebe","Helenium","Helianthus","Helichrysum","Helleborus","Hemerocallis","Hibiscus","Hippeastrum","Hosta","Hyacinthus","Hydrangea","Iberis","Impatiens","Incarvillea","Iris","Ixia","Jasminum","Kniphofia","Lathyrus","Lavandula","Leucanthemum","Liatris","Lilium","Limonium","Linaria","Linum","Lobelia","Lonicera","Lupinus","Lychnis","Matthiola","Meconopsis","Mimulus","Monarda","Narcissus","Nemesia","Nemophila","Nigella","Nymphaea","Oenothera","Orchis","Paeonia","Papaver","Penstemon","Petunia","Phacelia","Phlox","Physalis","Platycodon","Polemonium","Portulaca","Primula","Ranunculus","Rhododendron","Rosa","Rudbeckia","Salpiglossis","Salvia","Saponaria","Scabiosa","Schizanthus","Sedum","Senecio","Silene","Solidago","Strelitzia","Streptocarpus","Tagetes","Thalictrum","Tigridia","Tithonia","Torenia","Tradescantia","Tricyrtis","Trollius","Tulipa","Verbascum","Verbena","Viola","Wisteria","Zantedeschia","Zinnia"],
-    familles: ["Asteraceae","Rosaceae","Ranunculaceae","Liliaceae","Iridaceae","Orchidaceae","Paeoniaceae","Papaveraceae","Campanulaceae","Scrophulariaceae","Solanaceae","Lamiaceae","Boraginaceae","Caryophyllaceae","Crassulaceae","Ericaceae","Gentianaceae","Geraniaceae","Malvaceae","Nyctaginaceae","Onagraceae","Polemoniaceae","Primulaceae","Violaceae","Amaryllidaceae","Apocynaceae","Araceae","Balsaminaceae","Begoniaceae","Caprifoliaceae","Dipsacaceae","Gesneriaceae"]
-  },
-  legumes: {
-    genres: ["Abelmoschus","Allium","Apium","Asparagus","Beta","Brassica","Capsicum","Cichorium","Cucumis","Cucurbita","Cynara","Daucus","Eruca","Foeniculum","Helianthus","Lactuca","Lens","Lepidium","Pastinaca","Petroselinum","Phaseolus","Pisum","Raphanus","Rheum","Scorzonera","Solanum","Spinacia","Vicia","Zea"],
-    familles: ["Solanaceae","Brassicaceae","Fabaceae","Cucurbitaceae","Apiaceae","Amaryllidaceae","Asteraceae","Amaranthaceae","Poaceae","Araceae","Malvaceae","Polygonaceae","Convolvulaceae"]
-  },
-  fruitiers: {
-    genres: ["Actinidia","Ananas","Carya","Castanea","Citrus","Corylus","Cydonia","Diospyros","Eriobotrya","Ficus","Fortunella","Fragaria","Juglans","Malus","Mespilus","Morus","Musa","Olea","Punica","Pyrus","Ribes","Rubus","Sambucus","Vaccinium","Vitis","Ziziphus"],
-    familles: ["Rosaceae","Rutaceae","Vitaceae","Moraceae","Oleaceae","Lythraceae","Ericaceae","Ebenaceae","Actinidiaceae","Juglandaceae","Betulaceae","Fagaceae","Rhamnaceae","Adoxaceae","Bromeliaceae","Musaceae"]
-  },
-  aromatiques: {
-    genres: ["Agastache","Allium","Aloysia","Angelica","Anethum","Anthriscus","Artemisia","Carum","Coriandrum","Cuminum","Cymbopogon","Foeniculum","Hyssopus","Laurus","Lavandula","Melissa","Mentha","Monarda","Myrtus","Nepeta","Ocimum","Origanum","Pelargonium","Petroselinum","Rosmarinus","Ruta","Salvia","Satureja","Tanacetum","Thymus","Verbena"],
-    familles: ["Lamiaceae","Apiaceae","Asteraceae","Lauraceae","Myrtaceae","Geraniaceae","Rutaceae","Verbenaceae","Poaceae","Alliaceae"]
-  },
-  carnivores: {
-    genres: ["Aldrovanda","Byblis","Catopsis","Cephalotus","Darlingtonia","Dionaea","Drosera","Drosophyllum","Genlisea","Heliamphora","Ibicella","Nepenthes","Philcoxia","Pinguicula","Proboscidea","Roridula","Sarracenia","Triphyophyllum","Utricularia"],
-    familles: ["Droseraceae","Nepenthaceae","Sarraceniaceae","Lentibulariaceae","Cephalotaceae","Byblidaceae","Dioncophyllaceae","Bromeliaceae","Roridulaceae","Martyniaceae","Plantaginaceae"]
-  },
-  entheogenes: {
-    genres: ["Anadenanthera","Atropa","Banisteriopsis","Brugmansia","Calea","Datura","Echinopsis","Hyoscyamus","Lagochilus","Leonotis","Lophophora","Mandragora","Mimosa","Nicotiana","Papaver","Peganum","Psychotria","Salvia","Sceletium","Silene","Sophora","Tabernaemontana","Tabernanthe","Tetrapterys","Trichocereus","Virola","Voacanga"],
-    familles: ["Solanaceae","Cactaceae","Rubiaceae","Malpighiaceae","Fabaceae","Papaveraceae","Lamiaceae","Aizoaceae","Caryophyllaceae","Apocynaceae","Myristicaceae","Nitrariaceae"]
-  },
-  cannabis: {
-    genres: ["Cannabis"],
-    familles: ["Cannabaceae"]
-  },
-  "bonsais-feuillus": {
-    genres: ["Acer","Aesculus","Alnus","Amelanchier","Betula","Bougainvillea","Buxus","Carpinus","Carmona","Celtis","Cercis","Chaenomeles","Cornus","Corylus","Cotoneaster","Crataegus","Fagus","Ficus","Forsythia","Fraxinus","Ilex","Lagerstroemia","Ligustrum","Magnolia","Malus","Morus","Ostrya","Punica","Pyracantha","Pyrus","Quercus","Serissa","Sorbus","Syringa","Tilia","Ulmus","Wisteria","Zelkova"],
-    familles: ["Sapindaceae","Ulmaceae","Betulaceae","Fagaceae","Moraceae","Rosaceae","Fabaceae","Buxaceae","Boraginaceae","Rubiaceae","Oleaceae","Nyctaginaceae","Lythraceae","Cornaceae","Aquifoliaceae","Malvaceae","Magnoliaceae","Tiliaceae"]
-  },
-  "bonsais-coniferes": {
-    genres: ["Abies","Cedrus","Chamaecyparis","Cryptomeria","Cupressus","Juniperus","Larix","Metasequoia","Picea","Pinus","Podocarpus","Sequoia","Taxodium","Taxus","Thuja","Tsuga"],
-    familles: ["Pinaceae","Cupressaceae","Taxaceae","Podocarpaceae","Taxodiaceae"]
-  },
-  "bonsais-fleurs": {
-    genres: ["Bougainvillea","Camellia","Chaenomeles","Cydonia","Forsythia","Hibiscus","Kerria","Malus","Prunus","Pyracantha","Rhododendron","Spiraea","Syringa","Wisteria"],
-    familles: ["Ericaceae","Theaceae","Rosaceae","Fabaceae","Oleaceae","Malvaceae","Nyctaginaceae"]
-  },
-  "bonsais-fruitiers": {
-    genres: ["Citrus","Crataegus","Diospyros","Eriobotrya","Ficus","Fortunella","Malus","Mespilus","Olea","Prunus","Punica","Pyracantha","Pyrus","Sorbus","Vitis","Ziziphus"],
-    familles: ["Rosaceae","Rutaceae","Moraceae","Oleaceae","Ebenaceae","Lythraceae","Vitaceae","Rhamnaceae"]
-  },
-  "graines-aromatiques": {
-    genres: ["Anethum","Anthriscus","Coriandrum","Cuminum","Foeniculum","Hyssopus","Lavandula","Melissa","Mentha","Ocimum","Origanum","Petroselinum","Rosmarinus","Salvia","Satureja","Thymus"],
-    familles: ["Lamiaceae","Apiaceae"]
-  },
-  "graines-legumes": {
-    genres: ["Allium","Apium","Beta","Brassica","Capsicum","Cichorium","Cucumis","Cucurbita","Daucus","Eruca","Lactuca","Lens","Pastinaca","Petroselinum","Phaseolus","Pisum","Raphanus","Solanum","Spinacia","Vicia","Zea"],
-    familles: ["Solanaceae","Brassicaceae","Fabaceae","Cucurbitaceae","Apiaceae","Amaryllidaceae","Asteraceae","Amaranthaceae","Poaceae"]
-  },
-  "graines-fleurs": {
-    genres: ["Achillea","Aconitum","Anemone","Aquilegia","Aster","Begonia","Bellis","Calendula","Campanula","Centaurea","Clematis","Cosmos","Dahlia","Delphinium","Dianthus","Digitalis","Echinacea","Fuchsia","Gazania","Geranium","Gladiolus","Helianthus","Hibiscus","Impatiens","Lathyrus","Lavandula","Lilium","Lupinus","Matthiola","Narcissus","Nigella","Paeonia","Papaver","Petunia","Phlox","Primula","Ranunculus","Rosa","Salvia","Tagetes","Tulipa","Viola","Zinnia"],
-    familles: ["Asteraceae","Ranunculaceae","Liliaceae","Iridaceae","Paeoniaceae","Papaveraceae","Campanulaceae","Scrophulariaceae","Solanaceae","Lamiaceae","Caryophyllaceae","Geraniaceae","Malvaceae","Polemoniaceae","Primulaceae","Violaceae","Amaryllidaceae","Begoniaceae"]
-  },
-  "graines-fruitiers": {
-    genres: ["Actinidia","Carya","Castanea","Citrus","Corylus","Cydonia","Diospyros","Ficus","Fragaria","Juglans","Malus","Morus","Olea","Prunus","Punica","Pyrus","Ribes","Rubus","Vaccinium","Vitis"],
-    familles: ["Rosaceae","Rutaceae","Vitaceae","Moraceae","Oleaceae","Lythraceae","Ericaceae","Ebenaceae","Actinidiaceae","Juglandaceae","Betulaceae","Fagaceae"]
-  },
-  "graines-cactus": {
-    genres: ["Ariocarpus","Astrophytum","Carnegiea","Cereus","Cleistocactus","Copiapoa","Echinocactus","Echinocereus","Echinopsis","Epiphyllum","Escobaria","Espostoa","Ferocactus","Frailea","Gymnocalycium","Lophophora","Mammillaria","Matucana","Melocactus","Opuntia","Parodia","Rebutia","Schlumbergera","Selenicereus","Stenocactus","Thelocactus","Turbinicarpus","Uebelmannia"],
-    familles: ["Cactaceae"]
-  },
-  "graines-arbres": {
-    genres: ["Abies","Acer","Alnus","Betula","Carpinus","Castanea","Cedrus","Corylus","Fagus","Fraxinus","Ginkgo","Juglans","Larix","Magnolia","Picea","Pinus","Platanus","Prunus","Pyrus","Quercus","Salix","Sorbus","Taxodium","Tilia","Ulmus","Zelkova"],
-    familles: ["Pinaceae","Fagaceae","Betulaceae","Salicaceae","Sapindaceae","Ulmaceae","Oleaceae","Rosaceae","Ginkgoaceae","Juglandaceae","Magnoliaceae","Platanaceae","Taxodiaceae","Tiliaceae"]
-  },
-  "spores-cultives": {
-    genres: ["Agaricus","Auricularia","Cyclocybe","Flammulina","Lentinula","Lepista","Pholiota","Pleurotus","Stropharia","Tremella","Volvariella"],
-    familles: ["Agaricaceae","Auriculariaceae","Bolbitiaceae","Physalacriaceae","Omphalotaceae","Pleurotaceae","Strophariaceae","Tremellaceae","Pluteaceae"]
-  },
-  "spores-medicinaux": {
-    genres: ["Agaricus","Antrodia","Cordyceps","Ganoderma","Grifola","Hericium","Inonotus","Lentinula","Ophiocordyceps","Phellinus","Trametes","Tremella"],
-    familles: ["Ganodermataceae","Ophiocordycipitaceae","Hericiaceae","Grifolaceae","Hymenochaetaceae","Polyporaceae","Fomitopsidaceae","Agaricaceae","Tremellaceae"]
-  },
-  "spores-sauvages": {
-    genres: ["Agaricus","Amanita","Boletus","Cantharellus","Clitocybe","Coprinus","Craterellus","Hydnum","Lactarius","Lepista","Morchella","Russula","Suillus","Tricholoma","Volvariella"],
-    familles: ["Boletaceae","Cantharellaceae","Morchellaceae","Hydnaceae","Agaricaceae","Tricholomataceae","Suillaceae","Pluteaceae","Coprinaceae","Amanitaceae","Russulaceae"]
-  },
-  "spores-psychedeliques": {
-    genres: ["Amanita","Conocybe","Copelandia","Gymnopilus","Panaeolus","Pholiotina","Pluteus","Psilocybe"],
-    familles: ["Hymenogastraceae","Galeropsidaceae","Pluteaceae","Bolbitiaceae","Amanitaceae"]
-  }
+  cactus: { genres: ["Acanthocereus","Ariocarpus","Astrophytum","Carnegiea","Cereus","Echinocactus","Echinopsis","Ferocactus","Gymnocalycium","Lophophora","Mammillaria","Opuntia","Parodia","Rebutia","Trichocereus"], familles: ["Cactaceae"] },
+  succulentes: { genres: ["Aeonium","Agave","Aloe","Crassula","Echeveria","Haworthia","Kalanchoe","Lithops","Sedum","Sempervivum"], familles: ["Crassulaceae","Aizoaceae","Asphodelaceae"] },
+  caudex: { genres: ["Adenium","Beaucarnea","Dioscorea","Euphorbia","Jatropha","Pachypodium"], familles: ["Apocynaceae","Asparagaceae","Euphorbiaceae"] },
+  arbres: { genres: ["Acer","Betula","Fagus","Pinus","Quercus","Ulmus"], familles: ["Sapindaceae","Betulaceae","Fagaceae","Pinaceae"] },
+  fleurs: { genres: ["Dahlia","Lavandula","Paeonia","Rosa","Tulipa"], familles: ["Asteraceae","Lamiaceae","Paeoniaceae","Rosaceae","Liliaceae"] },
+  legumes: { genres: ["Allium","Brassica","Daucus","Lactuca","Solanum"], familles: ["Amaryllidaceae","Brassicaceae","Apiaceae","Asteraceae","Solanaceae"] },
+  fruitiers: { genres: ["Citrus","Ficus","Malus","Prunus","Vitis"], familles: ["Rutaceae","Moraceae","Rosaceae","Vitaceae"] },
+  aromatiques: { genres: ["Mentha","Ocimum","Rosmarinus","Salvia","Thymus"], familles: ["Lamiaceae"] },
+  carnivores: { genres: ["Dionaea","Drosera","Nepenthes","Sarracenia"], familles: ["Droseraceae","Nepenthaceae","Sarraceniaceae"] },
+  entheogenes: { genres: ["Lophophora","Mimosa","Psychotria","Trichocereus"], familles: ["Cactaceae","Fabaceae","Rubiaceae"] },
+  cannabis: { genres: ["Cannabis"], familles: ["Cannabaceae"] },
+  "bonsais-feuillus": { genres: ["Acer","Ficus","Ulmus"], familles: ["Sapindaceae","Moraceae","Ulmaceae"] },
+  "bonsais-coniferes": { genres: ["Juniperus","Pinus"], familles: ["Cupressaceae","Pinaceae"] },
+  "bonsais-fleurs": { genres: ["Camellia","Rhododendron"], familles: ["Theaceae","Ericaceae"] },
+  "bonsais-fruitiers": { genres: ["Malus","Prunus"], familles: ["Rosaceae"] },
+  "graines-aromatiques": { genres: ["Mentha","Thymus"], familles: ["Lamiaceae"] },
+  "graines-legumes": { genres: ["Daucus","Lactuca"], familles: ["Apiaceae","Asteraceae"] },
+  "graines-fleurs": { genres: ["Rosa","Tulipa"], familles: ["Rosaceae","Liliaceae"] },
+  "graines-fruitiers": { genres: ["Citrus","Malus"], familles: ["Rutaceae","Rosaceae"] },
+  "graines-cactus": { genres: ["Astrophytum","Mammillaria"], familles: ["Cactaceae"] },
+  "graines-arbres": { genres: ["Acer","Pinus"], familles: ["Sapindaceae","Pinaceae"] },
+  "spores-cultives": { genres: ["Agaricus","Lentinula","Pleurotus"], familles: ["Agaricaceae","Omphalotaceae","Pleurotaceae"] },
+  "spores-medicinaux": { genres: ["Ganoderma","Hericium"], familles: ["Ganodermataceae","Hericiaceae"] },
+  "spores-sauvages": { genres: ["Boletus","Cantharellus","Morchella"], familles: ["Boletaceae","Cantharellaceae","Morchellaceae"] },
+  "spores-psychedeliques": { genres: ["Psilocybe","Panaeolus"], familles: ["Hymenogastraceae","Galeropsidaceae"] }
 };
 
-// ============================================================
-// SUBSTRATS GÉNÉRIQUES ET COMPLETS PAR RUBRIQUE
-// ============================================================
 const SUBSTRATS = {
-  cactus: ["Terreau + pouzzolane + sable (1/3 chacun)","Minéral pur : pouzzolane + pumice + zéolite","Terreau + sable grossier + perlite (40/40/20)","Terreau + écorces + perlite (pour espèces forestières)"],
-  succulentes: ["Terreau + sable grossier + perlite (40/40/20)","Terreau + pouzzolane + sable (1/3 chacun)","Minéral pur : pouzzolane fine + pumice","Terreau + écorces + sable (pour Aeonium, Echeveria)"],
-  caudex: ["Terreau + sable + pouzzolane (50/25/25)","Terreau + perlite + sable + écorces","Minéral : pouzzolane + pumice + terreau (60/20/20)"],
-  arbres: ["Terreau universel + sable + perlite (60/20/20)","Terreau forestier : terreau + feuilles + sable","Terre argileuse + compost"],
-  fleurs: ["Terreau horticole classique","Terreau + compost + sable (60/30/10)","Terreau + perlite (70/30)","Terreau riche pour rosiers (terreau + compost + fumier)"],
-  legumes: ["Terreau potager classique","Compost + terreau (50/50)","Terreau + compost + sable (60/30/10)","Terreau à semis fin"],
-  fruitiers: ["Terreau + compost + sable (60/30/10)","Terreau riche : terreau + compost (70/30)","Terre argileuse + compost"],
-  aromatiques: ["Terreau + sable (60/40)","Terreau + perlite (70/30)","Substrat pauvre : terreau + sable + graviers"],
-  carnivores: ["Sphaigne pure","Tourbe blonde + sable (50/50)","Sphaigne + perlite (70/30)","Sphaigne + écorces (pour Nepenthes)"],
-  entheogenes: ["Terreau + sable + pouzzolane (50/30/20)","Terreau forestier riche","Terreau tropical : terreau + coco + perlite"],
-  cannabis: ["Terreau horticole enrichi","Coco + perlite (70/30)","Super soil : terreau + compost + perlite + amendements","Light mix : terreau + coco + perlite (50/30/20)"],
-  "bonsais-feuillus": ["Akadama + pumice + pouzzolane (60/20/20)","Akadama pure","Terreau + sable + pouzzolane (50/30/20)"],
-  "bonsais-coniferes": ["Akadama + pumice (70/30)","Akadama + pumice + pouzzolane (60/20/20)","Kanuma (pour acidophiles)"],
-  "bonsais-fleurs": ["Akadama + pumice + pouzzolane (60/20/20)","Akadama + terreau (70/30)","Kanuma (pour azalées)"],
-  "bonsais-fruitiers": ["Akadama + pumice + pouzzolane (60/20/20)","Akadama + terreau + pumice (50/25/25)"],
-  "graines-aromatiques": ["Terreau à semis fin"],
-  "graines-legumes": ["Terreau à semis","Terreau + sable + compost (60/30/10)"],
-  "graines-fleurs": ["Terreau à semis","Terreau + sable (70/30)"],
-  "graines-fruitiers": ["Terreau à semis","Terreau + sable (70/30)"],
-  "graines-cactus": ["Minéral à semis : pouzzolane fine + sable (50/50)","Sable + terreau stérilisé (70/30)"],
-  "graines-arbres": ["Terreau à semis","Terreau + sable (70/30)"],
-  "spores-cultives": ["Paille pasteurisée","Copeaux de hêtre","Bûche de hêtre","Paille + son de blé (90/10)"],
-  "spores-medicinaux": ["Copeaux de hêtre","Paille + son","Bûche de chêne","Riz complet (cordyceps)"],
-  "spores-sauvages": ["Sol forestier naturel","Terreau + feuilles mortes","Bois mort"],
-  "spores-psychedeliques": ["Graines de seigle (rye berries)","BRF (bois raméal fragmenté)","Copeaux de bois","Substrat PF Tek (farine de riz brun + vermiculite)"]
+  cactus: ["Terreau + pouzzolane + sable","Minéral pur"], succulentes: ["Drainant classique","Minéral pur"], caudex: ["Terreau + sable + pouzzolane"],
+  arbres: ["Terreau universel","Terre argileuse"], fleurs: ["Terreau horticole","Terreau + compost"], legumes: ["Terreau potager","Compost"],
+  fruitiers: ["Terreau + compost"], aromatiques: ["Terreau + sable","Pauvre"], carnivores: ["Sphaigne pure","Tourbe + sable"],
+  entheogenes: ["Terreau drainant"], cannabis: ["Terreau enrichi","Coco + perlite"], "bonsais-feuillus": ["Akadama + pumice"], "bonsais-coniferes": ["Akadama + pumice"],
+  "bonsais-fleurs": ["Akadama + pumice"], "bonsais-fruitiers": ["Akadama + pumice"], "graines-aromatiques": ["Terreau à semis"], "graines-legumes": ["Terreau à semis"], "graines-fleurs": ["Terreau à semis"], "graines-fruitiers": ["Terreau à semis"], "graines-cactus": ["Sable + terreau"], "graines-arbres": ["Terreau à semis"],
+  "spores-cultives": ["Paille","Copeaux"], "spores-medicinaux": ["Copeaux","Bûche"], "spores-sauvages": ["Sol forestier"], "spores-psychedeliques": ["Graines de seigle","BRF"]
 };
 
 // ============================================================

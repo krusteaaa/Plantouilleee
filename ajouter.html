@@ -35,10 +35,8 @@
   @keyframes fadeSlideOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-20px); } }
 
   /* ==================== HEADER & LOGO ==================== */
-  /* Header compact */
   .header{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:2rem;flex-wrap:wrap}
   
-  /* Texte à gauche, Logo à droite */
   .brand-container {
     display: flex;
     align-items: center;
@@ -48,7 +46,6 @@
   
   .brand-text { display: flex; flex-direction: column; }
   
-  /* TYPOGRAPHIE PLANTouille */
   .brand h1{
     font-family: "Playfair Display", Georgia, serif !important; 
     font-style: italic !important; 
@@ -59,7 +56,6 @@
     color: var(--yellow); 
   }
   
-  /* TYPOGRAPHIE CABINET */
   .brand .subtitle{
     font-family: "Montserrat", sans-serif !important; 
     font-weight: 500 !important; 
@@ -69,12 +65,13 @@
     letter-spacing: .05em;
   }
   
-  /* LOGO A DROITE, SANS FILTRES */
+  /* LOGO A GAUCHE */
   .brand-logo{
-    height: 180px; 
+    height: 160px; 
     width: auto;
     object-fit: contain;
     display: block;
+    order: -1; /* Force le logo à gauche */
   }
 
   /* ==================== BOUTON RETOUR ==================== */
@@ -134,7 +131,6 @@
   .upload-btn:hover { animation-play-state: paused; }
   @keyframes softBounce{0%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}50%{transform:translateY(0)}70%{transform:translateY(-2px)}85%{transform:translateY(0)}}
 
-  /* Marge réduite sous le bouton photo */
   .upload-block {
     display: flex;
     flex-direction: column;
@@ -146,7 +142,6 @@
   .image-preview{display:none;margin-top:1rem;width:250px;height:250px;border-radius:8px;object-fit:cover;box-shadow:0 8px 24px rgba(0,0,0,0.08)}
 
   /* ==================== FORMULAIRE ==================== */
-  /* Gaps réduits pour compacité */
   .form{max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:1.2rem}
   .field{display:flex;flex-direction:column;gap:.2rem;position:relative}
   .field>label{font-family:"Inter",sans-serif;font-size:.6rem;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:var(--f)}
@@ -188,22 +183,12 @@
   .temp-slider input[type=range]{-webkit-appearance:none;width:100%;height:2px;background:rgba(45,74,43,.1);outline:none;padding:.5rem 0;background-clip:content-box;border-radius:2px}
   .temp-slider input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--cd);cursor:pointer;box-shadow:0 2px 6px rgba(45,74,43,.3)}
 
-  /* BOUTON ENREGISTRER */
-  .submit-block { 
-    display: flex; 
-    justify-content: center; 
-    margin-top: 1rem; 
-    margin-bottom: 1rem;
-  }
-  .submit-block .action-btn {
-    font-size: 1.5rem;
-    padding: 1rem 3rem 1rem 2rem;
-  }
+  .submit-block { display: flex; justify-content: center; margin-top: 1rem; margin-bottom: 1rem; }
+  .submit-block .action-btn { font-size: 1.5rem; padding: 1rem 3rem 1rem 2rem; }
 
   .wave-text{display:inline-flex;align-items:baseline;flex-wrap:wrap}
   .wave-letter{display:inline-block;will-change:transform;white-space:pre}
 
-  /* ==================== RESPONSIVE ==================== */
   @media(max-width:768px){
     .header{flex-direction:column;align-items:flex-start;gap:1.5rem}
     .brand-container{flex-direction:column;align-items:flex-start;gap:1rem; width: 100%;}
@@ -227,11 +212,11 @@
 
   <header class="header">
     <div class="brand-container">
+      <img src="logo.png" alt="Logo Dr-Cactus" class="brand-logo">
       <div class="brand-text">
         <h1 class="wave-text"><span class="wave-letter">P</span><span class="wave-letter">l</span><span class="wave-letter">a</span><span class="wave-letter">n</span><span class="wave-letter">t</span><span class="wave-letter">o</span><span class="wave-letter">u</span><span class="wave-letter">i</span><span class="wave-letter">l</span><span class="wave-letter">l</span><span class="wave-letter">e</span></h1>
         <p class="subtitle">Cabinet du Dr-Cactus</p>
       </div>
-      <img src="logo.png" alt="Logo Dr-Cactus" class="brand-logo">
     </div>
 
     <a href="#" class="back-btn" onclick="navigate('page2.html'); return false;">
@@ -358,7 +343,6 @@
       <textarea id="histoire" rows="3" placeholder="D'où vient cette plante, son histoire..."></textarea>
     </div>
 
-    <!-- BOUTON ENREGISTRER -->
     <div class="submit-block">
       <button type="submit" class="action-btn wave-text">
         <span class="action-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span>
@@ -634,6 +618,7 @@ function initWave(el) {
 }
 document.querySelectorAll('.wave-text').forEach(el => initWave(el.closest('button, a') || el));
 
+// Initialisation au chargement
 populateGenres(''); populateFamilles(''); populateSubstrats('');
 </script>
 </body>

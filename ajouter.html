@@ -42,29 +42,49 @@
   /* ==================== HEADER & LOGO ==================== */
   .header{display:flex;justify-content:space-between;align-items:center;gap:2rem;margin-bottom:3rem;flex-wrap:wrap}
   
+  /* Nouveau conteneur pour mettre le logo à droite de Plantouille */
   .brand-container {
     display: flex;
-    align-items: center;
-    gap: 2rem;
+    flex-direction: column;
     text-decoration: none;
     color: inherit;
   }
-  .brand-text {
+  .brand-top-row {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
   }
   
-  /* TYPOGRAPHIE ORIGINALE */
-  .brand h1{font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:300;font-size:2.8rem;line-height:1;letter-spacing:-.02em;transition:color .35s}
+  /* TYPOGRAPHIE FORCÉE */
+  .brand h1{
+    font-family: "Cormorant Garamond", Georgia, serif !important; 
+    font-style: italic; 
+    font-weight: 300; 
+    font-size: 3rem; /* Un peu plus grand */
+    line-height: 1; 
+    letter-spacing: -.02em;
+    transition: color .35s;
+  }
   .brand-container:hover h1{color:var(--ch)}
-  .brand .subtitle{font-family:"Instrument Serif",serif;font-style:italic;font-size:1.25rem;color:var(--f);margin-top:0.4rem;letter-spacing:.03em}
   
-  /* LOGO CORRIGÉ : Très grand, sans filtre, fond blanc transparent */
+  .brand .subtitle{
+    font-family: "Instrument Serif", Georgia, serif !important; 
+    font-style: italic; 
+    font-size: 1.25rem; 
+    color: var(--f); 
+    margin-top: 0.4rem; 
+    letter-spacing: .03em;
+  }
+  
+  /* LOGO CORRIGÉ */
   .brand-logo{
-    height:160px; /* Encore plus grand */
-    width:auto;
-    object-fit:contain;
-    mix-blend-mode: multiply; /* Rend le fond blanc transparent sur fond blanc */
+    height: 100px; /* Plus grand */
+    width: auto;
+    object-fit: contain;
+    /* Transforme le bleu en vert cactus */
+    filter: invert(21%) sepia(27%) saturate(987%) hue-rotate(73deg) brightness(94%) contrast(91%);
+    /* Rend le fond blanc transparent */
+    mix-blend-mode: multiply; 
     transition: transform .3s ease;
   }
   .brand-container:hover .brand-logo{transform: scale(1.05)}
@@ -81,8 +101,7 @@
   .back-btn .arrow{font-family:sans-serif;font-style:normal;font-size:1.2rem;transition:transform 0.3s ease}
   .back-btn:hover .arrow{transform:translateX(-4px)}
 
-  /* ==================== BOUTONS STYLE "UPLOAD" ==================== */
-  /* Classe commune pour le bouton Photo et le bouton Enregistrer */
+  /* ==================== BOUTONS STYLE "ACTION" ==================== */
   .action-btn {
     display: inline-flex;
     align-items: center;
@@ -161,7 +180,7 @@
   .select-row .dropdown{flex:1}
   .autre-btn{background:none;border:none;cursor:pointer;font-family:"Instrument Serif",serif;font-style:italic;font-size:.9rem;color:var(--f);transition:color .3s;padding-bottom:.3rem}
   .autre-btn:hover{color:var(--cd)}
-  .autre-input{margin-top:.5rem;display:none} /* Caché par défaut */
+  .autre-input{margin-top:.5rem;display:none}
 
   .radio-group{display:flex;flex-wrap:wrap;gap:2rem;padding-top:.2rem}
   .radio{display:inline-flex;align-items:center;cursor:pointer}
@@ -176,22 +195,24 @@
   .temp-slider input[type=range]{-webkit-appearance:none;width:100%;height:1px;background:var(--f);outline:none;padding:.7rem 0;background-clip:content-box}
   .temp-slider input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--cd);cursor:pointer}
 
-  /* ==================== BOUTON ENREGISTRER (Style Upload) ==================== */
-  .submit-block {
-    display: flex;
-    justify-content: center;
-    margin-top: 1rem;
-  }
+  .submit-block { display: flex; justify-content: center; margin-top: 1rem; }
 
   .wave-text{display:inline-flex;align-items:baseline;flex-wrap:wrap}
   .wave-letter{display:inline-block;will-change:transform;white-space:pre}
 
+  /* ==================== RESPONSIVE MOBILE ANDROID ==================== */
   @media(max-width:640px){
     body{padding:2rem 1.5rem}
     .header{flex-direction:column;align-items:flex-start;gap:1.5rem}
-    .brand-container{flex-direction:column;align-items:flex-start;gap:1rem}
-    .brand-logo{height:120px}
-    .action-btn{width:100%}
+    
+    /* Ajustement du logo et du titre sur mobile */
+    .brand h1 { font-size: 2.2rem; }
+    .brand-logo { height: 70px; }
+    .brand .subtitle { font-size: 1rem; }
+    
+    .action-btn{width:100%; font-size: 1.2rem;}
+    .back-btn{width:100%; justify-content: center;}
+    .submit-block { width: 100%; }
   }
 </style>
 </head>
@@ -201,11 +222,13 @@
 
   <header class="header">
     <a href="#" class="brand-container" onclick="navigate('page2.html'); return false;">
-      <div class="brand-text">
+      
+      <!-- Logo à droite de Plantouille uniquement -->
+      <div class="brand-top-row">
         <h1 class="wave-text"><span class="wave-letter">P</span><span class="wave-letter">l</span><span class="wave-letter">a</span><span class="wave-letter">n</span><span class="wave-letter">t</span><span class="wave-letter">o</span><span class="wave-letter">u</span><span class="wave-letter">i</span><span class="wave-letter">l</span><span class="wave-letter">l</span><span class="wave-letter">e</span></h1>
-        <p class="subtitle">Cabinet du Dr-Cactus</p>
+        <img src="logo.png" alt="Logo Dr-Cactus" class="brand-logo">
       </div>
-      <img src="logo.png" alt="Logo Dr-Cactus" class="brand-logo">
+      <p class="subtitle">Cabinet du Dr-Cactus</p>
     </a>
 
     <a href="#" class="back-btn" onclick="navigate('page2.html'); return false;">
@@ -332,7 +355,7 @@
       <textarea id="histoire" rows="4" placeholder="D'où vient cette plante..."></textarea>
     </div>
 
-    <!-- BOUTON ENREGISTRER (Même style que Photo) -->
+    <!-- BOUTON ENREGISTRER (Même style que le bouton Photo) -->
     <div class="submit-block">
       <button type="submit" class="action-btn wave-text">
         <span class="action-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 6L9 17l-5-5"/></svg></span>
@@ -601,4 +624,4 @@ populateFamilles('');
 populateSubstrats('');
 </script>
 </body>
-</html>8
+</html>

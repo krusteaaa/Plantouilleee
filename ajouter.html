@@ -23,14 +23,20 @@
   .brand h1{font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:300;font-size:2.8rem;line-height:1;letter-spacing:-.02em;transition:color .35s}
   .brand:hover h1{color:var(--ch)}
   
-  /* LOGO */
+  /* LOGO MODIFIÉ ICI */
   .brand-logo{
-    height:80px;
+    height:110px; /* Plus grand */
     width:auto;
     object-fit:contain;
     border-radius:8px;
     background:rgba(255,255,255,0.8);
     padding:4px;
+    /* Filtre pour transformer le bleu en vert cactus */
+    filter: invert(21%) sepia(27%) saturate(987%) hue-rotate(73deg) brightness(94%) contrast(91%);
+    transition: transform .3s ease;
+  }
+  .brand:hover .brand-logo {
+    transform: scale(1.03); /* Petit effet de zoom au survol */
   }
   
   /* SOUS-TITRE AGRANDI */
@@ -134,7 +140,7 @@
     body{padding:2rem 1.5rem}
     .header{margin-bottom:2.5rem;gap:1.2rem}
     .brand h1{font-size:2rem}
-    .brand-logo{height:50px}
+    .brand-logo{height:70px}
     .brand .subtitle{font-size:1rem}
     .search{max-width:none;width:100%}
     .header-right{align-items:flex-start;width:100%;margin-right:0}
@@ -162,7 +168,6 @@
         <span class="wave-letter">P</span><span class="wave-letter">l</span><span class="wave-letter">a</span><span class="wave-letter">n</span><span class="wave-letter">t</span><span class="wave-letter">o</span><span class="wave-letter">u</span><span class="wave-letter">i</span><span class="wave-letter">l</span><span class="wave-letter">l</span><span class="wave-letter">e</span>
       </h1>
       
-      <!-- L'extension est maintenant .png -->
       <img src="logo.png" alt="Logo Dr-Cactus" class="brand-logo">
     </div>
 

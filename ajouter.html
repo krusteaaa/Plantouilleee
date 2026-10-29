@@ -7,7 +7,7 @@
 <title>Ajouter — Plantouille</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Montserrat:wght@400;500&family=Inter:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
   /* ==================== VARIABLES & BASE ==================== */
   *{box-sizing:border-box;margin:0;padding:0}html,body{height:100%}
@@ -16,69 +16,77 @@
     --cd:#2d4a2b; 
     --ch:#4a6b3d; 
     --bg:#ffffff;
-    --f:rgba(45,74,43,.4);
+    --f:rgba(45,74,43,.5);
     --tint:rgba(45,74,43,.04);
     --btn-bg:rgba(45,74,43,.06);
     --btn-hover:var(--cd);
     --yellow:#d4a373; 
   }
-  body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--cd);min-height:100vh;padding:2rem 1.5rem;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  
+  /* APPLICATION DE LA POLICE UNIQUE */
+  body{
+    font-family:"Instrument Serif", Georgia, serif;
+    background:var(--bg);
+    color:var(--cd);
+    min-height:100vh;
+    padding:2rem 1.5rem;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
 
   /* ==================== ANIMATIONS DE PAGE ==================== */
   .page-content {
-    max-width: 900px; 
+    max-width: 1000px; 
     margin: 0 auto;
     animation: fadeSlideIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
   }
-  .page-exit { animation: fadeSlideOut 0.4s cubic-bezier(0.8, 0.2, 0.8, 0.2) forwards; }
+  .page-exit { animation: fadeSlideOut 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
   @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes fadeSlideOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-20px); } }
 
-  /* ==================== HEADER ==================== */
-  .header{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:2rem;flex-wrap:wrap}
+  /* ==================== HEADER & LOGO ==================== */
+  .header{display:flex;justify-content:space-between;align-items:center;gap:2rem;margin-bottom:2rem;flex-wrap:wrap}
   
   .brand-container {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 2rem;
     user-select: none;
   }
   
-  /* TYPOGRAPHIE IDENTIQUE AUX MENUS (Instrument Serif) */
+  .brand-text { display: flex; flex-direction: column; flex: 1; }
+  
+  /* TITRE */
   .brand h1{
     font-family: "Instrument Serif", Georgia, serif !important; 
     font-style: italic !important; 
     font-weight: 400 !important; 
     font-size: clamp(3.5rem, 7vw, 5.5rem); 
-    line-height: 0.9; 
+    line-height: 0.85; 
     letter-spacing: .01em;
     color: var(--yellow); 
-    margin-bottom: 0.1rem; /* Rapprochement */
   }
   
-  /* LIGNE CABINET + LOGO */
-  .subtitle-row {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    margin-top: -0.5rem; /* Rapprochement avec Plantouille */
-  }
-  
+  /* SOUS-TITRE */
   .brand .subtitle{
-    font-family: "Montserrat", sans-serif !important; 
-    font-weight: 500 !important; 
-    font-size: clamp(1.4rem, 3vw, 2rem); 
+    font-family: "Instrument Serif", Georgia, serif !important; 
+    font-weight: 400 !important; 
+    font-size: clamp(1.5rem, 3vw, 2.2rem); 
     color: var(--cd); 
-    letter-spacing: .05em;
-    white-space: nowrap;
+    margin-top: 0.1rem; 
+    letter-spacing: .02em;
   }
   
-  /* LOGO 3X PLUS GROS */
+  /* LOGO 2X PLUS GROS */
   .brand-logo{
-    height: clamp(280px, 30vw, 380px); 
+    height: clamp(280px, 40vw, 450px); 
     width: auto;
     max-width: 100%;
     object-fit: contain;
     display: block;
+    flex-shrink: 0;
   }
 
   /* ==================== BOUTON RETOUR ==================== */
@@ -94,7 +102,7 @@
   .back-btn .arrow{font-family:sans-serif;font-style:normal;font-size:1.1rem;transition:transform 0.3s ease}
   .back-btn:hover .arrow{transform:translateX(-4px)}
 
-  /* ==================== BOUTONS CLASSES ==================== */
+  /* ==================== BOUTONS ==================== */
   .action-btn {
     display: inline-flex;
     align-items: center;
@@ -107,7 +115,7 @@
     border-radius: 999px;
     font-family: "Instrument Serif", serif;
     font-style: italic;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     color: var(--cd);
     transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
     box-shadow: 0 4px 15px rgba(45,74,43,0.05);
@@ -152,8 +160,32 @@
   /* ==================== FORMULAIRE ==================== */
   .form{max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:1.2rem}
   .field{display:flex;flex-direction:column;gap:.2rem;position:relative}
-  .field>label{font-family:"Inter",sans-serif;font-size:.6rem;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:var(--f)}
-  .field input[type=text],.field input[type=number],.field textarea{font-family:"Instrument Serif",serif;font-style:italic;font-size:1.2rem;color:var(--cd);background:transparent;border:none;outline:none;padding:.3rem .5rem;margin:0 -.5rem;width:calc(100% + 1rem);resize:vertical;transition:background .3s}
+  
+  /* LABELS (Même police, majuscules, plus petits) */
+  .field>label{
+    font-family:"Instrument Serif", serif !important;
+    font-size:0.85rem;
+    font-weight:400;
+    letter-spacing:.15em;
+    text-transform:uppercase;
+    color:var(--f)
+  }
+  
+  /* CHAMPS (Même police, italique) */
+  .field input[type=text],.field input[type=number],.field textarea{
+    font-family:"Instrument Serif",serif !important;
+    font-style:italic;
+    font-size:1.35rem;
+    color:var(--cd);
+    background:transparent;
+    border:none;
+    outline:none;
+    padding:.3rem .5rem;
+    margin:0 -.5rem;
+    width:calc(100% + 1rem);
+    resize:vertical;
+    transition:background .3s
+  }
   .field textarea{min-height:4.5rem;line-height:1.4}
   .field input:focus,.field textarea:focus{background:var(--tint)}
 
@@ -161,38 +193,40 @@
   .dropdown{position:relative;flex:1;min-width:0}
   .dd-native{position:absolute;width:0;height:0;opacity:0;pointer-events:none}
   .dd-trigger{display:flex;align-items:center;justify-content:flex-start;gap:.4rem;width:100%;padding:.3rem 0;background:none;border:none;outline:none;color:var(--cd);cursor:pointer;text-align:left}
-  .dd-value{display:inline-flex;align-items:baseline;flex-wrap:nowrap;max-width:calc(100% - 20px);min-width:0;font-family:"Instrument Serif",serif;font-style:italic;font-size:1.2rem;color:var(--cd);overflow:hidden}
+  .dd-value{display:inline-flex;align-items:baseline;flex-wrap:nowrap;max-width:calc(100% - 20px);min-width:0;font-family:"Instrument Serif",serif !important;font-style:italic;font-size:1.35rem;color:var(--cd);overflow:hidden}
   .dd-chevron{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;color:var(--cd);opacity:.5;transition:transform .35s}
   .dropdown.is-open .dd-chevron{transform:rotate(180deg)}
   .dd-menu{position:absolute;top:calc(100% + 4px);left:0;right:0;max-height:min(300px,50vh);overflow-y:auto;overflow-x:hidden;background:#fff;border-radius:8px;z-index:50;padding:30px 0;box-shadow:0 15px 40px -20px rgba(45,74,43,.2);mask-image:linear-gradient(to bottom,transparent 0,black 25px,black calc(100% - 30px),transparent 100%);-webkit-mask-image:linear-gradient(to bottom,transparent 0,black 25px,black calc(100% - 30px),transparent 100%);opacity:0;transform:translateY(-4px) scaleY(.98);transform-origin:top center;pointer-events:none;visibility:hidden;transition:all .3s}
   .dropdown.is-open .dd-menu{opacity:1;transform:translateY(0) scaleY(1);pointer-events:auto;visibility:visible}
-  .dd-group{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:1.1rem;color:var(--cd);padding:.6rem 1.2rem .2rem;opacity:.55;list-style:none;pointer-events:none}
-  .dd-item{font-family:"Instrument Serif",serif;font-style:italic;font-size:1.1rem;color:var(--cd);padding:.4rem 1.2rem;cursor:pointer;list-style:none;transition:background .15s,padding-left .2s;opacity:0;transform:translateY(-4px)}
+  
+  /* GROUPES ET ITEMS DES MENUS */
+  .dd-group{font-family:"Instrument Serif",serif !important;font-style:italic;font-size:1.1rem;color:var(--f);padding:.6rem 1.2rem .2rem;list-style:none;pointer-events:none}
+  .dd-item{font-family:"Instrument Serif",serif !important;font-style:italic;font-size:1.2rem;color:var(--cd);padding:.4rem 1.2rem;cursor:pointer;list-style:none;transition:background .15s,padding-left .2s;opacity:0;transform:translateY(-4px)}
   .dropdown.is-open .dd-item{opacity:1;transform:translateY(0)}
   .dd-item:hover{background:var(--tint);padding-left:1.5rem}
 
   /* AUTRE & RADIOS */
   .select-row{display:flex;align-items:baseline;gap:.6rem}
   .select-row .dropdown{flex:1}
-  .autre-btn{background:none;border:none;cursor:pointer;font-family:"Instrument Serif",serif;font-style:italic;font-size:.95rem;color:var(--f);transition:color .3s;padding-bottom:.3rem}
+  .autre-btn{background:none;border:none;cursor:pointer;font-family:"Instrument Serif",serif;font-style:italic;font-size:1rem;color:var(--f);transition:color .3s;padding-bottom:.3rem}
   .autre-btn:hover{color:var(--cd)}
   .autre-input{margin-top:.3rem;display:none}
 
   .radio-group{display:flex;flex-wrap:wrap;gap:2rem;padding-top:.2rem}
   .radio{display:inline-flex;align-items:center;cursor:pointer}
   .radio input{display:none}
-  .radio-text{font-family:"Instrument Serif",serif;font-style:italic;font-size:1.2rem;color:var(--cd);padding-bottom:.1rem;border-bottom:1px solid transparent;transition:border-color .3s}
+  .radio-text{font-family:"Instrument Serif",serif;font-style:italic;font-size:1.3rem;color:var(--cd);padding-bottom:.1rem;border-bottom:1px solid transparent;transition:border-color .3s}
   .radio input:checked+.radio-text{border-bottom-color:var(--cd)}
 
   .temp-slider{display:flex;flex-direction:column;gap:.5rem;padding-top:.2rem}
   .temp-slider__header{display:flex;justify-content:space-between;align-items:baseline}
-  .temp-slider__value{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:1.8rem}
-  .temp-slider__qualifier{font-family:"Instrument Serif",serif;font-style:italic;font-size:.95rem;color:var(--f)}
+  .temp-slider__value{font-family:"Instrument Serif",serif !important;font-style:italic;font-size:2rem}
+  .temp-slider__qualifier{font-family:"Instrument Serif",serif !important;font-style:italic;font-size:1rem;color:var(--f)}
   .temp-slider input[type=range]{-webkit-appearance:none;width:100%;height:2px;background:rgba(45,74,43,.1);outline:none;padding:.5rem 0;background-clip:content-box;border-radius:2px}
   .temp-slider input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--cd);cursor:pointer;box-shadow:0 2px 6px rgba(45,74,43,.3)}
 
   .submit-block { display: flex; justify-content: center; margin-top: 1rem; margin-bottom: 1rem; }
-  .submit-block .action-btn { font-size: 1.5rem; padding: 1rem 3rem 1rem 2rem; }
+  .submit-block .action-btn { font-size: 1.6rem; padding: 1rem 3rem 1rem 2rem; }
 
   .wave-text{display:inline-flex;align-items:baseline;flex-wrap:wrap}
   .wave-letter{display:inline-block;will-change:transform;white-space:pre}
@@ -200,17 +234,16 @@
   /* ==================== RESPONSIVE ==================== */
   @media(max-width:768px){
     .header{flex-direction:column;align-items:flex-start;gap:1.5rem}
-    .subtitle-row{flex-wrap: wrap; gap: 1rem;}
-    .brand-logo{height: 200px;}
+    .brand-container{flex-direction:column;align-items:flex-start;gap:1.5rem;}
+    .brand-logo{height: clamp(250px, 60vw, 350px);}
   }
   @media(max-width:640px){
     body{padding:1.5rem 1rem}
     .brand h1 { font-size: 3.5rem; }
-    .brand .subtitle { font-size: 1.2rem; }
-    .brand-logo { height: 160px; }
-    .action-btn{width:100%; font-size: 1.2rem;}
+    .brand .subtitle { font-size: 1.4rem; }
+    .action-btn{width:100%; font-size: 1.3rem;}
     .back-btn{width:100%; justify-content: center;}
-    .submit-block .action-btn { font-size: 1.3rem; padding: 1rem 2rem; }
+    .submit-block .action-btn { font-size: 1.4rem; padding: 1rem 2rem; }
     .radio-group{gap: 1rem;}
   }
 </style>
@@ -221,13 +254,11 @@
 
   <header class="header">
     <div class="brand-container">
-      <h1 class="wave-text"><span class="wave-letter">P</span><span class="wave-letter">l</span><span class="wave-letter">a</span><span class="wave-letter">n</span><span class="wave-letter">t</span><span class="wave-letter">o</span><span class="wave-letter">u</span><span class="wave-letter">i</span><span class="wave-letter">l</span><span class="wave-letter">l</span><span class="wave-letter">e</span></h1>
-      
-      <!-- Logo 3x plus gros à droite de Cabinet -->
-      <div class="subtitle-row">
+      <div class="brand-text">
+        <h1 class="wave-text"><span class="wave-letter">P</span><span class="wave-letter">l</span><span class="wave-letter">a</span><span class="wave-letter">n</span><span class="wave-letter">t</span><span class="wave-letter">o</span><span class="wave-letter">u</span><span class="wave-letter">i</span><span class="wave-letter">l</span><span class="wave-letter">l</span><span class="wave-letter">e</span></h1>
         <p class="subtitle">Cabinet du Dr-Cactus</p>
-        <img src="logo.png" alt="Logo Dr-Cactus" class="brand-logo">
       </div>
+      <img src="logo.png" alt="Logo Dr-Cactus" class="brand-logo">
     </div>
 
     <a href="#" class="back-btn" onclick="navigate('page2.html'); return false;">
@@ -361,8 +392,7 @@
       </button>
     </div>
   </form>
-</div>
-<script>
+  <script>
 // ==================== NAVIGATION ====================
 function navigate(url) {
   document.querySelector('.page-content').classList.add('page-exit');
@@ -634,3 +664,4 @@ populateGenres(''); populateFamilles(''); populateSubstrats('');
 </script>
 </body>
 </html>
+                                                                                                                                                                                                                                                                                                       </div>

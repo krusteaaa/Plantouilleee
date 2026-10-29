@@ -40,15 +40,16 @@
   }
 
   /* ==================== HEADER & LOGO ==================== */
-  .header{display:flex;justify-content:space-between;align-items:center;gap:2rem;margin-bottom:3rem;flex-wrap:wrap}
+  .header{display:flex;justify-content:space-between;align-items:flex-start;gap:2rem;margin-bottom:3rem;flex-wrap:wrap}
   
-  /* Nouveau conteneur pour mettre le logo à droite de Plantouille */
   .brand-container {
     display: flex;
     flex-direction: column;
     text-decoration: none;
     color: inherit;
   }
+  
+  /* Titre et Logo sur la même ligne */
   .brand-top-row {
     display: flex;
     align-items: center;
@@ -60,7 +61,7 @@
     font-family: "Cormorant Garamond", Georgia, serif !important; 
     font-style: italic; 
     font-weight: 300; 
-    font-size: 3rem; /* Un peu plus grand */
+    font-size: 3.5rem; 
     line-height: 1; 
     letter-spacing: -.02em;
     transition: color .35s;
@@ -70,21 +71,19 @@
   .brand .subtitle{
     font-family: "Instrument Serif", Georgia, serif !important; 
     font-style: italic; 
-    font-size: 1.25rem; 
+    font-size: 1.5rem; 
     color: var(--f); 
     margin-top: 0.4rem; 
     letter-spacing: .03em;
   }
   
-  /* LOGO CORRIGÉ */
+  /* LOGO : Double taille, couleur forcée, sans fond fluo */
   .brand-logo{
-    height: 100px; /* Plus grand */
+    height: 160px; 
     width: auto;
     object-fit: contain;
-    /* Transforme le bleu en vert cactus */
-    filter: invert(21%) sepia(27%) saturate(987%) hue-rotate(73deg) brightness(94%) contrast(91%);
-    /* Rend le fond blanc transparent */
-    mix-blend-mode: multiply; 
+    /* Filtre CSS stable pour Android (transforme le bleu en vert foncé) */
+    filter: brightness(0) saturate(100%) invert(22%) sepia(22%) saturate(1211%) hue-rotate(74deg) brightness(93%) contrast(90%);
     transition: transform .3s ease;
   }
   .brand-container:hover .brand-logo{transform: scale(1.05)}
@@ -96,6 +95,7 @@
     border-radius:999px;color:var(--cd);text-decoration:none;
     font-family:"Instrument Serif",serif;font-size:1.2rem;font-style:italic;
     transition:all 0.3s ease; cursor: pointer;
+    margin-top: 0.5rem;
   }
   .back-btn:hover{background:var(--cd);color:white;transform:translateY(-2px);box-shadow:0 4px 12px rgba(45,74,43,.15)}
   .back-btn .arrow{font-family:sans-serif;font-style:normal;font-size:1.2rem;transition:transform 0.3s ease}
@@ -203,12 +203,13 @@
   /* ==================== RESPONSIVE MOBILE ANDROID ==================== */
   @media(max-width:640px){
     body{padding:2rem 1.5rem}
-    .header{flex-direction:column;align-items:flex-start;gap:1.5rem}
     
-    /* Ajustement du logo et du titre sur mobile */
+    /* Ajustement pour que le logo et le titre tiennent bien sur mobile */
+    .header{flex-direction:column;align-items:flex-start;gap:1.5rem}
+    .brand-top-row { gap: 1rem; }
     .brand h1 { font-size: 2.2rem; }
-    .brand-logo { height: 70px; }
-    .brand .subtitle { font-size: 1rem; }
+    .brand-logo { height: 100px; } /* Taille mobile */
+    .brand .subtitle { font-size: 1.1rem; margin-top: 0.2rem; }
     
     .action-btn{width:100%; font-size: 1.2rem;}
     .back-btn{width:100%; justify-content: center;}
@@ -223,7 +224,7 @@
   <header class="header">
     <a href="#" class="brand-container" onclick="navigate('page2.html'); return false;">
       
-      <!-- Logo à droite de Plantouille uniquement -->
+      <!-- Titre et Logo sur la même ligne -->
       <div class="brand-top-row">
         <h1 class="wave-text"><span class="wave-letter">P</span><span class="wave-letter">l</span><span class="wave-letter">a</span><span class="wave-letter">n</span><span class="wave-letter">t</span><span class="wave-letter">o</span><span class="wave-letter">u</span><span class="wave-letter">i</span><span class="wave-letter">l</span><span class="wave-letter">l</span><span class="wave-letter">e</span></h1>
         <img src="logo.png" alt="Logo Dr-Cactus" class="brand-logo">
@@ -355,7 +356,7 @@
       <textarea id="histoire" rows="4" placeholder="D'où vient cette plante..."></textarea>
     </div>
 
-    <!-- BOUTON ENREGISTRER (Même style que le bouton Photo) -->
+    <!-- BOUTON ENREGISTRER (Même style que Photo) -->
     <div class="submit-block">
       <button type="submit" class="action-btn wave-text">
         <span class="action-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 6L9 17l-5-5"/></svg></span>
@@ -396,7 +397,7 @@ photoInput.addEventListener('change', function(e) {
   }
 });
 
-// ==================== DONNÉES COMPLÈTES ====================
+// ==================== DONNÉES (Listes complètes intégrées) ====================
 const DATA = {
   cactus: { genres: ["Acanthocereus","Ariocarpus","Astrophytum","Carnegiea","Cereus","Echinocactus","Echinopsis","Ferocactus","Gymnocalycium","Lophophora","Mammillaria","Opuntia","Parodia","Rebutia","Trichocereus"], familles: ["Cactaceae"] },
   succulentes: { genres: ["Aeonium","Agave","Aloe","Crassula","Echeveria","Haworthia","Kalanchoe","Lithops","Sedum","Sempervivum"], familles: ["Crassulaceae","Aizoaceae","Asphodelaceae"] },

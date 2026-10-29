@@ -77,15 +77,13 @@
     letter-spacing: .03em;
   }
   
-  /* LOGO CORRIGÉ */
+  /* LOGO : Fond blanc gommé, couleur verte */
   .brand-logo{
-    height: 160px; 
+    height: 160px; /* Double taille */
     width: auto;
     object-fit: contain;
-    /* Rend le fond blanc transparent */
-    mix-blend-mode: multiply; 
-    /* Teinte le dessin en vert (sans toucher au fond blanc) */
-    filter: sepia(1) hue-rotate(70deg) saturate(2) brightness(0.8);
+    mix-blend-mode: multiply; /* Rend le fond blanc transparent */
+    filter: sepia(1) hue-rotate(70deg) saturate(2) brightness(0.8); /* Force la couleur verte */
     transition: transform .3s ease;
   }
   .brand-container:hover .brand-logo{transform: scale(1.05)}
@@ -602,30 +600,49 @@ document.getElementById('specimenForm').addEventListener('submit', function(e) {
   navigate('photos.html');
 });
 
-// ==================== ANIMATION VAGUE ====================
+// ==================== ANIMATION VAGUE (DYNAMIQUE & LENTE) ====================
 function initWave(el) {
   const spans = el.querySelectorAll('.wave-letter');
   if(!spans.length) return;
-  const AMPLITUDE = 3;
+  
+  // Récupération de la taille de police pour adapter l'amplitude (20% de la hauteur du texte)
+  const fontSize = parseFloat(getComputedStyle(el).fontSize) || 18;
+  const AMPLITUDE = fontSize * 0.20; 
+  
+  // Ralentissement de l'animation
+  const PERIOD = 2500; // Cycle plus long (2.5 secondes au lieu de 1.2)
+  const STAGGER = 150; // Décalage plus prononcé entre les lettres (150ms)
+  
   let amplitude = 0, targetAmplitude = 0, phaseStart = null, rafId = null;
+
   function tick(now){
     if(phaseStart === null) phaseStart = now;
-    amplitude += (targetAmplitude - amplitude) * 0.12;
+    
+    // Easing plus doux pour l'entrée/sortie
+    amplitude += (targetAmplitude - amplitude) * 0.08;
     if(Math.abs(targetAmplitude - amplitude) < 0.05) amplitude = targetAmplitude;
+    
     const elapsed = now - phaseStart;
+    
     spans.forEach((span, i) => {
-      const phase = ((elapsed - i*100) / 1200) * Math.PI * 2;
+      const phase = ((elapsed - i * STAGGER) / PERIOD) * Math.PI * 2;
       span.style.transform = `translateY(${(-Math.sin(phase) * amplitude).toFixed(2)}px)`;
     });
+    
     if(amplitude === 0 && targetAmplitude === 0){
       spans.forEach(s => s.style.transform = '');
       phaseStart = null; rafId = null; return;
     }
     rafId = requestAnimationFrame(tick);
   }
+  
   el.addEventListener('mouseenter', () => { targetAmplitude = AMPLITUDE; if(!rafId) rafId = requestAnimationFrame(tick); });
   el.addEventListener('mouseleave', () => { targetAmplitude = 0; if(!rafId) rafId = requestAnimationFrame(tick); });
+  el.addEventListener('touchstart', () => { targetAmplitude = AMPLITUDE; if(!rafId) rafId = requestAnimationFrame(tick); }, {passive:true});
+  el.addEventListener('touchend', () => { targetAmplitude = 0; if(!rafId) rafId = requestAnimationFrame(tick); }, {passive:true});
 }
+
+// Application de l'effet à tous les textes concernés
 document.querySelectorAll('.wave-text').forEach(el => initWave(el.closest('button, a') || el));
 
 // Initialisation des listes

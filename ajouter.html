@@ -7,7 +7,7 @@
 <title>Ajouter — Plantouille</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Montserrat:wght@400;500&family=Inter:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
   /* ==================== VARIABLES & BASE ==================== */
   *{box-sizing:border-box;margin:0;padding:0}html,body{height:100%}
@@ -20,12 +20,13 @@
     --tint:rgba(45,74,43,.04);
     --btn-bg:rgba(45,74,43,.06);
     --btn-hover:rgba(45,74,43,.12);
+    --yellow:#d4a373; 
   }
   body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--cd);min-height:100vh;padding:3rem;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
   /* ==================== ANIMATIONS DE PAGE ==================== */
   .page-content {
-    max-width: 1100px; /* Plus large sur PC */
+    max-width: 1100px;
     margin: 0 auto;
     animation: fadeSlideIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
   }
@@ -54,35 +55,35 @@
   
   .brand-text { display: flex; flex-direction: column; }
   
-  /* TYPOGRAPHIE FORCÉE ET CORRIGÉE */
   .brand h1{
-    font-family: "Cormorant Garamond", Georgia, serif !important; 
+    font-family: "Playfair Display", Georgia, serif !important; 
     font-style: italic !important; 
-    font-weight: 300 !important; 
-    font-size: 4rem; 
+    font-weight: 700 !important; 
+    font-size: 5rem; 
     line-height: 1; 
     letter-spacing: -.02em;
-    color: var(--cd);
+    color: var(--yellow); 
     transition: color .35s;
   }
-  .brand-container:hover h1{color:var(--ch)}
+  .brand-container:hover h1{ color: #c18f59; } 
   
   .brand .subtitle{
-    font-family: "Instrument Serif", Georgia, serif !important; 
-    font-style: italic !important; 
+    font-family: "Montserrat", sans-serif !important; 
+    font-weight: 500 !important; 
     font-size: 1.8rem; 
-    color: var(--f); 
-    margin-top: 0.4rem; 
-    letter-spacing: .03em;
+    color: var(--cd); 
+    margin-top: 0.5rem; 
+    letter-spacing: .05em;
   }
   
-  /* LOGO 2X PLUS GROS ET SANS FOND */
   .brand-logo{
-    height: 250px; /* Très grand sur PC */
+    height: 375px; 
     width: auto;
     object-fit: contain;
-    mix-blend-mode: multiply; /* Fait disparaître le fond blanc */
+    mix-blend-mode: multiply; 
     transition: transform .3s ease;
+    order: -1; 
+    margin-left: -2rem; 
   }
   .brand-container:hover .brand-logo{transform: scale(1.02)}
 
@@ -98,7 +99,7 @@
   .back-btn .arrow{font-family:sans-serif;font-style:normal;font-size:1.2rem;transition:transform 0.3s ease}
   .back-btn:hover .arrow{transform:translateX(-4px)}
 
-  /* ==================== BOUTONS (SANS POINTILLÉS) ==================== */
+  /* ==================== BOUTONS ==================== */
   .action-btn {
     display: inline-flex;
     align-items: center;
@@ -106,7 +107,7 @@
     gap: 0.85rem;
     padding: 1rem 2rem 1rem 1.5rem;
     background: var(--btn-bg);
-    border: none; /* Plus de pointillés */
+    border: none; 
     cursor: pointer;
     border-radius: 999px;
     font-family: "Instrument Serif", serif;
@@ -190,7 +191,7 @@
   .temp-slider input[type=range]{-webkit-appearance:none;width:100%;height:1px;background:var(--f);outline:none;padding:.8rem 0;background-clip:content-box}
   .temp-slider input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--cd);cursor:pointer}
 
-  /* BOUTON ENREGISTRER RAPPROCHÉ */
+  /* BOUTON ENREGISTRER */
   .submit-block { 
     display: flex; 
     justify-content: center; 
@@ -214,18 +215,18 @@
   .wave-text{display:inline-flex;align-items:baseline;flex-wrap:wrap}
   .wave-letter{display:inline-block;will-change:transform;white-space:pre}
 
-  /* ==================== RESPONSIVE (PC & MOBILE) ==================== */
+  /* ==================== RESPONSIVE ==================== */
   @media(max-width:900px){
     .header{flex-direction:column;align-items:flex-start;gap:2rem}
     .brand-container{flex-direction:column;align-items:flex-start;gap:1.5rem}
-    .brand h1{font-size:3rem}
-    .brand-logo{height:180px}
+    .brand h1{font-size:3.5rem}
+    .brand .subtitle{font-size:1.4rem}
+    .brand-logo{height:200px; margin-left: 0;}
   }
   @media(max-width:640px){
     body{padding:2rem 1.5rem}
-    .brand h1 { font-size: 2.5rem; }
-    .brand-logo { height: 140px; }
-    .brand .subtitle { font-size: 1.3rem; }
+    .brand h1 { font-size: 3rem; }
+    .brand-logo { height: 150px; }
     .action-btn{width:100%; font-size: 1.2rem;}
     .back-btn{width:100%; justify-content: center;}
     .submit-block .action-btn { font-size: 1.3rem; padding: 1rem 2rem; }
@@ -238,11 +239,12 @@
 
   <header class="header">
     <a href="#" class="brand-container" onclick="navigate('page2.html'); return false;">
+      <img src="logo.png" alt="Logo Dr-Cactus" class="brand-logo">
+      
       <div class="brand-text">
         <h1 class="wave-text"><span class="wave-letter">P</span><span class="wave-letter">l</span><span class="wave-letter">a</span><span class="wave-letter">n</span><span class="wave-letter">t</span><span class="wave-letter">o</span><span class="wave-letter">u</span><span class="wave-letter">i</span><span class="wave-letter">l</span><span class="wave-letter">l</span><span class="wave-letter">e</span></h1>
         <p class="subtitle">Cabinet du Dr-Cactus</p>
       </div>
-      <img src="logo.png" alt="Logo Dr-Cactus" class="brand-logo">
     </a>
 
     <a href="#" class="back-btn" onclick="navigate('page2.html'); return false;">
@@ -369,7 +371,6 @@
       <textarea id="histoire" rows="4" placeholder="D'où vient cette plante, son histoire..."></textarea>
     </div>
 
-    <!-- BOUTON ENREGISTRER (Grand, Vert, Placé juste après l'Histoire) -->
     <div class="submit-block">
       <button type="submit" class="action-btn wave-text">
         <span class="action-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></span>
@@ -377,7 +378,8 @@
       </button>
     </div>
   </form>
-  <script>
+</div>
+<script>
 // ==================== NAVIGATION ====================
 function navigate(url) {
   document.querySelector('.page-content').classList.add('page-exit');
@@ -617,9 +619,9 @@ function initWave(el) {
   const spans = el.querySelectorAll('.wave-letter');
   if(!spans.length) return;
   const fontSize = parseFloat(getComputedStyle(el).fontSize) || 18;
-  const AMPLITUDE = fontSize * 0.20; // S'adapte à la taille du bouton
-  const PERIOD = 2500; // Plus lent
-  const STAGGER = 150; // Décalage plus visible
+  const AMPLITUDE = fontSize * 0.20; 
+  const PERIOD = 2500; 
+  const STAGGER = 150; 
   let amplitude = 0, targetAmplitude = 0, phaseStart = null, rafId = null;
   
   function tick(now){

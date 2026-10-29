@@ -77,13 +77,14 @@
     letter-spacing: .03em;
   }
   
-  /* LOGO : Fond blanc gommé, couleur verte */
+  /* LOGO : Fond blanc préservé, dessin coloré en vert */
   .brand-logo{
-    height: 160px; /* Double taille */
+    height: 160px; /* Taille doublée */
     width: auto;
     object-fit: contain;
     mix-blend-mode: multiply; /* Rend le fond blanc transparent */
-    filter: sepia(1) hue-rotate(70deg) saturate(2) brightness(0.8); /* Force la couleur verte */
+    /* Filtre qui laisse le blanc intact et transforme le bleu en vert foncé */
+    filter: sepia(1) hue-rotate(75deg) saturate(2) brightness(0.75);
     transition: transform .3s ease;
   }
   .brand-container:hover .brand-logo{transform: scale(1.05)}
@@ -605,20 +606,20 @@ function initWave(el) {
   const spans = el.querySelectorAll('.wave-letter');
   if(!spans.length) return;
   
-  // Récupération de la taille de police pour adapter l'amplitude (20% de la hauteur du texte)
+  // L'amplitude s'adapte à la taille du texte (20% de la police)
   const fontSize = parseFloat(getComputedStyle(el).fontSize) || 18;
   const AMPLITUDE = fontSize * 0.20; 
   
-  // Ralentissement de l'animation
-  const PERIOD = 2500; // Cycle plus long (2.5 secondes au lieu de 1.2)
-  const STAGGER = 150; // Décalage plus prononcé entre les lettres (150ms)
+  // Ralentissement de l'animation (2.5 secondes par cycle)
+  const PERIOD = 2500; 
+  const STAGGER = 150; // Décalage plus prononcé entre les lettres
   
   let amplitude = 0, targetAmplitude = 0, phaseStart = null, rafId = null;
 
   function tick(now){
     if(phaseStart === null) phaseStart = now;
     
-    // Easing plus doux pour l'entrée/sortie
+    // Entrée et sortie très douces
     amplitude += (targetAmplitude - amplitude) * 0.08;
     if(Math.abs(targetAmplitude - amplitude) < 0.05) amplitude = targetAmplitude;
     

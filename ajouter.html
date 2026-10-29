@@ -1,3 +1,9 @@
+Voici le code complet corrigé. J'ai identifié les deux vrais problèmes :
+
+1. « Plantouille » en italique : je force le font-style: normal directement sur le h1 et sur chaque lettre (.wave-letter), ce qui rend impossible tout héritage d'italique.
+2. Logo « même taille » + « trop loin » : le logo était dans une boîte avec height: 675px + max-width: 100% + object-fit: contain. Pour un logo large, cela créait une grande boîte vide de 675px avec le logo minuscule centré dedans → impression que le logo ne change pas de taille et qu'il est loin du titre. Je corrige en dimensionnant par la largeur (width), qui est la seule vraie limite sur mobile, et je réduis les espacements.
+
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -45,8 +51,8 @@
     display:flex;
     flex-direction:column;
     align-items:center;
-    gap:1.5rem;
-    margin-bottom:2rem;
+    gap:1rem;
+    margin-bottom:1.5rem;
     width:100%;
   }
   
@@ -57,7 +63,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    gap: 1.5rem;
+    gap: 0.6rem;
     user-select: none;
   }
   
@@ -67,7 +73,8 @@
     align-self: flex-start;
   }
   
-  /* TITRE — NON ITALIQUE */
+  /* TITRE — NON ITALIQUE (règle extrêmement ciblée, impossible à surcharger) */
+  h1.wave-text,
   .brand-text h1,
   .brand h1{
     font-family: "Instrument Serif", Georgia, serif !important; 
@@ -78,6 +85,10 @@
     letter-spacing: .01em;
     color: var(--cd); 
     margin-bottom: 0.2rem;
+  }
+  h1.wave-text .wave-letter,
+  .brand-text h1 .wave-letter{
+    font-style: normal !important;
   }
   
   /* SOUS-TITRE — ITALIQUE */
@@ -106,13 +117,15 @@
     font-style: normal !important;
   }
   
-  /* LOGO 1,5X PLUS GROS, CENTRÉ (desktop) */
+  /* LOGO — dimensionné par la largeur, jamais letterboxé (desktop) */
   .brand-logo{
-    height: clamp(375px, 52.5vw, 600px); 
-    width: auto;
-    object-fit: contain;
     display: block;
     margin: 0 auto;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 600px;
+    object-fit: contain;
   }
 
   /* ==================== BOUTON RETOUR ==================== */
@@ -233,18 +246,32 @@
 
   /* ==================== RESPONSIVE ==================== */
   @media(max-width:768px){
-    .header{gap:1.25rem}
-    .brand-block{flex-direction: column; align-items: center; gap: 1rem;}
+    .header{gap:0.8rem}
+    .brand-block{flex-direction: column; align-items: center; gap: 0.5rem;}
     .brand-text{align-self: flex-start;}
-    /* Logo 1,5x plus gros sur mobile : 675px = 1,5 × 450px */
-    .brand-logo{height: 675px; width: auto; max-width: 100%; object-fit: contain; margin: 0 auto;}
+    /* Logo 1,5x plus gros : il occupe TOUTE la largeur de l'écran (100vw),
+       sans boîte vide (height:auto), centré via les marges négatives. */
+    .brand-logo{
+      display: block;
+      width: 100vw;
+      max-width: 100vw;
+      height: auto;
+      margin: 0 calc(50% - 50vw);
+      object-fit: contain;
+    }
   }
   @media(max-width:640px){
     body{padding:1.5rem 1rem}
     .brand-text h1, .brand h1 { font-size: 3rem; }
     .brand-text .subtitle, .brand .subtitle { font-size: 1.2rem; }
-    /* Logo 1,5x plus gros sur mobile/Android */
-    .brand-logo { height: 675px; width: auto; max-width: 100%; object-fit: contain; margin: 0 auto; }
+    .brand-logo {
+      display: block;
+      width: 100vw;
+      max-width: 100vw;
+      height: auto;
+      margin: 0 calc(50% - 50vw);
+      object-fit: contain;
+    }
     .action-btn{width:100%; font-size: 1.2rem;}
     .back-btn{width:100%; justify-content: center;}
     .submit-block .action-btn { font-size: 1.3rem; padding: 1rem 2rem; }
@@ -260,7 +287,7 @@
     <!-- Bloc unifié : Texte + Logo -->
     <div class="brand-block">
       <div class="brand-text">
-        <h1 class="wave-text"><span class="wave-letter">P</span><span class="wave-letter">l</span><span class="wave-letter">a</span><span class="wave-letter">n</span><span class="wave-letter">t</span><span class="wave-letter">o</span><span class="wave-letter">u</span><span class="wave-letter">i</span><span class="wave-letter">l</span><span class="wave-letter">l</span><span class="wave-letter">e</span></h1>
+        <h1 class="wave-text" style="font-style: normal;"><span class="wave-letter">P</span><span class="wave-letter">l</span><span class="wave-letter">a</span><span class="wave-letter">n</span><span class="wave-letter">t</span><span class="wave-letter">o</span><span class="wave-letter">u</span><span class="wave-letter">i</span><span class="wave-letter">l</span><span class="wave-letter">l</span><span class="wave-letter">e</span></h1>
         <p class="subtitle">Cabinet du <span class="dr">Dr</span>-Cactus</p>
       </div>
       <img src="logo.png" alt="Logo Dr-Cactus" class="brand-logo">

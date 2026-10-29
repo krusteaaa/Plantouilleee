@@ -34,18 +34,16 @@
   @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes fadeSlideOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-20px); } }
 
-  /* ==================== HEADER & LOGO ==================== */
-  .header{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:2rem;flex-wrap:wrap}
+  /* ==================== HEADER ==================== */
+  .header{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:2rem;flex-wrap:wrap}
   
   .brand-container {
     display: flex;
-    align-items: center;
-    gap: 1.5rem;
+    flex-direction: column;
     user-select: none;
   }
   
-  .brand-text { display: flex; flex-direction: column; }
-  
+  /* TYPOGRAPHIE PLANTouille */
   .brand h1{
     font-family: "Playfair Display", Georgia, serif !important; 
     font-style: italic !important; 
@@ -54,6 +52,14 @@
     line-height: 0.95; 
     letter-spacing: -.03em;
     color: var(--yellow); 
+    margin-bottom: 0.5rem;
+  }
+  
+  /* LIGNE CABINET + LOGO */
+  .subtitle-row {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
   }
   
   .brand .subtitle{
@@ -61,17 +67,16 @@
     font-weight: 500 !important; 
     font-size: clamp(1.2rem, 2vw, 1.6rem); 
     color: var(--cd); 
-    margin-top: 0.5rem; 
     letter-spacing: .05em;
+    white-space: nowrap;
   }
   
-  /* LOGO A GAUCHE */
+  /* LOGO A DROITE DU TEXTE */
   .brand-logo{
-    height: 160px; 
+    height: 120px; 
     width: auto;
     object-fit: contain;
     display: block;
-    order: -1; /* Force le logo à gauche */
   }
 
   /* ==================== BOUTON RETOUR ==================== */
@@ -81,6 +86,7 @@
     border-radius:999px;color:var(--cd);text-decoration:none;
     font-family:"Instrument Serif",serif;font-size:1.1rem;font-style:italic;
     transition:all 0.3s ease; cursor: pointer;
+    margin-top: 0.5rem;
   }
   .back-btn:hover{background:var(--cd);color:white;transform:translateY(-2px);box-shadow:0 4px 12px rgba(45,74,43,.15)}
   .back-btn .arrow{font-family:sans-serif;font-style:normal;font-size:1.1rem;transition:transform 0.3s ease}
@@ -189,16 +195,17 @@
   .wave-text{display:inline-flex;align-items:baseline;flex-wrap:wrap}
   .wave-letter{display:inline-block;will-change:transform;white-space:pre}
 
+  /* ==================== RESPONSIVE ==================== */
   @media(max-width:768px){
     .header{flex-direction:column;align-items:flex-start;gap:1.5rem}
-    .brand-container{flex-direction:column;align-items:flex-start;gap:1rem; width: 100%;}
-    .brand-logo{height: 140px;}
+    .subtitle-row{flex-wrap: wrap; gap: 1rem;}
+    .brand-logo{height: 100px;}
   }
   @media(max-width:640px){
     body{padding:1.5rem 1rem}
     .brand h1 { font-size: 2.8rem; }
     .brand .subtitle { font-size: 1.2rem; }
-    .brand-logo { height: 120px; }
+    .brand-logo { height: 90px; }
     .action-btn{width:100%; font-size: 1.2rem;}
     .back-btn{width:100%; justify-content: center;}
     .submit-block .action-btn { font-size: 1.3rem; padding: 1rem 2rem; }
@@ -212,10 +219,12 @@
 
   <header class="header">
     <div class="brand-container">
-      <img src="logo.png" alt="Logo Dr-Cactus" class="brand-logo">
-      <div class="brand-text">
-        <h1 class="wave-text"><span class="wave-letter">P</span><span class="wave-letter">l</span><span class="wave-letter">a</span><span class="wave-letter">n</span><span class="wave-letter">t</span><span class="wave-letter">o</span><span class="wave-letter">u</span><span class="wave-letter">i</span><span class="wave-letter">l</span><span class="wave-letter">l</span><span class="wave-letter">e</span></h1>
+      <h1 class="wave-text"><span class="wave-letter">P</span><span class="wave-letter">l</span><span class="wave-letter">a</span><span class="wave-letter">n</span><span class="wave-letter">t</span><span class="wave-letter">o</span><span class="wave-letter">u</span><span class="wave-letter">i</span><span class="wave-letter">l</span><span class="wave-letter">l</span><span class="wave-letter">e</span></h1>
+      
+      <!-- Logo à droite du sous-titre -->
+      <div class="subtitle-row">
         <p class="subtitle">Cabinet du Dr-Cactus</p>
+        <img src="logo.png" alt="Logo Dr-Cactus" class="brand-logo">
       </div>
     </div>
 

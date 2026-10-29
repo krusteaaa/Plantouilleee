@@ -24,9 +24,15 @@
   }
   body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--cd);min-height:100vh;padding:2rem 1.5rem;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
+  /* Suppression des contours / carrés bleus de focus et de tap */
+  *{-webkit-tap-highlight-color:transparent}
+  *:focus,*:focus-visible{outline:none}
+  button::-moz-focus-inner,input::-moz-focus-inner{border:0}
+  button,a,input,textarea,select,.dd-trigger,.dd-item,.autre-btn,.radio,.back-btn,.action-btn{-webkit-tap-highlight-color:transparent}
+
   /* ==================== ANIMATIONS DE PAGE ==================== */
   .page-content {
-    max-width: 800px; /* Aligné sur la largeur du formulaire */
+    max-width: 800px;
     margin: 0 auto;
     animation: fadeSlideIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
   }
@@ -35,21 +41,30 @@
   @keyframes fadeSlideOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-20px); } }
 
   /* ==================== HEADER ==================== */
-  .header{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:2rem;flex-wrap:wrap; width: 100%;}
+  .header{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:1.5rem;
+    margin-bottom:2rem;
+    width:100%;
+  }
   
   /* Bloc unifié Texte + Logo */
   .brand-block {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
-    gap: 2rem;
+    gap: 1.5rem;
     user-select: none;
   }
   
   .brand-text {
     display: flex;
     flex-direction: column;
+    align-self: flex-start;
   }
   
   /* TYPOGRAPHIE IDENTIQUE AUX RUBRIQUES (Instrument Serif) */
@@ -86,12 +101,13 @@
     -webkit-text-fill-color: transparent;
   }
   
-  /* LOGO 1,5X PLUS GROS */
+  /* LOGO 1,5X PLUS GROS, CENTRÉ */
   .brand-logo{
     height: clamp(375px, 52.5vw, 600px); 
     width: auto;
     object-fit: contain;
     display: block;
+    margin: 0 auto;
   }
 
   /* ==================== BOUTON RETOUR ==================== */
@@ -101,7 +117,7 @@
     border-radius:999px;color:var(--cd);text-decoration:none;
     font-family:"Instrument Serif",serif;font-size:1rem;font-style:italic;
     transition:all 0.3s ease; cursor: pointer;
-    margin-top: 1rem;
+    margin-top: 0;
   }
   .back-btn:hover{background:var(--cd);color:white;transform:translateY(-2px);box-shadow:0 4px 12px rgba(45,74,43,.15)}
   .back-btn .arrow{font-family:sans-serif;font-style:normal;font-size:1rem;transition:transform 0.3s ease}
@@ -212,8 +228,10 @@
 
   /* ==================== RESPONSIVE ==================== */
   @media(max-width:768px){
-    .brand-block{flex-direction: column; align-items: flex-start; gap: 1rem;}
-    .brand-logo{height: 450px;}
+    .header{gap:1.25rem}
+    .brand-block{flex-direction: column; align-items: center; gap: 1rem;}
+    .brand-text{align-self: flex-start;}
+    .brand-logo{height: 450px; max-width: 100%;}
   }
   @media(max-width:640px){
     body{padding:1.5rem 1rem}

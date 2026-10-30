@@ -40,32 +40,13 @@
     margin: 0 auto;
   }
 
-  /* ===================== LOGO (charte modèle) ===================== */
-  .logo-wrap {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    overflow: hidden;
-    margin-bottom: 2rem;
-    animation: fade-in 1s ease-out both;
-  }
-
-  .brand-logo {
-    display: block;
-    max-width: 100%;
-    max-height: 300px;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-  }
-
-  /* ===================== HEADER ===================== */
+  /* ===================== HEADER (structure d'origine intacte) ===================== */
   .header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     gap: 2rem;
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
     flex-wrap: wrap;
     animation: fade-in 1s ease-out 0.1s both;
   }
@@ -75,7 +56,7 @@
     flex-direction: column;
   }
 
-  /* TITRE — charte Instrument Serif normal + wave */
+  /* TITRE — charte modèle : Instrument Serif normal */
   h1.wave-text {
     display: inline-flex;
     align-items: baseline;
@@ -92,7 +73,7 @@
 
   h1.wave-text .wave-letter { font-style: normal; }
 
-  /* SOUS-TITRE — charte Instrument Serif italique */
+  /* SOUS-TITRE — charte modèle : Instrument Serif italique */
   .subtitle {
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
@@ -112,7 +93,7 @@
     font-style: normal !important;
   }
 
-  /* ----- Barre de recherche ----- */
+  /* ----- Barre de recherche (inchangée) ----- */
   .search {
     display: flex;
     align-items: center;
@@ -138,7 +119,7 @@
 
   .search input::placeholder { color: var(--f); font-style: italic; }
 
-  /* ----- Bouton Ajouter ----- */
+  /* ----- Bouton Ajouter (inchangé) ----- */
   .add-link {
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
@@ -173,7 +154,20 @@
     transform: rotate(90deg);
   }
 
-  /* ===================== NAVIGATION ===================== */
+  /* ===================== LOGO — placé APRÈS le header (sous Plantouille) ===================== */
+  /* Charte exacte du modèle : jamais letterboxé, 150vw + marges négatives sur mobile */
+  .brand-logo{
+    display: block;
+    margin: 1rem auto 3rem;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 600px;
+    object-fit: contain;
+    animation: fade-up 1s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+  }
+
+  /* ===================== NAVIGATION (inchangée) ===================== */
   .categories {
     display: flex;
     flex-direction: column;
@@ -227,17 +221,22 @@
 
   /* ===================== RESPONSIVE ===================== */
   @media (max-width: 768px) {
-    .brand-logo {
+    /* Logo 1,5× plus grand, centré via marges négatives — charte modèle */
+    .brand-logo{
+      display: block;
       width: 150vw;
       max-width: none;
       max-height: none;
       height: auto;
+      margin-left: calc(50% - 75vw);
+      margin-right: calc(50% - 75vw);
+      object-fit: contain;
     }
   }
 
   @media (max-width: 640px) {
     body { padding: 2rem 1.5rem; }
-    .header { margin-bottom: 3rem; gap: 1.5rem; }
+    .header { margin-bottom: 1.5rem; gap: 1.5rem; }
     h1.wave-text { font-size: 2.75rem; }
     .subtitle { font-size: 1.1rem; }
     .search { max-width: none; width: 100%; }
@@ -251,7 +250,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .header, .categories, .logo-wrap { animation: none !important; opacity: 1; transform: none; }
+    .header, .categories, .brand-logo { animation: none !important; opacity: 1; transform: none; }
     .category { transition: none; }
     .category.is-leaving { transform: none; }
     .add-link:hover .plus, .add-link:focus .plus { transform: none; }
@@ -262,11 +261,7 @@
 
 <div class="page-content">
 
-  <!-- Logo (charte modèle, responsive 1,5× sur mobile) -->
-  <div class="logo-wrap">
-    <img src="logo.png" alt="Logo Dr-Cactus" class="brand-logo">
-  </div>
-
+  <!-- Header inchangé : Plantouille en premier, en haut à gauche -->
   <header class="header">
     <div class="brand">
       <h1 class="wave-text"><span class="wave-letter">P</span><span class="wave-letter">l</span><span class="wave-letter">a</span><span class="wave-letter">n</span><span class="wave-letter">t</span><span class="wave-letter">o</span><span class="wave-letter">u</span><span class="wave-letter">i</span><span class="wave-letter">l</span><span class="wave-letter">l</span><span class="wave-letter">e</span></h1>
@@ -287,6 +282,10 @@
     </a>
   </header>
 
+  <!-- Logo : sous Plantouille, au-dessus des catégories -->
+  <img src="logo.png" alt="Logo Dr-Cactus" class="brand-logo">
+
+  <!-- Catégories inchangées -->
   <nav class="categories">
 
     <a href="plantes.html" class="category">
@@ -350,7 +349,7 @@ function initWave(el) {
 }
 document.querySelectorAll('.wave-text').forEach(el => initWave(el.closest('button, a') || el));
 
-// ==================== CATEGORIES : wave + navigation (structure conservée) ====================
+// ==================== CATEGORIES : wave + navigation (structure d'origine conservée) ====================
 (function () {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 

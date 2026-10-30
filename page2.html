@@ -1,41 +1,71 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <title>Plantouille</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; }
 
   :root {
-    --cactus-dark: #2d4a2b;
-    --cactus-hover: #4a6b3d;
+    color-scheme: light;
+    --cd: #2d4a2b;
+    --ch: #4a6b3d;
     --bg: #ffffff;
-    --faint: rgba(45, 74, 43, 0.4);
+    --f: rgba(45, 74, 43, 0.4);
+    --bronze: #b8860b;
   }
+
+  *{-webkit-tap-highlight-color:transparent}
+  *:focus,*:focus-visible{outline:none}
 
   body {
     font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     background: var(--bg);
-    color: var(--cactus-dark);
+    color: var(--cd);
     min-height: 100vh;
     padding: 3rem;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
 
-  /* =====================  HEADER  ===================== */
+  .page-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  /* ===================== LOGO (charte modèle) ===================== */
+  .logo-wrap {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    animation: fade-in 1s ease-out both;
+  }
+
+  .brand-logo {
+    display: block;
+    max-width: 100%;
+    max-height: 300px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+
+  /* ===================== HEADER ===================== */
   .header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     gap: 2rem;
-    margin-bottom: 7rem;
+    margin-bottom: 4rem;
     flex-wrap: wrap;
     animation: fade-in 1s ease-out 0.1s both;
   }
@@ -45,25 +75,44 @@
     flex-direction: column;
   }
 
-  .brand h1 {
-    font-family: "Cormorant Garamond", Georgia, serif;
-    font-style: italic;
-    font-weight: 300;
-    font-size: 1.9rem;
-    line-height: 1;
-    letter-spacing: -0.02em;
+  /* TITRE — charte Instrument Serif normal + wave */
+  h1.wave-text {
+    display: inline-flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    font-family: "Instrument Serif", Georgia, serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: clamp(2.75rem, 5.5vw, 4rem);
+    line-height: 0.9;
+    letter-spacing: .01em;
+    color: var(--cd);
+    margin-bottom: 0.2rem;
   }
 
-  .brand .subtitle {
+  h1.wave-text .wave-letter { font-style: normal; }
+
+  /* SOUS-TITRE — charte Instrument Serif italique */
+  .subtitle {
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
-    font-size: 0.8rem;
-    color: var(--faint);
+    font-weight: 400;
+    font-size: clamp(1rem, 2vw, 1.4rem);
+    color: var(--cd);
     margin-top: 0.4rem;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
   }
 
-  /* ----- Barre de recherche sous le sous-titre ----- */
+  /* LE DR EN OR BRONZE */
+  .dr {
+    color: #b8860b !important;
+    -webkit-text-fill-color: #b8860b !important;
+    background: transparent !important;
+    font-style: normal !important;
+  }
+
+  /* ----- Barre de recherche ----- */
   .search {
     display: flex;
     align-items: center;
@@ -72,7 +121,7 @@
     max-width: 220px;
   }
 
-  .search svg { color: var(--faint); flex-shrink: 0; }
+  .search svg { color: var(--f); flex-shrink: 0; }
 
   .search input {
     flex: 1;
@@ -81,20 +130,20 @@
     background: none;
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
-    font-size: 0.9rem;
-    color: var(--cactus-dark);
+    font-size: 1.05rem;
+    color: var(--cd);
     padding: 0.1rem 0;
     min-width: 0;
   }
 
-  .search input::placeholder { color: var(--faint); font-style: italic; }
+  .search input::placeholder { color: var(--f); font-style: italic; }
 
   /* ----- Bouton Ajouter ----- */
   .add-link {
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
-    font-size: 0.95rem;
-    color: var(--cactus-dark);
+    font-size: 1.05rem;
+    color: var(--cd);
     text-decoration: none;
     letter-spacing: 0.02em;
     position: relative;
@@ -104,9 +153,9 @@
   }
 
   .add-link .plus {
-    font-family: "Cormorant Garamond", Georgia, serif;
+    font-family: "Instrument Serif", Georgia, serif;
     font-style: normal;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     margin-right: 0.3rem;
     vertical-align: -0.05em;
     display: inline-block;
@@ -115,7 +164,7 @@
 
   .add-link:hover,
   .add-link:focus {
-    color: var(--cactus-hover);
+    color: var(--ch);
     outline: none;
   }
 
@@ -124,7 +173,7 @@
     transform: rotate(90deg);
   }
 
-  /* =====================  NAVIGATION  ===================== */
+  /* ===================== NAVIGATION ===================== */
   .categories {
     display: flex;
     flex-direction: column;
@@ -134,13 +183,13 @@
 
   .category {
     display: inline-block;
-    font-family: "Cormorant Garamond", Georgia, serif;
+    font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
     font-weight: 400;
     font-size: clamp(2rem, 5vw, 3rem);
     line-height: 1.4;
-    letter-spacing: -0.02em;
-    color: var(--cactus-dark);
+    letter-spacing: -0.01em;
+    color: var(--cd);
     text-decoration: none;
     transition: color 0.5s ease,
                 opacity 1s cubic-bezier(0.4, 0, 0.2, 1),
@@ -149,7 +198,7 @@
 
   .category:hover,
   .category:focus {
-    color: var(--cactus-hover);
+    color: var(--ch);
     outline: none;
   }
 
@@ -176,12 +225,23 @@
     will-change: transform;
   }
 
-  /* =====================  RESPONSIVE  ===================== */
+  /* ===================== RESPONSIVE ===================== */
+  @media (max-width: 768px) {
+    .brand-logo {
+      width: 150vw;
+      max-width: none;
+      max-height: none;
+      height: auto;
+    }
+  }
+
   @media (max-width: 640px) {
     body { padding: 2rem 1.5rem; }
-    .header { margin-bottom: 4rem; gap: 1.5rem; }
-    .brand h1 { font-size: 1.6rem; }
+    .header { margin-bottom: 3rem; gap: 1.5rem; }
+    h1.wave-text { font-size: 2.75rem; }
+    .subtitle { font-size: 1.1rem; }
     .search { max-width: none; width: 100%; }
+    .add-link { font-size: 1rem; }
   }
 
   @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
@@ -191,7 +251,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .header, .categories { animation: none !important; opacity: 1; transform: none; }
+    .header, .categories, .logo-wrap { animation: none !important; opacity: 1; transform: none; }
     .category { transition: none; }
     .category.is-leaving { transform: none; }
     .add-link:hover .plus, .add-link:focus .plus { transform: none; }
@@ -200,55 +260,97 @@
 </head>
 <body>
 
-<header class="header">
-  <div class="brand">
-    <h1>Plantouille</h1>
-    <p class="subtitle">Cabinet du Dr-Cactus</p>
+<div class="page-content">
 
-    <form class="search" role="search" onsubmit="event.preventDefault();">
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"
-           stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-        <circle cx="7" cy="7" r="5"/>
-        <line x1="11" y1="11" x2="14" y2="14"/>
-      </svg>
-      <input type="search" placeholder="chercher…" aria-label="Rechercher">
-    </form>
+  <!-- Logo (charte modèle, responsive 1,5× sur mobile) -->
+  <div class="logo-wrap">
+    <img src="logo.png" alt="Logo Dr-Cactus" class="brand-logo">
   </div>
 
-  <a href="ajouter.html" class="add-link">
-    <span class="plus">+</span>Ajouter
-  </a>
-</header>
+  <header class="header">
+    <div class="brand">
+      <h1 class="wave-text"><span class="wave-letter">P</span><span class="wave-letter">l</span><span class="wave-letter">a</span><span class="wave-letter">n</span><span class="wave-letter">t</span><span class="wave-letter">o</span><span class="wave-letter">u</span><span class="wave-letter">i</span><span class="wave-letter">l</span><span class="wave-letter">l</span><span class="wave-letter">e</span></h1>
+      <p class="subtitle">Cabinet du <span class="dr">Dr</span>-Cactus</p>
 
-<nav class="categories">
+      <form class="search" role="search" onsubmit="event.preventDefault();">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"
+             stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <circle cx="7" cy="7" r="5"/>
+          <line x1="11" y1="11" x2="14" y2="14"/>
+        </svg>
+        <input type="search" placeholder="chercher…" aria-label="Rechercher">
+      </form>
+    </div>
 
-  <a href="plantes.html" class="category">
-    <span class="word" aria-label="Plantes">
-      <span>P</span><span>l</span><span>a</span><span>n</span><span>t</span><span>e</span><span>s</span>
-    </span>
-  </a>
+    <a href="ajouter.html" class="add-link">
+      <span class="plus">+</span>Ajouter
+    </a>
+  </header>
 
-  <a href="graines.html" class="category">
-    <span class="word" aria-label="Graines">
-      <span>G</span><span>r</span><span>a</span><span>i</span><span>n</span><span>e</span><span>s</span>
-    </span>
-  </a>
+  <nav class="categories">
 
-  <a href="spores.html" class="category">
-    <span class="word" aria-label="Spores">
-      <span>S</span><span>p</span><span>o</span><span>r</span><span>e</span><span>s</span>
-    </span>
-  </a>
+    <a href="plantes.html" class="category">
+      <span class="word" aria-label="Plantes">
+        <span>P</span><span>l</span><span>a</span><span>n</span><span>t</span><span>e</span><span>s</span>
+      </span>
+    </a>
 
-  <a href="bonsais.html" class="category">
-    <span class="word" aria-label="Bonsaïs">
-      <span>B</span><span>o</span><span>n</span><span>s</span><span>a</span><span>ï</span><span>s</span>
-    </span>
-  </a>
+    <a href="graines.html" class="category">
+      <span class="word" aria-label="Graines">
+        <span>G</span><span>r</span><span>a</span><span>i</span><span>n</span><span>e</span><span>s</span>
+      </span>
+    </a>
 
-</nav>
+    <a href="spores.html" class="category">
+      <span class="word" aria-label="Spores">
+        <span>S</span><span>p</span><span>o</span><span>r</span><span>e</span><span>s</span>
+      </span>
+    </a>
+
+    <a href="bonsais.html" class="category">
+      <span class="word" aria-label="Bonsaïs">
+        <span>B</span><span>o</span><span>n</span><span>s</span><span>a</span><span>ï</span><span>s</span>
+      </span>
+    </a>
+
+  </nav>
+
+</div>
 
 <script>
+// ==================== ANIMATION VAGUE (h1 — charte modèle) ====================
+function initWave(el) {
+  const spans = el.querySelectorAll('.wave-letter');
+  if (!spans.length) return;
+  const fontSize = parseFloat(getComputedStyle(el).fontSize) || 18;
+  const AMPLITUDE = fontSize * 0.20;
+  const PERIOD = 2500;
+  const STAGGER = 150;
+  let amplitude = 0, targetAmplitude = 0, phaseStart = null, rafId = null;
+
+  function tick(now) {
+    if (phaseStart === null) phaseStart = now;
+    amplitude += (targetAmplitude - amplitude) * 0.08;
+    if (Math.abs(targetAmplitude - amplitude) < 0.05) amplitude = targetAmplitude;
+    const elapsed = now - phaseStart;
+    spans.forEach((span, i) => {
+      const phase = ((elapsed - i * STAGGER) / PERIOD) * Math.PI * 2;
+      span.style.transform = `translateY(${(-Math.sin(phase) * amplitude).toFixed(2)}px)`;
+    });
+    if (amplitude === 0 && targetAmplitude === 0) {
+      spans.forEach(s => s.style.transform = '');
+      phaseStart = null; rafId = null; return;
+    }
+    rafId = requestAnimationFrame(tick);
+  }
+  el.addEventListener('mouseenter', () => { targetAmplitude = AMPLITUDE; if (!rafId) rafId = requestAnimationFrame(tick); });
+  el.addEventListener('mouseleave', () => { targetAmplitude = 0; if (!rafId) rafId = requestAnimationFrame(tick); });
+  el.addEventListener('touchstart', () => { targetAmplitude = AMPLITUDE; if (!rafId) rafId = requestAnimationFrame(tick); }, { passive: true });
+  el.addEventListener('touchend', () => { targetAmplitude = 0; if (!rafId) rafId = requestAnimationFrame(tick); }, { passive: true });
+}
+document.querySelectorAll('.wave-text').forEach(el => initWave(el.closest('button, a') || el));
+
+// ==================== CATEGORIES : wave + navigation (structure conservée) ====================
 (function () {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
@@ -290,7 +392,6 @@
   });
 
   var navigating = false;
-
   var T_CLICKED_START = 800;
   var T_CLICKED_FADE  = 1400;
   var T_PAUSE_AFTER   = 800;
@@ -298,10 +399,8 @@
   document.querySelectorAll('.category').forEach(function (cat) {
     cat.addEventListener('click', function (e) {
       if (navigating) { e.preventDefault(); return; }
-
       var href = cat.getAttribute('href');
       if (!href || href === '#') return;
-
       navigating = true;
       e.preventDefault();
 

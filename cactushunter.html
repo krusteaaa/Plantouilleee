@@ -11,8 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
   .leaflet-container { font-family: "Inter", sans-serif; }
-  .leaflet-control-attribution { font-size: 10px !important; }
-  .leaflet-control-zoom a { color: var(--cd) !important; }
+  .leaflet-control-attribution { font-size: 10px !important; background: rgba(255, 255, 255, 0.72) !important; }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; }
 
@@ -44,6 +43,7 @@
   .page-content {
     max-width: 1040px;
     margin: 0 auto;
+    animation: san-pedro-fade-in 1.4s ease-out both;
   }
 
   /* ===================== HEADER ===================== */
@@ -76,7 +76,7 @@
     margin-bottom: 0.2rem;
   }
 
-  h1.wave-text .wave-letter { font-style: normal; }
+  h1.wave-text .wave-letter { font-style: normal; display: inline-block; }
   h1.wave-text .cactus-gold { color: var(--bronze); }
 
   .subtitle {
@@ -111,11 +111,15 @@
     color: var(--cd);
     text-decoration: none;
     letter-spacing: 0.02em;
-    transition: color 0.35s ease;
+    display: inline-block;
+    transition: color 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     white-space: nowrap;
   }
 
-  .back-link:hover { color: var(--ch); }
+  .back-link:hover {
+    color: var(--ch);
+    transform: translateX(-4px);
+  }
 
   .add-spot-btn {
     background: none;
@@ -126,7 +130,7 @@
     font-size: 1.25rem;
     color: var(--cd);
     letter-spacing: 0.02em;
-    transition: color 0.35s ease;
+    transition: color 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     white-space: nowrap;
     display: inline-flex;
     align-items: center;
@@ -138,11 +142,22 @@
     color: var(--bronze);
     margin-right: 0.35rem;
     display: inline-block;
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s ease;
   }
 
-  .add-spot-btn:hover { color: var(--ch); }
-  .add-spot-btn:hover .plus { transform: rotate(90deg); }
+  .add-spot-btn:hover {
+    color: var(--ch);
+    transform: translateY(-1px);
+  }
+
+  .add-spot-btn:hover .plus {
+    transform: rotate(90deg) scale(1.15);
+    color: var(--cd);
+  }
+
+  .add-spot-btn:active {
+    transform: scale(0.97);
+  }
 
   /* ===================== BARRE DE FILTRE ===================== */
   .map-toolbar {
@@ -161,9 +176,24 @@
     gap: 0.5rem;
     max-width: 260px;
     width: 100%;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.35s ease;
   }
 
-  .search svg { color: var(--f); flex-shrink: 0; }
+  .search:focus-within {
+    border-bottom-color: var(--bronze);
+  }
+
+  .search svg {
+    color: var(--f);
+    flex-shrink: 0;
+    transition: color 0.3s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .search:focus-within svg {
+    color: var(--bronze);
+    transform: scale(1.1);
+  }
 
   .search input {
     flex: 1;
@@ -186,15 +216,23 @@
     color: var(--f);
   }
 
-  /* ===================== CARTE (carte.jpeg) ===================== */
+  /* ===================== CARTE BORDS TRANSPARENTS ===================== */
   .map-stage {
     position: relative;
     width: 100%;
     height: 580px;
-    background: #ffffff;
+    background: transparent;
     overflow: hidden;
     user-select: none;
     cursor: grab;
+    -webkit-mask-image:
+      linear-gradient(to right, transparent 0%, #000 5%, #000 95%, transparent 100%),
+      linear-gradient(to bottom, transparent 0%, #000 5%, #000 95%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(to right, transparent 0%, #000 5%, #000 95%, transparent 100%),
+      linear-gradient(to bottom, transparent 0%, #000 5%, #000 95%, transparent 100%);
+    mask-composite: intersect;
     animation: fade-up 1s cubic-bezier(0.4, 0, 0.2, 1) 0.25s both;
   }
 
@@ -206,63 +244,50 @@
     width: 100%;
     height: 100%;
     display: block;
-    background: #dce8e4;
+    background: transparent;
     z-index: 1;
   }
-  .leaflet-container { background: #dce8e4; }
+  .leaflet-container { background: transparent; }
 
-  /* ===================== MARQUEURS : GROSSISSEMENT & REBOND AU SURVOL ===================== */
-  .pin-group {
-    cursor: pointer;
+  /* Boutons + et - sans cadre, style du site */
+  .leaflet-top.leaflet-left {
+    top: 1.2rem;
+    left: 1.2rem;
   }
 
-  .pin-visual {
-    transform-box: fill-box;
-    transform-origin: center center;
-    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  .leaflet-control-zoom {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
   }
 
-  .pin-group:hover .pin-visual {
-    animation: pin-bounce-grow 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  .leaflet-control-zoom a {
+    width: 30px !important;
+    height: 30px !important;
+    line-height: 28px !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    color: var(--cd) !important;
+    font-family: "Instrument Serif", Georgia, serif !important;
+    font-style: italic !important;
+    font-size: 1.5rem !important;
+    font-weight: 400 !important;
+    text-decoration: none !important;
+    transition: color 0.3s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
   }
 
-  .pin-pulse {
-    fill: rgba(184, 134, 11, 0.22);
-    pointer-events: none;
-    transition: fill 0.3s ease;
+  .leaflet-control-zoom a:hover {
+    background: transparent !important;
+    color: var(--bronze) !important;
+    transform: scale(1.22) !important;
   }
 
-  .pin-group:hover .pin-pulse {
-    fill: rgba(184, 134, 11, 0.36);
-  }
-
-  .pin-outer {
-    fill: var(--cd);
-    stroke: #ffffff;
-    stroke-width: 2;
-    transition: fill 0.25s ease;
-  }
-
-  .pin-inner {
-    fill: var(--bronze);
-    pointer-events: none;
-    transition: fill 0.25s ease;
-  }
-
-  .pin-group:hover .pin-outer {
-    fill: var(--bronze);
-  }
-
-  .pin-group:hover .pin-inner {
-    fill: #ffffff;
-  }
-
-  @keyframes pin-bounce-grow {
-    0%   { transform: scale(1) translateY(0); }
-    35%  { transform: scale(1.55) translateY(-6px); }
-    60%  { transform: scale(1.25) translateY(1px); }
-    80%  { transform: scale(1.42) translateY(-2px); }
-    100% { transform: scale(1.38) translateY(0); }
+  .leaflet-control-zoom a:active {
+    transform: scale(0.95) !important;
   }
 
   /* Petite vignette au survol */
@@ -275,6 +300,7 @@
     pointer-events: none;
     z-index: 500;
     display: none;
+    animation: card-pop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) both;
   }
 
   .hover-card.is-visible {
@@ -343,6 +369,7 @@
     overflow-y: auto;
     position: relative;
     padding: 2.2rem;
+    animation: modal-rise 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) both;
   }
 
   .modal-close {
@@ -356,12 +383,16 @@
     line-height: 1;
     color: var(--cd);
     cursor: pointer;
-    transition: color 0.3s ease, transform 0.3s ease;
+    transition: color 0.3s ease, transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .modal-close:hover {
     color: var(--bronze);
-    transform: rotate(90deg);
+    transform: rotate(90deg) scale(1.12);
+  }
+
+  .modal-close:active {
+    transform: rotate(90deg) scale(0.92);
   }
 
   /* ----- Modale Détails complets + Carrousel ----- */
@@ -379,6 +410,7 @@
     height: 100%;
     object-fit: cover;
     display: block;
+    animation: photo-reveal 0.35s ease both;
   }
 
   .gallery-nav {
@@ -396,12 +428,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.25s ease, color 0.25s ease;
+    transition: background 0.25s ease, color 0.25s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .gallery-nav:hover {
     background: var(--cd);
     color: #ffffff;
+    transform: translateY(-50%) scale(1.1);
+  }
+
+  .gallery-nav:active {
+    transform: translateY(-50%) scale(0.95);
   }
 
   .gallery-prev { left: 0.8rem; }
@@ -526,11 +563,16 @@
     padding: 1.1rem;
     text-align: center;
     cursor: pointer;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .photo-upload-zone:hover {
     border-color: var(--bronze);
+    transform: translateY(-2px);
+  }
+
+  .photo-upload-zone:active {
+    transform: scale(0.99);
   }
 
   .photo-upload-zone span {
@@ -552,6 +594,7 @@
     height: 64px;
     object-fit: cover;
     border: 1px solid var(--f-light);
+    animation: card-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
   }
 
   .form-actions {
@@ -571,11 +614,16 @@
     font-size: 1.2rem;
     letter-spacing: 0.02em;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: background 0.3s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .btn-submit:hover {
     background: var(--ch);
+    transform: translateY(-2px);
+  }
+
+  .btn-submit:active {
+    transform: scale(0.97);
   }
 
   @media (max-width: 640px) {
@@ -586,10 +634,23 @@
     .gallery-stage { height: 220px; }
   }
 
+  @keyframes san-pedro-fade-in { from { opacity: 0; } to { opacity: 1; } }
   @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
   @keyframes fade-up {
     from { opacity: 0; transform: translateY(12px); }
     to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes modal-rise {
+    from { opacity: 0; transform: translateY(14px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes card-pop {
+    from { opacity: 0; transform: scale(0.94); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  @keyframes photo-reveal {
+    from { opacity: 0.35; transform: scale(1.02); }
+    to   { opacity: 1; transform: scale(1); }
   }
 </style>
 </head>
@@ -755,8 +816,6 @@ function initWave(el) {
 document.querySelectorAll('.wave-text').forEach(el => initWave(el));
 
 // ==================== CARTE MONDIALE EN TUILES ====================
-// Leaflet gère le zoom, le déplacement, les coordonnées et le chargement
-// progressif des tuiles visibles. Aucun calque de frontières n'est ajouté.
 const mapStage = document.getElementById('map-stage');
 if (typeof L === 'undefined') {
   document.getElementById('world-map').innerHTML =
@@ -787,7 +846,6 @@ L.tileLayer(
   }
 ).addTo(map);
 
-// Le redimensionnement de la fenêtre ou du conteneur ne déforme pas la carte.
 window.addEventListener('resize', () => map.invalidateSize());
 
 // ==================== DONNÉES & MARQUEURS ====================
@@ -828,8 +886,6 @@ function loadSpots() {
     const savedSpots = JSON.parse(saved);
     if (!Array.isArray(savedSpots)) return [...defaultSpots];
 
-    // Garde toutes les observations enregistrées et réintègre les repères
-    // de démonstration manquants, sans écraser les fiches personnelles.
     const byId = new Map(defaultSpots.map(spot => [spot.id, spot]));
     savedSpots.forEach(spot => {
       if (spot && spot.id) byId.set(spot.id, spot);
@@ -927,7 +983,6 @@ document.getElementById('spot-search').addEventListener('input', (e) => {
   renderMarkers(e.target.value);
 });
 
-// Double-clic sur la carte : les coordonnées GPS sont fournies directement par Leaflet.
 map.on('dblclick', (e) => {
   openAddModal(e.latlng.lat, e.latlng.lng);
 });
@@ -947,6 +1002,9 @@ let currentPhotos = [];
 let currentPhotoIndex = 0;
 
 function updateGalleryView() {
+  detailImg.style.animation = 'none';
+  void detailImg.offsetWidth;
+  detailImg.style.animation = '';
   detailImg.src = currentPhotos[currentPhotoIndex];
   galleryCounter.textContent = `${currentPhotoIndex + 1} / ${currentPhotos.length}`;
   const multi = currentPhotos.length > 1;
@@ -1025,7 +1083,6 @@ function processImageFile(file, maxWidth = 1000) {
     reader.readAsDataURL(file);
   });
 }
-
 
 inputPhotos.addEventListener('change', async (e) => {
   for (const file of Array.from(e.target.files)) {

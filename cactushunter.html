@@ -8,7 +8,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; }
@@ -19,8 +18,9 @@
     --ch: #4a6b3d;
     --bg: #ffffff;
     --f: rgba(45, 74, 43, 0.4);
-    --f-light: rgba(45, 74, 43, 0.12);
+    --f-light: rgba(45, 74, 43, 0.14);
     --bronze: #b8860b;
+    --parchment: #faf8f2;
   }
 
   *{-webkit-tap-highlight-color:transparent}
@@ -38,7 +38,7 @@
   }
 
   .page-content {
-    max-width: 960px;
+    max-width: 1040px;
     margin: 0 auto;
   }
 
@@ -48,7 +48,7 @@
     justify-content: space-between;
     align-items: flex-start;
     gap: 2rem;
-    margin-bottom: 2.2rem;
+    margin-bottom: 2rem;
     flex-wrap: wrap;
     animation: fade-in 1s ease-out 0.1s both;
   }
@@ -140,7 +140,7 @@
   .add-spot-btn:hover { color: var(--ch); }
   .add-spot-btn:hover .plus { transform: rotate(90deg); }
 
-  /* ===================== BARRE OUTILS & FILTRE ===================== */
+  /* ===================== BARRE DE FILTRE ===================== */
   .map-toolbar {
     display: flex;
     justify-content: space-between;
@@ -182,70 +182,97 @@
     color: var(--f);
   }
 
-  .map-hint.active-pick {
-    color: var(--bronze);
-  }
-
-  /* ===================== CARTE INTERACTIVE ===================== */
-  .map-wrapper {
+  /* ===================== CARTE (carte.jpeg) ===================== */
+  .map-stage {
     position: relative;
     width: 100%;
-    height: 540px;
-    border: 1px solid var(--f-light);
-    background: #f9faf8;
+    height: 580px;
+    background: #ffffff;
+    overflow: hidden;
+    user-select: none;
+    cursor: grab;
     animation: fade-up 1s cubic-bezier(0.4, 0, 0.2, 1) 0.25s both;
-    z-index: 1;
   }
 
-  #world-map {
+  .map-stage:active {
+    cursor: grabbing;
+  }
+
+  #world-svg {
     width: 100%;
     height: 100%;
-    background: #f6f7f5;
+    display: block;
+    background: #ffffff;
   }
 
-  /* Style des marqueurs personnalisés */
-  .cactus-pin {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: var(--cd);
-    border: 2px solid #ffffff;
-    box-shadow: 0 2px 8px rgba(45, 74, 43, 0.35);
-    transition: transform 0.25s ease, background 0.25s ease;
+  /* ===================== MARQUEURS : GROSSISSEMENT & REBOND AU SURVOL ===================== */
+  .pin-group {
     cursor: pointer;
   }
 
-  .cactus-pin::after {
-    content: "";
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--bronze);
+  .pin-visual {
+    transform-box: fill-box;
+    transform-origin: center center;
+    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
-  .cactus-pin:hover {
-    transform: scale(1.22);
-    background: var(--ch);
+  .pin-group:hover .pin-visual {
+    animation: pin-bounce-grow 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
   }
 
-  /* Petite vignette au survol (Leaflet Tooltip) */
-  .leaflet-tooltip.cactus-hover-card {
+  .pin-pulse {
+    fill: rgba(184, 134, 11, 0.22);
+    pointer-events: none;
+    transition: fill 0.3s ease;
+  }
+
+  .pin-group:hover .pin-pulse {
+    fill: rgba(184, 134, 11, 0.36);
+  }
+
+  .pin-outer {
+    fill: var(--cd);
+    stroke: #ffffff;
+    stroke-width: 2;
+    transition: fill 0.25s ease;
+  }
+
+  .pin-inner {
+    fill: var(--bronze);
+    pointer-events: none;
+    transition: fill 0.25s ease;
+  }
+
+  .pin-group:hover .pin-outer {
+    fill: var(--bronze);
+  }
+
+  .pin-group:hover .pin-inner {
+    fill: #ffffff;
+  }
+
+  @keyframes pin-bounce-grow {
+    0%   { transform: scale(1) translateY(0); }
+    35%  { transform: scale(1.55) translateY(-6px); }
+    60%  { transform: scale(1.25) translateY(1px); }
+    80%  { transform: scale(1.42) translateY(-2px); }
+    100% { transform: scale(1.38) translateY(0); }
+  }
+
+  /* Petite vignette au survol */
+  .hover-card {
+    position: fixed;
+    width: 224px;
     background: #ffffff;
     border: 1px solid var(--f-light);
-    border-radius: 0;
-    box-shadow: 0 10px 28px rgba(45, 74, 43, 0.12);
-    padding: 0;
-    color: var(--cd);
-    font-family: "Inter", sans-serif;
-    width: 220px;
-    overflow: hidden;
+    box-shadow: 0 12px 32px rgba(45, 74, 43, 0.14);
+    pointer-events: none;
+    z-index: 500;
+    display: none;
   }
 
-  .leaflet-tooltip.cactus-hover-card::before {
-    display: none;
+  .hover-card.is-visible {
+    display: block;
   }
 
   .hover-card-img {
@@ -253,7 +280,7 @@
     height: 120px;
     object-fit: cover;
     display: block;
-    background: #f2f4f1;
+    background: var(--parchment);
   }
 
   .hover-card-body {
@@ -267,14 +294,12 @@
     line-height: 1.15;
     color: var(--cd);
     margin-bottom: 0.2rem;
-    white-space: normal;
   }
 
   .hover-card-place {
     font-size: 0.78rem;
     color: var(--ch);
     margin-bottom: 0.25rem;
-    white-space: normal;
   }
 
   .hover-card-gps {
@@ -288,7 +313,7 @@
   .modal-backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(255, 255, 255, 0.86);
+    background: rgba(255, 255, 255, 0.88);
     backdrop-filter: blur(4px);
     display: none;
     align-items: center;
@@ -338,7 +363,7 @@
     position: relative;
     width: 100%;
     height: 320px;
-    background: #f5f7f4;
+    background: var(--parchment);
     margin-bottom: 1.5rem;
     overflow: hidden;
   }
@@ -348,14 +373,13 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: opacity 0.3s ease;
   }
 
   .gallery-nav {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.88);
+    background: rgba(255, 255, 255, 0.9);
     border: 1px solid var(--f-light);
     color: var(--cd);
     width: 36px;
@@ -381,7 +405,7 @@
     position: absolute;
     bottom: 0.7rem;
     right: 0.9rem;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.92);
     padding: 0.2rem 0.6rem;
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
@@ -489,7 +513,6 @@
   .gps-helper {
     font-size: 0.78rem;
     color: var(--f);
-    margin-top: 0.2rem;
   }
 
   .photo-upload-zone {
@@ -529,7 +552,6 @@
     margin-top: 1.6rem;
     display: flex;
     justify-content: flex-end;
-    gap: 1.4rem;
     align-items: center;
   }
 
@@ -550,10 +572,9 @@
     background: var(--ch);
   }
 
-  /* ===================== RESPONSIVE ===================== */
   @media (max-width: 640px) {
     body { padding: 2rem 1.2rem; }
-    .map-wrapper { height: 420px; }
+    .map-stage { height: 360px; }
     .form-grid { grid-template-columns: 1fr; }
     .modal-box { padding: 1.5rem; }
     .gallery-stage { height: 220px; }
@@ -570,7 +591,6 @@
 
 <div class="page-content">
 
-  <!-- Header dans la charte exacte -->
   <header class="header">
     <div class="brand">
       <h1 class="wave-text">
@@ -587,7 +607,6 @@
     </div>
   </header>
 
-  <!-- Barre de recherche & indication carte -->
   <div class="map-toolbar">
     <form class="search" role="search" onsubmit="event.preventDefault();">
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none"
@@ -598,17 +617,32 @@
       <input type="search" id="spot-search" placeholder="filtrer une espèce ou un lieu…" aria-label="Filtrer">
     </form>
 
-    <span class="map-hint" id="map-hint">Survolez un point pour l'aperçu, cliquez pour l'histoire ou cliquez sur la carte pour placer un repère.</span>
+    <span class="map-hint">Glisser pour déplacer · Molette pour zoomer · Survolez ou cliquez sur un repère</span>
   </div>
 
-  <!-- Carte interactive du monde -->
-  <div class="map-wrapper">
-    <div id="world-map"></div>
+  <!-- Carte issue de photos.html (carte.jpeg) -->
+  <div class="map-stage" id="map-stage">
+    <svg id="world-svg" viewBox="0 0 1000 580" preserveAspectRatio="xMidYMid meet">
+      <g id="map-viewport">
+        <image href="carte.jpeg" x="0" y="0" width="1000" height="580" preserveAspectRatio="xMidYMid meet"/>
+        <g id="markers-layer"></g>
+      </g>
+    </svg>
   </div>
 
 </div>
 
-<!-- ===================== MODALE : DÉTAILS COMPLETS + GALERIE ===================== -->
+<!-- Vignette flottante au survol -->
+<div class="hover-card" id="hover-card">
+  <img class="hover-card-img" id="hover-card-img" src="" alt="">
+  <div class="hover-card-body">
+    <div class="hover-card-plant" id="hover-card-plant"></div>
+    <div class="hover-card-place" id="hover-card-place"></div>
+    <div class="hover-card-gps" id="hover-card-gps"></div>
+  </div>
+</div>
+
+<!-- Modale Détails complets + Galerie -->
 <div class="modal-backdrop" id="detail-modal" aria-hidden="true">
   <div class="modal-box" role="dialog" aria-modal="true">
     <button type="button" class="modal-close" id="close-detail-modal" aria-label="Fermer">×</button>
@@ -631,7 +665,7 @@
   </div>
 </div>
 
-<!-- ===================== MODALE : AJOUTER UN POINT & UPLOADER PHOTOS ===================== -->
+<!-- Modale Ajout -->
 <div class="modal-backdrop" id="add-modal" aria-hidden="true">
   <div class="modal-box" role="dialog" aria-modal="true">
     <button type="button" class="modal-close" id="close-add-modal" aria-label="Fermer">×</button>
@@ -640,6 +674,14 @@
 
     <form id="spot-form">
       <div class="form-grid">
+        <div class="form-group full">
+          <label for="input-map">Carte du monde (carte.jpeg)</label>
+          <label class="photo-upload-zone" for="input-map">
+            <span>+ Sélectionner carte.jpeg</span>
+          </label>
+          <input type="file" id="input-map" accept="image/jpeg,image/*" hidden>
+        </div>
+
         <div class="form-group">
           <label for="input-plant">Nom de la plante</label>
           <input type="text" id="input-plant" required placeholder="ex. Echinopsis pachanoi">
@@ -661,13 +703,13 @@
         </div>
 
         <div class="form-group full">
-          <span class="gps-helper">Astuce : vous pouvez aussi cliquer directement sur la carte pour remplir automatiquement les coordonnées GPS.</span>
+          <span class="gps-helper">Astuce : double-cliquez sur un endroit de la carte pour pré-remplir ses coordonnées GPS.</span>
         </div>
 
         <div class="form-group full">
           <label for="input-photos">Photographies (une ou plusieurs)</label>
           <label class="photo-upload-zone" for="input-photos">
-            <span>+ Sélectionner ou déposer des photos du spécimen</span>
+            <span>+ Sélectionner une ou plusieurs photos</span>
           </label>
           <input type="file" id="input-photos" accept="image/*" multiple hidden>
           <div class="photo-previews" id="photo-previews"></div>
@@ -675,7 +717,7 @@
 
         <div class="form-group full">
           <label for="input-story">Histoire & notes de terrain</label>
-          <textarea id="input-story" required placeholder="Altitude, exposition, sol, rencontre avec le spécimen..."></textarea>
+          <textarea id="input-story" required placeholder="Racontez la découverte, l'altitude, le milieu..."></textarea>
         </div>
       </div>
 
@@ -686,7 +728,6 @@
   </div>
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script>
 // ==================== ANIMATION VAGUE (h1) ====================
 function initWave(el) {
@@ -720,13 +761,78 @@ function initWave(el) {
 }
 document.querySelectorAll('.wave-text').forEach(el => initWave(el));
 
-// ==================== DONNÉES INITIALES & STOCKAGE ====================
-const STORAGE_KEY = 'plantouille_cactus_hunters_v1';
+// ==================== CONVERSION COORDONNÉES GPS <-> CARTE (1000 x 580) ====================
+const svgEl = document.getElementById('world-svg');
+const viewportEl = document.getElementById('map-viewport');
+const markersLayer = document.getElementById('markers-layer');
+const mapStage = document.getElementById('map-stage');
+
+function lonLatToXY(lon, lat) {
+  const x = ((lon + 180) / 360) * 1000;
+  const y = ((82 - lat) / 145) * 540 + 20;
+  return [x, y];
+}
+
+function xyToLonLat(x, y) {
+  const lon = (x / 1000) * 360 - 180;
+  const lat = 82 - ((y - 20) / 540) * 145;
+  return [lat, lon];
+}
+
+// ==================== PAN & ZOOM FLUIDE ====================
+let scale = 1;
+let tx = 0;
+let ty = 0;
+let isDragging = false;
+let dragStartX = 0;
+let dragStartY = 0;
+
+function applyTransform() {
+  viewportEl.setAttribute('transform', `translate(${tx.toFixed(1)}, ${ty.toFixed(1)}) scale(${scale.toFixed(2)})`);
+}
+
+mapStage.addEventListener('mousedown', (e) => {
+  if (e.target.closest('.pin-group')) return;
+  isDragging = true;
+  dragStartX = e.clientX - tx;
+  dragStartY = e.clientY - ty;
+});
+
+window.addEventListener('mousemove', (e) => {
+  if (!isDragging) return;
+  tx = e.clientX - dragStartX;
+  ty = e.clientY - dragStartY;
+  applyTransform();
+});
+
+window.addEventListener('mouseup', () => {
+  isDragging = false;
+});
+
+mapStage.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  const rect = svgEl.getBoundingClientRect();
+  const svgX = ((e.clientX - rect.left) / rect.width) * 1000;
+  const svgY = ((e.clientY - rect.top) / rect.height) * 580;
+
+  const factor = e.deltaY < 0 ? 1.18 : 0.85;
+  const nextScale = Math.min(6, Math.max(1, scale * factor));
+
+  tx = svgX - ((svgX - tx) / scale) * nextScale;
+  ty = svgY - ((svgY - ty) / scale) * nextScale;
+  scale = nextScale;
+
+  if (scale === 1) { tx = 0; ty = 0; }
+  applyTransform();
+}, { passive: false });
+
+// ==================== DONNÉES & MARQUEURS ====================
+const STORAGE_KEY = 'plantouille_cactus_hunters_carte_jpeg_v1';
 
 const defaultSpots = [
   {
     id: 'spot-1',
-    plant: 'Carnegiea gigantea (Saguaro)',
+    plant: 'Carnegiea gigantea',
     place: 'Désert de Sonora, Arizona',
     lat: 32.2967,
     lng: -111.1666,
@@ -734,7 +840,7 @@ const defaultSpots = [
       'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=900&q=80',
       'https://images.unsplash.com/photo-1463554050456-f2ed7d3fec09?auto=format&fit=crop&w=900&q=80'
     ],
-    story: "Observé à l'aube sur un versant rocailleux exposé plein sud. Ce spécimen centenaire présente six bras principaux et abrite plusieurs cavités creusées par les pics des saguaros. Sol granitique très drainant."
+    story: "Observé à l'aube sur un versant rocailleux exposé plein sud. Ce spécimen centenaire présente six bras principaux et un sol granitique très drainant."
   },
   {
     id: 'spot-2',
@@ -746,7 +852,7 @@ const defaultSpots = [
       'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=900&q=80',
       'https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?auto=format&fit=crop&w=900&q=80'
     ],
-    story: "Découvert à 3 100 mètres d'altitude dans une vallée aride balayée par les vents secs des Andes. Les épines dorées captent la moindre condensation matinale."
+    story: "Découvert à 3 100 mètres d'altitude dans une vallée aride balayée par les vents secs des Andes."
   }
 ];
 
@@ -762,36 +868,10 @@ function loadSpots() {
 function saveSpots(spots) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(spots));
-  } catch (e) {
-    console.warn('Stockage local saturé (photos trop volumineuses).');
-  }
+  } catch (e) {}
 }
 
 let spots = loadSpots();
-
-// ==================== INITIALISATION CARTE LEAFLET ====================
-const map = L.map('world-map', {
-  center: [15, -20],
-  zoom: 2,
-  minZoom: 2,
-  worldCopyJump: true
-});
-
-// Fond de carte sobre et épuré (CartoDB Positron) adapté à la charte claire
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-  attribution: '© OpenStreetMap © CARTO',
-  subdomains: 'abcd',
-  maxZoom: 19
-}).addTo(map);
-
-const markersLayer = L.layerGroup().addTo(map);
-
-const customIcon = L.divIcon({
-  className: 'cactus-pin-wrapper',
-  html: '<div class="cactus-pin"></div>',
-  iconSize: [24, 24],
-  iconAnchor: [12, 12]
-});
 
 function formatGPS(lat, lng) {
   const latDir = lat >= 0 ? 'N' : 'S';
@@ -799,53 +879,108 @@ function formatGPS(lat, lng) {
   return `${Math.abs(lat).toFixed(4)}° ${latDir}, ${Math.abs(lng).toFixed(4)}° ${lngDir}`;
 }
 
+const hoverCard = document.getElementById('hover-card');
+const hoverCardImg = document.getElementById('hover-card-img');
+const hoverCardPlant = document.getElementById('hover-card-plant');
+const hoverCardPlace = document.getElementById('hover-card-place');
+const hoverCardGps = document.getElementById('hover-card-gps');
+
+function positionHoverCard(clientX, clientY) {
+  const offset = 18;
+  let left = clientX + offset;
+  let top = clientY - 40;
+  if (left + 235 > window.innerWidth) left = clientX - 242;
+  if (top < 12) top = 12;
+  if (top + 220 > window.innerHeight) top = window.innerHeight - 230;
+  hoverCard.style.left = `${left}px`;
+  hoverCard.style.top = `${top}px`;
+}
+
 function renderMarkers(filterText = '') {
-  markersLayer.clearLayers();
-  const query = filterText.trim().toLowerCase();
+  markersLayer.innerHTML = '';
+  const q = filterText.trim().toLowerCase();
 
   spots.forEach(spot => {
-    if (query && !spot.plant.toLowerCase().includes(query) && !spot.place.toLowerCase().includes(query)) {
-      return;
-    }
+    if (q && !spot.plant.toLowerCase().includes(q) && !spot.place.toLowerCase().includes(q)) return;
 
-    const coverPhoto = (spot.photos && spot.photos.length > 0)
+    const [cx, cy] = lonLatToXY(spot.lng, spot.lat);
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.setAttribute('class', 'pin-group');
+    g.setAttribute('transform', `translate(${cx.toFixed(1)}, ${cy.toFixed(1)})`);
+
+    const visual = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    visual.setAttribute('class', 'pin-visual');
+
+    const pulse = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    pulse.setAttribute('r', '10');
+    pulse.setAttribute('class', 'pin-pulse');
+
+    const outer = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    outer.setAttribute('r', '6');
+    outer.setAttribute('class', 'pin-outer');
+
+    const inner = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    inner.setAttribute('r', '2.2');
+    inner.setAttribute('class', 'pin-inner');
+
+    visual.appendChild(pulse);
+    visual.appendChild(outer);
+    visual.appendChild(inner);
+    g.appendChild(visual);
+
+    const cover = (spot.photos && spot.photos.length)
       ? spot.photos[0]
       : 'https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?auto=format&fit=crop&w=600&q=80';
 
-    const tooltipHtml = `
-      <img class="hover-card-img" src="${coverPhoto}" alt="${spot.plant}">
-      <div class="hover-card-body">
-        <div class="hover-card-plant">${spot.plant}</div>
-        <div class="hover-card-place">${spot.place}</div>
-        <div class="hover-card-gps">${formatGPS(spot.lat, spot.lng)}</div>
-      </div>
-    `;
-
-    const marker = L.marker([spot.lat, spot.lng], { icon: customIcon });
-
-    marker.bindTooltip(tooltipHtml, {
-      direction: 'top',
-      offset: [0, -14],
-      opacity: 1,
-      className: 'cactus-hover-card'
+    g.addEventListener('mouseenter', (e) => {
+      hoverCardImg.src = cover;
+      hoverCardPlant.textContent = spot.plant;
+      hoverCardPlace.textContent = spot.place;
+      hoverCardGps.textContent = formatGPS(spot.lat, spot.lng);
+      positionHoverCard(e.clientX, e.clientY);
+      hoverCard.classList.add('is-visible');
     });
 
-    marker.on('click', () => {
+    g.addEventListener('mousemove', (e) => {
+      positionHoverCard(e.clientX, e.clientY);
+    });
+
+    g.addEventListener('mouseleave', () => {
+      hoverCard.classList.remove('is-visible');
+    });
+
+    g.addEventListener('click', (e) => {
+      e.stopPropagation();
+      hoverCard.classList.remove('is-visible');
       openDetailModal(spot);
     });
 
-    marker.addTo(markersLayer);
+    markersLayer.appendChild(g);
   });
 }
 
 renderMarkers();
 
-// Filtre de recherche en direct
 document.getElementById('spot-search').addEventListener('input', (e) => {
   renderMarkers(e.target.value);
 });
 
-// ==================== MODALE DÉTAILS & DÉFILEMENT PHOTOS ====================
+// Double-clic sur la carte pour pré-remplir les coordonnées GPS
+svgEl.addEventListener('dblclick', (e) => {
+  if (e.target.closest('.pin-group')) return;
+  const rect = svgEl.getBoundingClientRect();
+  const svgX = ((e.clientX - rect.left) / rect.width) * 1000;
+  const svgY = ((e.clientY - rect.top) / rect.height) * 580;
+  const worldX = (svgX - tx) / scale;
+  const worldY = (svgY - ty) / scale;
+  const [lat, lng] = xyToLonLat(worldX, worldY);
+
+  if (!Number.isNaN(lat) && !Number.isNaN(lng) && lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180) {
+    openAddModal(lat, lng);
+  }
+});
+
+// ==================== MODALE DÉTAILS & CARROUSEL ====================
 const detailModal = document.getElementById('detail-modal');
 const detailImg = document.getElementById('detail-img');
 const detailPlant = document.getElementById('detail-plant');
@@ -862,25 +997,22 @@ let currentPhotoIndex = 0;
 function updateGalleryView() {
   detailImg.src = currentPhotos[currentPhotoIndex];
   galleryCounter.textContent = `${currentPhotoIndex + 1} / ${currentPhotos.length}`;
-  const hasMultiple = currentPhotos.length > 1;
-  prevBtn.style.display = hasMultiple ? 'flex' : 'none';
-  nextBtn.style.display = hasMultiple ? 'flex' : 'none';
+  const multi = currentPhotos.length > 1;
+  prevBtn.style.display = multi ? 'flex' : 'none';
+  nextBtn.style.display = multi ? 'flex' : 'none';
 }
 
 function openDetailModal(spot) {
-  currentPhotos = (spot.photos && spot.photos.length > 0)
+  currentPhotos = (spot.photos && spot.photos.length)
     ? spot.photos
     : ['https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?auto=format&fit=crop&w=900&q=80'];
   currentPhotoIndex = 0;
-
   detailPlant.textContent = spot.plant;
   detailPlace.textContent = spot.place;
   detailGps.textContent = formatGPS(spot.lat, spot.lng);
   detailStory.textContent = spot.story;
-
   updateGalleryView();
   detailModal.classList.add('is-open');
-  detailModal.setAttribute('aria-hidden', 'false');
 }
 
 prevBtn.addEventListener('click', () => {
@@ -895,19 +1027,17 @@ nextBtn.addEventListener('click', () => {
 
 document.getElementById('close-detail-modal').addEventListener('click', () => {
   detailModal.classList.remove('is-open');
-  detailModal.setAttribute('aria-hidden', 'true');
 });
 
 detailModal.addEventListener('click', (e) => {
-  if (e.target === detailModal) {
-    detailModal.classList.remove('is-open');
-    detailModal.setAttribute('aria-hidden', 'true');
-  }
+  if (e.target === detailModal) detailModal.classList.remove('is-open');
 });
 
-// ==================== MODALE AJOUTER & UPLOAD MULTIPLE ====================
+// ==================== MODALE AJOUTER ====================
 const addModal = document.getElementById('add-modal');
 const spotForm = document.getElementById('spot-form');
+const inputMap = document.getElementById('input-map');
+const mapImageEl = document.querySelector('#map-viewport image');
 const inputLat = document.getElementById('input-lat');
 const inputLng = document.getElementById('input-lng');
 const inputPhotos = document.getElementById('input-photos');
@@ -916,69 +1046,47 @@ const photoPreviews = document.getElementById('photo-previews');
 let uploadedPhotosDataUrls = [];
 
 function openAddModal(lat = '', lng = '') {
-  if (lat !== '') inputLat.value = Number(lat).toFixed(5);
-  if (lng !== '') inputLng.value = Number(lng).toFixed(5);
+  if (lat !== '') inputLat.value = Number(lat).toFixed(4);
+  if (lng !== '') inputLng.value = Number(lng).toFixed(4);
   addModal.classList.add('is-open');
-  addModal.setAttribute('aria-hidden', 'false');
 }
 
-document.getElementById('open-add-modal').addEventListener('click', () => {
-  openAddModal();
-});
-
-// Cliquer sur la carte ouvre la modale pré-remplie avec les coordonnées GPS du clic
-map.on('click', (e) => {
-  openAddModal(e.latlng.lat, e.latlng.lng);
-});
-
-document.getElementById('close-add-modal').addEventListener('click', () => {
-  addModal.classList.remove('is-open');
-  addModal.setAttribute('aria-hidden', 'true');
-});
-
+document.getElementById('open-add-modal').addEventListener('click', () => openAddModal());
+document.getElementById('close-add-modal').addEventListener('click', () => addModal.classList.remove('is-open'));
 addModal.addEventListener('click', (e) => {
-  if (e.target === addModal) {
-    addModal.classList.remove('is-open');
-    addModal.setAttribute('aria-hidden', 'true');
-  }
+  if (e.target === addModal) addModal.classList.remove('is-open');
 });
 
-// Lecture et compression légère des photos uploadées pour affichage immédiat
-function processImageFile(file) {
+function processImageFile(file, maxWidth = 1000) {
   return new Promise((resolve) => {
     const reader = new FileReader();
-    reader.onload = (event) => {
+    reader.onload = (ev) => {
       const img = new Image();
       img.onload = () => {
         const canvas = document.createElement('canvas');
-        const MAX_WIDTH = 1000;
-        let width = img.width;
-        let height = img.height;
-
-        if (width > MAX_WIDTH) {
-          height = Math.round((height * MAX_WIDTH) / width);
-          width = MAX_WIDTH;
-        }
-        canvas.width = width;
-        canvas.height = height;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0, width, height);
-        resolve(canvas.toDataURL('image/jpeg', 0.8));
+        let w = img.width, h = img.height;
+        if (w > maxWidth) { h = Math.round((h * maxWidth) / w); w = maxWidth; }
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL('image/jpeg', 0.85));
       };
-      img.src = event.target.result;
+      img.src = ev.target.result;
     };
     reader.readAsDataURL(file);
   });
 }
 
-inputPhotos.addEventListener('change', async (e) => {
-  const files = Array.from(e.target.files);
-  if (!files.length) return;
+inputMap.addEventListener('change', async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const dataUrl = await processImageFile(file, 1600);
+  mapImageEl.setAttribute('href', dataUrl);
+});
 
-  for (const file of files) {
+inputPhotos.addEventListener('change', async (e) => {
+  for (const file of Array.from(e.target.files)) {
     const dataUrl = await processImageFile(file);
     uploadedPhotosDataUrls.push(dataUrl);
-
     const thumb = document.createElement('img');
     thumb.src = dataUrl;
     photoPreviews.appendChild(thumb);
@@ -987,14 +1095,13 @@ inputPhotos.addEventListener('change', async (e) => {
 
 spotForm.addEventListener('submit', (e) => {
   e.preventDefault();
-
   const newSpot = {
     id: 'spot-' + Date.now(),
     plant: document.getElementById('input-plant').value.trim(),
     place: document.getElementById('input-place').value.trim(),
     lat: parseFloat(inputLat.value),
     lng: parseFloat(inputLng.value),
-    photos: uploadedPhotosDataUrls.length > 0
+    photos: uploadedPhotosDataUrls.length
       ? [...uploadedPhotosDataUrls]
       : ['https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?auto=format&fit=crop&w=900&q=80'],
     story: document.getElementById('input-story').value.trim()
@@ -1004,17 +1111,12 @@ spotForm.addEventListener('submit', (e) => {
   saveSpots(spots);
   renderMarkers(document.getElementById('spot-search').value);
 
-  map.flyTo([newSpot.lat, newSpot.lng], 6, { duration: 1.4 });
-
-  // Réinitialisation du formulaire
   spotForm.reset();
   uploadedPhotosDataUrls = [];
   photoPreviews.innerHTML = '';
   addModal.classList.remove('is-open');
-  addModal.setAttribute('aria-hidden', 'true');
 });
 
-// Fermeture des modales avec la touche Échap & navigation clavier galerie
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     detailModal.classList.remove('is-open');

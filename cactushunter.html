@@ -76,7 +76,7 @@
     margin-bottom: 0.2rem;
   }
 
-  h1.wave-text .wave-letter { font-style: normal; display: inline-block; }
+  h1.wave-text .wave-letter { font-style: normal; display: inline-block; will-change: transform; }
   h1.wave-text .cactus-gold { color: var(--bronze); }
 
   .subtitle {
@@ -249,6 +249,92 @@
   }
   .leaflet-container { background: transparent; }
 
+  /* Bouton de lieu à taille fixe (non affecté par le zoom Leaflet) */
+  .spot-pin-icon {
+    background: transparent !important;
+    border: none !important;
+  }
+
+  .spot-pin-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--cd);
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 6px rgba(45, 74, 43, 0.28);
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .spot-pin-dot.is-hovered,
+  .spot-pin-dot.is-active {
+    background: var(--bronze);
+    transform: scale(1.28);
+  }
+
+  /* Animation lente et douce de focalisation pendant le zoom */
+  .zoom-focus-pulse {
+    position: fixed;
+    width: 24px;
+    height: 24px;
+    margin-left: -12px;
+    margin-top: -12px;
+    border-radius: 50%;
+    border: 2px solid var(--bronze);
+    background: rgba(184, 134, 11, 0.2);
+    pointer-events: none;
+    z-index: 450;
+    will-change: transform, opacity;
+    animation: spot-zoom-expand 3.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .zoom-focus-ring {
+    position: fixed;
+    width: 44px;
+    height: 44px;
+    margin-left: -22px;
+    margin-top: -22px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(45, 74, 43, 0.45);
+    pointer-events: none;
+    z-index: 449;
+    will-change: transform, opacity;
+    animation: spot-zoom-ring 3.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+  }
+
+  @keyframes spot-zoom-expand {
+    0% {
+      opacity: 0.9;
+      transform: scale(0.75);
+      background: rgba(184, 134, 11, 0.25);
+    }
+    55% {
+      opacity: 0.6;
+      transform: scale(6.5);
+      background: rgba(184, 134, 11, 0.1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(13);
+      background: rgba(184, 134, 11, 0);
+    }
+  }
+
+  @keyframes spot-zoom-ring {
+    0% {
+      opacity: 0.7;
+      transform: scale(0.5);
+    }
+    65% {
+      opacity: 0.35;
+      transform: scale(4.5);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(9);
+    }
+  }
+
   /* Boutons + et - sans cadre, style du site */
   .leaflet-top.leaflet-left {
     top: 1.2rem;
@@ -290,36 +376,48 @@
     transform: scale(0.95) !important;
   }
 
-  /* Petite vignette au survol */
-  .hover-card {
+  /* Petite vignette au survol uniquement */
+  .hover-preview {
     position: fixed;
-    width: 224px;
+    width: 232px;
     background: #ffffff;
     border: 1px solid var(--f-light);
     box-shadow: 0 12px 32px rgba(45, 74, 43, 0.14);
     pointer-events: none;
     z-index: 500;
     display: none;
-    animation: card-pop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(4px) scale(0.97);
+    transition: opacity 0.28s ease, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .hover-card.is-visible {
+  .hover-preview.is-visible {
     display: block;
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 
-  .hover-card-img {
+  .hover-preview-img-wrap {
+    position: relative;
     width: 100%;
-    height: 120px;
+    height: 124px;
+    background: var(--parchment);
+    overflow: hidden;
+  }
+
+  .hover-preview-img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     display: block;
-    background: var(--parchment);
   }
 
-  .hover-card-body {
-    padding: 0.75rem 0.9rem;
+  .hover-preview-body {
+    padding: 0.75rem 0.95rem 0.85rem;
   }
 
-  .hover-card-plant {
+  .hover-preview-plant {
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
     font-size: 1.25rem;
@@ -328,20 +426,208 @@
     margin-bottom: 0.2rem;
   }
 
-  .hover-card-place {
+  .hover-preview-place {
     font-size: 0.78rem;
     color: var(--ch);
     margin-bottom: 0.25rem;
   }
 
-  .hover-card-gps {
+  .hover-preview-gps {
     font-size: 0.7rem;
     letter-spacing: 0.03em;
     color: var(--bronze);
     font-variant-numeric: tabular-nums;
   }
 
-  /* ===================== MODALES (Détails & Ajout) ===================== */
+  /* Grande fiche détaillée : visible uniquement après clic + fin du zoom */
+  .detail-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(3px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    z-index: 900;
+    opacity: 0;
+    transition: opacity 0.38s ease;
+  }
+
+  .detail-backdrop.is-open {
+    display: flex;
+    opacity: 1;
+  }
+
+  .detail-card {
+    width: 100%;
+    max-width: 640px;
+    max-height: calc(100vh - 3rem);
+    overflow-y: auto;
+    background: #ffffff;
+    border: 1px solid var(--f-light);
+    box-shadow: 0 24px 60px rgba(45, 74, 43, 0.16);
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+    transition: opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1), transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .detail-backdrop.is-open .detail-card {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .detail-img-wrap {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    background: var(--parchment);
+    overflow: hidden;
+  }
+
+  .detail-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 1;
+    transition: opacity 0.32s ease;
+  }
+
+  .detail-img.is-swapping {
+    opacity: 0.15;
+  }
+
+  /* Bouton fermeture sans cadre, parfaitement centré */
+  .detail-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.85rem;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--cd);
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: 1.9rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease, transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .detail-close span {
+    display: block;
+    line-height: 1;
+    transform: translateY(-1px);
+  }
+
+  .detail-close:hover {
+    color: var(--bronze);
+    transform: rotate(90deg) scale(1.12);
+  }
+
+  .detail-close:active {
+    transform: rotate(90deg) scale(0.92);
+  }
+
+  .detail-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--f-light);
+    color: var(--cd);
+    width: 34px;
+    height: 34px;
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: 1.35rem;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.25s ease, color 0.25s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .detail-nav.has-multi {
+    display: flex;
+  }
+
+  .detail-nav:hover {
+    background: var(--cd);
+    color: #ffffff;
+    transform: translateY(-50%) scale(1.1);
+  }
+
+  .detail-prev { left: 0.7rem; }
+  .detail-next { right: 0.7rem; }
+
+  .detail-counter {
+    position: absolute;
+    bottom: 0.65rem;
+    right: 0.8rem;
+    background: rgba(255, 255, 255, 0.92);
+    padding: 0.18rem 0.55rem;
+    font-family: "Instrument Serif", Georgia, serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--cd);
+  }
+
+  .detail-body {
+    padding: 1.35rem 1.65rem 1.6rem;
+  }
+
+  .detail-plant {
+    font-family: "Instrument Serif", Georgia, serif;
+    font-style: italic;
+    font-size: 2.05rem;
+    line-height: 1.15;
+    color: var(--cd);
+    margin-bottom: 0.35rem;
+  }
+
+  .detail-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    margin-bottom: 1.1rem;
+    border-bottom: 1px solid var(--f-light);
+  }
+
+  .detail-place {
+    font-size: 0.88rem;
+    color: var(--ch);
+  }
+
+  .detail-gps {
+    font-size: 0.82rem;
+    letter-spacing: 0.03em;
+    color: var(--bronze);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .detail-story-label {
+    font-family: "Instrument Serif", Georgia, serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--bronze);
+    margin-bottom: 0.35rem;
+  }
+
+  .detail-story {
+    font-size: 0.92rem;
+    line-height: 1.68;
+    color: var(--cd);
+    white-space: pre-line;
+  }
+
+  /* ===================== MODALE AJOUT ===================== */
   .modal-backdrop {
     position: fixed;
     inset: 0;
@@ -352,11 +638,13 @@
     justify-content: center;
     padding: 1.5rem;
     z-index: 1000;
-    animation: fade-in 0.3s ease both;
+    opacity: 0;
+    transition: opacity 0.32s ease;
   }
 
   .modal-backdrop.is-open {
     display: flex;
+    opacity: 1;
   }
 
   .modal-box {
@@ -369,7 +657,14 @@
     overflow-y: auto;
     position: relative;
     padding: 2.2rem;
-    animation: modal-rise 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+    transition: opacity 0.35s ease, transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .modal-backdrop.is-open .modal-box {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 
   .modal-close {
@@ -395,109 +690,6 @@
     transform: rotate(90deg) scale(0.92);
   }
 
-  /* ----- Modale Détails complets + Carrousel ----- */
-  .gallery-stage {
-    position: relative;
-    width: 100%;
-    height: 320px;
-    background: var(--parchment);
-    margin-bottom: 1.5rem;
-    overflow: hidden;
-  }
-
-  .gallery-stage img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    animation: photo-reveal 0.35s ease both;
-  }
-
-  .gallery-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid var(--f-light);
-    color: var(--cd);
-    width: 36px;
-    height: 36px;
-    font-family: "Instrument Serif", Georgia, serif;
-    font-size: 1.4rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.25s ease, color 0.25s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .gallery-nav:hover {
-    background: var(--cd);
-    color: #ffffff;
-    transform: translateY(-50%) scale(1.1);
-  }
-
-  .gallery-nav:active {
-    transform: translateY(-50%) scale(0.95);
-  }
-
-  .gallery-prev { left: 0.8rem; }
-  .gallery-next { right: 0.8rem; }
-
-  .gallery-counter {
-    position: absolute;
-    bottom: 0.7rem;
-    right: 0.9rem;
-    background: rgba(255, 255, 255, 0.92);
-    padding: 0.2rem 0.6rem;
-    font-family: "Instrument Serif", Georgia, serif;
-    font-style: italic;
-    font-size: 0.95rem;
-    color: var(--cd);
-  }
-
-  .detail-title {
-    font-family: "Instrument Serif", Georgia, serif;
-    font-style: italic;
-    font-weight: 400;
-    font-size: 2.2rem;
-    line-height: 1.1;
-    color: var(--cd);
-    margin-bottom: 0.4rem;
-  }
-
-  .detail-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.2rem;
-    font-size: 0.85rem;
-    color: var(--ch);
-    margin-bottom: 1.4rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--f-light);
-  }
-
-  .detail-gps {
-    color: var(--bronze);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .detail-story-label {
-    font-family: "Instrument Serif", Georgia, serif;
-    font-style: italic;
-    font-size: 1.2rem;
-    color: var(--bronze);
-    margin-bottom: 0.4rem;
-  }
-
-  .detail-story {
-    font-size: 0.95rem;
-    line-height: 1.7;
-    color: var(--cd);
-    white-space: pre-line;
-  }
-
-  /* ----- Modale Formulaire d'ajout ----- */
   .form-title {
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
@@ -631,7 +823,8 @@
     .map-stage { height: 360px; }
     .form-grid { grid-template-columns: 1fr; }
     .modal-box { padding: 1.5rem; }
-    .gallery-stage { height: 220px; }
+    .detail-img-wrap { height: 220px; }
+    .detail-body { padding: 1.1rem 1.2rem 1.3rem; }
   }
 
   @keyframes san-pedro-fade-in { from { opacity: 0; } to { opacity: 1; } }
@@ -640,16 +833,8 @@
     from { opacity: 0; transform: translateY(12px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-  @keyframes modal-rise {
-    from { opacity: 0; transform: translateY(14px) scale(0.98); }
-    to   { opacity: 1; transform: translateY(0) scale(1); }
-  }
   @keyframes card-pop {
     from { opacity: 0; transform: scale(0.94); }
-    to   { opacity: 1; transform: scale(1); }
-  }
-  @keyframes photo-reveal {
-    from { opacity: 0.35; transform: scale(1.02); }
     to   { opacity: 1; transform: scale(1); }
   }
 </style>
@@ -693,36 +878,37 @@
   </div>
 </div>
 
-<!-- Vignette flottante au survol -->
-<div class="hover-card" id="hover-card">
-  <img class="hover-card-img" id="hover-card-img" src="" alt="">
-  <div class="hover-card-body">
-    <div class="hover-card-plant" id="hover-card-plant"></div>
-    <div class="hover-card-place" id="hover-card-place"></div>
-    <div class="hover-card-gps" id="hover-card-gps"></div>
+<!-- Petite vignette au survol uniquement -->
+<div class="hover-preview" id="hover-preview" role="region" aria-label="Aperçu de la découverte">
+  <div class="hover-preview-img-wrap">
+    <img class="hover-preview-img" id="hover-preview-img" src="" alt="">
+  </div>
+  <div class="hover-preview-body">
+    <div class="hover-preview-plant" id="hover-preview-plant"></div>
+    <div class="hover-preview-place" id="hover-preview-place"></div>
+    <div class="hover-preview-gps" id="hover-preview-gps"></div>
   </div>
 </div>
 
-<!-- Modale Détails complets + Galerie -->
-<div class="modal-backdrop" id="detail-modal" aria-hidden="true">
-  <div class="modal-box" role="dialog" aria-modal="true">
-    <button type="button" class="modal-close" id="close-detail-modal" aria-label="Fermer">×</button>
-
-    <div class="gallery-stage">
-      <img id="detail-img" src="" alt="Photo de la découverte">
-      <button type="button" class="gallery-nav gallery-prev" id="gallery-prev" aria-label="Photo précédente">‹</button>
-      <button type="button" class="gallery-nav gallery-next" id="gallery-next" aria-label="Photo suivante">›</button>
-      <div class="gallery-counter" id="gallery-counter">1 / 1</div>
+<!-- Grande fiche détaillée : uniquement après clic et fin du zoom -->
+<div class="detail-backdrop" id="detail-backdrop" aria-hidden="true">
+  <div class="detail-card" role="dialog" aria-modal="true" aria-labelledby="detail-plant">
+    <div class="detail-img-wrap">
+      <img class="detail-img" id="detail-img" src="" alt="">
+      <button type="button" class="detail-nav detail-prev" id="detail-prev" aria-label="Photo précédente">‹</button>
+      <button type="button" class="detail-nav detail-next" id="detail-next" aria-label="Photo suivante">›</button>
+      <div class="detail-counter" id="detail-counter">1 / 1</div>
+      <button type="button" class="detail-close" id="detail-close" aria-label="Fermer la fiche"><span>×</span></button>
     </div>
-
-    <h2 class="detail-title" id="detail-plant"></h2>
-    <div class="detail-meta">
-      <span id="detail-place"></span>
-      <span class="detail-gps" id="detail-gps"></span>
+    <div class="detail-body">
+      <div class="detail-plant" id="detail-plant"></div>
+      <div class="detail-meta-row">
+        <div class="detail-place" id="detail-place"></div>
+        <div class="detail-gps" id="detail-gps"></div>
+      </div>
+      <div class="detail-story-label">Récit d'expédition</div>
+      <p class="detail-story" id="detail-story"></p>
     </div>
-
-    <div class="detail-story-label">Récit d'expédition</div>
-    <p class="detail-story" id="detail-story"></p>
   </div>
 </div>
 
@@ -735,7 +921,7 @@
 
     <form id="spot-form">
       <div class="form-grid">
-<div class="form-group">
+        <div class="form-group">
           <label for="input-plant">Nom de la plante</label>
           <input type="text" id="input-plant" required placeholder="ex. Echinopsis pachanoi">
         </div>
@@ -850,6 +1036,7 @@ window.addEventListener('resize', () => map.invalidateSize());
 
 // ==================== DONNÉES & MARQUEURS ====================
 const STORAGE_KEY = 'plantouille_cactus_hunters_carte_jpeg_v1';
+const FALLBACK_PHOTO = 'https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?auto=format&fit=crop&w=900&q=80';
 
 const defaultSpots = [
   {
@@ -910,21 +1097,269 @@ function formatGPS(lat, lng) {
   return `${Math.abs(lat).toFixed(4)}° ${latDir}, ${Math.abs(lng).toFixed(4)}° ${lngDir}`;
 }
 
-const hoverCard = document.getElementById('hover-card');
-const hoverCardImg = document.getElementById('hover-card-img');
-const hoverCardPlant = document.getElementById('hover-card-plant');
-const hoverCardPlace = document.getElementById('hover-card-place');
-const hoverCardGps = document.getElementById('hover-card-gps');
+function getSpotPhotos(spot) {
+  return (spot.photos && spot.photos.length) ? spot.photos : [FALLBACK_PHOTO];
+}
 
-function positionHoverCard(clientX, clientY) {
+// ==================== VIGNETTE SURVOL & GRANDE FICHE CLIC ====================
+const hoverPreview = document.getElementById('hover-preview');
+const hoverPreviewImg = document.getElementById('hover-preview-img');
+const hoverPreviewPlant = document.getElementById('hover-preview-plant');
+const hoverPreviewPlace = document.getElementById('hover-preview-place');
+const hoverPreviewGps = document.getElementById('hover-preview-gps');
+
+const detailBackdrop = document.getElementById('detail-backdrop');
+const detailImg = document.getElementById('detail-img');
+const detailPlant = document.getElementById('detail-plant');
+const detailPlace = document.getElementById('detail-place');
+const detailGps = document.getElementById('detail-gps');
+const detailStory = document.getElementById('detail-story');
+const detailCloseBtn = document.getElementById('detail-close');
+const detailPrevBtn = document.getElementById('detail-prev');
+const detailNextBtn = document.getElementById('detail-next');
+const detailCounter = document.getElementById('detail-counter');
+
+let activeDotEl = null;
+let detailPhotos = [];
+let detailPhotoIndex = 0;
+let isDetailOpen = false;
+let isZoomingToSpot = false;
+let previewHideTimer = null;
+
+function setActiveDot(dotEl) {
+  if (activeDotEl && activeDotEl !== dotEl) {
+    activeDotEl.classList.remove('is-active');
+  }
+  activeDotEl = dotEl || null;
+  if (activeDotEl) {
+    activeDotEl.classList.add('is-active');
+  }
+}
+
+function clearActiveDot() {
+  if (activeDotEl) {
+    activeDotEl.classList.remove('is-active', 'is-hovered');
+    activeDotEl = null;
+  }
+}
+
+function positionHoverPreview(clientX, clientY) {
   const offset = 18;
   let left = clientX + offset;
-  let top = clientY - 40;
-  if (left + 235 > window.innerWidth) left = clientX - 242;
+  let top = clientY - 36;
+  if (left + 244 > window.innerWidth) left = clientX - 250;
   if (top < 12) top = 12;
-  if (top + 220 > window.innerHeight) top = window.innerHeight - 230;
-  hoverCard.style.left = `${left}px`;
-  hoverCard.style.top = `${top}px`;
+  if (top + 240 > window.innerHeight) top = window.innerHeight - 252;
+  hoverPreview.style.left = `${left}px`;
+  hoverPreview.style.top = `${top}px`;
+}
+
+function showHoverPreview(spot, clientX, clientY, dotEl = null) {
+  if (isDetailOpen || isZoomingToSpot) return;
+  clearTimeout(previewHideTimer);
+  if (dotEl) setActiveDot(dotEl);
+  const photos = getSpotPhotos(spot);
+  hoverPreviewImg.src = photos[0];
+  hoverPreviewPlant.textContent = spot.plant;
+  hoverPreviewPlace.textContent = spot.place;
+  hoverPreviewGps.textContent = formatGPS(spot.lat, spot.lng);
+  positionHoverPreview(clientX, clientY);
+  hoverPreview.classList.add('is-visible');
+}
+
+function hideHoverPreview() {
+  clearTimeout(previewHideTimer);
+  hoverPreview.classList.remove('is-visible');
+  previewHideTimer = setTimeout(() => {
+    if (!hoverPreview.classList.contains('is-visible')) {
+      hoverPreview.style.display = 'none';
+    }
+  }, 300);
+}
+
+function showHoverPreviewImmediate(spot, clientX, clientY, dotEl = null) {
+  if (isDetailOpen || isZoomingToSpot) return;
+  clearTimeout(previewHideTimer);
+  hoverPreview.style.display = 'block';
+  void hoverPreview.offsetWidth;
+  showHoverPreview(spot, clientX, clientY, dotEl);
+}
+
+function hideHoverPreviewImmediate() {
+  clearTimeout(previewHideTimer);
+  hoverPreview.classList.remove('is-visible');
+  hoverPreview.style.display = 'none';
+}
+
+function renderDetailPhoto(smooth = false) {
+  if (!detailPhotos.length) return;
+  const nextSrc = detailPhotos[detailPhotoIndex];
+  if (smooth && detailImg.src !== nextSrc) {
+    detailImg.classList.add('is-swapping');
+    setTimeout(() => {
+      detailImg.src = nextSrc;
+      detailImg.onload = () => detailImg.classList.remove('is-swapping');
+      if (detailImg.complete) detailImg.classList.remove('is-swapping');
+    }, 110);
+  } else {
+    detailImg.classList.remove('is-swapping');
+    detailImg.src = nextSrc;
+  }
+  detailCounter.textContent = `${detailPhotoIndex + 1} / ${detailPhotos.length}`;
+  const multi = detailPhotos.length > 1;
+  detailPrevBtn.classList.toggle('has-multi', multi);
+  detailNextBtn.classList.toggle('has-multi', multi);
+}
+
+function openDetailCard(spot, dotEl = null) {
+  if (!spot || isDetailOpen) return;
+  hideHoverPreviewImmediate();
+  if (dotEl) setActiveDot(dotEl);
+
+  detailPhotos = getSpotPhotos(spot);
+  detailPhotoIndex = 0;
+  renderDetailPhoto(false);
+  detailPlant.textContent = spot.plant;
+  detailPlace.textContent = spot.place;
+  detailGps.textContent = formatGPS(spot.lat, spot.lng);
+  detailStory.textContent = spot.story;
+
+  detailBackdrop.style.display = 'flex';
+  detailBackdrop.setAttribute('aria-hidden', 'false');
+  void detailBackdrop.offsetWidth;
+  detailBackdrop.classList.add('is-open');
+  isDetailOpen = true;
+}
+
+function closeDetailCard() {
+  if (!isDetailOpen) return;
+  isDetailOpen = false;
+  detailBackdrop.classList.remove('is-open');
+  detailBackdrop.setAttribute('aria-hidden', 'true');
+  hideHoverPreviewImmediate();
+  clearActiveDot();
+  setTimeout(() => {
+    if (!isDetailOpen) {
+      detailBackdrop.style.display = 'none';
+    }
+  }, 420);
+}
+
+detailCloseBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  closeDetailCard();
+});
+
+detailBackdrop.addEventListener('click', (e) => {
+  if (e.target === detailBackdrop) {
+    closeDetailCard();
+  }
+});
+
+detailPrevBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (!detailPhotos.length) return;
+  detailPhotoIndex = (detailPhotoIndex - 1 + detailPhotos.length) % detailPhotos.length;
+  renderDetailPhoto(true);
+});
+
+detailNextBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (!detailPhotos.length) return;
+  detailPhotoIndex = (detailPhotoIndex + 1) % detailPhotos.length;
+  renderDetailPhoto(true);
+});
+
+// ==================== ZOOM LENT ET FLUIDE AU CLIC ====================
+let zoomSequenceTimer = null;
+let zoomPulseEl = null;
+let zoomRingEl = null;
+let pendingMoveEndHandler = null;
+
+function cleanupZoomEffect() {
+  clearTimeout(zoomSequenceTimer);
+  zoomSequenceTimer = null;
+  if (pendingMoveEndHandler) {
+    map.off('moveend', pendingMoveEndHandler);
+    pendingMoveEndHandler = null;
+  }
+  if (zoomPulseEl) {
+    zoomPulseEl.remove();
+    zoomPulseEl = null;
+  }
+  if (zoomRingEl) {
+    zoomRingEl.remove();
+    zoomRingEl = null;
+  }
+}
+
+function spawnZoomPulse(latlng) {
+  const pt = map.latLngToContainerPoint(latlng);
+  const rect = mapStage.getBoundingClientRect();
+  const x = rect.left + pt.x;
+  const y = rect.top + pt.y;
+
+  const ring = document.createElement('div');
+  ring.className = 'zoom-focus-ring';
+  ring.style.left = `${x}px`;
+  ring.style.top = `${y}px`;
+  document.body.appendChild(ring);
+  zoomRingEl = ring;
+
+  const pulse = document.createElement('div');
+  pulse.className = 'zoom-focus-pulse';
+  pulse.style.left = `${x}px`;
+  pulse.style.top = `${y}px`;
+  document.body.appendChild(pulse);
+  zoomPulseEl = pulse;
+
+  pulse.addEventListener('animationend', () => {
+    if (pulse.parentNode) pulse.remove();
+    if (zoomPulseEl === pulse) zoomPulseEl = null;
+  }, { once: true });
+
+  ring.addEventListener('animationend', () => {
+    if (ring.parentNode) ring.remove();
+    if (zoomRingEl === ring) zoomRingEl = null;
+  }, { once: true });
+}
+
+function focusSpotThenOpenDetail(spot, latlng, dotEl = null) {
+  cleanupZoomEffect();
+  if (isDetailOpen) {
+    isDetailOpen = false;
+    detailBackdrop.classList.remove('is-open');
+    detailBackdrop.style.display = 'none';
+  }
+  hideHoverPreviewImmediate();
+  isZoomingToSpot = true;
+  if (dotEl) setActiveDot(dotEl);
+  spawnZoomPulse(latlng);
+
+  const maxZoom = map.getMaxZoom();
+  const targetLatLng = L.latLng(spot.lat, spot.lng);
+
+  const revealDetailAfterZoom = () => {
+    cleanupZoomEffect();
+    isZoomingToSpot = false;
+    openDetailCard(spot, dotEl);
+  };
+
+  if (map.getZoom() === maxZoom && map.getCenter().distanceTo(targetLatLng) < 1) {
+    zoomSequenceTimer = setTimeout(revealDetailAfterZoom, 700);
+    return;
+  }
+
+  pendingMoveEndHandler = revealDetailAfterZoom;
+  map.once('moveend', pendingMoveEndHandler);
+
+  map.flyTo(targetLatLng, maxZoom, {
+    animate: true,
+    duration: 4.2,
+    easeLinearity: 0.08
+  });
+
+  zoomSequenceTimer = setTimeout(revealDetailAfterZoom, 4650);
 }
 
 const markersLayer = L.layerGroup().addTo(map);
@@ -936,41 +1371,51 @@ function renderMarkers(filterText = '') {
   spots.forEach(spot => {
     if (q && !spot.plant.toLowerCase().includes(q) && !spot.place.toLowerCase().includes(q)) return;
 
-    const cover = (spot.photos && spot.photos.length)
-      ? spot.photos[0]
-      : 'https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?auto=format&fit=crop&w=600&q=80';
+    const icon = L.divIcon({
+      className: 'spot-pin-icon',
+      html: '<div class="spot-pin-dot"></div>',
+      iconSize: [14, 14],
+      iconAnchor: [7, 7]
+    });
 
-    const marker = L.circleMarker([spot.lat, spot.lng], {
-      radius: 6,
-      color: '#ffffff',
-      weight: 2,
-      fillColor: '#2d4a2b',
-      fillOpacity: 1,
+    const marker = L.marker([spot.lat, spot.lng], {
+      icon,
       bubblingMouseEvents: false
     });
 
-    marker.on('mouseover', (e) => {
-      marker.setStyle({ radius: 8, fillColor: '#b8860b' });
-      hoverCardImg.src = cover;
-      hoverCardPlant.textContent = spot.plant;
-      hoverCardPlace.textContent = spot.place;
-      hoverCardGps.textContent = formatGPS(spot.lat, spot.lng);
-      positionHoverCard(e.originalEvent.clientX, e.originalEvent.clientY);
-      hoverCard.classList.add('is-visible');
-    });
+    marker.on('add', () => {
+      const el = marker.getElement();
+      const dot = el ? el.querySelector('.spot-pin-dot') : null;
+      if (!dot) return;
 
-    marker.on('mousemove', (e) => {
-      positionHoverCard(e.originalEvent.clientX, e.originalEvent.clientY);
-    });
+      dot.addEventListener('mouseenter', (e) => {
+        dot.classList.add('is-hovered');
+        if (isDetailOpen || isZoomingToSpot) return;
+        showHoverPreviewImmediate(spot, e.clientX, e.clientY, dot);
+      });
 
-    marker.on('mouseout', () => {
-      marker.setStyle({ radius: 6, fillColor: '#2d4a2b' });
-      hoverCard.classList.remove('is-visible');
-    });
+      dot.addEventListener('mousemove', (e) => {
+        if (isDetailOpen || isZoomingToSpot) return;
+        if (!hoverPreview.classList.contains('is-visible')) {
+          showHoverPreviewImmediate(spot, e.clientX, e.clientY, dot);
+        } else {
+          positionHoverPreview(e.clientX, e.clientY);
+        }
+      });
 
-    marker.on('click', () => {
-      hoverCard.classList.remove('is-visible');
-      openDetailModal(spot);
+      dot.addEventListener('mouseleave', () => {
+        dot.classList.remove('is-hovered');
+        hideHoverPreview();
+        if (!isDetailOpen && !isZoomingToSpot && activeDotEl === dot) {
+          dot.classList.remove('is-active');
+          activeDotEl = null;
+        }
+      });
+
+      dot.addEventListener('click', (e) => {
+        e.stopPropagation();
+        focusSpotThenOpenDetail(spot, marker.getLatLng(), dot);
+      });
     });
 
     markersLayer.addLayer(marker);
@@ -987,62 +1432,6 @@ map.on('dblclick', (e) => {
   openAddModal(e.latlng.lat, e.latlng.lng);
 });
 
-// ==================== MODALE DÉTAILS & CARROUSEL ====================
-const detailModal = document.getElementById('detail-modal');
-const detailImg = document.getElementById('detail-img');
-const detailPlant = document.getElementById('detail-plant');
-const detailPlace = document.getElementById('detail-place');
-const detailGps = document.getElementById('detail-gps');
-const detailStory = document.getElementById('detail-story');
-const galleryCounter = document.getElementById('gallery-counter');
-const prevBtn = document.getElementById('gallery-prev');
-const nextBtn = document.getElementById('gallery-next');
-
-let currentPhotos = [];
-let currentPhotoIndex = 0;
-
-function updateGalleryView() {
-  detailImg.style.animation = 'none';
-  void detailImg.offsetWidth;
-  detailImg.style.animation = '';
-  detailImg.src = currentPhotos[currentPhotoIndex];
-  galleryCounter.textContent = `${currentPhotoIndex + 1} / ${currentPhotos.length}`;
-  const multi = currentPhotos.length > 1;
-  prevBtn.style.display = multi ? 'flex' : 'none';
-  nextBtn.style.display = multi ? 'flex' : 'none';
-}
-
-function openDetailModal(spot) {
-  currentPhotos = (spot.photos && spot.photos.length)
-    ? spot.photos
-    : ['https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?auto=format&fit=crop&w=900&q=80'];
-  currentPhotoIndex = 0;
-  detailPlant.textContent = spot.plant;
-  detailPlace.textContent = spot.place;
-  detailGps.textContent = formatGPS(spot.lat, spot.lng);
-  detailStory.textContent = spot.story;
-  updateGalleryView();
-  detailModal.classList.add('is-open');
-}
-
-prevBtn.addEventListener('click', () => {
-  currentPhotoIndex = (currentPhotoIndex - 1 + currentPhotos.length) % currentPhotos.length;
-  updateGalleryView();
-});
-
-nextBtn.addEventListener('click', () => {
-  currentPhotoIndex = (currentPhotoIndex + 1) % currentPhotos.length;
-  updateGalleryView();
-});
-
-document.getElementById('close-detail-modal').addEventListener('click', () => {
-  detailModal.classList.remove('is-open');
-});
-
-detailModal.addEventListener('click', (e) => {
-  if (e.target === detailModal) detailModal.classList.remove('is-open');
-});
-
 // ==================== MODALE AJOUTER ====================
 const addModal = document.getElementById('add-modal');
 const spotForm = document.getElementById('spot-form');
@@ -1054,15 +1443,30 @@ const photoPreviews = document.getElementById('photo-previews');
 let uploadedPhotosDataUrls = [];
 
 function openAddModal(lat = '', lng = '') {
+  closeDetailCard();
+  hideHoverPreviewImmediate();
   if (lat !== '') inputLat.value = Number(lat).toFixed(4);
   if (lng !== '') inputLng.value = Number(lng).toFixed(4);
+  addModal.style.display = 'flex';
+  addModal.setAttribute('aria-hidden', 'false');
+  void addModal.offsetWidth;
   addModal.classList.add('is-open');
 }
 
+function closeAddModal() {
+  addModal.classList.remove('is-open');
+  addModal.setAttribute('aria-hidden', 'true');
+  setTimeout(() => {
+    if (!addModal.classList.contains('is-open')) {
+      addModal.style.display = 'none';
+    }
+  }, 360);
+}
+
 document.getElementById('open-add-modal').addEventListener('click', () => openAddModal());
-document.getElementById('close-add-modal').addEventListener('click', () => addModal.classList.remove('is-open'));
+document.getElementById('close-add-modal').addEventListener('click', () => closeAddModal());
 addModal.addEventListener('click', (e) => {
-  if (e.target === addModal) addModal.classList.remove('is-open');
+  if (e.target === addModal) closeAddModal();
 });
 
 function processImageFile(file, maxWidth = 1000) {
@@ -1104,7 +1508,7 @@ spotForm.addEventListener('submit', (e) => {
     lng: parseFloat(inputLng.value),
     photos: uploadedPhotosDataUrls.length
       ? [...uploadedPhotosDataUrls]
-      : ['https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?auto=format&fit=crop&w=900&q=80'],
+      : [FALLBACK_PHOTO],
     story: document.getElementById('input-story').value.trim()
   };
 
@@ -1115,17 +1519,17 @@ spotForm.addEventListener('submit', (e) => {
   spotForm.reset();
   uploadedPhotosDataUrls = [];
   photoPreviews.innerHTML = '';
-  addModal.classList.remove('is-open');
+  closeAddModal();
 });
 
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
-    detailModal.classList.remove('is-open');
-    addModal.classList.remove('is-open');
+    closeDetailCard();
+    closeAddModal();
   }
-  if (detailModal.classList.contains('is-open')) {
-    if (e.key === 'ArrowLeft') prevBtn.click();
-    if (e.key === 'ArrowRight') nextBtn.click();
+  if (isDetailOpen) {
+    if (e.key === 'ArrowLeft') detailPrevBtn.click();
+    if (e.key === 'ArrowRight') detailNextBtn.click();
   }
 });
 </script>

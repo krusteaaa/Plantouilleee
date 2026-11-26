@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; }
 
   :root {
@@ -40,7 +40,7 @@
     margin: 0 auto;
   }
 
-  /* ===================== HEADER (structure d'origine intacte) ===================== */
+  /* ===================== HEADER ===================== */
   .header {
     display: flex;
     justify-content: space-between;
@@ -56,7 +56,6 @@
     flex-direction: column;
   }
 
-  /* TITRE — charte modèle : Instrument Serif normal */
   h1.wave-text {
     display: inline-flex;
     align-items: baseline;
@@ -73,7 +72,6 @@
 
   h1.wave-text .wave-letter { font-style: normal; }
 
-  /* SOUS-TITRE — charte modèle : Instrument Serif italique */
   .subtitle {
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
@@ -85,7 +83,6 @@
     white-space: nowrap;
   }
 
-  /* LE DR EN OR BRONZE */
   .dr {
     color: #b8860b !important;
     -webkit-text-fill-color: #b8860b !important;
@@ -93,7 +90,7 @@
     font-style: normal !important;
   }
 
-  /* ----- Barre de recherche (inchangée) ----- */
+  /* ----- Barre de recherche ----- */
   .search {
     display: flex;
     align-items: center;
@@ -119,7 +116,15 @@
 
   .search input::placeholder { color: var(--f); font-style: italic; }
 
-  /* ----- Bouton Ajouter (inchangé) ----- */
+  /* ----- Actions en haut à droite ----- */
+  .header-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+    padding-top: 0.4rem;
+  }
+
   .add-link {
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
@@ -128,7 +133,6 @@
     text-decoration: none;
     letter-spacing: 0.02em;
     position: relative;
-    padding-top: 0.4rem;
     transition: color 0.35s ease;
     white-space: nowrap;
   }
@@ -154,8 +158,57 @@
     transform: rotate(90deg);
   }
 
-  /* ===================== LOGO — placé APRÈS le header (sous Plantouille) ===================== */
-  /* Charte exacte du modèle : jamais letterboxé, 150vw + marges négatives sur mobile */
+  .dr-link {
+    display: inline-block;
+    font-family: "Instrument Serif", Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.35rem;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+    color: var(--cd);
+    text-decoration: none;
+    transition: color 0.5s ease,
+                opacity 1s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+  }
+
+  .dr-link .cactus-word {
+    color: #b8860b;
+    -webkit-text-fill-color: #b8860b;
+  }
+
+  .dr-link:hover,
+  .dr-link:focus {
+    color: var(--ch);
+    outline: none;
+  }
+
+  .dr-link.is-fading {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .dr-link.is-leaving {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-18px);
+    transition: opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 1.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dr-link .word {
+    display: inline-flex;
+    align-items: baseline;
+  }
+
+  .dr-link .word > span {
+    display: inline-block;
+    will-change: transform;
+  }
+
+  /* ===================== LOGO ===================== */
   .brand-logo{
     display: block;
     margin: 1rem auto 3rem;
@@ -167,7 +220,7 @@
     animation: fade-up 1s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
   }
 
-  /* ===================== NAVIGATION (inchangée) ===================== */
+  /* ===================== NAVIGATION ===================== */
   .categories {
     display: flex;
     flex-direction: column;
@@ -221,7 +274,6 @@
 
   /* ===================== RESPONSIVE ===================== */
   @media (max-width: 768px) {
-    /* Logo 1,5× plus grand, centré via marges négatives — charte modèle */
     .brand-logo{
       display: block;
       width: 150vw;
@@ -241,6 +293,7 @@
     .subtitle { font-size: 1.1rem; }
     .search { max-width: none; width: 100%; }
     .add-link { font-size: 1rem; }
+    .dr-link { font-size: 1.25rem; }
   }
 
   @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
@@ -251,8 +304,8 @@
 
   @media (prefers-reduced-motion: reduce) {
     .header, .categories, .brand-logo { animation: none !important; opacity: 1; transform: none; }
-    .category { transition: none; }
-    .category.is-leaving { transform: none; }
+    .category, .dr-link { transition: none; }
+    .category.is-leaving, .dr-link.is-leaving { transform: none; }
     .add-link:hover .plus, .add-link:focus .plus { transform: none; }
   }
 </style>
@@ -261,7 +314,6 @@
 
 <div class="page-content">
 
-  <!-- Header inchangé : Plantouille en premier, en haut à gauche -->
   <header class="header">
     <div class="brand">
       <h1 class="wave-text"><span class="wave-letter">P</span><span class="wave-letter">l</span><span class="wave-letter">a</span><span class="wave-letter">n</span><span class="wave-letter">t</span><span class="wave-letter">o</span><span class="wave-letter">u</span><span class="wave-letter">i</span><span class="wave-letter">l</span><span class="wave-letter">l</span><span class="wave-letter">e</span></h1>
@@ -277,15 +329,20 @@
       </form>
     </div>
 
-    <a href="ajouter.html" class="add-link">
-      <span class="plus">+</span>Ajouter
-    </a>
+    <div class="header-actions">
+      <a href="ajouter.html" class="add-link">
+        <span class="plus">+</span>Ajouter
+      </a>
+      <a href="cactushunter.html" class="dr-link">
+        <span class="word" aria-label="Cactus-Hunters">
+          <span class="cactus-word">C</span><span class="cactus-word">a</span><span class="cactus-word">c</span><span class="cactus-word">t</span><span class="cactus-word">u</span><span class="cactus-word">s</span><span>-</span><span>H</span><span>u</span><span>n</span><span>t</span><span>e</span><span>r</span><span>s</span>
+        </span>
+      </a>
+    </div>
   </header>
 
-  <!-- Logo : sous Plantouille, au-dessus des catégories -->
   <img src="logo.png" alt="Logo Dr-Cactus" class="brand-logo">
 
-  <!-- Catégories inchangées -->
   <nav class="categories">
 
     <a href="plantes.html" class="category">
@@ -349,14 +406,17 @@ function initWave(el) {
 }
 document.querySelectorAll('.wave-text').forEach(el => initWave(el.closest('button, a') || el));
 
-// ==================== CATEGORIES : wave + navigation (structure d'origine conservée) ====================
+// ==================== CATEGORIES & DR-LINK : wave + navigation ====================
 (function () {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  var AMPLITUDE = 8, PERIOD = 1200, STAGGER = 100, EASING = 0.12, EPSILON = 0.05;
+  var PERIOD = 1600, STAGGER = 110, EASING = 0.12, EPSILON = 0.05;
+  var animItems = document.querySelectorAll('.category, .dr-link');
 
-  document.querySelectorAll('.category').forEach(function (cat) {
-    var spans = cat.querySelectorAll('.word > span');
+  animItems.forEach(function (item) {
+    var spans = item.querySelectorAll('.word > span');
+    var fontSize = parseFloat(getComputedStyle(item).fontSize) || 24;
+    var maxAmplitude = fontSize * 0.18;
     var amplitude = 0, targetAmplitude = 0, phaseStart = null, rafId = null;
 
     function tick(now) {
@@ -379,15 +439,15 @@ document.querySelectorAll('.wave-text').forEach(el => initWave(el.closest('butto
     }
 
     function ensureRunning() { if (rafId === null) rafId = requestAnimationFrame(tick); }
-    function start() { targetAmplitude = AMPLITUDE; ensureRunning(); }
+    function start() { targetAmplitude = maxAmplitude; ensureRunning(); }
     function stop() { targetAmplitude = 0; ensureRunning(); }
 
-    cat.addEventListener('mouseenter', start);
-    cat.addEventListener('mouseleave', stop);
-    cat.addEventListener('focus', start);
-    cat.addEventListener('blur', stop);
-    cat.addEventListener('touchstart', start, { passive: true });
-    cat.addEventListener('touchend', stop, { passive: true });
+    item.addEventListener('mouseenter', start);
+    item.addEventListener('mouseleave', stop);
+    item.addEventListener('focus', start);
+    item.addEventListener('blur', stop);
+    item.addEventListener('touchstart', start, { passive: true });
+    item.addEventListener('touchend', stop, { passive: true });
   });
 
   var navigating = false;
@@ -395,20 +455,20 @@ document.querySelectorAll('.wave-text').forEach(el => initWave(el.closest('butto
   var T_CLICKED_FADE  = 1400;
   var T_PAUSE_AFTER   = 800;
 
-  document.querySelectorAll('.category').forEach(function (cat) {
-    cat.addEventListener('click', function (e) {
+  animItems.forEach(function (item) {
+    item.addEventListener('click', function (e) {
       if (navigating) { e.preventDefault(); return; }
-      var href = cat.getAttribute('href');
+      var href = item.getAttribute('href');
       if (!href || href === '#') return;
       navigating = true;
       e.preventDefault();
 
-      document.querySelectorAll('.category').forEach(function (other) {
-        if (other !== cat) other.classList.add('is-fading');
+      animItems.forEach(function (other) {
+        if (other !== item) other.classList.add('is-fading');
       });
 
       setTimeout(function () {
-        cat.classList.add('is-leaving');
+        item.classList.add('is-leaving');
       }, T_CLICKED_START);
 
       setTimeout(function () {

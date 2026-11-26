@@ -5,10 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light">
 <title>Cactus-Hunters — Plantouille</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
+  .leaflet-container { font-family: "Inter", sans-serif; }
+  .leaflet-control-attribution { font-size: 10px !important; }
+  .leaflet-control-zoom a { color: var(--cd) !important; }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; }
 
@@ -198,12 +202,14 @@
     cursor: grabbing;
   }
 
-  #world-svg {
+  #world-map {
     width: 100%;
     height: 100%;
     display: block;
-    background: #ffffff;
+    background: #dce8e4;
+    z-index: 1;
   }
+  .leaflet-container { background: #dce8e4; }
 
   /* ===================== MARQUEURS : GROSSISSEMENT & REBOND AU SURVOL ===================== */
   .pin-group {
@@ -620,16 +626,10 @@
     <span class="map-hint">Glisser pour déplacer · Molette pour zoomer · Survolez ou cliquez sur un repère</span>
   </div>
 
-  <!-- Carte issue de photos.html (carte.jpeg) -->
+  <!-- Carte interactive mondiale en tuiles -->
   <div class="map-stage" id="map-stage">
-    <svg id="world-svg" viewBox="0 0 1000 580" preserveAspectRatio="xMidYMid meet">
-      <g id="map-viewport">
-        <image href="carte.jpeg" x="0" y="0" width="1000" height="580" preserveAspectRatio="xMidYMid meet"/>
-        <g id="markers-layer"></g>
-      </g>
-    </svg>
+    <div id="world-map" role="application" aria-label="Carte interactive des découvertes botaniques"></div>
   </div>
-
 </div>
 
 <!-- Vignette flottante au survol -->
@@ -674,15 +674,7 @@
 
     <form id="spot-form">
       <div class="form-grid">
-        <div class="form-group full">
-          <label for="input-map">Carte du monde (carte.jpeg)</label>
-          <label class="photo-upload-zone" for="input-map">
-            <span>+ Sélectionner carte.jpeg</span>
-          </label>
-          <input type="file" id="input-map" accept="image/jpeg,image/*" hidden>
-        </div>
-
-        <div class="form-group">
+<div class="form-group">
           <label for="input-plant">Nom de la plante</label>
           <input type="text" id="input-plant" required placeholder="ex. Echinopsis pachanoi">
         </div>
@@ -728,6 +720,7 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 // ==================== ANIMATION VAGUE (h1) ====================
 function initWave(el) {
@@ -761,70 +754,41 @@ function initWave(el) {
 }
 document.querySelectorAll('.wave-text').forEach(el => initWave(el));
 
-// ==================== CONVERSION COORDONNÉES GPS <-> CARTE (1000 x 580) ====================
-const svgEl = document.getElementById('world-svg');
-const viewportEl = document.getElementById('map-viewport');
-const markersLayer = document.getElementById('markers-layer');
+// ==================== CARTE MONDIALE EN TUILES ====================
+// Leaflet gère le zoom, le déplacement, les coordonnées et le chargement
+// progressif des tuiles visibles. Aucun calque de frontières n'est ajouté.
 const mapStage = document.getElementById('map-stage');
-
-function lonLatToXY(lon, lat) {
-  const x = ((lon + 180) / 360) * 1000;
-  const y = ((82 - lat) / 145) * 540 + 20;
-  return [x, y];
+if (typeof L === 'undefined') {
+  document.getElementById('world-map').innerHTML =
+    '<div style="padding:2rem;color:#2d4a2b;text-align:center;font-family:Georgia,serif">La bibliothèque de la carte n’a pas pu être chargée. Vérifie ta connexion internet puis recharge la page.</div>';
+  throw new Error('Leaflet indisponible : la carte interactive ne peut pas être initialisée.');
 }
 
-function xyToLonLat(x, y) {
-  const lon = (x / 1000) * 360 - 180;
-  const lat = 82 - ((y - 20) / 540) * 145;
-  return [lat, lon];
-}
-
-// ==================== PAN & ZOOM FLUIDE ====================
-let scale = 1;
-let tx = 0;
-let ty = 0;
-let isDragging = false;
-let dragStartX = 0;
-let dragStartY = 0;
-
-function applyTransform() {
-  viewportEl.setAttribute('transform', `translate(${tx.toFixed(1)}, ${ty.toFixed(1)}) scale(${scale.toFixed(2)})`);
-}
-
-mapStage.addEventListener('mousedown', (e) => {
-  if (e.target.closest('.pin-group')) return;
-  isDragging = true;
-  dragStartX = e.clientX - tx;
-  dragStartY = e.clientY - ty;
+const map = L.map('world-map', {
+  center: [20, 0],
+  zoom: 2,
+  minZoom: 2,
+  maxZoom: 19,
+  worldCopyJump: true,
+  zoomControl: true,
+  scrollWheelZoom: true,
+  doubleClickZoom: false,
+  preferCanvas: true
 });
 
-window.addEventListener('mousemove', (e) => {
-  if (!isDragging) return;
-  tx = e.clientX - dragStartX;
-  ty = e.clientY - dragStartY;
-  applyTransform();
-});
+L.tileLayer(
+  'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+  {
+    minZoom: 2,
+    maxZoom: 19,
+    maxNativeZoom: 19,
+    noWrap: false,
+    attribution: 'Imagerie © Esri, Maxar, Earthstar Geographics et contributeurs'
+  }
+).addTo(map);
 
-window.addEventListener('mouseup', () => {
-  isDragging = false;
-});
-
-mapStage.addEventListener('wheel', (e) => {
-  e.preventDefault();
-  const rect = svgEl.getBoundingClientRect();
-  const svgX = ((e.clientX - rect.left) / rect.width) * 1000;
-  const svgY = ((e.clientY - rect.top) / rect.height) * 580;
-
-  const factor = e.deltaY < 0 ? 1.18 : 0.85;
-  const nextScale = Math.min(6, Math.max(1, scale * factor));
-
-  tx = svgX - ((svgX - tx) / scale) * nextScale;
-  ty = svgY - ((svgY - ty) / scale) * nextScale;
-  scale = nextScale;
-
-  if (scale === 1) { tx = 0; ty = 0; }
-  applyTransform();
-}, { passive: false });
+// Le redimensionnement de la fenêtre ou du conteneur ne déforme pas la carte.
+window.addEventListener('resize', () => map.invalidateSize());
 
 // ==================== DONNÉES & MARQUEURS ====================
 const STORAGE_KEY = 'plantouille_cactus_hunters_carte_jpeg_v1';
@@ -859,9 +823,20 @@ const defaultSpots = [
 function loadSpots() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
-    return saved ? JSON.parse(saved) : defaultSpots;
+    if (!saved) return [...defaultSpots];
+
+    const savedSpots = JSON.parse(saved);
+    if (!Array.isArray(savedSpots)) return [...defaultSpots];
+
+    // Garde toutes les observations enregistrées et réintègre les repères
+    // de démonstration manquants, sans écraser les fiches personnelles.
+    const byId = new Map(defaultSpots.map(spot => [spot.id, spot]));
+    savedSpots.forEach(spot => {
+      if (spot && spot.id) byId.set(spot.id, spot);
+    });
+    return Array.from(byId.values());
   } catch (e) {
-    return defaultSpots;
+    return [...defaultSpots];
   }
 }
 
@@ -896,66 +871,53 @@ function positionHoverCard(clientX, clientY) {
   hoverCard.style.top = `${top}px`;
 }
 
+const markersLayer = L.layerGroup().addTo(map);
+
 function renderMarkers(filterText = '') {
-  markersLayer.innerHTML = '';
+  markersLayer.clearLayers();
   const q = filterText.trim().toLowerCase();
 
   spots.forEach(spot => {
     if (q && !spot.plant.toLowerCase().includes(q) && !spot.place.toLowerCase().includes(q)) return;
 
-    const [cx, cy] = lonLatToXY(spot.lng, spot.lat);
-    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-    g.setAttribute('class', 'pin-group');
-    g.setAttribute('transform', `translate(${cx.toFixed(1)}, ${cy.toFixed(1)})`);
-
-    const visual = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-    visual.setAttribute('class', 'pin-visual');
-
-    const pulse = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    pulse.setAttribute('r', '10');
-    pulse.setAttribute('class', 'pin-pulse');
-
-    const outer = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    outer.setAttribute('r', '6');
-    outer.setAttribute('class', 'pin-outer');
-
-    const inner = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    inner.setAttribute('r', '2.2');
-    inner.setAttribute('class', 'pin-inner');
-
-    visual.appendChild(pulse);
-    visual.appendChild(outer);
-    visual.appendChild(inner);
-    g.appendChild(visual);
-
     const cover = (spot.photos && spot.photos.length)
       ? spot.photos[0]
       : 'https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?auto=format&fit=crop&w=600&q=80';
 
-    g.addEventListener('mouseenter', (e) => {
+    const marker = L.circleMarker([spot.lat, spot.lng], {
+      radius: 6,
+      color: '#ffffff',
+      weight: 2,
+      fillColor: '#2d4a2b',
+      fillOpacity: 1,
+      bubblingMouseEvents: false
+    });
+
+    marker.on('mouseover', (e) => {
+      marker.setStyle({ radius: 8, fillColor: '#b8860b' });
       hoverCardImg.src = cover;
       hoverCardPlant.textContent = spot.plant;
       hoverCardPlace.textContent = spot.place;
       hoverCardGps.textContent = formatGPS(spot.lat, spot.lng);
-      positionHoverCard(e.clientX, e.clientY);
+      positionHoverCard(e.originalEvent.clientX, e.originalEvent.clientY);
       hoverCard.classList.add('is-visible');
     });
 
-    g.addEventListener('mousemove', (e) => {
-      positionHoverCard(e.clientX, e.clientY);
+    marker.on('mousemove', (e) => {
+      positionHoverCard(e.originalEvent.clientX, e.originalEvent.clientY);
     });
 
-    g.addEventListener('mouseleave', () => {
+    marker.on('mouseout', () => {
+      marker.setStyle({ radius: 6, fillColor: '#2d4a2b' });
       hoverCard.classList.remove('is-visible');
     });
 
-    g.addEventListener('click', (e) => {
-      e.stopPropagation();
+    marker.on('click', () => {
       hoverCard.classList.remove('is-visible');
       openDetailModal(spot);
     });
 
-    markersLayer.appendChild(g);
+    markersLayer.addLayer(marker);
   });
 }
 
@@ -965,19 +927,9 @@ document.getElementById('spot-search').addEventListener('input', (e) => {
   renderMarkers(e.target.value);
 });
 
-// Double-clic sur la carte pour pré-remplir les coordonnées GPS
-svgEl.addEventListener('dblclick', (e) => {
-  if (e.target.closest('.pin-group')) return;
-  const rect = svgEl.getBoundingClientRect();
-  const svgX = ((e.clientX - rect.left) / rect.width) * 1000;
-  const svgY = ((e.clientY - rect.top) / rect.height) * 580;
-  const worldX = (svgX - tx) / scale;
-  const worldY = (svgY - ty) / scale;
-  const [lat, lng] = xyToLonLat(worldX, worldY);
-
-  if (!Number.isNaN(lat) && !Number.isNaN(lng) && lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180) {
-    openAddModal(lat, lng);
-  }
+// Double-clic sur la carte : les coordonnées GPS sont fournies directement par Leaflet.
+map.on('dblclick', (e) => {
+  openAddModal(e.latlng.lat, e.latlng.lng);
 });
 
 // ==================== MODALE DÉTAILS & CARROUSEL ====================
@@ -1036,8 +988,6 @@ detailModal.addEventListener('click', (e) => {
 // ==================== MODALE AJOUTER ====================
 const addModal = document.getElementById('add-modal');
 const spotForm = document.getElementById('spot-form');
-const inputMap = document.getElementById('input-map');
-const mapImageEl = document.querySelector('#map-viewport image');
 const inputLat = document.getElementById('input-lat');
 const inputLng = document.getElementById('input-lng');
 const inputPhotos = document.getElementById('input-photos');
@@ -1076,12 +1026,6 @@ function processImageFile(file, maxWidth = 1000) {
   });
 }
 
-inputMap.addEventListener('change', async (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
-  const dataUrl = await processImageFile(file, 1600);
-  mapImageEl.setAttribute('href', dataUrl);
-});
 
 inputPhotos.addEventListener('change', async (e) => {
   for (const file of Array.from(e.target.files)) {

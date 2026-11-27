@@ -43,6 +43,8 @@
 
   /* ===================== HEADER ===================== */
   .header {
+    position: relative;
+    z-index: 60;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -132,9 +134,10 @@
 
   .search input::placeholder { color: var(--f); font-style: italic; }
 
-  /* ----- Actions en haut à droite + Menu + absolu ----- */
+  /* ----- Actions en haut à droite + Menu + sans cadre ----- */
   .header-actions {
     position: relative;
+    z-index: 80;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -181,16 +184,14 @@
     position: absolute;
     top: 100%;
     right: 0;
-    margin-top: 0.5rem;
+    margin-top: 0.45rem;
     background: var(--bg);
-    border: 1px solid var(--hairline);
-    padding: 0.65rem 0.9rem;
+    padding: 0.25rem 0;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 0.35rem;
-    min-width: 165px;
-    z-index: 40;
+    gap: 0.3rem;
+    z-index: 90;
     opacity: 0;
     pointer-events: none;
     transform: translateY(-6px);
@@ -245,6 +246,8 @@
 
   /* ===================== LOGO ===================== */
   .brand-logo {
+    position: relative;
+    z-index: 10;
     display: block;
     margin: 1rem auto 2.5rem;
     width: auto;
@@ -257,6 +260,8 @@
 
   /* ===================== GALERIE ANNÉES & VIGNETTES ===================== */
   .gallery-section {
+    position: relative;
+    z-index: 15;
     animation: fade-up 1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
   }
 
@@ -268,7 +273,7 @@
     gap: 1rem;
     padding-bottom: 0.85rem;
     border-bottom: 1px solid var(--hairline);
-    margin-bottom: 2rem;
+    margin-bottom: 2.25rem;
   }
 
   .year-buttons {
@@ -331,26 +336,23 @@
     color: var(--bronze);
   }
 
-  .thumb-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 2rem;
+  .thumb-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2.75rem;
   }
 
   .thumb-card {
     position: relative;
-    border: 1px solid var(--hairline);
-    background: var(--bg);
-    overflow: hidden;
-    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-                box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-                border-color 0.35s ease;
+    padding-bottom: 1.75rem;
+    border-bottom: 1px solid var(--hairline);
+    transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .thumb-card:hover {
-    transform: translateY(-4px);
-    border-color: var(--cd);
-    box-shadow: 0 14px 32px rgba(45, 74, 43, 0.08);
+  .thumb-card.is-entering {
+    opacity: 0;
+    transform: translateY(16px);
   }
 
   .thumb-open-btn {
@@ -364,10 +366,10 @@
   }
 
   .thumb-frame {
-    aspect-ratio: 4 / 3;
     width: 100%;
+    aspect-ratio: 16 / 10;
     overflow: hidden;
-    background: rgba(45, 74, 43, 0.03);
+    background: rgba(45, 74, 43, 0.02);
   }
 
   .thumb-frame img {
@@ -375,27 +377,33 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                filter 0.6s ease;
   }
 
-  .thumb-card:hover .thumb-frame img {
-    transform: scale(1.035);
+  .thumb-card:hover .thumb-frame img,
+  .thumb-open-btn:focus .thumb-frame img {
+    transform: scale(1.025);
   }
 
   .thumb-caption {
-    padding: 0.75rem 0.9rem;
+    margin-top: 0.85rem;
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    gap: 0.75rem;
-    border-top: 1px solid var(--hairline);
+    gap: 1rem;
   }
 
   .thumb-title {
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     color: var(--cd);
+    transition: color 0.3s ease;
+  }
+
+  .thumb-card:hover .thumb-title {
+    color: var(--ch);
   }
 
   .thumb-year {
@@ -406,24 +414,17 @@
 
   .thumb-delete-btn {
     display: none;
-    position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    z-index: 5;
-    background: rgba(255, 255, 255, 0.94);
-    border: 1px solid var(--bronze);
+    margin-top: 0.6rem;
+    background: none;
+    border: none;
+    padding: 0;
     color: var(--bronze);
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
-    font-size: 1rem;
-    padding: 0.2rem 0.65rem;
+    font-size: 1.05rem;
     cursor: pointer;
-    transition: background-color 0.25s ease, color 0.25s ease;
-  }
-
-  .thumb-delete-btn:hover {
-    background: var(--bronze);
-    color: var(--bg);
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   body.is-unlocked .thumb-delete-btn {
@@ -435,22 +436,22 @@
     font-style: italic;
     font-size: 1.35rem;
     color: var(--f);
-    padding: 1.5rem 0;
+    padding: 1rem 0;
   }
 
   /* ===================== VISIONNEUSE GRAND FORMAT ===================== */
   .lightbox {
     position: fixed;
     inset: 0;
-    z-index: 100;
-    background: rgba(255, 255, 255, 0.97);
+    z-index: 120;
+    background: rgba(255, 255, 255, 0.98);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2.5rem 4.5rem;
+    padding: 2.5rem 5rem;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .lightbox.is-open {
@@ -466,16 +467,15 @@
     border: none;
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
-    font-size: 1.5rem;
+    font-size: 1.45rem;
     color: var(--cd);
     cursor: pointer;
-    z-index: 110;
-    transition: color 0.3s ease, transform 0.3s ease;
+    z-index: 130;
+    transition: color 0.3s ease;
   }
 
   .lightbox-close:hover {
     color: var(--ch);
-    transform: scale(1.06);
   }
 
   .lightbox-nav {
@@ -483,30 +483,30 @@
     top: 50%;
     transform: translateY(-50%);
     background: none;
-    border: 1px solid var(--hairline);
-    width: 48px;
-    height: 48px;
+    border: none;
     font-family: "Instrument Serif", Georgia, serif;
-    font-size: 1.6rem;
+    font-style: italic;
+    font-size: 2.4rem;
+    line-height: 1;
     color: var(--cd);
     cursor: pointer;
-    z-index: 110;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    z-index: 130;
+    padding: 0.5rem 0.75rem;
+    transition: color 0.3s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .lightbox-nav:hover {
-    border-color: var(--cd);
     color: var(--ch);
   }
 
-  .lightbox-prev { left: 1.5rem; }
-  .lightbox-next { right: 1.5rem; }
+  .lightbox-prev { left: 1.25rem; }
+  .lightbox-next { right: 1.25rem; }
+
+  .lightbox-prev:hover { transform: translateY(-50%) translateX(-3px); }
+  .lightbox-next:hover { transform: translateY(-50%) translateX(3px); }
 
   .lightbox-stage {
-    max-width: 920px;
+    max-width: 960px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -516,7 +516,7 @@
 
   .lightbox-media-wrap {
     width: 100%;
-    max-height: 76vh;
+    max-height: 78vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -525,34 +525,39 @@
 
   .lightbox-img {
     max-width: 100%;
-    max-height: 75vh;
+    max-height: 76vh;
     object-fit: contain;
     display: block;
-    transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-                transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .lightbox-img.is-swapping-next {
     opacity: 0;
-    transform: translateX(28px) scale(0.985);
+    transform: translateX(34px) scale(0.985);
   }
 
   .lightbox-img.is-swapping-prev {
     opacity: 0;
-    transform: translateX(-28px) scale(0.985);
+    transform: translateX(-34px) scale(0.985);
   }
 
   .lightbox-caption {
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
-    font-size: 1.4rem;
+    font-size: 1.45rem;
     color: var(--cd);
     text-align: center;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+
+  .lightbox-caption.is-swapping {
+    opacity: 0;
+    transform: translateY(6px);
   }
 
   .lightbox-counter {
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     color: var(--f);
     letter-spacing: 0.05em;
   }
@@ -569,19 +574,18 @@
       margin-right: calc(50% - 75vw);
       object-fit: contain;
     }
-    .thumb-grid {
-      grid-template-columns: 1fr;
-    }
     .lightbox {
-      padding: 4rem 1.25rem 2rem;
+      padding: 4rem 1.25rem 3.5rem;
     }
     .lightbox-nav {
       top: auto;
-      bottom: 1.25rem;
+      bottom: 1rem;
       transform: none;
+      font-size: 1.8rem;
     }
     .lightbox-prev { left: 1.25rem; }
     .lightbox-next { right: 1.25rem; }
+    .lightbox-prev:hover, .lightbox-next:hover { transform: none; }
   }
 
   @media (max-width: 640px) {
@@ -601,7 +605,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     .header, .gallery-section, .brand-logo { animation: none !important; opacity: 1; transform: none; }
-    .plus-menu, .menu-item-link, .thumb-card, .thumb-frame img, .lightbox, .lightbox-img { transition: none; }
+    .plus-menu, .menu-item-link, .thumb-card, .thumb-frame img, .lightbox, .lightbox-img, .lightbox-caption { transition: none; }
     .plus-btn[aria-expanded="true"] .plus { transform: none; }
   }
 </style>
@@ -678,7 +682,7 @@
       </div>
     </div>
 
-    <div class="thumb-grid" id="thumbGrid"></div>
+    <div class="thumb-list" id="thumbGrid"></div>
   </main>
 
 </div>
@@ -828,13 +832,12 @@ document.querySelectorAll('.wave-text').forEach(el => initWave(el.closest('butto
 
   function makePlaceholderSvg(label, year, accent) {
     var svg =
-      '<svg xmlns="http://www.w3.org/2000/svg" width="900" height="675" viewBox="0 0 900 675">' +
-        '<rect width="900" height="675" fill="#f7f9f6"/>' +
-        '<rect x="36" y="36" width="828" height="603" fill="none" stroke="#2d4a2b" stroke-opacity="0.18"/>' +
-        '<circle cx="450" cy="300" r="110" fill="' + accent + '" fill-opacity="0.12"/>' +
-        '<path d="M450 420 V220 M450 320 C410 320 390 295 390 265 M450 345 C490 345 510 320 510 290" stroke="#2d4a2b" stroke-width="6" stroke-linecap="round" fill="none"/>' +
-        '<text x="450" y="485" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="34" fill="#2d4a2b">' + label + '</text>' +
-        '<text x="450" y="525" text-anchor="middle" font-family="sans-serif" font-size="16" letter-spacing="2" fill="#2d4a2b" fill-opacity="0.5">' + year + '</text>' +
+      '<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750">' +
+        '<rect width="1200" height="750" fill="#fbfcfa"/>' +
+        '<circle cx="600" cy="340" r="140" fill="' + accent + '" fill-opacity="0.09"/>' +
+        '<path d="M600 480 V240 M600 355 C555 355 530 325 530 290 M600 385 C645 385 670 355 670 320" stroke="#2d4a2b" stroke-width="6" stroke-linecap="round" fill="none"/>' +
+        '<text x="600" y="545" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="38" fill="#2d4a2b">' + label + '</text>' +
+        '<text x="600" y="590" text-anchor="middle" font-family="sans-serif" font-size="16" letter-spacing="2" fill="#2d4a2b" fill-opacity="0.45">' + year + '</text>' +
       '</svg>';
     return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
   }
@@ -921,8 +924,7 @@ document.querySelectorAll('.wave-text').forEach(el => initWave(el.closest('butto
 
     thumbGrid.innerHTML = currentVisibleList.map(function (item, idx) {
       return (
-        '<article class="thumb-card" data-id="' + escapeHtml(item.id) + '">' +
-          '<button type="button" class="thumb-delete-btn" data-delete="' + escapeHtml(item.id) + '" aria-label="Supprimer ' + escapeHtml(item.title) + '">Supprimer</button>' +
+        '<article class="thumb-card is-entering" data-id="' + escapeHtml(item.id) + '">' +
           '<button type="button" class="thumb-open-btn" data-index="' + idx + '">' +
             '<div class="thumb-frame">' +
               '<img src="' + item.src + '" alt="' + escapeHtml(item.title) + '">' +
@@ -932,9 +934,19 @@ document.querySelectorAll('.wave-text').forEach(el => initWave(el.closest('butto
               '<span class="thumb-year">' + escapeHtml(item.year) + '</span>' +
             '</div>' +
           '</button>' +
+          '<button type="button" class="thumb-delete-btn" data-delete="' + escapeHtml(item.id) + '" aria-label="Supprimer ' + escapeHtml(item.title) + '">Supprimer cette vignette</button>' +
         '</article>'
       );
     }).join('');
+
+    requestAnimationFrame(function () {
+      var cards = thumbGrid.querySelectorAll('.thumb-card');
+      cards.forEach(function (card, i) {
+        setTimeout(function () {
+          card.classList.remove('is-entering');
+        }, i * 65);
+      });
+    });
   }
 
   yearButtons.forEach(function (btn) {
@@ -1030,7 +1042,7 @@ document.querySelectorAll('.wave-text').forEach(el => initWave(el.closest('butto
       if (!lightbox.classList.contains('is-open')) {
         lightbox.hidden = true;
       }
-    }, 380);
+    }, 420);
   }
 
   function stepLightbox(direction) {
@@ -1045,14 +1057,14 @@ document.querySelectorAll('.wave-text').forEach(el => initWave(el.closest('butto
     isSwapping = true;
     var outClass = direction > 0 ? 'is-swapping-next' : 'is-swapping-prev';
     lightboxImg.classList.add(outClass);
-    lightboxCaption.style.opacity = '0';
+    lightboxCaption.classList.add('is-swapping');
 
     setTimeout(function () {
       updateLightboxContent(nextIndex);
       lightboxImg.classList.remove(outClass);
-      lightboxCaption.style.opacity = '1';
+      lightboxCaption.classList.remove('is-swapping');
       isSwapping = false;
-    }, 260);
+    }, 300);
   }
 
   lightboxClose.addEventListener('click', closeLightbox);

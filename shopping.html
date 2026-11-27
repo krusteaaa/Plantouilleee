@@ -43,6 +43,8 @@
 
   /* ===================== HEADER ===================== */
   .header {
+    position: relative;
+    z-index: 60;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -132,9 +134,10 @@
 
   .search input::placeholder { color: var(--f); font-style: italic; }
 
-  /* ----- Actions en haut à droite + Menu + absolu ----- */
+  /* ----- Actions en haut à droite + Menu + sans cadre ----- */
   .header-actions {
     position: relative;
+    z-index: 80;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -181,16 +184,14 @@
     position: absolute;
     top: 100%;
     right: 0;
-    margin-top: 0.5rem;
+    margin-top: 0.45rem;
     background: var(--bg);
-    border: 1px solid var(--hairline);
-    padding: 0.65rem 0.9rem;
+    padding: 0.25rem 0;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 0.35rem;
-    min-width: 165px;
-    z-index: 40;
+    gap: 0.3rem;
+    z-index: 90;
     opacity: 0;
     pointer-events: none;
     transform: translateY(-6px);
@@ -245,6 +246,8 @@
 
   /* ===================== LOGO ===================== */
   .brand-logo {
+    position: relative;
+    z-index: 10;
     display: block;
     margin: 1rem auto 2.5rem;
     width: auto;
@@ -257,6 +260,8 @@
 
   /* ===================== SHOPPING ===================== */
   .shop-section {
+    position: relative;
+    z-index: 15;
     animation: fade-up 1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
   }
 
@@ -387,20 +392,22 @@
 
   .add-cart-btn {
     background: none;
-    border: 1px solid var(--hairline);
+    border: none;
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     color: var(--cd);
-    padding: 0.25rem 0.75rem;
+    padding: 0;
     cursor: pointer;
-    transition: border-color 0.3s ease, color 0.3s ease;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
+    transition: color 0.3s ease;
     white-space: nowrap;
   }
 
   .add-cart-btn:hover,
   .add-cart-btn:focus {
-    border-color: var(--cd);
     color: var(--ch);
   }
 
@@ -420,11 +427,11 @@
     display: inline-block;
   }
 
-  /* ----- Panier ----- */
+  /* ----- Panier sans cadre ----- */
   .cart-panel {
     margin-top: 2.25rem;
-    padding: 1.5rem;
-    border: 1px solid var(--hairline);
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--hairline);
     display: none;
   }
 
@@ -487,22 +494,22 @@
   .cart-qty-controls {
     display: inline-flex;
     align-items: center;
-    gap: 0.55rem;
+    gap: 0.6rem;
   }
 
   .qty-btn {
     background: none;
-    border: 1px solid var(--hairline);
-    width: 24px;
-    height: 24px;
-    font-family: inherit;
+    border: none;
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: 1.2rem;
     color: var(--cd);
     cursor: pointer;
+    padding: 0 0.25rem;
     line-height: 1;
   }
 
   .qty-btn:hover {
-    border-color: var(--cd);
+    color: var(--ch);
   }
 
   .cart-footer {
@@ -523,19 +530,21 @@
 
   .checkout-btn {
     background: none;
-    border: 1px solid var(--cd);
+    border: none;
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
-    font-size: 1.15rem;
+    font-size: 1.2rem;
     color: var(--cd);
-    padding: 0.35rem 1rem;
+    padding: 0;
     cursor: pointer;
-    transition: background-color 0.25s ease, color 0.25s ease;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
+    transition: color 0.25s ease;
   }
 
   .checkout-btn:hover {
-    background: var(--cd);
-    color: var(--bg);
+    color: var(--ch);
   }
 
   .checkout-feedback {

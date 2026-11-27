@@ -35,9 +35,76 @@
     overflow-x: hidden;
   }
 
+  /* ===================== INITIAL "SAN PEDRO" FADE-IN ===================== */
+  .san-pedro-splash {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    pointer-events: none;
+    animation: san-pedro-overlay-out 1.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .san-pedro-splash__label {
+    font-family: "Instrument Serif", Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    color: var(--cd);
+    letter-spacing: 0.04em;
+    opacity: 0;
+    animation: san-pedro-text-in-out 1.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  @keyframes san-pedro-text-in-out {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    35% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    70% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+  }
+
+  @keyframes san-pedro-overlay-out {
+    0%, 72% {
+      opacity: 1;
+      visibility: visible;
+    }
+    100% {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
   .page-content {
     max-width: 800px;
     margin: 0 auto;
+    opacity: 0;
+    animation: page-settle-in 1.1s cubic-bezier(0.4, 0, 0.2, 1) 1.05s forwards;
+  }
+
+  @keyframes page-settle-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   /* ===================== HEADER ===================== */
@@ -116,54 +183,77 @@
 
   .search input::placeholder { color: var(--f); font-style: italic; }
 
-  /* ----- Actions en haut à droite ----- */
+  /* ----- Actions en haut à droite (+ Menu regroupant Ajouter plantes, Cactus-Hunters, Galerie, Shopping & Livre d'or) ----- */
   .header-actions {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     gap: 0.5rem;
     padding-top: 0.4rem;
+    z-index: 20;
   }
 
-  .add-link {
-    font-family: "Instrument Serif", Georgia, serif;
-    font-style: italic;
-    font-size: 1.05rem;
-    color: var(--cd);
-    text-decoration: none;
-    letter-spacing: 0.02em;
-    position: relative;
-    transition: color 0.35s ease;
-    white-space: nowrap;
-  }
-
-  .add-link .plus {
+  .plus-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
     font-family: "Instrument Serif", Georgia, serif;
     font-style: normal;
-    font-size: 1.3rem;
-    margin-right: 0.3rem;
-    vertical-align: -0.05em;
-    display: inline-block;
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1.75rem;
+    line-height: 1;
+    color: var(--cd);
+    padding: 0.15rem 0.35rem;
+    transition: color 0.35s ease, transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .add-link:hover,
-  .add-link:focus {
+  .plus-trigger:hover,
+  .plus-trigger:focus {
     color: var(--ch);
     outline: none;
   }
 
-  .add-link:hover .plus,
-  .add-link:focus .plus {
-    transform: rotate(90deg);
+  .plus-trigger.is-open {
+    transform: rotate(45deg);
+    color: var(--ch);
   }
 
+  .plus-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.35rem;
+    padding-top: 0.35rem;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-6px);
+    transition: opacity 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+                visibility 0.28s ease;
+  }
+
+  .plus-menu.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .add-link,
+  .plus-sublink,
   .dr-link {
     display: inline-block;
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
     font-weight: 400;
-    font-size: 1.35rem;
+    font-size: 1.05rem;
     line-height: 1.4;
     letter-spacing: 0.02em;
     color: var(--cd);
@@ -174,22 +264,25 @@
     white-space: nowrap;
   }
 
-  .dr-link .cactus-word {
-    color: #b8860b;
-    -webkit-text-fill-color: #b8860b;
-  }
-
+  .add-link:hover,
+  .add-link:focus,
+  .plus-sublink:hover,
+  .plus-sublink:focus,
   .dr-link:hover,
   .dr-link:focus {
     color: var(--ch);
     outline: none;
   }
 
+  .add-link.is-fading,
+  .plus-sublink.is-fading,
   .dr-link.is-fading {
     opacity: 0;
     pointer-events: none;
   }
 
+  .add-link.is-leaving,
+  .plus-sublink.is-leaving,
   .dr-link.is-leaving {
     opacity: 0;
     pointer-events: none;
@@ -198,14 +291,23 @@
                 transform 1.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
+  .add-link .word,
+  .plus-sublink .word,
   .dr-link .word {
     display: inline-flex;
     align-items: baseline;
   }
 
+  .add-link .word > span,
+  .plus-sublink .word > span,
   .dr-link .word > span {
     display: inline-block;
     will-change: transform;
+  }
+
+  .dr-link .cactus-word {
+    color: #b8860b;
+    -webkit-text-fill-color: #b8860b;
   }
 
   /* ===================== LOGO ===================== */
@@ -292,8 +394,7 @@
     h1.wave-text { font-size: 2.75rem; }
     .subtitle { font-size: 1.1rem; }
     .search { max-width: none; width: 100%; }
-    .add-link { font-size: 1rem; }
-    .dr-link { font-size: 1.25rem; }
+    .add-link, .plus-sublink, .dr-link { font-size: 1.05rem; }
   }
 
   @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
@@ -303,14 +404,21 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .san-pedro-splash { display: none !important; }
+    .page-content { opacity: 1 !important; transform: none !important; animation: none !important; }
     .header, .categories, .brand-logo { animation: none !important; opacity: 1; transform: none; }
-    .category, .dr-link { transition: none; }
-    .category.is-leaving, .dr-link.is-leaving { transform: none; }
-    .add-link:hover .plus, .add-link:focus .plus { transform: none; }
+    .plus-menu, .plus-menu.is-open { transition: none; transform: none; }
+    .category, .add-link, .plus-sublink, .dr-link { transition: none; }
+    .category.is-leaving, .add-link.is-leaving, .plus-sublink.is-leaving, .dr-link.is-leaving { transform: none; }
+    .plus-trigger, .plus-trigger.is-open { transform: none; }
   }
 </style>
 </head>
 <body>
+
+<div class="san-pedro-splash" aria-hidden="true">
+  <span class="san-pedro-splash__label">San Pedro</span>
+</div>
 
 <div class="page-content">
 
@@ -329,15 +437,35 @@
       </form>
     </div>
 
-    <div class="header-actions">
-      <a href="ajouter.html" class="add-link">
-        <span class="plus">+</span>Ajouter
-      </a>
-      <a href="cactushunter.html" class="dr-link">
-        <span class="word" aria-label="Cactus-Hunters">
-          <span class="cactus-word">C</span><span class="cactus-word">a</span><span class="cactus-word">c</span><span class="cactus-word">t</span><span class="cactus-word">u</span><span class="cactus-word">s</span><span>-</span><span>H</span><span>u</span><span>n</span><span>t</span><span>e</span><span>r</span><span>s</span>
-        </span>
-      </a>
+    <div class="header-actions" id="headerActions">
+      <button type="button" class="plus-trigger" id="plusTrigger" aria-expanded="false" aria-controls="plusMenu" aria-label="Ouvrir le menu d'actions">+</button>
+      <div class="plus-menu" id="plusMenu" role="menu">
+        <a href="ajouter.html" class="add-link" role="menuitem">
+          <span class="word" aria-label="Ajouter plantes">
+            <span>A</span><span>j</span><span>o</span><span>u</span><span>t</span><span>e</span><span>r</span><span>&nbsp;</span><span>p</span><span>l</span><span>a</span><span>n</span><span>t</span><span>e</span><span>s</span>
+          </span>
+        </a>
+        <a href="cactushunter.html" class="dr-link" role="menuitem">
+          <span class="word" aria-label="Cactus-Hunters">
+            <span class="cactus-word">C</span><span class="cactus-word">a</span><span class="cactus-word">c</span><span class="cactus-word">t</span><span class="cactus-word">u</span><span class="cactus-word">s</span><span>-</span><span>H</span><span>u</span><span>n</span><span>t</span><span>e</span><span>r</span><span>s</span>
+          </span>
+        </a>
+        <a href="galerie.html" class="plus-sublink" role="menuitem">
+          <span class="word" aria-label="Galerie">
+            <span>G</span><span>a</span><span>l</span><span>e</span><span>r</span><span>i</span><span>e</span>
+          </span>
+        </a>
+        <a href="shopping.html" class="plus-sublink" role="menuitem">
+          <span class="word" aria-label="Shopping">
+            <span>S</span><span>h</span><span>o</span><span>p</span><span>p</span><span>i</span><span>n</span><span>g</span>
+          </span>
+        </a>
+        <a href="livre.html" class="plus-sublink" role="menuitem">
+          <span class="word" aria-label="Livre d'or">
+            <span>L</span><span>i</span><span>v</span><span>r</span><span>e</span><span>&nbsp;</span><span>d</span><span>'</span><span>o</span><span>r</span>
+          </span>
+        </a>
+      </div>
     </div>
   </header>
 
@@ -374,6 +502,37 @@
 </div>
 
 <script>
+// ==================== MENU + (AJOUTER PLANTES, CACTUS-HUNTERS, GALERIE, SHOPPING & LIVRE D'OR) ====================
+(function () {
+  var trigger = document.getElementById('plusTrigger');
+  var menu = document.getElementById('plusMenu');
+  var container = document.getElementById('headerActions');
+  if (!trigger || !menu || !container) return;
+
+  function setMenuOpen(isOpen) {
+    trigger.classList.toggle('is-open', isOpen);
+    menu.classList.toggle('is-open', isOpen);
+    trigger.setAttribute('aria-expanded', String(isOpen));
+  }
+
+  trigger.addEventListener('click', function (e) {
+    e.stopPropagation();
+    setMenuOpen(!menu.classList.contains('is-open'));
+  });
+
+  document.addEventListener('click', function (e) {
+    if (menu.classList.contains('is-open') && !container.contains(e.target)) {
+      setMenuOpen(false);
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && menu.classList.contains('is-open')) {
+      setMenuOpen(false);
+    }
+  });
+})();
+
 // ==================== ANIMATION VAGUE (h1 — charte modèle) ====================
 function initWave(el) {
   const spans = el.querySelectorAll('.wave-letter');
@@ -406,12 +565,12 @@ function initWave(el) {
 }
 document.querySelectorAll('.wave-text').forEach(el => initWave(el.closest('button, a') || el));
 
-// ==================== CATEGORIES & DR-LINK : wave + navigation ====================
+// ==================== CATEGORIES, PLUS-SUBLINK & DR-LINK : wave + navigation ====================
 (function () {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   var PERIOD = 1600, STAGGER = 110, EASING = 0.12, EPSILON = 0.05;
-  var animItems = document.querySelectorAll('.category, .dr-link');
+  var animItems = document.querySelectorAll('.category, .add-link, .plus-sublink, .dr-link');
 
   animItems.forEach(function (item) {
     var spans = item.querySelectorAll('.word > span');

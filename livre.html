@@ -9,7 +9,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
-  /* ===================== RESET & DESIGN TOKENS ===================== */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; }
 
@@ -20,12 +19,11 @@
     --bg: #ffffff;
     --f: rgba(45, 74, 43, 0.4);
     --bronze: #b8860b;
-    --rule: rgba(45, 74, 43, 0.14);
-    --soft: rgba(45, 74, 43, 0.035);
+    --hairline: rgba(45, 74, 43, 0.16);
   }
 
-  * { -webkit-tap-highlight-color: transparent; }
-  *:focus, *:focus-visible { outline: none; }
+  *{-webkit-tap-highlight-color:transparent}
+  *:focus,*:focus-visible{outline:none}
 
   body {
     font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -38,52 +36,9 @@
     overflow-x: hidden;
   }
 
-  /* ===================== INITIAL "SAN PEDRO" SPLASH ===================== */
-  .san-pedro-splash {
-    position: fixed;
-    inset: 0;
-    z-index: 120;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--bg);
-    pointer-events: none;
-    animation: san-pedro-overlay-out 1.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  }
-
-  .san-pedro-splash__label {
-    font-family: "Instrument Serif", Georgia, serif;
-    font-style: italic;
-    font-weight: 400;
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    color: var(--cd);
-    letter-spacing: 0.04em;
-    opacity: 0;
-    animation: san-pedro-text-in-out 1.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  }
-
-  @keyframes san-pedro-text-in-out {
-    0% { opacity: 0; transform: translateY(10px); }
-    35% { opacity: 1; transform: translateY(0); }
-    70% { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(-8px); }
-  }
-
-  @keyframes san-pedro-overlay-out {
-    0%, 72% { opacity: 1; visibility: visible; }
-    100% { opacity: 0; visibility: hidden; }
-  }
-
   .page-content {
     max-width: 800px;
     margin: 0 auto;
-    opacity: 0;
-    animation: page-settle-in 1.1s cubic-bezier(0.4, 0, 0.2, 1) 1.05s forwards;
-  }
-
-  @keyframes page-settle-in {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
   }
 
   /* ===================== HEADER ===================== */
@@ -102,7 +57,13 @@
     flex-direction: column;
   }
 
-  a.brand-link.wave-text {
+  .brand-title-link {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+  }
+
+  h1.wave-text {
     display: inline-flex;
     align-items: baseline;
     flex-wrap: wrap;
@@ -111,27 +72,20 @@
     font-weight: 400;
     font-size: clamp(2.75rem, 5.5vw, 4rem);
     line-height: 0.9;
-    letter-spacing: 0.01em;
+    letter-spacing: .01em;
     color: var(--cd);
-    text-decoration: none;
     margin-bottom: 0.2rem;
-    transition: color 0.35s ease;
   }
 
-  a.brand-link.wave-text:hover,
-  a.brand-link.wave-text:focus {
-    color: var(--ch);
-  }
-
-  .wave-letter {
+  h1.wave-text .wave-letter {
     display: inline-block;
     font-style: normal;
     will-change: transform;
   }
 
-  .brand-l {
-    color: var(--bronze) !important;
-    -webkit-text-fill-color: var(--bronze) !important;
+  h1.wave-text .l-bronze {
+    color: #b8860b;
+    -webkit-text-fill-color: #b8860b;
   }
 
   .subtitle {
@@ -178,72 +132,78 @@
 
   .search input::placeholder { color: var(--f); font-style: italic; }
 
-  /* ----- Menu + en position absolue (sans décalage de mise en page) ----- */
+  /* ----- Actions en haut à droite + Menu + absolu ----- */
   .header-actions {
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    gap: 0.5rem;
     padding-top: 0.4rem;
-    z-index: 30;
   }
 
-  .plus-trigger {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  .plus-btn {
     background: none;
     border: none;
+    font-family: "Instrument Serif", Georgia, serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--cd);
     cursor: pointer;
+    letter-spacing: 0.02em;
+    display: inline-flex;
+    align-items: center;
+    padding: 0;
+    transition: color 0.35s ease;
+    white-space: nowrap;
+  }
+
+  .plus-btn .plus {
     font-family: "Instrument Serif", Georgia, serif;
     font-style: normal;
-    font-size: 1.75rem;
-    line-height: 1;
-    color: var(--cd);
-    padding: 0.15rem 0.35rem;
-    transition: color 0.35s ease, transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1.3rem;
+    margin-right: 0.3rem;
+    vertical-align: -0.05em;
+    display: inline-block;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .plus-trigger:hover,
-  .plus-trigger:focus {
+  .plus-btn:hover,
+  .plus-btn:focus {
     color: var(--ch);
   }
 
-  .plus-trigger.is-open {
+  .plus-btn[aria-expanded="true"] .plus {
     transform: rotate(45deg);
-    color: var(--ch);
   }
 
   .plus-menu {
     position: absolute;
     top: 100%;
     right: 0;
+    margin-top: 0.5rem;
+    background: var(--bg);
+    border: 1px solid var(--hairline);
+    padding: 0.65rem 0.9rem;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     gap: 0.35rem;
-    padding: 0.55rem 0.85rem;
-    background: rgba(255, 255, 255, 0.97);
-    border: 1px solid var(--rule);
-    border-radius: 12px;
-    box-shadow: 0 12px 28px rgba(45, 74, 43, 0.07);
+    min-width: 165px;
+    z-index: 40;
     opacity: 0;
-    visibility: hidden;
     pointer-events: none;
     transform: translateY(-6px);
-    transition: opacity 0.26s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.26s cubic-bezier(0.4, 0, 0.2, 1),
-                visibility 0.26s ease;
+    transition: opacity 0.25s ease, transform 0.25s ease;
   }
 
   .plus-menu.is-open {
     opacity: 1;
-    visibility: visible;
     pointer-events: auto;
     transform: translateY(0);
   }
 
-  .plus-menu a {
+  .menu-item-link {
     display: inline-block;
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
@@ -253,379 +213,252 @@
     letter-spacing: 0.02em;
     color: var(--cd);
     text-decoration: none;
-    transition: color 0.3s ease;
     white-space: nowrap;
+    transition: color 0.35s ease, opacity 0.8s ease, transform 0.8s ease;
   }
 
-  .plus-menu a:hover,
-  .plus-menu a:focus {
+  .menu-item-link:hover,
+  .menu-item-link:focus {
     color: var(--ch);
   }
 
-  .plus-menu .cactus-word {
-    color: var(--bronze);
-    -webkit-text-fill-color: var(--bronze);
+  .menu-item-link .word {
+    display: inline-flex;
+    align-items: baseline;
   }
 
-  /* ===================== LOGO UNIQUE ===================== */
+  .menu-item-link .word > span {
+    display: inline-block;
+    will-change: transform;
+  }
+
+  .menu-item-link.is-fading {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .menu-item-link.is-leaving {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-14px);
+  }
+
+  /* ===================== LOGO ===================== */
   .brand-logo {
     display: block;
     margin: 1rem auto 2.5rem;
     width: auto;
     height: auto;
     max-width: 100%;
-    max-height: 460px;
+    max-height: 600px;
     object-fit: contain;
     animation: fade-up 1s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
   }
 
-  /* ===================== GUESTBOOK EDITORIAL LAYOUT ===================== */
-  .book-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 1.5rem;
-    padding-bottom: 1.25rem;
-    border-bottom: 1px solid var(--rule);
-    flex-wrap: wrap;
+  /* ===================== LIVRE D'OR ===================== */
+  .guestbook-section {
     animation: fade-up 1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
   }
 
-  .book-heading-group {
+  .guestbook-head {
     display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid var(--hairline);
+    margin-bottom: 1.75rem;
   }
 
-  .book-title {
+  .guestbook-title {
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
     font-weight: 400;
-    font-size: clamp(2.1rem, 4.5vw, 3rem);
+    font-size: clamp(2rem, 4.5vw, 2.75rem);
     line-height: 1.1;
     color: var(--cd);
   }
 
-  .book-subtitle {
-    font-family: "Instrument Serif", Georgia, serif;
-    font-style: italic;
-    font-size: 1.1rem;
-    color: var(--f);
-  }
-
   .lock-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    background: transparent;
-    color: var(--cd);
-    border: 1px solid var(--rule);
-    border-radius: 999px;
-    padding: 0.45rem 1.05rem;
-    cursor: pointer;
-    font-family: "Instrument Serif", Georgia, serif;
-    font-style: italic;
-    font-size: 1.1rem;
-    line-height: 1.2;
-    transition: background-color 0.25s ease,
-                border-color 0.25s ease,
-                color 0.25s ease;
-  }
-
-  .lock-btn:hover,
-  .lock-btn:focus {
-    background: var(--soft);
-    border-color: rgba(45, 74, 43, 0.28);
-    color: var(--ch);
-  }
-
-  .lock-btn.is-unlocked {
-    border-color: rgba(184, 134, 11, 0.45);
-    color: var(--bronze);
-    background: rgba(184, 134, 11, 0.06);
-  }
-
-  .status-line {
-    margin-top: 0.85rem;
-    min-height: 1.2rem;
-    font-size: 0.84rem;
-    color: var(--ch);
-  }
-
-  /* ----- Formulaire sobre de registre ----- */
-  .composer {
-    margin-top: 1.15rem;
-    padding: 1.45rem 0 1.75rem;
-    border-bottom: 1px solid var(--rule);
-    animation: fade-up 1s cubic-bezier(0.4, 0, 0.2, 1) 0.35s both;
-  }
-
-  .composer-row {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.25rem;
-  }
-
-  .field {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-  }
-
-  .field--wide {
-    grid-column: 1 / -1;
-    margin-top: 1rem;
-  }
-
-  .field label {
-    font-family: "Instrument Serif", Georgia, serif;
-    font-style: italic;
-    font-size: 1.08rem;
-    color: var(--cd);
-  }
-
-  .field input,
-  .field select,
-  .field textarea {
-    width: 100%;
+    background: none;
     border: none;
-    border-bottom: 1px solid var(--rule);
-    border-radius: 0;
-    background: transparent;
-    padding: 0.45rem 0;
-    font-family: "Inter", sans-serif;
-    font-size: 0.92rem;
-    color: var(--cd);
-    transition: border-color 0.25s ease;
-  }
-
-  .field select {
-    font-family: "Instrument Serif", Georgia, serif;
-    font-style: italic;
-    font-size: 1.08rem;
-    cursor: pointer;
-  }
-
-  .field textarea {
-    min-height: 76px;
-    resize: vertical;
-    line-height: 1.55;
-  }
-
-  .field input:focus,
-  .field select:focus,
-  .field textarea:focus {
-    border-bottom-color: var(--cd);
-  }
-
-  .field input::placeholder,
-  .field textarea::placeholder {
-    color: var(--f);
-    font-style: italic;
-  }
-
-  .composer-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 1.2rem;
-    flex-wrap: wrap;
-  }
-
-  .form-error {
-    min-height: 1.1rem;
-    font-size: 0.84rem;
-    color: #8b2615;
-  }
-
-  .submit-btn {
-    background: transparent;
-    border: 1px solid var(--cd);
-    border-radius: 999px;
-    padding: 0.48rem 1.35rem;
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
     font-size: 1.15rem;
     color: var(--cd);
     cursor: pointer;
-    transition: background-color 0.25s ease, color 0.25s ease;
+    padding: 0;
+    transition: color 0.3s ease;
   }
 
-  .submit-btn:hover,
-  .submit-btn:focus {
-    background: var(--cd);
-    color: var(--bg);
+  .lock-btn:hover,
+  .lock-btn:focus {
+    color: var(--ch);
   }
 
-  /* ----- Filtres d'estampille discrets ----- */
-  .stamps-bar {
+  .lock-btn.is-unlocked {
+    color: var(--bronze);
+  }
+
+  .guestbook-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--hairline);
+    margin-bottom: 2rem;
+  }
+
+  .form-row {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .field-input,
+  .field-select,
+  .field-textarea {
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--hairline);
+    font-family: "Instrument Serif", Georgia, serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--cd);
+    padding: 0.35rem 0;
+    transition: border-color 0.3s ease;
+  }
+
+  .field-input {
+    flex: 1;
+    min-width: 180px;
+  }
+
+  .field-select {
+    min-width: 185px;
+    cursor: pointer;
+  }
+
+  .field-textarea {
+    width: 100%;
+    min-height: 78px;
+    resize: vertical;
+    line-height: 1.45;
+  }
+
+  .field-input:focus,
+  .field-select:focus,
+  .field-textarea:focus {
+    border-bottom-color: var(--cd);
+  }
+
+  .field-input::placeholder,
+  .field-textarea::placeholder {
+    color: var(--f);
+  }
+
+  .form-actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
-    padding: 1.25rem 0 0.75rem;
     flex-wrap: wrap;
   }
 
-  .stamps-list {
-    display: flex;
-    align-items: baseline;
-    gap: 1.25rem;
-    flex-wrap: wrap;
+  .form-hint {
+    font-size: 0.78rem;
+    color: var(--f);
   }
 
-  .stamp-filter {
+  .submit-note-btn {
     background: none;
-    border: none;
-    cursor: pointer;
+    border: 1px solid var(--cd);
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
-    font-size: 1.2rem;
-    color: var(--f);
-    padding: 0.1rem 0;
-    transition: color 0.25s ease;
-  }
-
-  .stamp-filter:hover,
-  .stamp-filter:focus,
-  .stamp-filter.is-active {
+    font-size: 1.15rem;
     color: var(--cd);
+    padding: 0.3rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.25s ease, color 0.25s ease;
   }
 
-  .stamp-filter.is-active {
-    text-decoration: underline;
-    text-decoration-color: var(--bronze);
-    text-underline-offset: 4px;
+  .submit-note-btn:hover,
+  .submit-note-btn:focus {
+    background: var(--cd);
+    color: var(--bg);
   }
 
-  .entries-count {
-    font-size: 0.82rem;
-    color: var(--f);
+  .entries-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.65rem;
   }
 
-  /* ----- Entrées typographiques du livre d'or ----- */
-  .entries {
-    margin-top: 0.25rem;
-  }
-
-  .entry {
-    padding: 1.5rem 0;
-    border-bottom: 1px solid var(--rule);
-    opacity: 0;
-    transform: translateY(10px);
-    animation: entry-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    animation-delay: var(--entry-delay, 0ms);
-    transition: opacity 0.25s ease;
-  }
-
-  @keyframes entry-in {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .entry:last-child {
-    border-bottom: none;
-  }
-
-  .entry-head {
+  .entry-item {
+    padding-bottom: 1.4rem;
+    border-bottom: 1px solid var(--hairline);
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: flex-start;
     gap: 1rem;
-    flex-wrap: wrap;
   }
 
-  .entry-identity {
-    display: flex;
-    align-items: baseline;
-    gap: 0.75rem;
-    flex-wrap: wrap;
+  .entry-meta {
+    font-size: 0.78rem;
+    color: var(--f);
+    letter-spacing: 0.03em;
+    margin-bottom: 0.3rem;
+  }
+
+  .entry-mention {
+    color: var(--bronze);
+    font-style: italic;
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: 0.95rem;
   }
 
   .entry-author {
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
+    font-size: 1.45rem;
+    color: var(--cd);
     font-weight: 400;
-    font-size: 1.6rem;
-    line-height: 1.15;
-    color: var(--cd);
+    margin-bottom: 0.25rem;
   }
 
-  .entry-stamp {
+  .entry-message {
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
-    font-size: 1rem;
-    color: var(--bronze);
-  }
-
-  .entry-meta {
-    display: flex;
-    align-items: center;
-    gap: 0.85rem;
-  }
-
-  .entry-date {
-    font-size: 0.8rem;
-    color: var(--f);
-  }
-
-  .entry-quote {
-    margin-top: 0.65rem;
-    font-family: "Instrument Serif", Georgia, serif;
-    font-style: italic;
-    font-size: clamp(1.25rem, 2.4vw, 1.52rem);
-    line-height: 1.42;
+    font-size: 1.15rem;
+    line-height: 1.45;
     color: var(--cd);
-  }
-
-  .entry-foot {
-    margin-top: 0.6rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .entry-symptom {
-    font-size: 0.82rem;
-    color: var(--ch);
+    max-width: 580px;
   }
 
   .delete-entry-btn {
     display: none;
     background: none;
-    border: 1px solid rgba(139, 38, 21, 0.3);
-    border-radius: 999px;
-    padding: 0.25rem 0.8rem;
-    cursor: pointer;
+    border: none;
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
     font-size: 1rem;
-    color: #8b2615;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
+    color: var(--bronze);
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
   }
 
-  .entries.is-unlocked .delete-entry-btn {
+  body.is-unlocked .delete-entry-btn {
     display: inline-block;
   }
 
-  .delete-entry-btn:hover,
-  .delete-entry-btn:focus {
-    background: rgba(139, 38, 21, 0.06);
-    border-color: rgba(139, 38, 21, 0.55);
-  }
-
-  .empty-state {
-    padding: 2.25rem 0;
-    text-align: center;
+  .empty-entries {
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
-    font-size: 1.35rem;
+    font-size: 1.2rem;
     color: var(--f);
+    padding: 0.75rem 0;
   }
 
   /* ===================== RESPONSIVE ===================== */
@@ -640,18 +473,15 @@
       margin-right: calc(50% - 75vw);
       object-fit: contain;
     }
-
-    .composer-row {
-      grid-template-columns: 1fr;
-    }
   }
 
   @media (max-width: 640px) {
     body { padding: 2rem 1.5rem; }
     .header { margin-bottom: 1.5rem; gap: 1.5rem; }
-    a.brand-link.wave-text { font-size: 2.75rem; }
+    h1.wave-text { font-size: 2.75rem; }
     .subtitle { font-size: 1.1rem; }
     .search { max-width: none; width: 100%; }
+    .plus-btn { font-size: 1rem; }
   }
 
   @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
@@ -661,475 +491,374 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .san-pedro-splash { display: none !important; }
-    .page-content { opacity: 1 !important; transform: none !important; animation: none !important; }
-    .header, .book-top, .composer, .brand-logo { animation: none !important; opacity: 1; transform: none; }
-    .entry { opacity: 1 !important; transform: none !important; animation: none !important; }
-    .plus-trigger, .plus-trigger.is-open { transform: none; }
+    .header, .guestbook-section, .brand-logo { animation: none !important; opacity: 1; transform: none; }
+    .plus-menu, .menu-item-link { transition: none; }
+    .plus-btn[aria-expanded="true"] .plus { transform: none; }
   }
 </style>
 </head>
 <body>
 
-<!-- Splash initial San Pedro -->
-<div class="san-pedro-splash" aria-hidden="true">
-  <span class="san-pedro-splash__label">San Pedro</span>
-</div>
-
 <div class="page-content">
 
-  <!-- En-tête éditorial Plantouille -->
   <header class="header">
     <div class="brand">
-      <a href="page2.html" class="brand-link wave-text" aria-label="Plantouille — Retour vers page2.html"><span class="wave-letter">P</span><span class="wave-letter brand-l">l</span><span class="wave-letter">a</span><span class="wave-letter">n</span><span class="wave-letter">t</span><span class="wave-letter">o</span><span class="wave-letter">u</span><span class="wave-letter">i</span><span class="wave-letter">l</span><span class="wave-letter">l</span><span class="wave-letter">e</span></a>
+      <a href="page2.html" class="brand-title-link" aria-label="Retour à Plantouille (page2.html)">
+        <h1 class="wave-text"><span class="wave-letter">P</span><span class="wave-letter">l</span><span class="wave-letter">a</span><span class="wave-letter">n</span><span class="wave-letter">t</span><span class="wave-letter">o</span><span class="wave-letter">u</span><span class="wave-letter l-bronze">l</span><span class="wave-letter">l</span><span class="wave-letter">e</span></h1>
+      </a>
       <p class="subtitle">Cabinet du <span class="dr">Dr</span>-Cactus</p>
 
-      <form class="search" role="search" id="searchForm">
+      <form class="search" role="search" onsubmit="event.preventDefault();">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none"
              stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
           <circle cx="7" cy="7" r="5"/>
           <line x1="11" y1="11" x2="14" y2="14"/>
         </svg>
-        <input type="search" id="searchInput" placeholder="chercher…" aria-label="Rechercher dans le livre d'or">
+        <input id="guestbookSearch" type="search" placeholder="chercher…" aria-label="Rechercher dans le livre d'or">
       </form>
     </div>
 
-    <div class="header-actions" id="headerActions">
-      <button type="button" class="plus-trigger" id="plusTrigger" aria-expanded="false" aria-controls="plusMenu" aria-label="Ouvrir le menu d'actions">+</button>
-      <div class="plus-menu" id="plusMenu" role="menu">
-        <a href="ajouter.html" role="menuitem">Ajouter plantes</a>
-        <a href="cactushunter.html" role="menuitem"><span class="cactus-word">Cactus</span>-Hunters</a>
-        <a href="galerie.html" role="menuitem">Galerie</a>
-        <a href="shopping.html" role="menuitem">Shopping</a>
-        <a href="livre.html" role="menuitem">Livre d'or</a>
-      </div>
+    <div class="header-actions">
+      <button type="button" class="plus-btn" id="plusToggle" aria-expanded="false" aria-controls="plusMenu">
+        <span class="plus">+</span>Plus
+      </button>
+
+      <nav class="plus-menu" id="plusMenu" aria-label="Menu supplémentaire">
+        <a href="ajouter.html" class="menu-item-link">
+          <span class="word" aria-label="Ajouter plantes">
+            <span>A</span><span>j</span><span>o</span><span>u</span><span>t</span><span>e</span><span>r</span><span> </span><span>p</span><span>l</span><span>a</span><span>n</span><span>t</span><span>e</span><span>s</span>
+          </span>
+        </a>
+        <a href="cactushunter.html" class="menu-item-link">
+          <span class="word" aria-label="Cactus-Hunters">
+            <span>C</span><span>a</span><span>c</span><span>t</span><span>u</span><span>s</span><span>-</span><span>H</span><span>u</span><span>n</span><span>t</span><span>e</span><span>r</span><span>s</span>
+          </span>
+        </a>
+        <a href="galerie.html" class="menu-item-link">
+          <span class="word" aria-label="Galerie">
+            <span>G</span><span>a</span><span>l</span><span>e</span><span>r</span><span>i</span><span>e</span>
+          </span>
+        </a>
+        <a href="shopping.html" class="menu-item-link">
+          <span class="word" aria-label="Shopping">
+            <span>S</span><span>h</span><span>o</span><span>p</span><span>p</span><span>i</span><span>n</span><span>g</span>
+          </span>
+        </a>
+        <a href="livre.html" class="menu-item-link">
+          <span class="word" aria-label="Livre d'or">
+            <span>L</span><span>i</span><span>v</span><span>r</span><span>e</span><span> </span><span>d</span><span>'</span><span>o</span><span>r</span>
+          </span>
+        </a>
+      </nav>
     </div>
   </header>
 
-  <!-- Logo unique -->
   <img src="logo.png" alt="Logo Dr-Cactus" class="brand-logo">
 
-  <!-- Livre d'or -->
-  <main>
-    <div class="book-top">
-      <div class="book-heading-group">
-        <h2 class="book-title">Livre d’or</h2>
-        <p class="book-subtitle">Registre des passages, excuses d’arrosage et diagnostics sérieux.</p>
-      </div>
-
-      <button type="button" class="lock-btn" id="lockBtn" aria-pressed="false" aria-label="Verrouiller ou déverrouiller la suppression des entrées">
-        <svg id="lockIcon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-        </svg>
-        <span id="lockLabel">Verrou</span>
-      </button>
+  <main class="guestbook-section" aria-label="Livre d'or">
+    <div class="guestbook-head">
+      <h2 class="guestbook-title">Livre d’or</h2>
+      <button type="button" class="lock-btn" id="lockBtn" aria-pressed="false">Verrou</button>
     </div>
 
-    <div class="status-line" id="statusLine" role="status" aria-live="polite"></div>
-
-    <section class="composer" aria-label="Signer le livre d'or">
-      <form id="guestbookForm">
-        <div class="composer-row">
-          <div class="field">
-            <label for="authorInput">Nom ou signature</label>
-            <input type="text" id="authorInput" placeholder="Ex. Hélène des Cailloux" required>
-          </div>
-
-          <div class="field">
-            <label for="symptomInput">Observation ou motif</label>
-            <input type="text" id="symptomInput" placeholder="Ex. bouture qui boude">
-          </div>
-
-          <div class="field">
-            <label for="stampSelect">Mention du registre</label>
-            <select id="stampSelect">
-              <option value="Ordonnance">Ordonnance</option>
-              <option value="Constat">Constat</option>
-              <option value="Remerciement">Remerciement</option>
-              <option value="Hypothèse">Hypothèse</option>
-            </select>
-          </div>
-
-          <div class="field field--wide">
-            <label for="messageInput">Message</label>
-            <textarea id="messageInput" placeholder="Une remarque botanique, une confession d’arrosage par compassion ou un salut aux épines…" required></textarea>
-          </div>
-        </div>
-
-        <div class="composer-actions">
-          <span class="form-error" id="formError" role="alert"></span>
-          <button type="submit" class="submit-btn">Déposer la note</button>
-        </div>
-      </form>
-    </section>
-
-    <div class="stamps-bar">
-      <div class="stamps-list" role="group" aria-label="Filtrer par mention">
-        <button type="button" class="stamp-filter is-active" data-stamp="Tout" aria-pressed="true">Tout</button>
-        <button type="button" class="stamp-filter" data-stamp="Ordonnance" aria-pressed="false">Ordonnance</button>
-        <button type="button" class="stamp-filter" data-stamp="Constat" aria-pressed="false">Constat</button>
-        <button type="button" class="stamp-filter" data-stamp="Remerciement" aria-pressed="false">Remerciement</button>
-        <button type="button" class="stamp-filter" data-stamp="Hypothèse" aria-pressed="false">Hypothèse</button>
+    <form class="guestbook-form" id="guestbookForm">
+      <div class="form-row">
+        <input type="text" class="field-input" id="authorInput" placeholder="Signature ou pseudonyme" aria-label="Signature ou pseudonyme" required>
+        <select class="field-select" id="mentionSelect" aria-label="Mention du registre">
+          <option value="Constat">Constat</option>
+          <option value="Ordonnance">Ordonnance</option>
+          <option value="Hypothèse">Hypothèse</option>
+          <option value="Remerciement">Remerciement</option>
+        </select>
       </div>
-      <span class="entries-count" id="entriesCount"></span>
-    </div>
 
-    <section class="entries" id="entriesContainer" aria-label="Entrées du livre d'or"></section>
+      <textarea class="field-textarea" id="messageInput" placeholder="Consigner une observation, un aveu d’arrosage excessif ou une politesse brève…" aria-label="Message du livre d'or" required></textarea>
+
+      <div class="form-actions">
+        <span class="form-hint" id="formStatus">Registre local — aucune modération automatique.</span>
+        <button type="submit" class="submit-note-btn">Signer le registre</button>
+      </div>
+    </form>
+
+    <div class="entries-list" id="entriesList"></div>
   </main>
 
 </div>
 
 <script>
-// ==================== ANIMATION VAGUE SUR PLANTOUILLE ====================
-(function () {
-  var brandLink = document.querySelector('.brand-link.wave-text');
-  if (!brandLink) return;
-  var spans = brandLink.querySelectorAll('.wave-letter');
+// ==================== ANIMATION VAGUE TITRE (h1) ====================
+function initWave(el) {
+  const spans = el.querySelectorAll('.wave-letter');
   if (!spans.length) return;
-
-  var fontSize = parseFloat(getComputedStyle(brandLink).fontSize) || 48;
-  var AMPLITUDE = fontSize * 0.20;
-  var PERIOD = 2500;
-  var STAGGER = 150;
-  var amplitude = 0, targetAmplitude = 0, phaseStart = null, rafId = null;
+  const fontSize = parseFloat(getComputedStyle(el).fontSize) || 18;
+  const AMPLITUDE = fontSize * 0.20;
+  const PERIOD = 2500;
+  const STAGGER = 150;
+  let amplitude = 0, targetAmplitude = 0, phaseStart = null, rafId = null;
 
   function tick(now) {
     if (phaseStart === null) phaseStart = now;
     amplitude += (targetAmplitude - amplitude) * 0.08;
     if (Math.abs(targetAmplitude - amplitude) < 0.05) amplitude = targetAmplitude;
-    var elapsed = now - phaseStart;
-    spans.forEach(function (span, i) {
-      var phase = ((elapsed - i * STAGGER) / PERIOD) * Math.PI * 2;
-      span.style.transform = 'translateY(' + (-Math.sin(phase) * amplitude).toFixed(2) + 'px)';
+    const elapsed = now - phaseStart;
+    spans.forEach((span, i) => {
+      const phase = ((elapsed - i * STAGGER) / PERIOD) * Math.PI * 2;
+      span.style.transform = `translateY(${(-Math.sin(phase) * amplitude).toFixed(2)}px)`;
     });
     if (amplitude === 0 && targetAmplitude === 0) {
-      spans.forEach(function (s) { s.style.transform = ''; });
-      phaseStart = null;
-      rafId = null;
-      return;
+      spans.forEach(s => s.style.transform = '');
+      phaseStart = null; rafId = null; return;
     }
     rafId = requestAnimationFrame(tick);
   }
+  el.addEventListener('mouseenter', () => { targetAmplitude = AMPLITUDE; if (!rafId) rafId = requestAnimationFrame(tick); });
+  el.addEventListener('mouseleave', () => { targetAmplitude = 0; if (!rafId) rafId = requestAnimationFrame(tick); });
+  el.addEventListener('touchstart', () => { targetAmplitude = AMPLITUDE; if (!rafId) rafId = requestAnimationFrame(tick); }, { passive: true });
+  el.addEventListener('touchend', () => { targetAmplitude = 0; if (!rafId) rafId = requestAnimationFrame(tick); }, { passive: true });
+}
+document.querySelectorAll('.wave-text').forEach(el => initWave(el.closest('button, a') || el));
 
-  function startWave() {
-    targetAmplitude = AMPLITUDE;
-    if (!rafId) rafId = requestAnimationFrame(tick);
-  }
-
-  function stopWave() {
-    targetAmplitude = 0;
-    if (!rafId) rafId = requestAnimationFrame(tick);
-  }
-
-  brandLink.addEventListener('mouseenter', startWave);
-  brandLink.addEventListener('mouseleave', stopWave);
-  brandLink.addEventListener('focus', startWave);
-  brandLink.addEventListener('blur', stopWave);
-  brandLink.addEventListener('touchstart', startWave, { passive: true });
-  brandLink.addEventListener('touchend', stopWave, { passive: true });
-})();
-
-// ==================== MENU + FIXE EN POSITION ABSOLUE ====================
+// ==================== MENU + ET LIENS ====================
 (function () {
-  var trigger = document.getElementById('plusTrigger');
-  var menu = document.getElementById('plusMenu');
-  var container = document.getElementById('headerActions');
-  if (!trigger || !menu || !container) return;
+  var plusToggle = document.getElementById('plusToggle');
+  var plusMenu = document.getElementById('plusMenu');
 
-  function setOpen(open) {
-    trigger.classList.toggle('is-open', open);
-    menu.classList.toggle('is-open', open);
-    trigger.setAttribute('aria-expanded', String(open));
+  function setMenuOpen(open) {
+    plusToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    plusMenu.classList.toggle('is-open', open);
   }
 
-  trigger.addEventListener('click', function (e) {
+  plusToggle.addEventListener('click', function (e) {
     e.stopPropagation();
-    setOpen(!menu.classList.contains('is-open'));
+    var isOpen = plusToggle.getAttribute('aria-expanded') === 'true';
+    setMenuOpen(!isOpen);
   });
 
   document.addEventListener('click', function (e) {
-    if (menu.classList.contains('is-open') && !container.contains(e.target)) {
-      setOpen(false);
+    if (!plusMenu.contains(e.target) && !plusToggle.contains(e.target)) {
+      setMenuOpen(false);
     }
   });
 
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && menu.classList.contains('is-open')) {
-      setOpen(false);
+    if (e.key === 'Escape') setMenuOpen(false);
+  });
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var PERIOD = 1600, STAGGER = 110, EASING = 0.12, EPSILON = 0.05;
+  var animItems = document.querySelectorAll('.menu-item-link');
+
+  animItems.forEach(function (item) {
+    var spans = item.querySelectorAll('.word > span');
+    var fontSize = parseFloat(getComputedStyle(item).fontSize) || 17;
+    var maxAmplitude = fontSize * 0.18;
+    var amplitude = 0, targetAmplitude = 0, phaseStart = null, rafId = null;
+
+    function tick(now) {
+      if (phaseStart === null) phaseStart = now;
+      amplitude += (targetAmplitude - amplitude) * EASING;
+      if (Math.abs(targetAmplitude - amplitude) < EPSILON) amplitude = targetAmplitude;
+
+      var elapsed = now - phaseStart;
+      for (var i = 0; i < spans.length; i++) {
+        var phase = ((elapsed - i * STAGGER) / PERIOD) * Math.PI * 2;
+        spans[i].style.transform = 'translateY(' + (-Math.sin(phase) * amplitude).toFixed(2) + 'px)';
+      }
+      if (amplitude === 0 && targetAmplitude === 0) {
+        for (var j = 0; j < spans.length; j++) spans[j].style.transform = '';
+        phaseStart = null;
+        rafId = null;
+        return;
+      }
+      rafId = requestAnimationFrame(tick);
     }
+
+    function ensureRunning() { if (rafId === null) rafId = requestAnimationFrame(tick); }
+    function start() { targetAmplitude = maxAmplitude; ensureRunning(); }
+    function stop() { targetAmplitude = 0; ensureRunning(); }
+
+    item.addEventListener('mouseenter', start);
+    item.addEventListener('mouseleave', stop);
+    item.addEventListener('focus', start);
+    item.addEventListener('blur', stop);
+    item.addEventListener('touchstart', start, { passive: true });
+    item.addEventListener('touchend', stop, { passive: true });
+  });
+
+  var navigating = false;
+  animItems.forEach(function (item) {
+    item.addEventListener('click', function (e) {
+      if (navigating) { e.preventDefault(); return; }
+      var href = item.getAttribute('href');
+      if (!href || href === '#') return;
+      navigating = true;
+      e.preventDefault();
+
+      animItems.forEach(function (other) {
+        if (other !== item) other.classList.add('is-fading');
+      });
+
+      setTimeout(function () {
+        item.classList.add('is-leaving');
+      }, 450);
+
+      setTimeout(function () {
+        window.location.href = href;
+      }, 1150);
+    });
   });
 })();
 
-// ==================== LIVRE D'OR : STOCKAGE, FILTRES & VERROU ====================
+// ==================== LIVRE D'OR (LOCALSTORAGE + VERROU) ====================
 (function () {
-  var STORAGE_KEY = 'plantouille_livre_dor_cabinet_v1';
+  var STORAGE_KEY = 'plantouille_livre_dor_v1';
 
-  var SEED_NOTES = [
+  var defaultEntries = [
     {
-      id: 'note-1',
-      author: 'Camille Pouzzolane',
-      symptom: 'arrosage par compassion',
-      stamp: 'Ordonnance',
-      message: 'J’ai arrosé un cactus « juste pour qu’il ne se sente pas seul ». Le Dr-Cactus m’a prescrit de cacher l’arrosoir derrière les spores.',
-      date: '12 novembre 2026'
+      id: 'ld-1',
+      author: 'Camille D.',
+      mention: 'Constat',
+      date: '14 octobre 2026',
+      message: 'J’ai promis à mon cactus de ne plus l’arroser par culpabilité. Il semble soulagé.'
     },
     {
-      id: 'note-2',
-      author: 'Bastien l’Épineux',
-      symptom: 'bouture qui boude',
-      stamp: 'Constat',
-      message: 'Trois semaines sans racine visible : la bouture fait semblant d’être une sculpture contemporaine pour garder l’attention.',
-      date: '19 novembre 2026'
+      id: 'ld-2',
+      author: 'Henri B.',
+      mention: 'Hypothèse',
+      date: '29 octobre 2026',
+      message: 'Les plantes poussent mieux lorsqu’on cesse de leur demander chaque matin si elles sont heureuses.'
     },
     {
-      id: 'note-3',
-      author: 'Solène du Rebordsud',
-      symptom: 'épine rebelle',
-      stamp: 'Hypothèse',
-      message: 'Je soupçonne mon San Pedro de choisir l’angle exact de la fenêtre pour me rappeler que je n’ai pas encore rangé le bureau.',
-      date: '24 novembre 2026'
-    },
-    {
-      id: 'note-4',
-      author: 'Arthur Graine-Fine',
-      symptom: 'patience de serre',
-      stamp: 'Remerciement',
-      message: 'Merci pour l’accueil calme : ici, personne ne s’étonne si l’on regarde pousser quelque chose pendant quarante minutes.',
-      date: '26 novembre 2026'
+      id: 'ld-3',
+      author: 'Sonia M.',
+      mention: 'Ordonnance',
+      date: '12 novembre 2026',
+      message: 'Deux heures de soleil sans déplacer le pot tous les trois jours. À renouveler.'
     }
   ];
 
-  function loadNotes() {
+  function loadEntries() {
     try {
       var raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return SEED_NOTES.slice();
-      var parsed = JSON.parse(raw);
-      return Array.isArray(parsed) ? parsed : SEED_NOTES.slice();
-    } catch (err) {
-      return SEED_NOTES.slice();
-    }
+      if (raw) {
+        var parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) return parsed;
+      }
+    } catch (e) {}
+    return defaultEntries.slice();
   }
 
-  function saveNotes(list) {
+  function saveEntries(list) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); } catch (e) {}
+  }
+
+  function formatTodayFr() {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
-      return true;
-    } catch (err) {
-      return false;
+      return new Date().toLocaleDateString('fr-FR', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      });
+    } catch (e) {
+      return 'aujourd’hui';
     }
   }
 
-  var notes = loadNotes();
-  var activeStamp = 'Tout';
-  var isUnlocked = false;
+  var entries = loadEntries();
+  var searchQuery = '';
 
-  var lockBtn = document.getElementById('lockBtn');
-  var lockLabel = document.getElementById('lockLabel');
-  var lockIcon = document.getElementById('lockIcon');
-  var statusLine = document.getElementById('statusLine');
   var form = document.getElementById('guestbookForm');
   var authorInput = document.getElementById('authorInput');
-  var symptomInput = document.getElementById('symptomInput');
-  var stampSelect = document.getElementById('stampSelect');
+  var mentionSelect = document.getElementById('mentionSelect');
   var messageInput = document.getElementById('messageInput');
-  var formError = document.getElementById('formError');
-  var stampButtons = document.querySelectorAll('.stamp-filter');
-  var entriesCount = document.getElementById('entriesCount');
-  var entriesContainer = document.getElementById('entriesContainer');
-  var searchInput = document.getElementById('searchInput');
-  var searchForm = document.getElementById('searchForm');
+  var formStatus = document.getElementById('formStatus');
+  var entriesList = document.getElementById('entriesList');
+  var searchInput = document.getElementById('guestbookSearch');
+  var lockBtn = document.getElementById('lockBtn');
 
-  function updateLockUI() {
-    lockBtn.classList.toggle('is-unlocked', isUnlocked);
-    lockBtn.setAttribute('aria-pressed', String(isUnlocked));
-    entriesContainer.classList.toggle('is-unlocked', isUnlocked);
-    lockLabel.textContent = isUnlocked ? 'Déverrouillé' : 'Verrou';
-
-    if (isUnlocked) {
-      lockIcon.innerHTML = '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path>';
-    } else {
-      lockIcon.innerHTML = '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>';
-    }
-  }
-
-  function getFilteredNotes() {
-    var query = (searchInput && searchInput.value ? searchInput.value : '').trim().toLowerCase();
-    return notes.filter(function (item) {
-      var stampMatch = activeStamp === 'Tout' || item.stamp === activeStamp;
-      if (!stampMatch) return false;
-      if (!query) return true;
-      return (item.author && item.author.toLowerCase().indexOf(query) !== -1) ||
-             (item.symptom && item.symptom.toLowerCase().indexOf(query) !== -1) ||
-             (item.stamp && item.stamp.toLowerCase().indexOf(query) !== -1) ||
-             (item.message && item.message.toLowerCase().indexOf(query) !== -1);
-    });
-  }
-
-  function removeNote(noteId) {
-    var next = notes.filter(function (entry) { return entry.id !== noteId; });
-    if (next.length === notes.length) return;
-    notes = next;
-    var persisted = saveNotes(notes);
-    renderNotes();
-    statusLine.textContent = persisted
-      ? 'Entrée supprimée du livre d’or.'
-      : 'Entrée retirée pour cette session.';
-  }
-
-  function renderNotes() {
-    stampButtons.forEach(function (btn) {
-      var selected = btn.getAttribute('data-stamp') === activeStamp;
-      btn.classList.toggle('is-active', selected);
-      btn.setAttribute('aria-pressed', String(selected));
+  function renderEntries() {
+    var q = searchQuery.trim().toLowerCase();
+    var filtered = entries.filter(function (entry) {
+      return !q ||
+        entry.author.toLowerCase().indexOf(q) !== -1 ||
+        entry.message.toLowerCase().indexOf(q) !== -1 ||
+        entry.mention.toLowerCase().indexOf(q) !== -1;
     });
 
-    var visible = getFilteredNotes();
-    entriesCount.textContent = visible.length + (visible.length > 1 ? ' notes' : ' note');
-    entriesContainer.innerHTML = '';
-
-    if (!visible.length) {
-      var empty = document.createElement('div');
-      empty.className = 'empty-state';
-      empty.textContent = 'Aucune entrée ne correspond à ce filtre pour l’instant.';
-      entriesContainer.appendChild(empty);
+    if (!filtered.length) {
+      entriesList.innerHTML = '<p class="empty-entries">Aucune inscription correspondante dans le registre.</p>';
       return;
     }
 
-    visible.forEach(function (item, idx) {
-      var article = document.createElement('article');
-      article.className = 'entry';
-      article.style.setProperty('--entry-delay', Math.min(idx * 55, 280) + 'ms');
-
-      var head = document.createElement('div');
-      head.className = 'entry-head';
-
-      var identity = document.createElement('div');
-      identity.className = 'entry-identity';
-
-      var authorEl = document.createElement('h3');
-      authorEl.className = 'entry-author';
-      authorEl.textContent = item.author;
-
-      var stampEl = document.createElement('span');
-      stampEl.className = 'entry-stamp';
-      stampEl.textContent = item.stamp || 'Constat';
-
-      identity.appendChild(authorEl);
-      identity.appendChild(stampEl);
-
-      var meta = document.createElement('div');
-      meta.className = 'entry-meta';
-
-      var dateEl = document.createElement('span');
-      dateEl.className = 'entry-date';
-      dateEl.textContent = item.date || '';
-
-      meta.appendChild(dateEl);
-      head.appendChild(identity);
-      head.appendChild(meta);
-
-      var quoteEl = document.createElement('p');
-      quoteEl.className = 'entry-quote';
-      quoteEl.textContent = '« ' + item.message + ' »';
-
-      var foot = document.createElement('div');
-      foot.className = 'entry-foot';
-
-      var symptomEl = document.createElement('span');
-      symptomEl.className = 'entry-symptom';
-      symptomEl.textContent = item.symptom ? ('Motif : ' + item.symptom) : 'Observation libre';
-
-      var delBtn = document.createElement('button');
-      delBtn.type = 'button';
-      delBtn.className = 'delete-entry-btn';
-      delBtn.setAttribute('aria-label', 'Supprimer la note de ' + item.author);
-      delBtn.textContent = 'Supprimer';
-      delBtn.addEventListener('click', function () {
-        removeNote(item.id);
-      });
-
-      foot.appendChild(symptomEl);
-      foot.appendChild(delBtn);
-
-      article.appendChild(head);
-      article.appendChild(quoteEl);
-      article.appendChild(foot);
-      entriesContainer.appendChild(article);
-    });
+    entriesList.innerHTML = filtered.map(function (entry) {
+      return (
+        '<article class="entry-item" data-id="' + escapeHtml(entry.id) + '">' +
+          '<div>' +
+            '<div class="entry-meta"><span class="entry-mention">' + escapeHtml(entry.mention) + '</span> · ' + escapeHtml(entry.date) + '</div>' +
+            '<h3 class="entry-author">' + escapeHtml(entry.author) + '</h3>' +
+            '<p class="entry-message">' + escapeHtml(entry.message) + '</p>' +
+          '</div>' +
+          '<button type="button" class="delete-entry-btn" data-delete="' + escapeHtml(entry.id) + '" aria-label="Supprimer cette inscription">Supprimer</button>' +
+        '</article>'
+      );
+    }).join('');
   }
-
-  lockBtn.addEventListener('click', function () {
-    isUnlocked = !isUnlocked;
-    updateLockUI();
-    statusLine.textContent = isUnlocked
-      ? 'Verrou levé : le bouton « Supprimer » est accessible sur chaque entrée.'
-      : 'Verrou activé : la suppression est verrouillée.';
-  });
-
-  stampButtons.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      activeStamp = btn.getAttribute('data-stamp');
-      statusLine.textContent = '';
-      renderNotes();
-    });
-  });
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    formError.textContent = '';
+    var author = authorInput.value.trim();
+    var message = messageInput.value.trim();
+    var mention = mentionSelect.value;
 
-    var authorVal = authorInput.value.trim();
-    var symptomVal = symptomInput.value.trim();
-    var stampVal = stampSelect.value || 'Ordonnance';
-    var messageVal = messageInput.value.trim();
+    if (!author || !message) return;
 
-    if (!authorVal || !messageVal) {
-      formError.textContent = 'Merci d’indiquer un nom et un message.';
-      return;
-    }
-
-    var nowLabel = new Date().toLocaleDateString('fr-FR', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
+    entries.unshift({
+      id: 'ld-' + Date.now() + '-' + Math.random().toString(36).slice(2, 6),
+      author: author,
+      mention: mention,
+      date: formatTodayFr(),
+      message: message
     });
 
-    var newNote = {
-      id: 'note-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7),
-      author: authorVal,
-      symptom: symptomVal,
-      stamp: stampVal,
-      message: messageVal,
-      date: nowLabel
-    };
+    saveEntries(entries);
+    renderEntries();
 
-    notes.unshift(newNote);
-    var saved = saveNotes(notes);
-    form.reset();
-    stampSelect.value = stampVal;
-    activeStamp = 'Tout';
-    renderNotes();
-    statusLine.textContent = saved
-      ? 'Note enregistrée dans le livre d’or.'
-      : 'Note ajoutée pour cette session.';
+    authorInput.value = '';
+    messageInput.value = '';
+    formStatus.textContent = 'Inscription versée au livre d’or.';
   });
 
-  if (searchForm) {
-    searchForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      renderNotes();
-    });
+  searchInput.addEventListener('input', function () {
+    searchQuery = searchInput.value;
+    renderEntries();
+  });
+
+  lockBtn.addEventListener('click', function () {
+    var unlocked = document.body.classList.toggle('is-unlocked');
+    lockBtn.classList.toggle('is-unlocked', unlocked);
+    lockBtn.setAttribute('aria-pressed', unlocked ? 'true' : 'false');
+    lockBtn.textContent = unlocked ? 'Déverrouillé' : 'Verrou';
+  });
+
+  entriesList.addEventListener('click', function (e) {
+    var delId = e.target.getAttribute('data-delete');
+    if (delId && document.body.classList.contains('is-unlocked')) {
+      entries = entries.filter(function (entry) { return entry.id !== delId; });
+      saveEntries(entries);
+      renderEntries();
+    }
+  });
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&')
+      .replace(/</g, '<')
+      .replace(/>/g, '>')
+      .replace(/"/g, '"');
   }
 
-  if (searchInput) {
-    searchInput.addEventListener('input', function () {
-      renderNotes();
-    });
-  }
-
-  updateLockUI();
-  renderNotes();
+  renderEntries();
 })();
 </script>
 

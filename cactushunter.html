@@ -221,7 +221,7 @@
     position: relative;
     width: 100%;
     height: 580px;
-    background: transparent;
+    background: #14221a;
     overflow: hidden;
     user-select: none;
     cursor: grab;
@@ -244,10 +244,15 @@
     width: 100%;
     height: 100%;
     display: block;
-    background: transparent;
+    background: #14221a;
     z-index: 1;
   }
-  .leaflet-container { background: transparent; }
+  .leaflet-container { background: #14221a; }
+
+  /* Fondus doux sur les tuiles pour éviter tout flash blanc au chargement */
+  .leaflet-tile {
+    will-change: transform, opacity;
+  }
 
   /* Bouton de lieu à taille fixe (non affecté par le zoom Leaflet) */
   .spot-pin-icon {
@@ -270,69 +275,6 @@
   .spot-pin-dot.is-active {
     background: var(--bronze);
     transform: scale(1.28);
-  }
-
-  /* Animation lente et douce de focalisation pendant le zoom */
-  .zoom-focus-pulse {
-    position: fixed;
-    width: 24px;
-    height: 24px;
-    margin-left: -12px;
-    margin-top: -12px;
-    border-radius: 50%;
-    border: 2px solid var(--bronze);
-    background: rgba(184, 134, 11, 0.2);
-    pointer-events: none;
-    z-index: 450;
-    will-change: transform, opacity;
-    animation: spot-zoom-expand 3.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  .zoom-focus-ring {
-    position: fixed;
-    width: 44px;
-    height: 44px;
-    margin-left: -22px;
-    margin-top: -22px;
-    border-radius: 50%;
-    border: 1.5px solid rgba(45, 74, 43, 0.45);
-    pointer-events: none;
-    z-index: 449;
-    will-change: transform, opacity;
-    animation: spot-zoom-ring 3.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
-  }
-
-  @keyframes spot-zoom-expand {
-    0% {
-      opacity: 0.9;
-      transform: scale(0.75);
-      background: rgba(184, 134, 11, 0.25);
-    }
-    55% {
-      opacity: 0.6;
-      transform: scale(6.5);
-      background: rgba(184, 134, 11, 0.1);
-    }
-    100% {
-      opacity: 0;
-      transform: scale(13);
-      background: rgba(184, 134, 11, 0);
-    }
-  }
-
-  @keyframes spot-zoom-ring {
-    0% {
-      opacity: 0.7;
-      transform: scale(0.5);
-    }
-    65% {
-      opacity: 0.35;
-      transform: scale(4.5);
-    }
-    100% {
-      opacity: 0;
-      transform: scale(9);
-    }
   }
 
   /* Boutons + et - sans cadre, style du site */
@@ -890,7 +832,7 @@
   </div>
 </div>
 
-<!-- Grande fiche détaillée : uniquement après clic et fin du zoom -->
+<!-- Grande fiche détaillée : visible uniquement après clic + fin du zoom -->
 <div class="detail-backdrop" id="detail-backdrop" aria-hidden="true">
   <div class="detail-card" role="dialog" aria-modal="true" aria-labelledby="detail-plant">
     <div class="detail-img-wrap">
@@ -1013,20 +955,25 @@ const map = L.map('world-map', {
   center: [20, 0],
   zoom: 2,
   minZoom: 2,
-  maxZoom: 19,
+  maxZoom: 18,
   worldCopyJump: true,
   zoomControl: true,
   scrollWheelZoom: true,
   doubleClickZoom: false,
-  preferCanvas: true
+  fadeAnimation: true,
+  zoomAnimation: true,
+  markerZoomAnimation: true
 });
 
 L.tileLayer(
   'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
   {
     minZoom: 2,
-    maxZoom: 19,
-    maxNativeZoom: 19,
+    maxZoom: 18,
+    maxNativeZoom: 18,
+    keepBuffer: 8,
+    updateWhenZooming: false,
+    updateWhenIdle: true,
     noWrap: false,
     attribution: 'Imagerie © Esri, Maxar, Earthstar Geographics et contributeurs'
   }
@@ -1270,62 +1217,23 @@ detailNextBtn.addEventListener('click', (e) => {
   renderDetailPhoto(true);
 });
 
-// ==================== ZOOM LENT ET FLUIDE AU CLIC ====================
-let zoomSequenceTimer = null;
-let zoomPulseEl = null;
-let zoomRingEl = null;
-let pendingMoveEndHandler = null;
+// ==================== ZOOM PROGRESSIF FLUIDE SANS ÉCRAN BLANC ====================
+let zoomSafetyTimer = null;
+let onZoomFinished = null;
 
-function cleanupZoomEffect() {
-  clearTimeout(zoomSequenceTimer);
-  zoomSequenceTimer = null;
-  if (pendingMoveEndHandler) {
-    map.off('moveend', pendingMoveEndHandler);
-    pendingMoveEndHandler = null;
+function clearZoomHandlers() {
+  if (zoomSafetyTimer !== null) {
+    clearTimeout(zoomSafetyTimer);
+    zoomSafetyTimer = null;
   }
-  if (zoomPulseEl) {
-    zoomPulseEl.remove();
-    zoomPulseEl = null;
+  if (onZoomFinished) {
+    map.off('moveend', onZoomFinished);
+    onZoomFinished = null;
   }
-  if (zoomRingEl) {
-    zoomRingEl.remove();
-    zoomRingEl = null;
-  }
-}
-
-function spawnZoomPulse(latlng) {
-  const pt = map.latLngToContainerPoint(latlng);
-  const rect = mapStage.getBoundingClientRect();
-  const x = rect.left + pt.x;
-  const y = rect.top + pt.y;
-
-  const ring = document.createElement('div');
-  ring.className = 'zoom-focus-ring';
-  ring.style.left = `${x}px`;
-  ring.style.top = `${y}px`;
-  document.body.appendChild(ring);
-  zoomRingEl = ring;
-
-  const pulse = document.createElement('div');
-  pulse.className = 'zoom-focus-pulse';
-  pulse.style.left = `${x}px`;
-  pulse.style.top = `${y}px`;
-  document.body.appendChild(pulse);
-  zoomPulseEl = pulse;
-
-  pulse.addEventListener('animationend', () => {
-    if (pulse.parentNode) pulse.remove();
-    if (zoomPulseEl === pulse) zoomPulseEl = null;
-  }, { once: true });
-
-  ring.addEventListener('animationend', () => {
-    if (ring.parentNode) ring.remove();
-    if (zoomRingEl === ring) zoomRingEl = null;
-  }, { once: true });
 }
 
 function focusSpotThenOpenDetail(spot, latlng, dotEl = null) {
-  cleanupZoomEffect();
+  clearZoomHandlers();
   if (isDetailOpen) {
     isDetailOpen = false;
     detailBackdrop.classList.remove('is-open');
@@ -1334,32 +1242,36 @@ function focusSpotThenOpenDetail(spot, latlng, dotEl = null) {
   hideHoverPreviewImmediate();
   isZoomingToSpot = true;
   if (dotEl) setActiveDot(dotEl);
-  spawnZoomPulse(latlng);
 
-  const maxZoom = map.getMaxZoom();
+  const targetZoom = 17;
   const targetLatLng = L.latLng(spot.lat, spot.lng);
+  const startZoom = map.getZoom();
+  const startCenter = map.getCenter();
 
-  const revealDetailAfterZoom = () => {
-    cleanupZoomEffect();
+  const finishZoomSequence = () => {
+    clearZoomHandlers();
     isZoomingToSpot = false;
     openDetailCard(spot, dotEl);
   };
 
-  if (map.getZoom() === maxZoom && map.getCenter().distanceTo(targetLatLng) < 1) {
-    zoomSequenceTimer = setTimeout(revealDetailAfterZoom, 700);
+  if (Math.abs(targetZoom - startZoom) < 0.05 && startCenter.distanceTo(targetLatLng) < 1) {
+    zoomSafetyTimer = setTimeout(finishZoomSequence, 350);
     return;
   }
 
-  pendingMoveEndHandler = revealDetailAfterZoom;
-  map.once('moveend', pendingMoveEndHandler);
+  onZoomFinished = () => {
+    clearZoomHandlers();
+    zoomSafetyTimer = setTimeout(finishZoomSequence, 320);
+  };
 
-  map.flyTo(targetLatLng, maxZoom, {
+  map.once('moveend', onZoomFinished);
+  map.flyTo(targetLatLng, targetZoom, {
     animate: true,
-    duration: 4.2,
-    easeLinearity: 0.08
+    duration: 2.6,
+    easeLinearity: 0.25
   });
 
-  zoomSequenceTimer = setTimeout(revealDetailAfterZoom, 4650);
+  zoomSafetyTimer = setTimeout(finishZoomSequence, 3400);
 }
 
 const markersLayer = L.layerGroup().addTo(map);

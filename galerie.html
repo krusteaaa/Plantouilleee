@@ -19,8 +19,7 @@
     --bg: #ffffff;
     --f: rgba(45, 74, 43, 0.4);
     --bronze: #b8860b;
-    --surface: #f7f9f6;
-    --border: rgba(45, 74, 43, 0.14);
+    --hairline: rgba(45, 74, 43, 0.16);
   }
 
   *{-webkit-tap-highlight-color:transparent}
@@ -37,52 +36,9 @@
     overflow-x: hidden;
   }
 
-  /* ===================== INITIAL "SAN PEDRO" FADE-IN ===================== */
-  .san-pedro-splash {
-    position: fixed;
-    inset: 0;
-    z-index: 120;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--bg);
-    pointer-events: none;
-    animation: san-pedro-overlay-out 1.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  }
-
-  .san-pedro-splash__label {
-    font-family: "Instrument Serif", Georgia, serif;
-    font-style: italic;
-    font-weight: 400;
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    color: var(--cd);
-    letter-spacing: 0.04em;
-    opacity: 0;
-    animation: san-pedro-text-in-out 1.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  }
-
-  @keyframes san-pedro-text-in-out {
-    0% { opacity: 0; transform: translateY(10px); }
-    35% { opacity: 1; transform: translateY(0); }
-    70% { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(-8px); }
-  }
-
-  @keyframes san-pedro-overlay-out {
-    0%, 72% { opacity: 1; visibility: visible; }
-    100% { opacity: 0; visibility: hidden; }
-  }
-
   .page-content {
     max-width: 800px;
     margin: 0 auto;
-    opacity: 0;
-    animation: page-settle-in 1.1s cubic-bezier(0.4, 0, 0.2, 1) 1.05s forwards;
-  }
-
-  @keyframes page-settle-in {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
   }
 
   /* ===================== HEADER ===================== */
@@ -101,7 +57,13 @@
     flex-direction: column;
   }
 
-  a.brand-link.wave-text {
+  .brand-title-link {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+  }
+
+  h1.wave-text {
     display: inline-flex;
     align-items: baseline;
     flex-wrap: wrap;
@@ -110,27 +72,20 @@
     font-weight: 400;
     font-size: clamp(2.75rem, 5.5vw, 4rem);
     line-height: 0.9;
-    letter-spacing: 0.01em;
+    letter-spacing: .01em;
     color: var(--cd);
-    text-decoration: none;
     margin-bottom: 0.2rem;
-    transition: color 0.35s ease;
   }
 
-  a.brand-link.wave-text:hover,
-  a.brand-link.wave-text:focus {
-    color: var(--ch);
-  }
-
-  .wave-letter {
+  h1.wave-text .wave-letter {
     display: inline-block;
     font-style: normal;
     will-change: transform;
   }
 
-  .brand-l {
-    color: var(--bronze) !important;
-    -webkit-text-fill-color: var(--bronze) !important;
+  h1.wave-text .l-bronze {
+    color: #b8860b;
+    -webkit-text-fill-color: #b8860b;
   }
 
   .subtitle {
@@ -177,7 +132,7 @@
 
   .search input::placeholder { color: var(--f); font-style: italic; }
 
-  /* ----- Actions en haut à droite (+ Menu fixe, sans décalage) ----- */
+  /* ----- Actions en haut à droite + Menu + absolu ----- */
   .header-actions {
     position: relative;
     display: flex;
@@ -185,67 +140,70 @@
     align-items: flex-end;
     gap: 0.5rem;
     padding-top: 0.4rem;
-    z-index: 30;
   }
 
-  .plus-trigger {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  .plus-btn {
     background: none;
     border: none;
+    font-family: "Instrument Serif", Georgia, serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--cd);
     cursor: pointer;
+    letter-spacing: 0.02em;
+    display: inline-flex;
+    align-items: center;
+    padding: 0;
+    transition: color 0.35s ease;
+    white-space: nowrap;
+  }
+
+  .plus-btn .plus {
     font-family: "Instrument Serif", Georgia, serif;
     font-style: normal;
-    font-size: 1.75rem;
-    line-height: 1;
-    color: var(--cd);
-    padding: 0.15rem 0.35rem;
-    transition: color 0.35s ease, transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1.3rem;
+    margin-right: 0.3rem;
+    vertical-align: -0.05em;
+    display: inline-block;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .plus-trigger:hover,
-  .plus-trigger:focus {
+  .plus-btn:hover,
+  .plus-btn:focus {
     color: var(--ch);
   }
 
-  .plus-trigger.is-open {
+  .plus-btn[aria-expanded="true"] .plus {
     transform: rotate(45deg);
-    color: var(--ch);
   }
 
   .plus-menu {
     position: absolute;
     top: 100%;
     right: 0;
+    margin-top: 0.5rem;
+    background: var(--bg);
+    border: 1px solid var(--hairline);
+    padding: 0.65rem 0.9rem;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     gap: 0.35rem;
-    padding: 0.55rem 0.85rem;
-    background: rgba(255, 255, 255, 0.96);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    box-shadow: 0 14px 32px rgba(45, 74, 43, 0.08);
+    min-width: 165px;
+    z-index: 40;
     opacity: 0;
-    visibility: hidden;
     pointer-events: none;
     transform: translateY(-6px);
-    transition: opacity 0.28s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
-                visibility 0.28s ease;
+    transition: opacity 0.25s ease, transform 0.25s ease;
   }
 
   .plus-menu.is-open {
     opacity: 1;
-    visibility: visible;
     pointer-events: auto;
     transform: translateY(0);
   }
 
-  .add-link,
-  .plus-sublink,
-  .dr-link {
+  .menu-item-link {
     display: inline-block;
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
@@ -255,22 +213,34 @@
     letter-spacing: 0.02em;
     color: var(--cd);
     text-decoration: none;
-    transition: color 0.35s ease;
     white-space: nowrap;
+    transition: color 0.35s ease, opacity 0.8s ease, transform 0.8s ease;
   }
 
-  .add-link:hover,
-  .add-link:focus,
-  .plus-sublink:hover,
-  .plus-sublink:focus,
-  .dr-link:hover,
-  .dr-link:focus {
+  .menu-item-link:hover,
+  .menu-item-link:focus {
     color: var(--ch);
   }
 
-  .dr-link .cactus-word {
-    color: #b8860b;
-    -webkit-text-fill-color: #b8860b;
+  .menu-item-link .word {
+    display: inline-flex;
+    align-items: baseline;
+  }
+
+  .menu-item-link .word > span {
+    display: inline-block;
+    will-change: transform;
+  }
+
+  .menu-item-link.is-fading {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .menu-item-link.is-leaving {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-14px);
   }
 
   /* ===================== LOGO ===================== */
@@ -280,57 +250,46 @@
     width: auto;
     height: auto;
     max-width: 100%;
-    max-height: 460px;
+    max-height: 600px;
     object-fit: contain;
     animation: fade-up 1s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
   }
 
-  /* ===================== GALLERY CONTROLS ===================== */
-  .gallery-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1.25rem 2rem;
-    padding-bottom: 1.35rem;
-    border-bottom: 1px solid var(--border);
+  /* ===================== GALERIE ANNÉES & VIGNETTES ===================== */
+  .gallery-section {
     animation: fade-up 1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
   }
 
-  .years-nav {
+  .gallery-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid var(--hairline);
+    margin-bottom: 2rem;
+  }
+
+  .year-buttons {
     display: flex;
     align-items: baseline;
-    gap: 2rem;
+    gap: 1.75rem;
     flex-wrap: wrap;
   }
 
   .year-btn {
     background: none;
     border: none;
-    cursor: pointer;
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
     font-weight: 400;
-    font-size: clamp(2rem, 4.5vw, 2.9rem);
-    line-height: 1.25;
-    letter-spacing: -0.01em;
-    color: rgba(45, 74, 43, 0.58);
-    padding: 0.15rem 0;
-    position: relative;
-    transition: color 0.35s ease;
-  }
-
-  .year-btn::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 1.5px;
-    background: var(--cd);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+    font-size: clamp(2rem, 4.5vw, 2.85rem);
+    line-height: 1.1;
+    color: var(--f);
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.35s ease, transform 0.35s ease;
   }
 
   .year-btn:hover,
@@ -339,656 +298,263 @@
     color: var(--cd);
   }
 
-  .year-btn.is-active::after,
-  .year-btn:hover::after {
-    transform: scaleX(1);
+  .year-btn.is-active {
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    text-decoration-thickness: 1px;
   }
 
-  .toolbar-actions {
+  .gallery-controls {
     display: flex;
-    align-items: center;
-    gap: 0.65rem;
-    flex-wrap: wrap;
-  }
-
-  .action-pill-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    background: var(--surface);
-    color: var(--cd);
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    padding: 0.52rem 1.15rem;
-    cursor: pointer;
-    font-family: "Instrument Serif", Georgia, serif;
-    font-style: italic;
-    font-size: 1.15rem;
-    line-height: 1.2;
-    transition: background-color 0.25s ease,
-                border-color 0.25s ease,
-                color 0.25s ease,
-                transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .action-pill-btn:hover,
-  .action-pill-btn:focus {
-    background: rgba(45, 74, 43, 0.08);
-    border-color: rgba(45, 74, 43, 0.28);
-    color: var(--ch);
-    transform: translateY(-1px);
-  }
-
-  .lock-btn.is-unlocked {
-    background: rgba(184, 134, 11, 0.12);
-    border-color: rgba(184, 134, 11, 0.45);
-    color: #7c5804;
-  }
-
-  .status-line {
-    margin-top: 0.95rem;
-    min-height: 1.25rem;
-    font-size: 0.85rem;
-    color: var(--ch);
-  }
-
-  /* ===================== LARGE EDITORIAL VIGNETTES GRID ===================== */
-  .vignettes-section {
-    margin-top: 1.5rem;
-  }
-
-  .vignettes-header {
-    display: flex;
-    justify-content: space-between;
     align-items: baseline;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
+    gap: 1.25rem;
   }
 
-  .vignettes-heading {
+  .action-text-btn {
+    background: none;
+    border: none;
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
-    font-weight: 400;
-    font-size: clamp(1.65rem, 3.5vw, 2.25rem);
+    font-size: 1.2rem;
     color: var(--cd);
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.3s ease;
   }
 
-  .vignettes-count {
-    font-size: 0.85rem;
-    color: var(--f);
+  .action-text-btn:hover,
+  .action-text-btn:focus {
+    color: var(--ch);
   }
 
-  .vignettes-grid {
+  .action-text-btn.is-unlocked {
+    color: var(--bronze);
+  }
+
+  .thumb-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.75rem;
+    gap: 2rem;
   }
 
-  .vignette-tile {
+  .thumb-card {
     position: relative;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 22px;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.85rem;
-    opacity: 0;
-    transform: translateY(18px) scale(0.985);
-    animation: tileReveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: var(--tile-delay, 0ms);
-    transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
-                box-shadow 0.38s cubic-bezier(0.22, 1, 0.36, 1),
-                border-color 0.3s ease,
-                background-color 0.3s ease;
+    border: 1px solid var(--hairline);
+    background: var(--bg);
+    overflow: hidden;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+                border-color 0.35s ease;
   }
 
-  @keyframes tileReveal {
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
+  .thumb-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--cd);
+    box-shadow: 0 14px 32px rgba(45, 74, 43, 0.08);
   }
 
-  .vignette-tile:hover {
-    transform: translateY(-5px);
-    background: #ffffff;
-    border-color: rgba(45, 74, 43, 0.28);
-    box-shadow: 0 22px 46px rgba(45, 74, 43, 0.09);
-  }
-
-  .vignette-open-btn {
-    display: flex;
-    flex-direction: column;
-    gap: 0.85rem;
+  .thumb-open-btn {
+    display: block;
     width: 100%;
     background: none;
     border: none;
     padding: 0;
     cursor: pointer;
     text-align: left;
-    color: var(--cd);
   }
 
-  .vignette-thumb-wrap {
-    position: relative;
-    width: 100%;
+  .thumb-frame {
     aspect-ratio: 4 / 3;
-    border-radius: 16px;
+    width: 100%;
     overflow: hidden;
-    background: var(--bg);
-    border: 1px solid rgba(45, 74, 43, 0.09);
+    background: rgba(45, 74, 43, 0.03);
   }
 
-  .vignette-thumb-wrap::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, transparent 58%, rgba(45, 74, 43, 0.14) 100%);
-    opacity: 0.65;
-    transition: opacity 0.35s ease;
-    pointer-events: none;
-  }
-
-  .vignette-tile:hover .vignette-thumb-wrap::after {
-    opacity: 0.25;
-  }
-
-  .vignette-thumb-wrap img {
+  .thumb-frame img {
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;
-    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .vignette-tile:hover .vignette-thumb-wrap img {
-    transform: scale(1.045);
+  .thumb-card:hover .thumb-frame img {
+    transform: scale(1.035);
   }
 
-  .vignette-tile-meta {
+  .thumb-caption {
+    padding: 0.75rem 0.9rem;
     display: flex;
     justify-content: space-between;
     align-items: baseline;
     gap: 0.75rem;
-    padding: 0 0.25rem;
+    border-top: 1px solid var(--hairline);
   }
 
-  .vignette-tile-title {
+  .thumb-title {
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
-    font-weight: 400;
-    font-size: 1.55rem;
-    line-height: 1.15;
+    font-size: 1.25rem;
     color: var(--cd);
   }
 
-  .vignette-tile-date {
-    font-family: "Instrument Serif", Georgia, serif;
-    font-style: italic;
-    font-size: 1rem;
-    color: var(--bronze);
+  .thumb-year {
+    font-size: 0.78rem;
+    color: var(--f);
     white-space: nowrap;
   }
 
-  .vignette-tile-caption {
-    font-size: 0.85rem;
-    line-height: 1.45;
-    color: var(--ch);
-    padding: 0 0.25rem 0.25rem;
-  }
-
-  .delete-vignette-btn {
+  .thumb-delete-btn {
     display: none;
-    align-self: flex-end;
-    align-items: center;
-    gap: 0.35rem;
-    background: #fff5f3;
-    color: #8b2615;
-    border: 1px solid rgba(139, 38, 21, 0.25);
-    border-radius: 999px;
-    padding: 0.35rem 0.9rem;
-    cursor: pointer;
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 5;
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid var(--bronze);
+    color: var(--bronze);
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
-    font-size: 1.05rem;
-    transition: background-color 0.22s ease, transform 0.22s ease, border-color 0.22s ease;
+    font-size: 1rem;
+    padding: 0.2rem 0.65rem;
+    cursor: pointer;
+    transition: background-color 0.25s ease, color 0.25s ease;
   }
 
-  .vignettes-section.is-unlocked .delete-vignette-btn {
-    display: inline-flex;
+  .thumb-delete-btn:hover {
+    background: var(--bronze);
+    color: var(--bg);
   }
 
-  .delete-vignette-btn:hover,
-  .delete-vignette-btn:focus {
-    background: #fde8e4;
-    border-color: rgba(139, 38, 21, 0.45);
-    transform: translateY(-1px);
+  body.is-unlocked .thumb-delete-btn {
+    display: inline-block;
   }
 
-  .empty-state {
-    grid-column: 1 / -1;
-    background: var(--surface);
-    border: 1px dashed var(--border);
-    border-radius: 20px;
-    padding: 2.25rem 1.5rem;
-    text-align: center;
+  .empty-gallery {
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
     font-size: 1.35rem;
-    color: var(--ch);
+    color: var(--f);
+    padding: 1.5rem 0;
   }
 
-  /* ===================== LIGHTBOX VIEWER ===================== */
+  /* ===================== VISIONNEUSE GRAND FORMAT ===================== */
   .lightbox {
     position: fixed;
     inset: 0;
     z-index: 100;
-    background: rgba(255, 255, 255, 0.96);
-    backdrop-filter: blur(14px);
+    background: rgba(255, 255, 255, 0.97);
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 1.5rem 2.25rem 2rem;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 4.5rem;
     opacity: 0;
-    visibility: hidden;
     pointer-events: none;
-    transition: opacity 0.38s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.38s ease;
+    transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .lightbox.is-open {
     opacity: 1;
-    visibility: visible;
     pointer-events: auto;
-  }
-
-  .lightbox-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    max-width: 1240px;
-    width: 100%;
-    margin: 0 auto;
-  }
-
-  .lightbox-info {
-    display: flex;
-    align-items: baseline;
-    gap: 1rem;
-  }
-
-  .lightbox-year {
-    font-family: "Instrument Serif", Georgia, serif;
-    font-style: italic;
-    font-size: 1.75rem;
-    color: var(--cd);
-  }
-
-  .lightbox-counter {
-    font-size: 0.88rem;
-    color: var(--f);
-    letter-spacing: 0.04em;
   }
 
   .lightbox-close {
-    background: var(--surface);
-    color: var(--cd);
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    padding: 0.5rem 1.25rem;
-    cursor: pointer;
+    position: fixed;
+    top: 1.75rem;
+    right: 2.25rem;
+    background: none;
+    border: none;
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
-    font-size: 1.2rem;
-    transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+    font-size: 1.5rem;
+    color: var(--cd);
+    cursor: pointer;
+    z-index: 110;
+    transition: color 0.3s ease, transform 0.3s ease;
   }
 
-  .lightbox-close:hover,
-  .lightbox-close:focus {
-    background: rgba(45, 74, 43, 0.1);
+  .lightbox-close:hover {
     color: var(--ch);
-    transform: translateY(-1px);
+    transform: scale(1.06);
   }
+
+  .lightbox-nav {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: 1px solid var(--hairline);
+    width: 48px;
+    height: 48px;
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: 1.6rem;
+    color: var(--cd);
+    cursor: pointer;
+    z-index: 110;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  }
+
+  .lightbox-nav:hover {
+    border-color: var(--cd);
+    color: var(--ch);
+  }
+
+  .lightbox-prev { left: 1.5rem; }
+  .lightbox-next { right: 1.5rem; }
 
   .lightbox-stage {
-    position: relative;
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    max-width: 1240px;
+    max-width: 920px;
     width: 100%;
-    margin: 1rem auto;
-  }
-
-  .lightbox-arrow {
-    position: relative;
-    z-index: 4;
-    flex-shrink: 0;
-    width: 52px;
-    height: 52px;
-    border-radius: 999px;
-    border: 1px solid var(--border);
-    background: rgba(247, 249, 246, 0.92);
-    color: var(--cd);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background-color 0.28s ease,
-                border-color 0.28s ease,
-                color 0.28s ease,
-                transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .lightbox-arrow:hover,
-  .lightbox-arrow:focus {
-    background: var(--cd);
-    border-color: var(--cd);
-    color: var(--bg);
-    transform: scale(1.05);
-  }
-
-  .lightbox-viewport {
-    flex: 1;
-    height: 100%;
-    max-height: 75vh;
-    margin: 0 1.25rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-
-  .lightbox-panel {
-    width: 100%;
-    height: 100%;
-    max-width: 980px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 22px;
-    padding: 1.45rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    align-items: center;
     gap: 1rem;
-    box-shadow: 0 26px 68px rgba(45, 74, 43, 0.1);
-    will-change: transform, opacity;
   }
 
-  .lightbox-frame {
-    flex: 1;
-    min-height: 0;
+  .lightbox-media-wrap {
     width: 100%;
-    border-radius: 15px;
-    overflow: hidden;
-    background: var(--bg);
-    border: 1px solid rgba(45, 74, 43, 0.08);
+    max-height: 76vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
   }
 
-  .lightbox-frame img {
-    width: 100%;
-    height: 100%;
+  .lightbox-img {
+    max-width: 100%;
+    max-height: 75vh;
     object-fit: contain;
     display: block;
+    transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .lightbox-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 1.5rem;
-    padding: 0 0.2rem;
+  .lightbox-img.is-swapping-next {
+    opacity: 0;
+    transform: translateX(28px) scale(0.985);
   }
 
-  .lightbox-title {
-    font-family: "Instrument Serif", Georgia, serif;
-    font-style: italic;
-    font-weight: 400;
-    font-size: clamp(1.5rem, 3vw, 2.2rem);
-    line-height: 1.1;
-    color: var(--cd);
+  .lightbox-img.is-swapping-prev {
+    opacity: 0;
+    transform: translateX(-28px) scale(0.985);
   }
 
   .lightbox-caption {
-    font-size: 0.92rem;
-    color: var(--ch);
-    margin-top: 0.25rem;
-  }
-
-  .lightbox-date {
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
-    font-size: 1.15rem;
-    color: var(--bronze);
-    white-space: nowrap;
-  }
-
-  /* Smooth cross-fade + gentle scale/slide transitions between vignettes */
-  @keyframes panelOutNext {
-    0% { opacity: 1; transform: translateX(0) scale(1); }
-    100% { opacity: 0; transform: translateX(-24px) scale(0.985); }
-  }
-
-  @keyframes panelInNext {
-    0% { opacity: 0; transform: translateX(26px) scale(0.985); }
-    100% { opacity: 1; transform: translateX(0) scale(1); }
-  }
-
-  @keyframes panelOutPrev {
-    0% { opacity: 1; transform: translateX(0) scale(1); }
-    100% { opacity: 0; transform: translateX(24px) scale(0.985); }
-  }
-
-  @keyframes panelInPrev {
-    0% { opacity: 0; transform: translateX(-26px) scale(0.985); }
-    100% { opacity: 1; transform: translateX(0) scale(1); }
-  }
-
-  .lightbox-panel.is-out-next {
-    animation: panelOutNext 0.24s cubic-bezier(0.4, 0, 0.8, 0.5) forwards;
-  }
-
-  .lightbox-panel.is-in-next {
-    animation: panelInNext 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  .lightbox-panel.is-out-prev {
-    animation: panelOutPrev 0.24s cubic-bezier(0.4, 0, 0.8, 0.5) forwards;
-  }
-
-  .lightbox-panel.is-in-prev {
-    animation: panelInPrev 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  .lightbox-dots {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-    max-width: 1240px;
-    width: 100%;
-    margin: 0 auto;
-  }
-
-  .lightbox-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 999px;
-    border: none;
-    background: rgba(45, 74, 43, 0.22);
-    cursor: pointer;
-    padding: 0;
-    transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.3s ease;
-  }
-
-  .lightbox-dot.is-active {
-    width: 22px;
-    background: var(--cd);
-  }
-
-  /* ===================== UPLOAD MODAL ===================== */
-  .modal-backdrop {
-    position: fixed;
-    inset: 0;
-    z-index: 110;
-    background: rgba(45, 74, 43, 0.28);
-    backdrop-filter: blur(6px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1.5rem;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-  }
-
-  .modal-backdrop.is-open {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-  }
-
-  .modal-card {
-    width: 100%;
-    max-width: 480px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 1.75rem;
-    box-shadow: 0 24px 60px rgba(45, 74, 43, 0.16);
-    transform: translateY(12px);
-    transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .modal-backdrop.is-open .modal-card {
-    transform: translateY(0);
-  }
-
-  .modal-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.25rem;
-  }
-
-  .modal-title {
-    font-family: "Instrument Serif", Georgia, serif;
-    font-style: italic;
-    font-weight: 400;
-    font-size: 2rem;
+    font-size: 1.4rem;
     color: var(--cd);
+    text-align: center;
+    transition: opacity 0.3s ease;
   }
 
-  .modal-close {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-family: "Instrument Serif", Georgia, serif;
-    font-style: italic;
-    font-size: 1.15rem;
-    color: var(--ch);
-  }
-
-  .modal-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .modal-field {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-  }
-
-  .modal-label {
-    font-family: "Instrument Serif", Georgia, serif;
-    font-style: italic;
-    font-size: 1.1rem;
-    color: var(--cd);
-  }
-
-  .modal-input,
-  .modal-select,
-  .modal-textarea {
-    width: 100%;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 0.65rem 0.85rem;
-    font-family: "Inter", sans-serif;
-    font-size: 0.9rem;
-    color: var(--cd);
-    background: var(--surface);
-  }
-
-  .modal-textarea {
-    min-height: 72px;
-    resize: vertical;
-  }
-
-  .modal-preview {
-    margin-top: 0.35rem;
-    max-height: 150px;
-    width: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-    display: none;
-  }
-
-  .modal-preview.is-visible {
-    display: block;
-  }
-
-  .modal-error {
-    min-height: 1.1rem;
-    font-size: 0.84rem;
-    color: #8b2615;
-  }
-
-  .modal-footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.7rem;
-    margin-top: 0.25rem;
-  }
-
-  .btn-cancel {
-    background: transparent;
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    padding: 0.48rem 1.1rem;
-    font-family: "Instrument Serif", Georgia, serif;
-    font-style: italic;
-    font-size: 1.1rem;
-    color: var(--cd);
-    cursor: pointer;
-  }
-
-  .btn-submit {
-    background: var(--cd);
-    border: 1px solid var(--cd);
-    border-radius: 999px;
-    padding: 0.48rem 1.35rem;
-    font-family: "Instrument Serif", Georgia, serif;
-    font-style: italic;
-    font-size: 1.15rem;
-    color: var(--bg);
-    cursor: pointer;
-    transition: background-color 0.25s ease, border-color 0.25s ease;
-  }
-
-  .btn-submit:hover,
-  .btn-submit:focus {
-    background: var(--ch);
-    border-color: var(--ch);
+  .lightbox-counter {
+    font-size: 0.8rem;
+    color: var(--f);
+    letter-spacing: 0.05em;
   }
 
   /* ===================== RESPONSIVE ===================== */
@@ -1003,39 +569,28 @@
       margin-right: calc(50% - 75vw);
       object-fit: contain;
     }
-
-    .vignettes-grid {
+    .thumb-grid {
       grid-template-columns: 1fr;
     }
-
     .lightbox {
-      padding: 1rem 1rem 1.25rem;
+      padding: 4rem 1.25rem 2rem;
     }
-
-    .lightbox-viewport {
-      margin: 0 0.5rem;
-      max-height: 70vh;
+    .lightbox-nav {
+      top: auto;
+      bottom: 1.25rem;
+      transform: none;
     }
-
-    .lightbox-arrow {
-      width: 44px;
-      height: 44px;
-    }
-
-    .lightbox-meta {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.35rem;
-    }
+    .lightbox-prev { left: 1.25rem; }
+    .lightbox-next { right: 1.25rem; }
   }
 
   @media (max-width: 640px) {
     body { padding: 2rem 1.5rem; }
     .header { margin-bottom: 1.5rem; gap: 1.5rem; }
-    a.brand-link.wave-text { font-size: 2.75rem; }
+    h1.wave-text { font-size: 2.75rem; }
     .subtitle { font-size: 1.1rem; }
     .search { max-width: none; width: 100%; }
-    .years-nav { gap: 1.4rem; }
+    .plus-btn { font-size: 1rem; }
   }
 
   @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
@@ -1045,787 +600,484 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .san-pedro-splash { display: none !important; }
-    .page-content { opacity: 1 !important; transform: none !important; animation: none !important; }
-    .header, .gallery-controls, .brand-logo { animation: none !important; opacity: 1; transform: none; }
-    .vignette-tile { opacity: 1 !important; transform: none !important; animation: none !important; }
-    .lightbox-panel.is-out-next,
-    .lightbox-panel.is-in-next,
-    .lightbox-panel.is-out-prev,
-    .lightbox-panel.is-in-prev { animation: none !important; }
-    .plus-trigger, .plus-trigger.is-open { transform: none; }
+    .header, .gallery-section, .brand-logo { animation: none !important; opacity: 1; transform: none; }
+    .plus-menu, .menu-item-link, .thumb-card, .thumb-frame img, .lightbox, .lightbox-img { transition: none; }
+    .plus-btn[aria-expanded="true"] .plus { transform: none; }
   }
 </style>
 </head>
 <body>
 
-<div class="san-pedro-splash" aria-hidden="true">
-  <span class="san-pedro-splash__label">San Pedro</span>
-</div>
-
 <div class="page-content">
 
   <header class="header">
     <div class="brand">
-      <a href="page2.html" class="brand-link wave-text" aria-label="Plantouille — Retour vers page2.html"><span class="wave-letter">P</span><span class="wave-letter brand-l">l</span><span class="wave-letter">a</span><span class="wave-letter">n</span><span class="wave-letter">t</span><span class="wave-letter">o</span><span class="wave-letter">u</span><span class="wave-letter">i</span><span class="wave-letter">l</span><span class="wave-letter">l</span><span class="wave-letter">e</span></a>
+      <a href="page2.html" class="brand-title-link" aria-label="Retour à Plantouille (page2.html)">
+        <h1 class="wave-text"><span class="wave-letter">P</span><span class="wave-letter">l</span><span class="wave-letter">a</span><span class="wave-letter">n</span><span class="wave-letter">t</span><span class="wave-letter">o</span><span class="wave-letter">u</span><span class="wave-letter l-bronze">l</span><span class="wave-letter">l</span><span class="wave-letter">e</span></h1>
+      </a>
       <p class="subtitle">Cabinet du <span class="dr">Dr</span>-Cactus</p>
 
-      <form class="search" role="search" id="searchForm">
+      <form class="search" role="search" onsubmit="event.preventDefault();">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none"
              stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
           <circle cx="7" cy="7" r="5"/>
           <line x1="11" y1="11" x2="14" y2="14"/>
         </svg>
-        <input type="search" id="searchInput" placeholder="chercher…" aria-label="Rechercher dans la galerie">
+        <input id="gallerySearch" type="search" placeholder="chercher…" aria-label="Rechercher dans la galerie">
       </form>
     </div>
 
-    <div class="header-actions" id="headerActions">
-      <button type="button" class="plus-trigger" id="plusTrigger" aria-expanded="false" aria-controls="plusMenu" aria-label="Ouvrir le menu d'actions">+</button>
-      <div class="plus-menu" id="plusMenu" role="menu">
-        <a href="ajouter.html" class="add-link" role="menuitem">Ajouter plantes</a>
-        <a href="cactushunter.html" class="dr-link" role="menuitem"><span class="cactus-word">Cactus</span>-Hunters</a>
-        <a href="galerie.html" class="plus-sublink" role="menuitem">Galerie</a>
-        <a href="shopping.html" class="plus-sublink" role="menuitem">Shopping</a>
-        <a href="livre.html" class="plus-sublink" role="menuitem">Livre d'or</a>
-      </div>
+    <div class="header-actions">
+      <button type="button" class="plus-btn" id="plusToggle" aria-expanded="false" aria-controls="plusMenu">
+        <span class="plus">+</span>Plus
+      </button>
+
+      <nav class="plus-menu" id="plusMenu" aria-label="Menu supplémentaire">
+        <a href="ajouter.html" class="menu-item-link">
+          <span class="word" aria-label="Ajouter plantes">
+            <span>A</span><span>j</span><span>o</span><span>u</span><span>t</span><span>e</span><span>r</span><span> </span><span>p</span><span>l</span><span>a</span><span>n</span><span>t</span><span>e</span><span>s</span>
+          </span>
+        </a>
+        <a href="cactushunter.html" class="menu-item-link">
+          <span class="word" aria-label="Cactus-Hunters">
+            <span>C</span><span>a</span><span>c</span><span>t</span><span>u</span><span>s</span><span>-</span><span>H</span><span>u</span><span>n</span><span>t</span><span>e</span><span>r</span><span>s</span>
+          </span>
+        </a>
+        <a href="galerie.html" class="menu-item-link">
+          <span class="word" aria-label="Galerie">
+            <span>G</span><span>a</span><span>l</span><span>e</span><span>r</span><span>i</span><span>e</span>
+          </span>
+        </a>
+        <a href="shopping.html" class="menu-item-link">
+          <span class="word" aria-label="Shopping">
+            <span>S</span><span>h</span><span>o</span><span>p</span><span>p</span><span>i</span><span>n</span><span>g</span>
+          </span>
+        </a>
+        <a href="livre.html" class="menu-item-link">
+          <span class="word" aria-label="Livre d'or">
+            <span>L</span><span>i</span><span>v</span><span>r</span><span>e</span><span> </span><span>d</span><span>'</span><span>o</span><span>r</span>
+          </span>
+        </a>
+      </nav>
     </div>
   </header>
 
   <img src="logo.png" alt="Logo Dr-Cactus" class="brand-logo">
 
-  <main>
-    <div class="gallery-controls">
-      <div class="years-nav" role="group" aria-label="Sélectionner l'année de la galerie">
-        <button type="button" class="year-btn is-active" data-year="2026-2027" aria-pressed="true">2026-2027</button>
-        <button type="button" class="year-btn" data-year="2027-2028" aria-pressed="false">2027-2028</button>
+  <main class="gallery-section" aria-label="Galerie par années">
+    <div class="gallery-toolbar">
+      <div class="year-buttons" role="tablist" aria-label="Années de la galerie">
+        <button type="button" class="year-btn is-active" data-year="2026-2027">2026-2027</button>
+        <button type="button" class="year-btn" data-year="2027-2028">2027-2028</button>
       </div>
 
-      <div class="toolbar-actions">
-        <button type="button" class="action-pill-btn lock-btn" id="lockBtn" aria-pressed="false" aria-label="Verrouiller ou déverrouiller la suppression des vignettes">
-          <svg id="lockIcon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-          </svg>
-          <span id="lockLabel">Verrou</span>
-        </button>
-
-        <button type="button" class="action-pill-btn" id="openUploadBtn">
-          <span>+</span>
-          <span>Ajouter photos</span>
-        </button>
+      <div class="gallery-controls">
+        <button type="button" class="action-text-btn" id="addPhotosBtn">Ajouter photos</button>
+        <button type="button" class="action-text-btn" id="lockBtn" aria-pressed="false">Verrou</button>
+        <input type="file" id="photoFileInput" accept="image/*" multiple hidden>
       </div>
     </div>
 
-    <div class="status-line" id="statusLine" role="status" aria-live="polite"></div>
-
-    <section class="vignettes-section" id="vignettesSection" aria-label="Vignettes de la galerie">
-      <div class="vignettes-header">
-        <h2 class="vignettes-heading" id="vignettesHeading">2026-2027</h2>
-        <span class="vignettes-count" id="vignettesCount"></span>
-      </div>
-      <div class="vignettes-grid" id="vignettesGrid"></div>
-    </section>
+    <div class="thumb-grid" id="thumbGrid"></div>
   </main>
 
 </div>
 
-<!-- ===================== LIGHTBOX VIEWER ===================== -->
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visionneuse grand format">
-  <div class="lightbox-top">
-    <div class="lightbox-info">
-      <span class="lightbox-year" id="lightboxYear">2026-2027</span>
-      <span class="lightbox-counter" id="lightboxCounter">1 / 1</span>
-    </div>
-    <button type="button" class="lightbox-close" id="closeLightboxBtn">Fermer</button>
-  </div>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visionneuse grand format" hidden>
+  <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Fermer la vignette">Fermer ×</button>
+  <button type="button" class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Vignette précédente">‹</button>
+  <button type="button" class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Vignette suivante">›</button>
 
   <div class="lightbox-stage">
-    <button type="button" class="lightbox-arrow" id="prevLightboxBtn" aria-label="Vignette précédente">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="15 18 9 12 15 6"></polyline>
-      </svg>
-    </button>
-
-    <div class="lightbox-viewport">
-      <article class="lightbox-panel" id="lightboxPanel">
-        <div class="lightbox-frame">
-          <img id="lightboxImg" src="" alt="">
-        </div>
-        <div class="lightbox-meta">
-          <div>
-            <h2 class="lightbox-title" id="lightboxTitle"></h2>
-            <p class="lightbox-caption" id="lightboxCaption"></p>
-          </div>
-          <span class="lightbox-date" id="lightboxDate"></span>
-        </div>
-      </article>
+    <div class="lightbox-media-wrap">
+      <img src="" alt="" class="lightbox-img" id="lightboxImg">
     </div>
-
-    <button type="button" class="lightbox-arrow" id="nextLightboxBtn" aria-label="Vignette suivante">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="9 18 15 12 9 6"></polyline>
-      </svg>
-    </button>
-  </div>
-
-  <div class="lightbox-dots" id="lightboxDots" aria-label="Sélection rapide de vignette"></div>
-</div>
-
-<!-- ===================== UPLOAD MODAL ===================== -->
-<div class="modal-backdrop" id="uploadModal" role="dialog" aria-modal="true" aria-labelledby="uploadModalTitle">
-  <div class="modal-card">
-    <div class="modal-head">
-      <h2 class="modal-title" id="uploadModalTitle">Ajouter photos</h2>
-      <button type="button" class="modal-close" id="closeUploadBtn">Fermer</button>
-    </div>
-
-    <form class="modal-form" id="uploadForm">
-      <div class="modal-field">
-        <label class="modal-label" for="uploadYear">Année</label>
-        <select id="uploadYear" class="modal-select" required>
-          <option value="2026-2027">2026-2027</option>
-          <option value="2027-2028">2027-2028</option>
-        </select>
-      </div>
-
-      <div class="modal-field">
-        <label class="modal-label" for="uploadFile">Fichier image</label>
-        <input type="file" id="uploadFile" class="modal-input" accept="image/*" required>
-        <img id="uploadPreview" class="modal-preview" alt="Aperçu de la photo sélectionnée">
-      </div>
-
-      <div class="modal-field">
-        <label class="modal-label" for="uploadTitle">Titre (optionnel)</label>
-        <input type="text" id="uploadTitle" class="modal-input" placeholder="Ex. Trichocereus pachanoi">
-      </div>
-
-      <div class="modal-field">
-        <label class="modal-label" for="uploadCaption">Note (optionnelle)</label>
-        <textarea id="uploadCaption" class="modal-textarea" placeholder="Observation, substrat, exposition…"></textarea>
-      </div>
-
-      <div class="modal-error" id="uploadError" role="alert"></div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn-cancel" id="cancelUploadBtn">Annuler</button>
-        <button type="submit" class="btn-submit">Ajouter</button>
-      </div>
-    </form>
+    <p class="lightbox-caption" id="lightboxCaption"></p>
+    <span class="lightbox-counter" id="lightboxCounter"></span>
   </div>
 </div>
 
 <script>
-// ==================== WAVE ANIMATION ON PLANTOUILLE BRAND LINK ====================
-(function () {
-  var brandLink = document.querySelector('.brand-link.wave-text');
-  if (!brandLink) return;
-  var spans = brandLink.querySelectorAll('.wave-letter');
+// ==================== ANIMATION VAGUE TITRE (h1) ====================
+function initWave(el) {
+  const spans = el.querySelectorAll('.wave-letter');
   if (!spans.length) return;
-
-  var fontSize = parseFloat(getComputedStyle(brandLink).fontSize) || 48;
-  var AMPLITUDE = fontSize * 0.20;
-  var PERIOD = 2500;
-  var STAGGER = 150;
-  var amplitude = 0, targetAmplitude = 0, phaseStart = null, rafId = null;
+  const fontSize = parseFloat(getComputedStyle(el).fontSize) || 18;
+  const AMPLITUDE = fontSize * 0.20;
+  const PERIOD = 2500;
+  const STAGGER = 150;
+  let amplitude = 0, targetAmplitude = 0, phaseStart = null, rafId = null;
 
   function tick(now) {
     if (phaseStart === null) phaseStart = now;
     amplitude += (targetAmplitude - amplitude) * 0.08;
     if (Math.abs(targetAmplitude - amplitude) < 0.05) amplitude = targetAmplitude;
-    var elapsed = now - phaseStart;
-    spans.forEach(function (span, i) {
-      var phase = ((elapsed - i * STAGGER) / PERIOD) * Math.PI * 2;
-      span.style.transform = 'translateY(' + (-Math.sin(phase) * amplitude).toFixed(2) + 'px)';
+    const elapsed = now - phaseStart;
+    spans.forEach((span, i) => {
+      const phase = ((elapsed - i * STAGGER) / PERIOD) * Math.PI * 2;
+      span.style.transform = `translateY(${(-Math.sin(phase) * amplitude).toFixed(2)}px)`;
     });
     if (amplitude === 0 && targetAmplitude === 0) {
-      spans.forEach(function (s) { s.style.transform = ''; });
-      phaseStart = null;
-      rafId = null;
-      return;
+      spans.forEach(s => s.style.transform = '');
+      phaseStart = null; rafId = null; return;
     }
     rafId = requestAnimationFrame(tick);
   }
+  el.addEventListener('mouseenter', () => { targetAmplitude = AMPLITUDE; if (!rafId) rafId = requestAnimationFrame(tick); });
+  el.addEventListener('mouseleave', () => { targetAmplitude = 0; if (!rafId) rafId = requestAnimationFrame(tick); });
+  el.addEventListener('touchstart', () => { targetAmplitude = AMPLITUDE; if (!rafId) rafId = requestAnimationFrame(tick); }, { passive: true });
+  el.addEventListener('touchend', () => { targetAmplitude = 0; if (!rafId) rafId = requestAnimationFrame(tick); }, { passive: true });
+}
+document.querySelectorAll('.wave-text').forEach(el => initWave(el.closest('button, a') || el));
 
-  function startWave() {
-    targetAmplitude = AMPLITUDE;
-    if (!rafId) rafId = requestAnimationFrame(tick);
-  }
-
-  function stopWave() {
-    targetAmplitude = 0;
-    if (!rafId) rafId = requestAnimationFrame(tick);
-  }
-
-  brandLink.addEventListener('mouseenter', startWave);
-  brandLink.addEventListener('mouseleave', stopWave);
-  brandLink.addEventListener('focus', startWave);
-  brandLink.addEventListener('blur', stopWave);
-  brandLink.addEventListener('touchstart', startWave, { passive: true });
-  brandLink.addEventListener('touchend', stopWave, { passive: true });
-})();
-
-// ==================== FIXED TOP-RIGHT + DROPDOWN MENU ====================
+// ==================== MENU + ET LIENS ====================
 (function () {
-  var trigger = document.getElementById('plusTrigger');
-  var menu = document.getElementById('plusMenu');
-  var container = document.getElementById('headerActions');
-  if (!trigger || !menu || !container) return;
+  var plusToggle = document.getElementById('plusToggle');
+  var plusMenu = document.getElementById('plusMenu');
 
-  function setOpen(open) {
-    trigger.classList.toggle('is-open', open);
-    menu.classList.toggle('is-open', open);
-    trigger.setAttribute('aria-expanded', String(open));
+  function setMenuOpen(open) {
+    plusToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    plusMenu.classList.toggle('is-open', open);
   }
 
-  trigger.addEventListener('click', function (e) {
+  plusToggle.addEventListener('click', function (e) {
     e.stopPropagation();
-    setOpen(!menu.classList.contains('is-open'));
+    var isOpen = plusToggle.getAttribute('aria-expanded') === 'true';
+    setMenuOpen(!isOpen);
   });
 
   document.addEventListener('click', function (e) {
-    if (menu.classList.contains('is-open') && !container.contains(e.target)) {
-      setOpen(false);
+    if (!plusMenu.contains(e.target) && !plusToggle.contains(e.target)) {
+      setMenuOpen(false);
     }
   });
 
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && menu.classList.contains('is-open')) {
-      setOpen(false);
+    if (e.key === 'Escape') setMenuOpen(false);
+  });
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var PERIOD = 1600, STAGGER = 110, EASING = 0.12, EPSILON = 0.05;
+  var animItems = document.querySelectorAll('.menu-item-link');
+
+  animItems.forEach(function (item) {
+    var spans = item.querySelectorAll('.word > span');
+    var fontSize = parseFloat(getComputedStyle(item).fontSize) || 17;
+    var maxAmplitude = fontSize * 0.18;
+    var amplitude = 0, targetAmplitude = 0, phaseStart = null, rafId = null;
+
+    function tick(now) {
+      if (phaseStart === null) phaseStart = now;
+      amplitude += (targetAmplitude - amplitude) * EASING;
+      if (Math.abs(targetAmplitude - amplitude) < EPSILON) amplitude = targetAmplitude;
+
+      var elapsed = now - phaseStart;
+      for (var i = 0; i < spans.length; i++) {
+        var phase = ((elapsed - i * STAGGER) / PERIOD) * Math.PI * 2;
+        spans[i].style.transform = 'translateY(' + (-Math.sin(phase) * amplitude).toFixed(2) + 'px)';
+      }
+      if (amplitude === 0 && targetAmplitude === 0) {
+        for (var j = 0; j < spans.length; j++) spans[j].style.transform = '';
+        phaseStart = null;
+        rafId = null;
+        return;
+      }
+      rafId = requestAnimationFrame(tick);
     }
+
+    function ensureRunning() { if (rafId === null) rafId = requestAnimationFrame(tick); }
+    function start() { targetAmplitude = maxAmplitude; ensureRunning(); }
+    function stop() { targetAmplitude = 0; ensureRunning(); }
+
+    item.addEventListener('mouseenter', start);
+    item.addEventListener('mouseleave', stop);
+    item.addEventListener('focus', start);
+    item.addEventListener('blur', stop);
+    item.addEventListener('touchstart', start, { passive: true });
+    item.addEventListener('touchend', stop, { passive: true });
+  });
+
+  var navigating = false;
+  animItems.forEach(function (item) {
+    item.addEventListener('click', function (e) {
+      if (navigating) { e.preventDefault(); return; }
+      var href = item.getAttribute('href');
+      if (!href || href === '#') return;
+      navigating = true;
+      e.preventDefault();
+
+      animItems.forEach(function (other) {
+        if (other !== item) other.classList.add('is-fading');
+      });
+
+      setTimeout(function () {
+        item.classList.add('is-leaving');
+      }, 450);
+
+      setTimeout(function () {
+        window.location.href = href;
+      }, 1150);
+    });
   });
 })();
 
-// ==================== GALLERY YEARS, UPLOAD, LOCK/DELETE & LIGHTBOX ====================
+// ==================== GALERIE, AJOUT PHOTOS, VERROU & VISIONNEUSE ====================
 (function () {
-  var STORAGE_KEY = 'plantouille_galerie_store_v2';
+  var STORAGE_KEY = 'plantouille_galerie_photos_v1';
 
-  function createIllustration(title, yearTag, tone) {
-    var bg = tone === 'alt' ? '#eef3ec' : '#f7f9f6';
-    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">' +
-      '<rect width="1200" height="900" fill="' + bg + '"/>' +
-      '<circle cx="600" cy="430" r="275" fill="none" stroke="#2d4a2b" stroke-opacity="0.12" stroke-width="2"/>' +
-      '<path d="M600 675 L600 225" stroke="#2d4a2b" stroke-width="18" stroke-linecap="round"/>' +
-      '<path d="M600 500 C515 500 475 435 475 355" fill="none" stroke="#2d4a2b" stroke-width="14" stroke-linecap="round"/>' +
-      '<path d="M600 440 C690 440 730 375 730 295" fill="none" stroke="#2d4a2b" stroke-width="14" stroke-linecap="round"/>' +
-      '<text x="600" y="760" text-anchor="middle" fill="#2d4a2b" font-family="Georgia, serif" font-style="italic" font-size="40">' + title + '</text>' +
-      '<text x="600" y="805" text-anchor="middle" fill="#b8860b" font-family="Georgia, serif" font-style="italic" font-size="24">' + yearTag + '</text>' +
+  function makePlaceholderSvg(label, year, accent) {
+    var svg =
+      '<svg xmlns="http://www.w3.org/2000/svg" width="900" height="675" viewBox="0 0 900 675">' +
+        '<rect width="900" height="675" fill="#f7f9f6"/>' +
+        '<rect x="36" y="36" width="828" height="603" fill="none" stroke="#2d4a2b" stroke-opacity="0.18"/>' +
+        '<circle cx="450" cy="300" r="110" fill="' + accent + '" fill-opacity="0.12"/>' +
+        '<path d="M450 420 V220 M450 320 C410 320 390 295 390 265 M450 345 C490 345 510 320 510 290" stroke="#2d4a2b" stroke-width="6" stroke-linecap="round" fill="none"/>' +
+        '<text x="450" y="485" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="34" fill="#2d4a2b">' + label + '</text>' +
+        '<text x="450" y="525" text-anchor="middle" font-family="sans-serif" font-size="16" letter-spacing="2" fill="#2d4a2b" fill-opacity="0.5">' + year + '</text>' +
       '</svg>';
     return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
   }
 
-  var INITIAL_DATA = {
-    '2026-2027': [
-      {
-        id: 'g-2627-1',
-        year: '2026-2027',
-        title: 'Trichocereus pachanoi',
-        caption: 'Réveil végétatif de printemps en substrat minéral aéré.',
-        date: 'Avril 2026',
-        src: createIllustration('Trichocereus pachanoi', '2026-2027', 'main')
-      },
-      {
-        id: 'g-2627-2',
-        year: '2026-2027',
-        title: 'Echinopsis peruviana',
-        caption: 'Teinte glauque et aréoles nettes sous lumière franche.',
-        date: 'Juillet 2026',
-        src: createIllustration('Echinopsis peruviana', '2026-2027', 'alt')
-      },
-      {
-        id: 'g-2627-3',
-        year: '2026-2027',
-        title: 'Boutures d’automne',
-        caption: 'Sélection des têtes saines avant la période de repos.',
-        date: 'Octobre 2026',
-        src: createIllustration('Boutures d’automne', '2026-2027', 'main')
-      }
-    ],
-    '2027-2028': [
-      {
-        id: 'g-2728-1',
-        year: '2027-2028',
-        title: 'San Pedro — Nouveau cycle',
-        caption: 'Observation de la reprise et du rythme de croissance.',
-        date: 'Mars 2027',
-        src: createIllustration('San Pedro — Nouveau cycle', '2027-2028', 'main')
-      },
-      {
-        id: 'g-2728-2',
-        year: '2027-2028',
-        title: 'Étude d’apex colonnaire',
-        caption: 'Équilibre des côtes et vigueur du point végétatif.',
-        date: 'Juin 2027',
-        src: createIllustration('Étude d’apex colonnaire', '2027-2028', 'alt')
-      }
-    ]
-  };
+  var defaultPhotos = [
+    {
+      id: 'g-26-1',
+      year: '2026-2027',
+      title: 'Planche d’observation — matin clair',
+      src: makePlaceholderSvg('Planche d’observation — matin clair', '2026-2027', '#2d4a2b')
+    },
+    {
+      id: 'g-26-2',
+      year: '2026-2027',
+      title: 'Substrat minéral & lumière rasante',
+      src: makePlaceholderSvg('Substrat minéral & lumière rasante', '2026-2027', '#b8860b')
+    },
+    {
+      id: 'g-27-1',
+      year: '2027-2028',
+      title: 'Campagne d’hiver — serre calme',
+      src: makePlaceholderSvg('Campagne d’hiver — serre calme', '2027-2028', '#2d4a2b')
+    },
+    {
+      id: 'g-27-2',
+      year: '2027-2028',
+      title: 'Étude de silhouette & coupe basse',
+      src: makePlaceholderSvg('Étude de silhouette & coupe basse', '2027-2028', '#b8860b')
+    }
+  ];
 
-  function readStore() {
+  function loadPhotos() {
     try {
       var raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) {
-        return {
-          '2026-2027': INITIAL_DATA['2026-2027'].slice(),
-          '2027-2028': INITIAL_DATA['2027-2028'].slice()
-        };
+      if (raw) {
+        var parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) return parsed;
       }
-      var parsed = JSON.parse(raw);
-      return {
-        '2026-2027': Array.isArray(parsed['2026-2027']) ? parsed['2026-2027'] : [],
-        '2027-2028': Array.isArray(parsed['2027-2028']) ? parsed['2027-2028'] : []
-      };
-    } catch (err) {
-      return {
-        '2026-2027': INITIAL_DATA['2026-2027'].slice(),
-        '2027-2028': INITIAL_DATA['2027-2028'].slice()
-      };
-    }
+    } catch (e) {}
+    return defaultPhotos.slice();
   }
 
-  function writeStore(data) {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      return true;
-    } catch (err) {
-      return false;
-    }
+  function savePhotos(list) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); } catch (e) {}
   }
 
-  var store = readStore();
-  var currentYear = '2026-2027';
-  var isUnlocked = false;
-  var filteredItems = [];
-  var currentLightboxIdx = 0;
-  var isAnimatingLightbox = false;
-  var pendingImageDataUrl = '';
+  var photos = loadPhotos();
+  var activeYear = '2026-2027';
+  var searchTerm = '';
+  var currentVisibleList = [];
+  var currentLightboxIndex = 0;
+  var isSwapping = false;
 
-  // DOM refs
   var yearButtons = document.querySelectorAll('.year-btn');
+  var addPhotosBtn = document.getElementById('addPhotosBtn');
+  var photoFileInput = document.getElementById('photoFileInput');
   var lockBtn = document.getElementById('lockBtn');
-  var lockLabel = document.getElementById('lockLabel');
-  var lockIcon = document.getElementById('lockIcon');
-  var statusLine = document.getElementById('statusLine');
-  var vignettesSection = document.getElementById('vignettesSection');
-  var vignettesHeading = document.getElementById('vignettesHeading');
-  var vignettesCount = document.getElementById('vignettesCount');
-  var vignettesGrid = document.getElementById('vignettesGrid');
-  var searchInput = document.getElementById('searchInput');
-  var searchForm = document.getElementById('searchForm');
+  var thumbGrid = document.getElementById('thumbGrid');
+  var searchInput = document.getElementById('gallerySearch');
 
-  // Lightbox refs
   var lightbox = document.getElementById('lightbox');
-  var lightboxYear = document.getElementById('lightboxYear');
-  var lightboxCounter = document.getElementById('lightboxCounter');
-  var closeLightboxBtn = document.getElementById('closeLightboxBtn');
-  var prevLightboxBtn = document.getElementById('prevLightboxBtn');
-  var nextLightboxBtn = document.getElementById('nextLightboxBtn');
-  var lightboxPanel = document.getElementById('lightboxPanel');
   var lightboxImg = document.getElementById('lightboxImg');
-  var lightboxTitle = document.getElementById('lightboxTitle');
   var lightboxCaption = document.getElementById('lightboxCaption');
-  var lightboxDate = document.getElementById('lightboxDate');
-  var lightboxDots = document.getElementById('lightboxDots');
+  var lightboxCounter = document.getElementById('lightboxCounter');
+  var lightboxClose = document.getElementById('lightboxClose');
+  var lightboxPrev = document.getElementById('lightboxPrev');
+  var lightboxNext = document.getElementById('lightboxNext');
 
-  // Upload modal refs
-  var openUploadBtn = document.getElementById('openUploadBtn');
-  var uploadModal = document.getElementById('uploadModal');
-  var closeUploadBtn = document.getElementById('closeUploadBtn');
-  var cancelUploadBtn = document.getElementById('cancelUploadBtn');
-  var uploadForm = document.getElementById('uploadForm');
-  var uploadYear = document.getElementById('uploadYear');
-  var uploadFile = document.getElementById('uploadFile');
-  var uploadPreview = document.getElementById('uploadPreview');
-  var uploadTitle = document.getElementById('uploadTitle');
-  var uploadCaption = document.getElementById('uploadCaption');
-  var uploadError = document.getElementById('uploadError');
-
-  function updateLockIcon() {
-    if (isUnlocked) {
-      lockIcon.innerHTML = '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path>';
-      lockLabel.textContent = 'Déverrouillé';
-      lockBtn.classList.add('is-unlocked');
-      lockBtn.setAttribute('aria-pressed', 'true');
-      vignettesSection.classList.add('is-unlocked');
-    } else {
-      lockIcon.innerHTML = '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>';
-      lockLabel.textContent = 'Verrou';
-      lockBtn.classList.remove('is-unlocked');
-      lockBtn.setAttribute('aria-pressed', 'false');
-      vignettesSection.classList.remove('is-unlocked');
-    }
-  }
-
-  function getItemsForYear(year) {
-    var list = Array.isArray(store[year]) ? store[year] : [];
-    var query = (searchInput && searchInput.value ? searchInput.value : '').trim().toLowerCase();
-    if (!query) return list.slice();
-    return list.filter(function (item) {
-      return (item.title && item.title.toLowerCase().indexOf(query) !== -1) ||
-             (item.caption && item.caption.toLowerCase().indexOf(query) !== -1) ||
-             (item.date && item.date.toLowerCase().indexOf(query) !== -1);
+  function getFilteredPhotos() {
+    var q = searchTerm.trim().toLowerCase();
+    return photos.filter(function (item) {
+      var matchYear = item.year === activeYear;
+      var matchSearch = !q || item.title.toLowerCase().indexOf(q) !== -1;
+      return matchYear && matchSearch;
     });
-  }
-
-  function deleteVignetteById(photoId) {
-    var list = Array.isArray(store[currentYear]) ? store[currentYear] : [];
-    var nextList = list.filter(function (entry) { return entry.id !== photoId; });
-    if (nextList.length === list.length) return;
-    store[currentYear] = nextList;
-    var persisted = writeStore(store);
-    renderGallery();
-    statusLine.textContent = persisted
-      ? 'Vignette supprimée de ' + currentYear + '.'
-      : 'Vignette retirée pour cette session (' + currentYear + ').';
   }
 
   function renderGallery() {
-    yearButtons.forEach(function (btn) {
-      var isSel = btn.getAttribute('data-year') === currentYear;
-      btn.classList.toggle('is-active', isSel);
-      btn.setAttribute('aria-pressed', String(isSel));
-    });
-
-    vignettesHeading.textContent = currentYear;
-    filteredItems = getItemsForYear(currentYear);
-    vignettesCount.textContent = filteredItems.length + (filteredItems.length > 1 ? ' vignettes' : ' vignette');
-    vignettesGrid.innerHTML = '';
-
-    if (!filteredItems.length) {
-      var emptyDiv = document.createElement('div');
-      emptyDiv.className = 'empty-state';
-      emptyDiv.textContent = 'Aucune vignette disponible pour ' + currentYear + '.';
-      vignettesGrid.appendChild(emptyDiv);
+    currentVisibleList = getFilteredPhotos();
+    if (!currentVisibleList.length) {
+      thumbGrid.innerHTML = '<p class="empty-gallery">Aucune vignette pour ' + escapeHtml(activeYear) + '.</p>';
       return;
     }
 
-    filteredItems.forEach(function (item, idx) {
-      var tile = document.createElement('article');
-      tile.className = 'vignette-tile';
-      tile.style.setProperty('--tile-delay', Math.min(idx * 70, 350) + 'ms');
-
-      var openBtn = document.createElement('button');
-      openBtn.type = 'button';
-      openBtn.className = 'vignette-open-btn';
-      openBtn.setAttribute('aria-label', 'Afficher en grand : ' + (item.title || 'Vignette'));
-
-      var thumbWrap = document.createElement('div');
-      thumbWrap.className = 'vignette-thumb-wrap';
-
-      var img = document.createElement('img');
-      img.src = item.src;
-      img.alt = item.title || 'Vignette botanique';
-      thumbWrap.appendChild(img);
-
-      var meta = document.createElement('div');
-      meta.className = 'vignette-tile-meta';
-
-      var titleSpan = document.createElement('span');
-      titleSpan.className = 'vignette-tile-title';
-      titleSpan.textContent = item.title || 'Planche botanique';
-
-      var dateSpan = document.createElement('span');
-      dateSpan.className = 'vignette-tile-date';
-      dateSpan.textContent = item.date || currentYear;
-
-      meta.appendChild(titleSpan);
-      meta.appendChild(dateSpan);
-
-      openBtn.appendChild(thumbWrap);
-      openBtn.appendChild(meta);
-
-      if (item.caption) {
-        var capP = document.createElement('p');
-        capP.className = 'vignette-tile-caption';
-        capP.textContent = item.caption;
-        openBtn.appendChild(capP);
-      }
-
-      openBtn.addEventListener('click', function () {
-        openLightbox(idx);
-      });
-
-      var delBtn = document.createElement('button');
-      delBtn.type = 'button';
-      delBtn.className = 'delete-vignette-btn';
-      delBtn.setAttribute('aria-label', 'Supprimer la vignette ' + (item.title || ''));
-      delBtn.textContent = 'Supprimer';
-      delBtn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        deleteVignetteById(item.id);
-      });
-
-      tile.appendChild(openBtn);
-      tile.appendChild(delBtn);
-      vignettesGrid.appendChild(tile);
-    });
+    thumbGrid.innerHTML = currentVisibleList.map(function (item, idx) {
+      return (
+        '<article class="thumb-card" data-id="' + escapeHtml(item.id) + '">' +
+          '<button type="button" class="thumb-delete-btn" data-delete="' + escapeHtml(item.id) + '" aria-label="Supprimer ' + escapeHtml(item.title) + '">Supprimer</button>' +
+          '<button type="button" class="thumb-open-btn" data-index="' + idx + '">' +
+            '<div class="thumb-frame">' +
+              '<img src="' + item.src + '" alt="' + escapeHtml(item.title) + '">' +
+            '</div>' +
+            '<div class="thumb-caption">' +
+              '<span class="thumb-title">' + escapeHtml(item.title) + '</span>' +
+              '<span class="thumb-year">' + escapeHtml(item.year) + '</span>' +
+            '</div>' +
+          '</button>' +
+        '</article>'
+      );
+    }).join('');
   }
 
-  // Lightbox rendering & smooth cross-fade + slide/scale transition
-  function renderLightboxItem(item) {
-    lightboxImg.src = item.src;
-    lightboxImg.alt = item.title || 'Vignette botanique';
-    lightboxTitle.textContent = item.title || 'Planche botanique';
-    lightboxCaption.textContent = item.caption || '';
-    lightboxCaption.style.display = item.caption ? 'block' : 'none';
-    lightboxDate.textContent = item.date || currentYear;
-    lightboxCounter.textContent = (currentLightboxIdx + 1) + ' / ' + filteredItems.length;
-
-    var dots = lightboxDots.querySelectorAll('.lightbox-dot');
-    dots.forEach(function (dot, i) {
-      dot.classList.toggle('is-active', i === currentLightboxIdx);
-      dot.setAttribute('aria-pressed', String(i === currentLightboxIdx));
-    });
-  }
-
-  function buildLightboxDots() {
-    lightboxDots.innerHTML = '';
-    filteredItems.forEach(function (_, i) {
-      var dot = document.createElement('button');
-      dot.type = 'button';
-      dot.className = 'lightbox-dot' + (i === currentLightboxIdx ? ' is-active' : '');
-      dot.setAttribute('aria-label', 'Vignette ' + (i + 1));
-      dot.setAttribute('aria-pressed', String(i === currentLightboxIdx));
-      dot.addEventListener('click', function () {
-        if (i === currentLightboxIdx || isAnimatingLightbox) return;
-        navigateLightbox(i, i > currentLightboxIdx ? 'next' : 'prev');
-      });
-      lightboxDots.appendChild(dot);
-    });
-  }
-
-  function openLightbox(index) {
-    if (!filteredItems.length) return;
-    currentLightboxIdx = Math.max(0, Math.min(index, filteredItems.length - 1));
-    lightboxYear.textContent = currentYear;
-    lightboxPanel.classList.remove('is-out-next', 'is-in-next', 'is-out-prev', 'is-in-prev');
-    buildLightboxDots();
-    renderLightboxItem(filteredItems[currentLightboxIdx]);
-    lightbox.classList.add('is-open');
-    document.body.style.overflow = 'hidden';
-    closeLightboxBtn.focus();
-  }
-
-  function closeLightbox() {
-    lightbox.classList.remove('is-open');
-    if (!uploadModal.classList.contains('is-open')) {
-      document.body.style.overflow = '';
-    }
-    isAnimatingLightbox = false;
-  }
-
-  function navigateLightbox(targetIndex, dir) {
-    if (!filteredItems.length || isAnimatingLightbox) return;
-    var wrapped = (targetIndex + filteredItems.length) % filteredItems.length;
-    if (wrapped === currentLightboxIdx) return;
-
-    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduced) {
-      currentLightboxIdx = wrapped;
-      renderLightboxItem(filteredItems[currentLightboxIdx]);
-      return;
-    }
-
-    isAnimatingLightbox = true;
-    var outClass = dir === 'prev' ? 'is-out-prev' : 'is-out-next';
-    var inClass = dir === 'prev' ? 'is-in-prev' : 'is-in-next';
-
-    lightboxPanel.classList.remove('is-out-next', 'is-in-next', 'is-out-prev', 'is-in-prev');
-    void lightboxPanel.offsetWidth;
-    lightboxPanel.classList.add(outClass);
-
-    setTimeout(function () {
-      currentLightboxIdx = wrapped;
-      renderLightboxItem(filteredItems[currentLightboxIdx]);
-      lightboxPanel.classList.remove(outClass);
-      void lightboxPanel.offsetWidth;
-      lightboxPanel.classList.add(inClass);
-
-      setTimeout(function () {
-        lightboxPanel.classList.remove(inClass);
-        isAnimatingLightbox = false;
-      }, 420);
-    }, 235);
-  }
-
-  // Year button events
   yearButtons.forEach(function (btn) {
     btn.addEventListener('click', function () {
-      currentYear = btn.getAttribute('data-year');
-      statusLine.textContent = '';
+      yearButtons.forEach(function (b) { b.classList.remove('is-active'); });
+      btn.classList.add('is-active');
+      activeYear = btn.getAttribute('data-year');
       renderGallery();
     });
   });
 
-  // Lock button event
+  searchInput.addEventListener('input', function () {
+    searchTerm = searchInput.value;
+    renderGallery();
+  });
+
+  addPhotosBtn.addEventListener('click', function () {
+    photoFileInput.click();
+  });
+
+  photoFileInput.addEventListener('change', function (e) {
+    var files = Array.prototype.slice.call(e.target.files || []);
+    if (!files.length) return;
+
+    files.forEach(function (file) {
+      if (!file.type || file.type.indexOf('image/') !== 0) return;
+      var reader = new FileReader();
+      reader.onload = function (ev) {
+        var cleanName = file.name.replace(/\.[^/.]+$/, '').replace(/[-_]+/g, ' ') || 'Nouvelle vignette';
+        photos.unshift({
+          id: 'g-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7),
+          year: activeYear,
+          title: cleanName,
+          src: ev.target.result
+        });
+        savePhotos(photos);
+        renderGallery();
+      };
+      reader.readAsDataURL(file);
+    });
+
+    photoFileInput.value = '';
+  });
+
   lockBtn.addEventListener('click', function () {
-    isUnlocked = !isUnlocked;
-    updateLockIcon();
-    statusLine.textContent = isUnlocked
-      ? 'Verrou levé : cliquez sur « Supprimer » sous une vignette pour la retirer.'
-      : 'Verrou activé : suppression protégée.';
+    var unlocked = document.body.classList.toggle('is-unlocked');
+    lockBtn.classList.toggle('is-unlocked', unlocked);
+    lockBtn.setAttribute('aria-pressed', unlocked ? 'true' : 'false');
+    lockBtn.textContent = unlocked ? 'Déverrouillé' : 'Verrou';
   });
 
-  // Lightbox controls
-  prevLightboxBtn.addEventListener('click', function () {
-    navigateLightbox(currentLightboxIdx - 1, 'prev');
+  thumbGrid.addEventListener('click', function (e) {
+    var delId = e.target.getAttribute('data-delete');
+    if (delId) {
+      if (!document.body.classList.contains('is-unlocked')) return;
+      if (window.confirm('Supprimer cette vignette de la galerie ?')) {
+        photos = photos.filter(function (item) { return item.id !== delId; });
+        savePhotos(photos);
+        renderGallery();
+      }
+      return;
+    }
+
+    var openTrigger = e.target.closest('.thumb-open-btn');
+    if (openTrigger) {
+      var idx = parseInt(openTrigger.getAttribute('data-index'), 10);
+      if (!isNaN(idx)) openLightbox(idx);
+    }
   });
 
-  nextLightboxBtn.addEventListener('click', function () {
-    navigateLightbox(currentLightboxIdx + 1, 'next');
-  });
+  function updateLightboxContent(index) {
+    var item = currentVisibleList[index];
+    if (!item) return;
+    currentLightboxIndex = index;
+    lightboxImg.src = item.src;
+    lightboxImg.alt = item.title;
+    lightboxCaption.textContent = item.title;
+    lightboxCounter.textContent = (index + 1) + ' / ' + currentVisibleList.length + ' · ' + item.year;
+  }
 
-  closeLightboxBtn.addEventListener('click', closeLightbox);
+  function openLightbox(index) {
+    if (!currentVisibleList.length) return;
+    updateLightboxContent(index);
+    lightbox.hidden = false;
+    requestAnimationFrame(function () {
+      lightbox.classList.add('is-open');
+    });
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('is-open');
+    setTimeout(function () {
+      if (!lightbox.classList.contains('is-open')) {
+        lightbox.hidden = true;
+      }
+    }, 380);
+  }
+
+  function stepLightbox(direction) {
+    if (!currentVisibleList.length || isSwapping) return;
+    var nextIndex = (currentLightboxIndex + direction + currentVisibleList.length) % currentVisibleList.length;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      updateLightboxContent(nextIndex);
+      return;
+    }
+
+    isSwapping = true;
+    var outClass = direction > 0 ? 'is-swapping-next' : 'is-swapping-prev';
+    lightboxImg.classList.add(outClass);
+    lightboxCaption.style.opacity = '0';
+
+    setTimeout(function () {
+      updateLightboxContent(nextIndex);
+      lightboxImg.classList.remove(outClass);
+      lightboxCaption.style.opacity = '1';
+      isSwapping = false;
+    }, 260);
+  }
+
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightboxPrev.addEventListener('click', function () { stepLightbox(-1); });
+  lightboxNext.addEventListener('click', function () { stepLightbox(1); });
 
   lightbox.addEventListener('click', function (e) {
     if (e.target === lightbox) closeLightbox();
   });
 
-  // Upload modal controls
-  function resetUploadModal() {
-    uploadForm.reset();
-    pendingImageDataUrl = '';
-    uploadError.textContent = '';
-    uploadPreview.src = '';
-    uploadPreview.classList.remove('is-visible');
-  }
-
-  function openUploadModal() {
-    resetUploadModal();
-    uploadYear.value = currentYear;
-    uploadModal.classList.add('is-open');
-    document.body.style.overflow = 'hidden';
-    uploadFile.focus();
-  }
-
-  function closeUploadModal() {
-    uploadModal.classList.remove('is-open');
-    if (!lightbox.classList.contains('is-open')) {
-      document.body.style.overflow = '';
-    }
-  }
-
-  openUploadBtn.addEventListener('click', openUploadModal);
-  closeUploadBtn.addEventListener('click', closeUploadModal);
-  cancelUploadBtn.addEventListener('click', closeUploadModal);
-
-  uploadModal.addEventListener('click', function (e) {
-    if (e.target === uploadModal) closeUploadModal();
-  });
-
-  uploadFile.addEventListener('change', function () {
-    uploadError.textContent = '';
-    var file = uploadFile.files && uploadFile.files[0];
-    if (!file) {
-      pendingImageDataUrl = '';
-      uploadPreview.src = '';
-      uploadPreview.classList.remove('is-visible');
-      return;
-    }
-    if (!file.type || file.type.indexOf('image/') !== 0) {
-      uploadError.textContent = 'Veuillez choisir un fichier image valide.';
-      uploadFile.value = '';
-      return;
-    }
-
-    var reader = new FileReader();
-    reader.onload = function (ev) {
-      pendingImageDataUrl = String(ev.target && ev.target.result ? ev.target.result : '');
-      if (pendingImageDataUrl) {
-        uploadPreview.src = pendingImageDataUrl;
-        uploadPreview.classList.add('is-visible');
-      }
-    };
-    reader.onerror = function () {
-      uploadError.textContent = 'Erreur lors de la lecture du fichier.';
-    };
-    reader.readAsDataURL(file);
-  });
-
-  uploadForm.addEventListener('submit', function (e) {
-    e.preventDefault();
-    uploadError.textContent = '';
-
-    if (!pendingImageDataUrl) {
-      uploadError.textContent = 'Sélectionnez une image avant d’ajouter.';
-      return;
-    }
-
-    var targetYear = uploadYear.value === '2027-2028' ? '2027-2028' : '2026-2027';
-    var titleVal = uploadTitle.value.trim();
-    var captionVal = uploadCaption.value.trim();
-    var dateStr = new Date().toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
-
-    var newPhoto = {
-      id: 'g-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7),
-      year: targetYear,
-      title: titleVal || ('Planche ' + targetYear),
-      caption: captionVal,
-      date: dateStr.charAt(0).toUpperCase() + dateStr.slice(1),
-      src: pendingImageDataUrl
-    };
-
-    if (!Array.isArray(store[targetYear])) store[targetYear] = [];
-    store[targetYear].push(newPhoto);
-
-    var saved = writeStore(store);
-    currentYear = targetYear;
-    closeUploadModal();
-    renderGallery();
-    statusLine.textContent = saved
-      ? 'Photo ajoutée à ' + targetYear + '.'
-      : 'Photo ajoutée en mémoire pour ' + targetYear + '.';
-  });
-
-  // Keyboard shortcuts
   document.addEventListener('keydown', function (e) {
-    if (lightbox.classList.contains('is-open')) {
-      if (e.key === 'ArrowRight') {
-        e.preventDefault();
-        navigateLightbox(currentLightboxIdx + 1, 'next');
-      } else if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        navigateLightbox(currentLightboxIdx - 1, 'prev');
-      } else if (e.key === 'Escape') {
-        e.preventDefault();
-        closeLightbox();
-      }
-    } else if (uploadModal.classList.contains('is-open') && e.key === 'Escape') {
-      e.preventDefault();
-      closeUploadModal();
-    }
+    if (lightbox.hidden) return;
+    if (e.key === 'Escape') closeLightbox();
+    else if (e.key === 'ArrowRight') stepLightbox(1);
+    else if (e.key === 'ArrowLeft') stepLightbox(-1);
   });
 
-  // Swipe gestures on lightbox panel
-  var touchStartX = 0;
-  lightboxPanel.addEventListener('touchstart', function (e) {
-    if (!e.touches || !e.touches.length) return;
-    touchStartX = e.touches[0].clientX;
-  }, { passive: true });
-
-  lightboxPanel.addEventListener('touchend', function (e) {
-    if (!e.changedTouches || !e.changedTouches.length) return;
-    var dx = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(dx) > 48) {
-      if (dx < 0) navigateLightbox(currentLightboxIdx + 1, 'next');
-      else navigateLightbox(currentLightboxIdx - 1, 'prev');
-    }
-  }, { passive: true });
-
-  if (searchForm) {
-    searchForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      renderGallery();
-    });
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&')
+      .replace(/</g, '<')
+      .replace(/>/g, '>')
+      .replace(/"/g, '"');
   }
 
-  if (searchInput) {
-    searchInput.addEventListener('input', function () {
-      renderGallery();
-    });
-  }
-
-  updateLockIcon();
   renderGallery();
 })();
 </script>
